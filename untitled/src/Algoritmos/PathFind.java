@@ -1,9 +1,6 @@
 package Algoritmos;
 
-import Clases.DetalleRuta;
-import Clases.Flota;
-import Clases.Mapa;
-import Clases.Pedido;
+import Clases.*;
 
 import java.util.Date;
 import java.util.List;
@@ -64,10 +61,20 @@ public class PathFind {
     }
 
     private double calculateCost( Flota flota, Pedido pedido) {
-        return 0;
+        int x1 = flota.getRutas().get(flota.getRutas().size()-1).getDetalleRutaList().get(flota.getRutas().get(flota.getRutas().size()-1).getDetalleRutaList().size()-1).getNodo().getX();
+        int y1 = flota.getRutas().get(flota.getRutas().size()-1).getDetalleRutaList().get(flota.getRutas().get(flota.getRutas().size()-1).getDetalleRutaList().size()-1).getNodo().getY();
+        int x2 = pedido.getX();
+        int y2 = pedido.getY();
+        double distance = Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
+        return distance;
     }
 
     private Date calculateDeliveryDate( Flota flota, Pedido pedido) {
         return null;
     }
+
+    private Nodo getPlantaMasCerca( Flota flota) {
+        return null;
+    }
+
 }
