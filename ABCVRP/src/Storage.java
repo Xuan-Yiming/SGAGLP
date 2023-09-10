@@ -1,8 +1,8 @@
-public class Storange extends Node{
+public class Storage extends Node{
     private double maxCapacity;
     private char type;
 
-    public Storange(int x, int y, double maxCapacity, char type) {
+    public Storage(int x, int y, double maxCapacity, char type) {
         super(x, y);
         this.maxCapacity = maxCapacity;
         this.type = type;
@@ -30,5 +30,9 @@ public class Storange extends Node{
 
     public int getPositionY() {
         return super.getY();
+    }
+    
+    public void consume(double volumn) {
+        this.maxCapacity -= volumn;
     }
 }
