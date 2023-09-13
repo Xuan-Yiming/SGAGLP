@@ -6,6 +6,11 @@ class Car extends Node{
         this.maxCapacity = maxCapacity;
     }
 
+    public Car(double maxCapacity, int x, int y) {
+        super(x, y);
+        this.maxCapacity = maxCapacity;
+    }
+
     public double getMaxCapacity() {
         return maxCapacity;
     }

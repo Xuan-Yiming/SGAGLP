@@ -1,18 +1,18 @@
 package Clases;
 
-public class Planta extends Nodo{
+public class Almacen extends Nodo{
     private  int id;
     private double volumen;
     private char tipo;
 
-    public Planta(int x, int y, char tipo, int id, double volumen, char tipo1) {
+    public Almacen(int x, int y, char tipo, int id, double volumen, char tipo1) {
         super(x, y, tipo);
         this.id = id;
         this.volumen = volumen;
         this.tipo = tipo1;
     }
 
-    public Planta(int id, double volumen, char tipo) {
+    public Almacen(int id, double volumen, char tipo) {
         this.id = id;
         this.volumen = volumen;
         this.tipo = tipo;

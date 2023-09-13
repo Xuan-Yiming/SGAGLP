@@ -51,6 +51,9 @@ public class PathFind {
             }
 
             //eliminar los pedidos asignados
+            for (int i = 0; i < n; i++) {
+                pedidos.remove(sortedPedidos.get(result[i]));
+            }
         }
     }
 
