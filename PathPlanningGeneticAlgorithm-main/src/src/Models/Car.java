@@ -1,6 +1,14 @@
-class Car extends Node{
+package Models;
+
+import Models.Node;
+
+public class Car extends Node {
     private double maxCapacity;
 
+    public Car() {
+        super(12, 8);
+        this.maxCapacity = 0;
+    }
     public Car(double maxCapacity) {
         super(12, 8);
         this.maxCapacity = maxCapacity;

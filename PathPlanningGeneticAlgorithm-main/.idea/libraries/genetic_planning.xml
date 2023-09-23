@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="genetic_planning">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bin/genetic_planning.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
