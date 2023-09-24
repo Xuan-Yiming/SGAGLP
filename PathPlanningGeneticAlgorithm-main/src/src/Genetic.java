@@ -239,7 +239,8 @@ public class Genetic {
 					}
 					case 3: {
 //						vehicleList.get(i).dna[j] = Genetic.GO_DOWN_c; // Down
-						vehicleList.get(i).dna[j] = new Point(1, 1);
+						vehicleList.get(i).dna[j] = new Point(0,1 );
+						//vehicleList.get(i).dna[j] = new Point(1, 1);
 
 						break;
 					}

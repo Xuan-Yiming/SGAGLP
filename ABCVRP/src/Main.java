@@ -18,9 +18,9 @@ public class Main {
 
         // Create a list of cars with their maximum capacities
         List<Car> cars = new ArrayList<>();
-        cars.add(new Car(10.0)); // Car 1 with a maximum capacity of 10.0
-        cars.add(new Car(12.0)); // Car 2 with a maximum capacity of 12.0
-        cars.add(new Car(8.0));  // Car 3 with a maximum capacity of 8.0
+        cars.add(new Car(500)); // Car 1 with a maximum capacity of 10.0
+        cars.add(new Car(50)); // Car 2 with a maximum capacity of 12.0
+        cars.add(new Car(50));  // Car 3 with a maximum capacity of 8.0
 
         // Add more cars with their maximum capacities as needed
 

@@ -76,7 +76,7 @@ public class Main {
         }
 
         for (Point point: solution.dna) {
-              map[point.x][point.y] = new Car();
+            map[point.x][point.y] = new Car();
         }
 
 
