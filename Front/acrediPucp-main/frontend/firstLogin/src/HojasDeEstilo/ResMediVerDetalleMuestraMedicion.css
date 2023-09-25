@@ -1,0 +1,289 @@
+.inicioPaginaDMM {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Fira Sans', sans-serif;
+    color: #042354;
+    background-color: white;
+    margin: 2% 0% 1.5% 0%;
+    width: 95%;
+    border: 1px solid black;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputVDMM {
+    margin-left: 5%;
+
+    width: 50% !important;
+}
+
+.contenedorSuperiorDMM {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0px 5px 0px; 
+}
+
+.labelVDMM,
+.tituloDMM {
+    font-weight: bold;
+}
+
+.labelVDMM {
+    margin-bottom: 40px;
+}
+
+.TituloPrinDMM {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.posBtnEditarVDM button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+}
+
+
+
+
+.btnEvidVDM {
+    background-color: #0072BC;
+}
+
+.btnCargarRMVD {
+    background-color: #042354;
+}
+
+.btnEditarVDM {
+    background-color: #fbb917;
+}
+
+
+
+.seccionDMM {
+    margin: 1px !important;
+    padding: 3px 14px;
+    font-size: 80%;
+}
+
+
+.izquierdaDMM {
+    text-align: left;
+}
+
+.derechaDMM {
+    flex-grow: 1;
+    text-align: left;
+    width: 50%;
+}
+
+.posBtnEditarVDM {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-right: 10%;
+}
+
+
+
+.contenedorDMM {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.contDatDos {
+    margin-top: 0px !important;
+}
+
+.alineacionDMM {
+    flex: 1;
+    text-align: left;
+}
+
+.contDatosDMM {
+    width: 97%;
+    height: 30%;
+    /* background-color: #0072BC; */
+}
+
+.TituloGeneralDMM {
+    margin-left: 4%;
+    width: 100%;
+}
+
+
+.contPerfilVDMM {
+    border: 1px solid black;
+    padding: 22px;
+    background-color: #fff;
+    border-radius: 5px;
+    border-top: 15px solid #042354;
+    margin-bottom: 25px;
+}
+
+.botonesVDM {
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    width: 100%;
+    height: 10%;
+    margin-left: 20px;
+}
+
+
+
+.tituloDMM {
+
+    margin-top: -50px;
+
+    width: 30%;
+    height: 20%;
+
+}
+.titLargoResMedi{
+    width: 35%;
+    height: auto !important;
+}
+.btnCargarDMM {
+    margin: 20px;
+    background-color: #042354;
+    color: white;
+    width: 100px;
+    height: 30px;
+    justify-content: center;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-radius: 10px;
+}
+
+.botonAceptarDMM {
+    background-color: #042354;
+    width: 120px;
+    height: 35px;
+    font-size: 80%;
+    margin-left: 10%;
+    font-weight: bold;
+}
+
+.botonCancelarDMM {
+    background-color: #9E0520;
+    width: 120px;
+    height: 35px;
+    font-size: 80%;
+    margin-right: 10%;
+    font-weight: bold;
+}
+
+.izquierdaDI {
+    text-align: left;
+}
+
+.derechaDI {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.contenedorDMM {
+    display: flex;
+    justify-content: space-between;
+}
+
+.espacioVDM {
+    height: 10px;
+    width: 30%;
+}
+
+.contenedorBotonesRMVMM {
+    width: 100%;
+    height: 40px;
+    /* background-color: #0072BC; */
+    display: flex;
+    /* background-color: aqua; */
+}
+
+.botoncontenedorRMV {
+    width: 7%;
+    margin-right: 20px !important;
+    margin-left: 15px;
+    height: 38px;
+    /* background-color: black; */
+    display: flex;
+    border: 0px;
+    margin-bottom: 10px;
+}
+
+.botoncontenedorRMV .botonesRMDM {
+    border-radius: 10px 10px 0px 0px !important;
+    width: 100%;
+    background-color: #042354;
+    font-size: small;
+    /* border-radius: 5px; */
+
+}
+
+.contDatosDMM1 {
+    height: 20%;
+    width: 100%;
+    /* background-color: #9E0520; */
+}
+
+.tablaVerDetMedi th ,
+.tablaVerDetMedi tr td{
+    text-align: center !important;
+}
+
+.tablaVerDetMedi th:nth-child(6) {
+    /*text-align: left !important;*/
+}
+
+.estado2 {
+    background-color: #a7f3d0;
+    color: #1d8b6a;
+    display: flex;
+    align-items: center;
+    /* Centrado vertical */
+    justify-content: center;
+    /* Centrado horizontal */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-size: 80%;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 3px 12px;
+    border-radius: 30px;
+    width: 100%;
+    height: 90%;
+    text-align: center;
+}
+
+
+
+.estado3 {
+    display: flex;
+    align-items: center;
+    /* Centrado vertical */
+    justify-content: center;
+    
+    font-size: 80%;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 3px 12px;
+    border-radius: 30px;
+    width: 100%;
+    height: 90%;
+    background-color: #fecaca;
+    color: #b91e1e;
+    text-align: center;
+}
+.estado3Margin{
+    margin-top: 12px !important;
+    margin-bottom: 12px !important;
+}

@@ -1,0 +1,285 @@
+.contenedorTablaGC {
+    width: 95%;
+    max-height: 90% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.miTabla {
+    cursor: pointer;
+}
+
+.seleccionableGC {
+    width: fit-content;
+}
+
+.espacioTabla {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.SubContenedorTablaGC td,
+.SubContenedorTablaGC th {
+    border-bottom: 1px solid #A7C0D2 !important;
+    border-top: 1px solid #A7C0D2 !important;
+    border-left: 0px;
+    border-right: 0px;
+    padding: 10px;
+    overflow: auto;
+    width: 100%;
+    color: #042354;
+    height: 10px !important;
+}
+
+.SubContenedorTablaGC th {
+    background-color: #EEF1F1;
+    font-weight: bold;
+    font-size: medium;
+
+    /*esto es para que la barra se mantenga cuando buscas en un sin fin de rows*/
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.SubContenedorTablaGC tr td {
+    background-color: white;
+    height: 10% !important;
+}
+
+.SubContenedorTablaGC table {
+    border-collapse: collapse;
+    letter-spacing: 1px;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+    width: 100%;
+    min-height: 40%;
+    table-layout: fixed;
+    text-align: justify;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+    color: #042354;
+    border: 1px solid #A7C0D2;
+    line-height: 2;
+
+}
+
+
+.checkboxGC {
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    font-size: medium;
+    /* font-weight: bolder; */
+}
+
+
+.paginationGC {
+    display: flex;
+    justify-content: center;
+    padding-left: 0%;
+    margin-bottom: 0%;
+    list-style: none;
+}
+
+/*SCROLLBAR**/
+
+.contenedorBarraGC {
+    width: 70%;
+}
+
+/**** FIN BARRA DE BUSQUEDA ****/
+
+
+
+.btn-outline-successGC .bi {
+    display: flex;
+    color: #6c757d;
+}
+
+
+.barraSuperiorGC {
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    width: 100%;
+    height: 10%;
+}
+
+.botonesSuperioresGC {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 100%;
+}
+
+.btnAniadirGC,
+.btnImportarGC {
+    display: flex;
+    align-items: flex-start;
+    justify-content: right;
+    width: 70%;
+    height: 70%;
+    /* background-color: #A7C0D2; */
+}
+
+.btnAniadirGC button {
+    background-color: #0072BC;
+    height: 35px;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-radius: 10px;
+    width: 115px;
+}
+
+.btnImportarGC button {
+    background-color: #042354;
+    height: 35px;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-radius: 10px;
+    padding: auto;
+    width: 115px;
+}
+
+
+.contenedorBarraGCA {
+    width: 70%;
+    height: 50% !important;
+}
+
+.barraIntermediaGC {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+    height: 50%;
+    margin-bottom: 2%;
+
+    /* background-color: #0072BC; */
+}
+
+.btnHabilitarGC,
+.btnDeshabilitarGC {
+    display: flex;
+    align-items: flex-start;
+    justify-content: right;
+    width: 14%;
+    height: 70%;
+}
+
+.btnHabilitarGC button,
+.btnDeshabilitarGC button {
+    background-color: #042354;
+    width: 115px;
+    height: 35px;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-radius: 10px;
+}
+
+.btnDeshabilitarGC button {
+    background-color: #9E0520;
+
+}
+
+
+/**BARRA DE BUQEUDA FIN****/
+
+.SubContenedorTablaGC {
+    height: 100%;
+    /* background-color: #042354; */
+}
+
+.barraInferiorGC {
+    font-size: 1rem;
+    /* background-color: #6c757d; */
+}
+
+.my-previous-buttonGC,
+.my-next-buttonGC {
+    color: #042354;
+
+}
+
+.my-page-classGC {
+    /* background-color: grey; */
+    color: white;
+    padding: 8px;
+}
+
+.my-page-link-classGC {
+    text-decoration: none;
+    color: #042354;
+}
+
+
+.my-next-classGC,
+.my-previous-classGC {
+    color: white;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.my-previous-classGC:hover,
+.my-next-classGC:hover {
+    background-color: #042354;
+
+}
+
+.my-previous-buttonGC:hover,
+.my-next-buttonGC:hover {
+    color: white;
+}
+
+.my-page-classGC:hover {
+    border: 1px solid #042354;
+    color: white;
+    border-radius: 10px;
+}
+
+.botonAceptarGC {
+    background-color: #042354;
+    width: 120px;
+    height: 35px;
+    font-size: 80%;
+    margin-left: 10%;
+    font-weight: bold;
+}
+
+.botonCancelarGC {
+    background-color: #9E0520;
+    width: 120px;
+    height: 35px;
+    font-size: 80%;
+    margin-right: 10%;
+    font-weight: bold;
+}
+
+.tablaGC {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    /* Agrega bordes redondeados */
+    overflow: hidden;
+    /* Oculta cualquier contenido que se salga de la tabla */
+    /*border: 2px solid purple;*/
+}

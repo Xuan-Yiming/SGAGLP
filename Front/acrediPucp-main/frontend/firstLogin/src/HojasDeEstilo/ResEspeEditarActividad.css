@@ -1,0 +1,51 @@
+.contenedor-botonesREAC2 {
+    display: flex;
+    justify-content: flex-end;
+    width: 30%;
+    height: 14%;
+
+
+}
+
+.botonesSuperioresREAC2 {
+    display: flex;
+    width: 100%;
+    /*justify-content: flex-end;*/
+}
+
+.labelREAEM2 {
+    width: 135px;
+}
+
+.descripcionREAC{
+    width: 135px !important;
+}
+.btDisVerDetAct{
+    width: auto !important;
+}
+.botonesSuperioresAAFA{
+    display: flex;
+    width: 20%;
+    margin-left: 20px;
+    margin-right: 120px;
+}
+.btnAniadirCambiarAAF{
+    width: 135px;
+    background-color: #0072BC;
+    margin-top: -1px;
+}
+.contenedor-botonesAAFRE {
+    display: flex;
+    justify-content: flex-end;
+    height: 10%;
+}
+.btnAniadirAAFRE{
+    background-color: #0072BC;
+    width: 135px;
+}
+.botonesSuperioresAAFRE {
+    display: flex;
+    width: 140px;
+    justify-content: flex-end;
+    margin-left: 70px;
+}

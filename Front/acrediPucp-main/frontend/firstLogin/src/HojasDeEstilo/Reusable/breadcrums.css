@@ -1,0 +1,22 @@
+nav ol.breadcrumb li.breadcrumb-item a {
+    text-decoration: none;
+    color: #042354;
+    font-weight: bold;
+}
+
+nav ol.breadcrumb li.breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb {
+    position: absolute;
+    top: -13px;
+    left: 0;
+    z-index: 1;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: black !important;
+    font-weight: bold;
+}
+
