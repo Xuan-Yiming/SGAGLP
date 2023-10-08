@@ -1,0 +1,150 @@
+.contPerfilRECEM {
+    border: 1px solid black;
+    padding: 2%;
+    background-color: #fff;
+    border-radius: 5px;
+    border-top: 15px solid #042354;
+    margin-bottom: 40px;
+}
+
+
+
+.tituloRECEM {
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: -47px;
+    border: 1px solid black;
+    width: 17%;
+    height: 20%;
+    font-size: 20px;
+}
+
+.contenedorRECEM {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5%;
+}
+
+.contDatosRECEM {
+    width: 98%;
+    height: 30%;
+    /* background-color: #0072BC; */
+    align-items: center;
+    margin-left: 1%;
+}
+
+.centroRECEM {
+    align-items: center;
+}
+
+.izquierdaRECEM {
+    text-align: left;
+}
+
+.inputRECEM {
+
+    width: 300px;
+    background-color: #F2F7F9;
+    color: #7892A4;
+}
+
+.espacioSupRECEM {
+    text-align: right;
+    margin-left: 1%;
+}
+
+.derechaRECEM {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.contenedorSuperiorRECEM {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.inicioPaginaRECEM {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Fira Sans', sans-serif;
+    color: #042354;
+    background-color: white;
+    margin: 2% 0% 1.5% 0%;
+    width: 95%;
+    border: 1px solid black;
+    border-radius: 5px;
+    justify-content: center;
+    padding: 40px 10px 10px 10px;
+}
+
+.btnGuardarRECEM {
+    background-color: #042354;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+
+.botonInferiorRECEM {
+    display: flex;
+    flex-direction: row;
+    /* text-align: center; */
+    width: 100%;
+    justify-content: right;
+}
+
+
+.botonesSuperioresRECEM {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    text-align: right;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
+.btnAniadirRECEM {
+    background-color: #0072BC;
+}
+
+.btnDeshabilitarRECEM {
+    background-color: #9E0520;
+}
+
+.labelRCEM {
+    width: 200px;
+}
+
+.iconoEdicion{
+    font-size: 18px;
+    margin-left: 22px;
+    cursor: pointer;
+}
+.inputGenDate {
+    border-width: 1px;
+    background-color: #fff;
+    color: #667D8D;
+    border-radius: 5px;
+    width: 100%;
+    height: 30px;
+    font-size: 15px;
+    padding: 15px 10px 15px 10px;
+    margin-bottom: 10px;
+}
+.inputGenDate2 {
+    border-width: 1px;
+    background-color: #F2F7F9;
+    color: #667D8D;
+    border-radius: 5px;
+    width: 100%;
+    height: 30px;
+    font-size: 15px;
+    padding: 15px 10px 15px 10px;
+    margin-bottom: 10px;
+}

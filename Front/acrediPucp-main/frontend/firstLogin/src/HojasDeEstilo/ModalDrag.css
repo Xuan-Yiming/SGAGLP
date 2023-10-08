@@ -1,0 +1,47 @@
+.boton-evidencias:hover {
+
+
+    background-color: #02408C;
+
+
+}
+
+.boton-evidencias {
+
+    width: 25%;
+    height: 40px;
+    background-color: #003C7A;
+    color: white;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.boton-guardar-par {
+    background-color: #042354;
+    margin-left: 350px;
+    margin-top: 25px;
+}
+
+.tituloEspDrag {
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    color: #042354 !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+}
+
+.inpTamanio {
+    height: calc(2.5rem + 2px) !important;
+}
+
+.boton-aceptar2 {
+    margin-left: 40%;
+    background-color: #042354;
+    margin-top: 20px;
+}

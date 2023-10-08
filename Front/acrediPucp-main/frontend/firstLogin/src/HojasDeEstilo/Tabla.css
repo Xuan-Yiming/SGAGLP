@@ -1,0 +1,148 @@
+thead tr th.next,
+thead tr th.prev,
+thead tr th.datepicker-switch,
+thead tr th.dow{
+    border-radius: 0px ;
+}
+
+tbody tr td.active.day,
+tbody tr td span.month.focused.active,
+tbody tr td span.year.focused.active,
+tbody tr td span.decade.focused.active,
+tbody tr td span.century.focused.active{
+    background-image: none !important; 
+    background-color: #0072BC !important;
+}
+
+.pagination {
+    margin: 30px 35px 0;
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+table {
+    border-collapse: collapse;
+    letter-spacing: 1px;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 0.8rem;
+    /* font-weight: bold; */
+    table-layout: fixed;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+    color: #042354;
+    border: 1px solid #A7C0D2;
+    line-height: 2;
+    width: 200px;
+}
+
+
+th {
+
+    background-color: #D9DFDF;
+    vertical-align: middle;
+}
+
+tr {
+    border-bottom: 1px solid #A7C0D2 !important;
+    border-top: 1px solid #A7C0D2 !important;
+    border-left: 1px solid #A7C0D2 !important;
+    border-right: 1px solid transparent !important;
+    overflow: auto;
+    color: #042354;
+    /* height: 40px !important; */
+}
+
+.espacioTabla p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+tr td {
+    background-color: white;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.pageInfo {
+    color: #a0a3bd;
+    font-size: 0.874em;
+    letter-spacing: 0.5px;
+}
+
+.pageButtons {
+    display: flex;
+}
+
+.pageBtn {
+    border: 1px solid #a0a3bd;
+    color: #a0a3bd;
+    border-radius: 5px;
+    margin: 5px;
+    width: 35px;
+    height: 35px;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.activeBtn {
+    border: 1px solid blue;
+    color: blue;
+    background-color: transparent;
+}
+
+.disabledPageBtn {
+    background-color: #a0a3bd;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.cargando {
+    margin-top: 15%;
+}
+
+
+.tablaGC th:first-child {
+    text-align: center;
+}
+
+div.contenedorTablaIndicadores table.tablaMM.tablaMM3 thead tr.tablaSuperiorMM th{
+    text-align: center;
+    background-color: #042354;
+    padding: 5px 0px;
+}
+
+div.contenedorTablaIndicadores table.tablaMM.tablaMM3{
+    line-height: 1.5;
+}
+
+div.contenedorTablaIndicadores{
+    min-height: 0;
+}
+
+div.sub-contenedor-RBB div.area-trabajo-RBB div.inicioPaginaMM{
+    padding: 25px 0px 0px;
+}
+
+div.contenedorTablaIndicadores table.tablaMM.tablaMM3 tbody tr.tablaInferiorMM:nth-child(1)  td:nth-child(3){
+    border-color: #a0a3bd;
+    border-right-width: 1px;
+    border-right-style: solid;
+}
+
+div.contenedorTablaIndicadores table.tablaMM.tablaMM3 tbody tr.tablaInferiorMM:nth-child(n+2) td:nth-child(2){
+    border-color: #a0a3bd;
+    border-right-width: 1px;
+    border-right-style: solid;
+}
+
+div.contenedorTablaIndicadores table.tablaMM.tablaMM3 tbody tr.tablaInferiorMM:not(:last-child){
+    border-bottom: 0px  !important;
+    border-top: 0px  !important;
+}
+
+div.contenedorTablaIndicadores table.tablaMM.tablaMM3 tbody tr.tablaInferiorMM:last-child{
+    border-top: 0px  !important;
+}

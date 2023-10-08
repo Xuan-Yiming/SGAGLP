@@ -1,0 +1,224 @@
+.pagination {
+    margin: 30px 35px 0;
+    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.tablaGC table {
+    border-collapse: collapse;
+    letter-spacing: 1.5px;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 0.8rem;
+    table-layout: fixed;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+    color: #042354;
+    border: 1px solid #A7C0D2;
+    line-height: 2;
+    width: 100%;
+    background-color: white;
+}
+
+.tablaGC {
+    background-color: #A7C0D2;
+}
+.tablaGC .finalizado{
+    background-color: #a7f3d0;
+    color: #1d8b6a;
+    display: flex;
+    align-items: center;
+    /* Centrado vertical */
+    justify-content: center;
+    /* Centrado horizontal */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 80%;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 30px;
+    width: 103%;
+    height: 30px;
+}
+
+.tablaGC .en-progreso{
+    background-color: #95beff;
+    color: #042354;
+    display: flex;
+    align-items: center;
+    /* Centrado vertical */
+    justify-content: center;
+    /* Centrado horizontal */
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    font-size: 80%;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 30px;
+    width: 103%;
+    height: 30px;
+}
+
+
+.tablaGC .no-iniciado{
+    display: flex;
+    align-items: center;
+    /* Centrado vertical */
+    justify-content: center;
+    /* Centrado horizontal */
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    font-size: 80%;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 30px;
+    width: 103%;
+    height: 30px;
+    background-color: #fecaca;
+    color: #b91e1e;
+}
+
+
+.tablaGC th {
+    font-weight: bold;
+    background-color: #adc3e6;
+    text-transform: uppercase;
+    color: white;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.tablaGC tr {
+    border-bottom: 1px solid #A7C0D2 !important;
+    border-top: 1px solid #A7C0D2 !important;
+    border-left: 1px solid #A7C0D2 !important;
+    border-right: 1px solid #A7C0D2 !important;
+    overflow: auto;
+    color: #042354;
+    font-weight: normal;
+    height: 40px !important;
+    font-size: 13px;
+}
+
+.table-row.selected td {
+    /* Estilos para las celdas de la fila seleccionada */
+    background-color: green;
+}
+
+.tablaGC tr:hover td {
+    /* Estilos para las celdas de la fila al hacer hover */
+    background-color: #cfe8fa;
+}
+
+.tablaGC tr.selected td {
+    /* Estilos para las celdas de la fila seleccionada */
+    background-color: #96cef7;
+    font-weight: bold;
+    color: #042354;
+}
+
+.tablaGC tr td {
+    background-color: white;
+    text-align: left;
+    vertical-align: middle;
+    padding-right: 10px;
+}
+
+.pageInfo {
+    color: #a0a3bd;
+    font-size: 0.874em;
+    letter-spacing: 0.5px;
+}
+
+.pageButtons {
+    display: flex;
+}
+
+.pageBtn {
+    border: 1px solid #a0a3bd;
+    color: #a0a3bd;
+    border-radius: 5px;
+    margin: 5px;
+    width: 35px;
+    height: 35px;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.tablaGC td:nth-child(2) {
+    /*font-weight: bold;*/
+}
+
+
+.tablaGC th:first-child {
+    text-align: center;
+}
+
+
+.tablaGC .estado {
+    font-weight: bold;
+}
+
+.tablaGC .elestado-activo {
+    background-color: #a7f3d0;
+    color: #1d8b6a;
+    display: flex;
+    align-items: center;
+    /* Centrado vertical */
+    justify-content: center;
+    /* Centrado horizontal */
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    font-size: 80%;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 30px;
+    width: 50%;
+    height: 30px;
+}
+
+
+.tablaGC .elestado-inactivo {
+    display: flex;
+    align-items: center;
+    /* Centrado vertical */
+    justify-content: center;
+    /* Centrado horizontal */
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    font-size: 80%;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 30px;
+    width: 50%;
+    height: 30px;
+    background-color: #fecaca;
+    color: #b91e1e;
+}
+
+
+
+.table-row.selected {
+    background-color: #cfe8fc;
+}
+
+/*Contenedor de la tabla div debería ser así*/
+.contenedorTablaC {
+    width: 100%;
+    height: 100%;
+}
+.tablaGC td:first-child {
+    text-align: center;
+}
+

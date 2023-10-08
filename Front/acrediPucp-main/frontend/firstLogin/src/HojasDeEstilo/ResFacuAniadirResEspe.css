@@ -1,0 +1,12 @@
+.barraSuperiorAFARE {
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    width: 100%;
+    height: 10%;
+    margin-bottom: 30px;
+}
+
+.input-groupBuscarRFARE {
+    width: 85% !important;
+}

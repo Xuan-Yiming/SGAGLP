@@ -1,0 +1,328 @@
+.inicioPaginaREAM {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Fira Sans', sans-serif;
+    color: #042354;
+    background-color: white;
+    margin: 2% 0% 1.5% 0%;
+    width: 95%;
+    border: 1px solid black;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: start;
+    min-height: 95%;
+}
+
+.inputDisDMM {
+    background-color: #F2F7F9;
+    color: #7892A4;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.contenedorSuperiorREAM {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.labelREAM,
+.tituloREAM {
+    font-weight: bold;
+}
+
+.TituloPrinREAM {
+    font-size: 30px;
+}
+
+.posBtnEditarDMM button {
+    background-color: #042354;
+    color: white;
+    width: 11%;
+    height: 30px;
+    justify-content: center;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-color: white;
+}
+
+.btnEvid,
+.btnEditar {
+
+    align-items: flex-start;
+    justify-content: center;
+    width: 50%;
+    display: flex;
+
+    height: 70%;
+}
+
+.btnEvid {
+    background-color: #0072BC;
+}
+
+.btnAniadirRVCEM {
+    background-color: #0072BC;
+}
+
+.btnDeshabilitarRECEM {
+    background-color: #9E0520;
+}
+
+.btnEditar button {
+    width: 80%;
+    height: 30px;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-radius: 10px;
+}
+
+.seccionDMM {
+    margin: 1px !important;
+    padding: 3px 14px;
+    font-size: 80%;
+}
+
+
+.izquierdaDMM {
+    text-align: left;
+}
+
+.derechaDMM {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.posBtnEditarDMM {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.btnEditarDMM {
+    color: white;
+    width: 100%;
+
+}
+
+.inputEVM {
+    background-color: white !important;
+}
+
+.inputREVDM {
+    width: 300px;
+}
+
+
+
+.alineacionDMM {
+    flex: 1;
+    text-align: left;
+}
+
+.contDatosDMM {
+    width: 97%;
+    height: 35%;
+    margin-left: 10px;
+    /* background-color: #0072BC; */
+}
+
+.contenedorInp {
+    display: flex;
+}
+
+.TituloGeneralREAM {
+    margin-left: 5%;
+}
+
+
+
+.contPerfilDMM {
+    border: 1px solid black;
+    padding: 2%;
+    background-color: #fff;
+    border-radius: 5px;
+    border-top: 15px solid #042354;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.botonesDMM {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+}
+
+.botonesDMM button {
+    width: 50%;
+}
+
+.tituloREAM {
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: -50px;
+    border: 1px solid black;
+    width: 25%;
+    font-size: 20px;
+    text-align: center;
+}
+
+.btnCargarDMM {
+    margin: 20px;
+    background-color: #042354;
+    color: white;
+    width: 100px;
+    height: 30px;
+    justify-content: center;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-radius: 10px;
+}
+
+.inputDMM {
+    background-color: white;
+    color: #042354;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.botonAceptarDMM {
+    background-color: #042354;
+    width: 120px;
+    height: 35px;
+    font-size: 80%;
+    margin-left: 10%;
+    font-weight: bold;
+}
+
+.botonCancelarDMM {
+    background-color: #9E0520;
+    width: 120px;
+    height: 35px;
+    font-size: 80%;
+    margin-right: 10%;
+    font-weight: bold;
+}
+
+.izquierdaDI {
+    text-align: left;
+}
+
+.derechaDI {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.contenedorDMM {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.espacio {
+    height: 10px;
+    width: 20%;
+}
+
+.contenedorBotonesRMV {
+    width: 100%;
+    height: 20px;
+    /* background-color: #0072BC; */
+    display: flex;
+    /* background-color: aqua; */
+}
+
+.botoncontenedorRMV {
+    width: 7%;
+    height: 100%;
+    /* background-color: black; */
+    display: flex;
+    border: 0px;
+}
+
+.botoncontenedorRMV .botones {
+    width: 100%;
+    height: 100%;
+    font-size: small;
+    /* border-radius: 5px; */
+}
+
+.contDatosDMM1 {
+    height: 20%;
+    /* background-color: #9E0520; */
+}
+
+.buttonREAM {
+    background-color: #042354;
+    color: white;
+    height: 30px;
+    justify-content: center;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-color: white;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.contenedorDCV {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    width: 100%;
+    align-items: center;
+}
+
+.derechaREAM {
+    width: 100%;
+    text-align: left;
+}
+
+.izquierdaREAM {
+    width: 100%;
+    text-align: right;
+
+}
+
+.botonesAlinREAM{
+    margin-right: 0px !important;
+}
+.labelREVDM {
+    width: 70px;
+}
+
+.contBotonEdGuar {
+    margin-top: 10px;
+    justify-content: end;
+
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+.contennComboBox{
+    margin-right: 25px;
+}
+.dropdown button {
+    background-color: #0072BC !important;
+    min-width: 70px;
+    width: 160px;
+}
+
+.contBotGuardEditar{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin-top: 5px;
+}

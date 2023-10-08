@@ -1,0 +1,116 @@
+.RFGRAcont {
+    justify-content: flex-start !important;
+}
+
+.RFGRATitulo {
+    width: 130px !important;
+}
+
+.RFGRAComboBox {
+    display: flex;
+}
+
+.RFGRAComboBox select {
+    color: #042354;
+    border-radius: 5px;
+    padding: 5px;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.RFGRAtituloEspecial {
+    font-size: 18px;
+}
+
+
+
+.referenciaRepResEsp {
+    background-image: url("../images/resulGen.png");
+    margin: 0px 0px 15px 6px;
+}
+
+.referenciaRepResEsp {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-decoration: none;
+
+    border-radius: 8px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: grayscale(60%);
+    overflow: hidden;
+}
+
+.referenciaRepResEsp:hover {
+    filter: brightness(1);
+    /* Brillo reducido al hacer hover */
+    color: #0072BC;
+}
+
+.referenciaRepResEsp:hover .textoHiperRRE {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 1% 4% 1% 4%;
+    display: flex;
+    justify-content: center;
+    /* Centrar horizontalmente */
+    align-items: center;
+    /* Centrar verticalmente */
+}
+
+.referenciaRepResEsp:hover {
+    background-image: url("../images/resulGen2.png");
+}
+
+.referenciaRepResEsp .textoHiperRRE {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #0072BC;
+    padding: 1% 4% 1% 4%;
+    display: flex;
+    justify-content: center;
+    /* Centrar horizontalmente */
+    align-items: center;
+    /* Centrar verticalmente */
+}
+
+
+.REGRContenedorEspacioGR{
+    margin-left: 10%;
+}
+
+
+.listaEspecialidades{
+    width: 100%;
+}
+
+.REGRCurso{
+    width: 100%;
+    /* background-color: #0072BC; */
+}
+
+.RFGRATitulo{
+    width: 70%;
+    /* background-color:wheat; */
+
+}
+
+
+
+.modal-content{
+    width: 130% !important;
+}
+.REGRTitulos2 {
+    font-weight: bold;
+    width: 140px !important;
+    margin-left: 30px;
+}
+
+.primerRB{
+    margin-left: 0px !important;
+}

@@ -5,10 +5,29 @@ import java.util.Date;
 public class DetalleRuta {
     private Date fechaLlegada;
     private char accion;
+    private double cost;
+    private Nodo nodo;
 
-    public DetalleRuta(Date fechaLlegada, char accion) {
+    public DetalleRuta(Date fechaLlegada, char accion, double cost) {
         this.fechaLlegada = fechaLlegada;
         this.accion = accion;
+        this.cost = cost;
+    }
+
+    public Nodo getNodo() {
+        return nodo;
+    }
+
+    public void setNodo(Nodo nodo) {
+        this.nodo = nodo;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 
     public Date getFechaLlegada() {

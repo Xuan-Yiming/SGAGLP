@@ -1,0 +1,42 @@
+.inputVDMMv {
+    width: 250px;
+}
+
+.labelVVDMM {
+    width: 80%;
+}
+
+.labelVVDMM2 {
+    width: 50%;
+}
+
+.contenedorVVDMM {
+    width: 50%;
+}
+
+.derechaVVDM {
+    flex-grow: 1;
+    text-align: left;
+    width: 40%;
+}
+
+.contenedorDMMV {
+    display: flex;
+    margin-top: 0px;
+}
+
+.alinearcCaja {
+    display: flex;
+    width: 100%;
+    align-items: end;
+}
+.tablaMuestras td, 
+.tablaMuestras th{
+    text-align: center !important;
+}
+
+.tablaAlineacinoVDMM td,
+.tablaAlineacinoVDMM th
+{
+    text-align: center !important;
+}

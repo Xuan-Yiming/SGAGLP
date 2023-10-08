@@ -1,0 +1,25 @@
+.encabezadoContra2 {
+    font-weight: 500;
+font-size: 16px;
+color: rgb(4, 35, 84);
+}
+
+.correo-ancho2 {
+    max-width: 100%;
+  }
+  .correo-ancho3 {
+    width:80px;
+    max-width: 1000px;
+  }
+
+  .input-groupIC2 {
+    width:800px;
+    max-width: 1000px;
+    display: flex;
+  }
+  .formGroupInputLog2 input {
+    width: 52.5%;
+    padding: 10px;
+    font-size: 16px;
+    height: 48px;
+  }

@@ -1,28 +1,35 @@
+import Algoritmos.BeeColony;
+import Algoritmos.Clases.ABCSolution;
+import Algoritmos.Clases.ABCSolutionLine;
 import Algoritmos.HungarianAlgorithm;
+import Algoritmos.PathFind;
+import Clases.DetalleRuta;
+import Clases.Flota;
+import Clases.Mapa;
+import Clases.Ruta;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        double[][] costMatrix = {
-                {3, 5, 6, 7},
-                {5, 5, 2, 3},
-                {7, 7, 9, 5},
-                {1, 8, 8, 3}
-        };
 
+        PathFind pathFind = new PathFind();
 
-        HungarianAlgorithm hbm = new HungarianAlgorithm(costMatrix);
-        int[] result = hbm.execute();
-        int [][] assigment = new int[4][4];
-        for (int i = 0; i < 4; i++) {
-            assigment[i][result[i]] = (int)costMatrix[i][result[i]];
-        }
+        Mapa mapa = new Mapa(100, 100);
 
-        for (int i = 0; i < 4; i++) {
-            System.out.println(Arrays.toString(assigment[i]));
-        }
+        //vehiculos
+        Flota flota1 = new Flota(1, "A", "01", 1, 1, 1, 1, 1, 1, 1, null, 'A');
+        Flota flota2 = new Flota(2, "A", "02", 1, 1, 1, 1, 1, 1, 1, null, 'A');
+        Flota flota3 = new Flota(3, "A", "03", 1, 1, 1, 1, 1, 1, 1, null, 'A');
+
+        flota1.setRutas(Arrays.asList(new Ruta()));
+        flota2.setRutas(Arrays.asList(new Ruta()));
+        flota3.setRutas(Arrays.asList(new Ruta()));
+
+        flota1.getRutas().get(0).append(new DetalleRuta(null, 1, 'E', 1,));
+
     }
+
 
 }

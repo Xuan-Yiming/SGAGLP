@@ -14,8 +14,9 @@ public class BeeColony {
 
     //scout bees
     // get the best solution
-    private ABCSolutionLine scoutBee(ABCSolution source, Mapa mapa, Flota[] flotas){
+    public ABCSolutionLine scoutBee(ABCSolution source, Mapa mapa, Flota[] flotas){
         ABCSolutionLine solution = new ABCSolutionLine();
+
         for (int i = 0; i < flotas.length; i++) {
             if (source.solutionLines[i].trial >= limitTrial) {
                 Random random = new Random();
@@ -33,7 +34,7 @@ public class BeeColony {
     }
 
     //onlooker bees
-    private ABCSolution onlookerBee(ABCSolution source, Mapa mapa, Flota[] flotas){
+    public ABCSolution onlookerBee(ABCSolution source, Mapa mapa, Flota[] flotas){
         double[] probability = new double[flotas.length];
         double sum = 0;
         for (int i = 0; i < flotas.length; i++) {
@@ -44,18 +45,20 @@ public class BeeColony {
         }
 
         ABCSolution solution = new ABCSolution(flotas.length);
-
-        for (int i = 0, updatecount = 0; updatecount == flotas.length; i++) {
+        solution.solutionLines = new ABCSolutionLine[flotas.length];
+        int updatecount = 0;
+        for (int i = 0; updatecount != flotas.length; i++) {
             double r = new Random().nextDouble()* 2 - 1;
             if (r < probability[i]){
                 updatecount++;
                 Random random = new Random();
-                int randomRow = random.nextInt(mapa.getLargo());
+                int randomRow = random.nextInt(flotas.length);
                 while (randomRow == i){
-                    randomRow = random.nextInt(mapa.getLargo());
+                    randomRow = random.nextInt(flotas.length);
                 }
                 solution.solutionLines[i] = updateSolutionLine(source.solutionLines[i], source.solutionLines[randomRow]);
             }
+            solution.solutionLines[i] = source.solutionLines[i];
             if (i == flotas.length - 1){
                 i = 0;
             }
@@ -64,15 +67,19 @@ public class BeeColony {
         return solution;
     }
 
+
     //employeed bees
-    private ABCSolution employeedBee(Mapa mapa, Flota[] flotas){
+    public ABCSolution employeedBee(Mapa mapa, Flota[] flotas){
 
         ABCSolution source = new ABCSolution(flotas.length);
+        source.solutionLines = new ABCSolutionLine[flotas.length];
         ABCSolution solution = new ABCSolution(flotas.length);
+        solution.solutionLines = new ABCSolutionLine[flotas.length];
 
         for (int i = 0; i < flotas.length; i++) {
             //seleccionar una posicion aleatoria en el mapa
             Random random = new Random();
+            source.solutionLines[i] = new ABCSolutionLine();
             source.solutionLines[i].foodSource[0] = random.nextInt(mapa.getLargo());
             source.solutionLines[i].foodSource[1] = random.nextInt(mapa.getLargo());
             source.solutionLines[i].maximize = calculateMaximize(source.solutionLines[i].foodSource[0], source.solutionLines[i].foodSource[1]);
@@ -82,9 +89,9 @@ public class BeeColony {
 
         for (int i = 0; i < flotas.length; i++) {
             Random random = new Random();
-            int randomRow = random.nextInt(mapa.getLargo());
+            int randomRow = random.nextInt(flotas.length);
             while (randomRow == i){
-                randomRow = random.nextInt(mapa.getLargo());
+                randomRow = random.nextInt(flotas.length);
             }
             solution.solutionLines[i] = updateSolutionLine(source.solutionLines[i], source.solutionLines[randomRow]);
         }
@@ -92,7 +99,7 @@ public class BeeColony {
         return solution;
     }
 
-    private ABCSolutionLine updateSolutionLine(ABCSolutionLine source, ABCSolutionLine randomSource){
+    public ABCSolutionLine updateSolutionLine(ABCSolutionLine source, ABCSolutionLine randomSource){
 
         ABCSolutionLine solution = new ABCSolutionLine();
 

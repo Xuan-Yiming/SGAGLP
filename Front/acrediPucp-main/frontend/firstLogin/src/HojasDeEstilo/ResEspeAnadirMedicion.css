@@ -1,0 +1,475 @@
+.inicioPaginaREAM {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Fira Sans', sans-serif;
+    color: #042354;
+    background-color: white;
+    margin: 2% 0% 1.5% 0%;
+    width: 95%;
+    border: 1px solid black;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedorTablaAAA td,
+.contenedorTablaAAA th {
+    border-bottom: 1px solid #A7C0D2 !important;
+    border-top: 1px solid #A7C0D2 !important;
+    border-left: 0px;
+    border-right: 0px;
+    padding: 10px;
+    overflow: auto;
+    width: 100%;
+    color: #042354;
+    height: 10px !important;
+}
+
+.contenedorTablaAAA th {
+    background-color: #EEF1F1;
+    font-weight: bold;
+    font-size: medium;
+
+    /*esto es para que la barra se mantenga cuando buscas en un sin fin de rows*/
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.contenedorTablaAAA tr td {
+    background-color: white;
+    height: 10% !important;
+}
+
+.contenedorTablaAAA table {
+    border-collapse: collapse;
+    letter-spacing: 1px;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+    width: 100%;
+    min-height: 40%;
+    table-layout: fixed;
+    text-align: justify;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+    color: #042354;
+    border: 1px solid #A7C0D2;
+    line-height: 2;
+
+}
+
+
+.inputDisDMM {
+    background-color: #F2F7F9;
+    color: #7892A4;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.contenedorSuperiorREAM {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.labelREAM,
+.tituloREAM {
+    font-weight: bold;
+}
+
+.TituloPrinREAM {
+    font-size: 30px;
+}
+
+.posBtnEditarDMM button {
+    background-color: #042354;
+    color: white;
+    width: 11%;
+    height: 30px;
+    justify-content: center;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-color: white;
+}
+
+.btnEvid,
+.btnEditar {
+
+    align-items: flex-start;
+    justify-content: center;
+    width: 50%;
+    display: flex;
+
+    height: 70%;
+}
+
+.btnEvid button {
+    background-color: #0072BC;
+    width: 80%;
+    height: 30px;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-radius: 10px;
+}
+
+.btnEditar button {
+    width: 80%;
+    height: 30px;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-radius: 10px;
+}
+
+.seccionDMM {
+    margin: 1px !important;
+    padding: 3px 14px;
+    font-size: 80%;
+}
+
+
+.izquierdaDMM {
+    text-align: left;
+}
+
+.derechaDMM {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.posBtnEditarDMM {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.btnEditarDMM {
+    color: white;
+    width: 100%;
+
+}
+
+.contenedor-codigoREAM {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.codigoREAM {
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+    color: #042354;
+    height: 27px;
+    margin-top: 15px;
+}
+
+.inputREAC {
+    font-size: 15px;
+    font-family: "Montserrat", sans-serif;
+}
+
+.contenedorDMM {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.alineacionDMM {
+    flex: 1;
+    text-align: left;
+}
+
+.contDatosRAM {
+    width: 97%;
+    height: 40%;
+    /* background-color: #0072BC; */
+}
+
+.TituloGeneralREAM {
+    margin-left: 5%;
+}
+
+.rectanguloAzulREAM {
+    background-color: #042354;
+    height: 10px;
+    width: 97%;
+    margin: -0.2%;
+    display: flex;
+}
+
+.contPerfilRAM {
+    border: 1px solid black;
+    padding: 2%;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.botonesDMM {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+}
+
+.botonesDMM button {
+    width: 50%;
+}
+
+.tituloREAM {
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: -47px;
+    border: 1px solid black;
+    width: 25%;
+    font-size: 20px;
+}
+
+.btnCargarDMM {
+    margin: 20px;
+    background-color: #042354;
+    color: white;
+    width: 100px;
+    height: 30px;
+    justify-content: center;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-radius: 10px;
+}
+
+.inputDMM {
+    background-color: white;
+    color: #042354;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.botonAceptarDMM {
+    background-color: #042354;
+    width: 120px;
+    height: 35px;
+    font-size: 80%;
+    margin-left: 10%;
+    font-weight: bold;
+}
+
+.botonCancelarDMM {
+    background-color: #9E0520;
+    width: 120px;
+    height: 35px;
+    font-size: 80%;
+    margin-right: 10%;
+    font-weight: bold;
+}
+
+.izquierdaDI {
+    text-align: left;
+}
+
+.derechaDI {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.contenedorDMM {
+    display: flex;
+    justify-content: space-between;
+}
+
+.espacio {
+    height: 10px;
+    width: 20%;
+}
+
+.contenedorBotonesRMV {
+    width: 100%;
+    height: 20px;
+    /* background-color: #0072BC; */
+    display: flex;
+    /* background-color: aqua; */
+}
+
+.botoncontenedorRMV {
+    width: 7%;
+    height: 100%;
+    /* background-color: black; */
+    display: flex;
+    border: 0px;
+}
+
+.botoncontenedorRMV .botones {
+    width: 100%;
+    height: 100%;
+    background-color: #7892A4;
+    font-size: small;
+    /* border-radius: 5px; */
+}
+
+.contDatosDMM1 {
+    height: 20%;
+    /* background-color: #9E0520; */
+}
+
+.contDatosGenRAM {}
+
+.contDatosRAEM2 {
+    height: 20%;
+    width: 100%;
+}
+
+.contDatosRAEM1 {
+    height: 30%;
+    width: 100%;
+}
+
+.buttonREAM {
+    background-color: #042354;
+    color: white;
+    height: 35px;
+    width: 115px;
+    justify-content: center;
+    font-weight: bold;
+    font-size: small;
+    border: 0px;
+    border-color: white;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+
+.izquierdaREAM .btnGuardarREM {}
+
+.contenedorDC {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.derechaREAM {
+    width: 100%;
+    text-align: left;
+}
+
+.izquierdaREAM {
+    width: 100%;
+    text-align: right;
+}
+
+.custom-file-wrp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-file {
+    display: flex;
+}
+
+.filename {
+    background: #fff;
+    padding: 15px 15px;
+    border: 1px solid #ddd;
+    width: 600px;
+    margin-right: 15px;
+    color: #999
+}
+
+.ddSeleccion {
+    border-color: #042354;
+    font-size: 14px;
+}
+
+.btnSubir {
+    background-color: #042354;
+    font-weight: bold;
+    border: none;
+}
+
+.custom-file input[type="file"] {
+    display: none
+}
+
+.custom-file label {
+    cursor: pointer;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    border: 0px;
+    border-radius: 5px;
+    margin-left: 150px;
+    margin-right: 50px;
+    font-weight: bold;
+}
+
+.custom-file .labelButton {
+    cursor: pointer;
+    background: #042354;
+    display: inline-block;
+    color: #fff;
+    padding: 14px 40px;
+    text-align: center;
+    border: 0px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+
+.my-page-class {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    background-color: #f2f2f2;
+    color: #042354;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.my-page-class.active {
+    background-color: #042354;
+    border: 1px solid #042354;
+    color: #fff;
+}
+
+.my-dropdown-button {
+    /* 
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    border-radius: 3px;
+    /* Otros estilos deseados */
+}
+
+.my-dropdown-item {
+    /* 
+    background-color: #fff;
+    color: #333;
+    padding: 5px 10px;
+    /* Otros estilos deseados */
+}
+
+.contenedor-indicadores-rellenoREAM th {
+    background-color: #D9DFDF;
+}
+
+.contenedor-indicadores-rellenoREAM thead {
+    margin-top: 15px;
+    border-radius: 10px;
+}
