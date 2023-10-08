@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b16bf3ae-6bd8-4453-ad2c-4276419a0894" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/Genetic.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/GeneticAlgorithm/Algorithm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/GeneticAlgorithm/Components/Individual.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/GeneticAlgorithm/Operations/Crossover.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/GeneticAlgorithm/Operations/Initializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/GeneticAlgorithm/Operations/Inserter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/GeneticAlgorithm/Operations/Insertion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/GeneticAlgorithm/Operations/Mutation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/GeneticAlgorithm/Operations/Selection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/MDVRP/Customer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/MDVRP/Depot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic/MDVRP/Manager.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2VxGMa3pPvCEyJBDEKr0Ktn15uM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Xuan",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/FABIAN/Documents/CURSOS/2023-1/Trabajo/SGAGLP/VehicleRoutingProblem",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.AntColony.Main">
+    <configuration name="AntColony.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AntColony.Main" />
+      <module name="VehicleRoutingProblem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="AntColony.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.AntColony.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b16bf3ae-6bd8-4453-ad2c-4276419a0894" name="Changes" comment="" />
+      <created>1695770270129</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695770270129</updated>
+      <workItem from="1695770271137" duration="2976000" />
+      <workItem from="1695778090255" duration="403000" />
+      <workItem from="1695778791315" duration="805000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
