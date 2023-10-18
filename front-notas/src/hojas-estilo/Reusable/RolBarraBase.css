@@ -1,0 +1,241 @@
+@import '~typeface-lato';
+
+/*Estilo general*/
+.barraLateralRBB {
+    background-color: #042354;
+    height: 100%;
+    /* Full-height: remove this if you want "auto" height*/
+    position: fixed;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    /*border-radius: 0px 15px 15px 0px;*/
+}
+
+.menuRBB {
+    padding: 0% !important;
+    text-align: center;
+    background-color: #f7f7fc;
+}
+
+
+/*Parte Inferior del menu*/
+.icono-salida-RBB {
+    font-size: xx-large;
+    font-size: 30px;
+}
+
+.fotoPerfilAdmin {
+
+    height: 55px;
+    width: 55px;
+    min-height: 80%;
+    border-radius: 100%;
+    border: 2px solid #042354;
+    margin-right: 10px;
+}
+
+.fotoPerfilEspe {
+    height: 55px;
+    width: 55px;
+    min-height: 80%;
+    border-radius: 100%;
+    border: 2px solid #042354;
+    margin-right: 10px !important;
+}
+
+.icono-persona-RBB {
+    font-size: 30px;
+    display: flex;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-right: 10px;
+    width: 30px;
+}
+
+.cuadro-RBB {
+    margin-right: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.cuadro-RBB .nombre p {
+    font-size: 0.8rem;
+    font-family: 'Montserrat', sans-serif !important;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-top: 10px;
+    max-width: 100px;
+}
+
+.cuadro-RBB .tiempo {
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-family: 'Montserrat', sans-serif !important;
+
+}
+
+.perfil-RBB {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+}
+
+.titulo-RBB {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: white;
+    font-family: 'Montserrat', sans-serif !important;
+    border: 0px;
+    margin-bottom: 10px;
+}
+
+/*Parte central del menu*/
+.mainRBB {
+    background-color: #f7f7fc;
+    font-family: sans-serif !important;
+    /*height: 100% !important;*/
+
+
+   /*background-image: url("../../images/fondoAreaMain2.png");
+    background-repeat: no-repeat;
+    background-size: cover;*/
+}
+
+.menuRBB li a i {
+    font-size: 2.0rem;
+    margin-right: 10px;
+}
+
+.menuRBB li {
+    margin-top: 5px;
+    width: 100%;
+}
+
+.menuRBB li a {
+    color: white;
+    font-size: large;
+    font-family: 'Lato', sans-serif !important;
+    font-weight: 500;
+    /* Opción "Black" */
+    /*justify-content: center;   Opcion para mover al medio en hover*/
+    align-items: center;
+    text-align: center;
+    display: flex;
+}
+
+.menuRBB li:hover {
+    width: 100%;
+    background-color: #003C7A;
+    color: white;
+    border-radius: 10px;
+}
+
+.fondoSeleccionado {
+    background-color: #003C7A;
+    /* Reemplaza con el color de fondo deseado */
+    width: 100%;
+    border-radius: 10px;
+}
+
+
+.menuRBB li:hover a {
+    color: white;
+}
+
+/*Area de trabajo*/
+.sub-contenedor-RBB {
+    width: 100%;
+    height: 100%;
+
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.encabezado-RBB {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 70px;
+    width: 100%;
+    border-bottom: 1px solid #042354;
+    margin-top: 27px;
+
+}
+
+.icono-flecha-RBB {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 6%;
+    height: 100%;
+    font-size: xx-large;
+    color: #042354;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.titulo-pestaña-RBB {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: 94%;
+    height: 100%;
+}
+
+.titulo-pestaña-RBB p {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    color: #042354;
+    font-weight: bold;
+    width: 100%;
+    font-size: 2.0rem;
+    /*
+    padding-bottom: 10px;
+    */
+}
+
+.area-trabajo-RBB {
+    align-items: self-start;
+    justify-content: center;
+    display: flex;
+    height: 95%;
+    width: 100%;
+
+}
+
+.opcionRBB {
+    font-size: 18px !important;
+    /*color: pink;*/
+    text-align: left;
+    margin-left: 0.25rem!important;
+}
+
+.baseRBB {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.contenedor-RBB {
+    height: 90%;
+}
+
+.nav {
+    width: 100% !important;
+}
+
+.dropdown {
+    width: 100% !important;
+}

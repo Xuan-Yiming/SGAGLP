@@ -1,0 +1,10 @@
+.totalMenuPrincipal{
+
+
+    width: 100%;
+    height: 931px;
+    display: flex;
+    flex-direction: row;
+    background-color: antiquewhite;
+}
+
