@@ -36,9 +36,11 @@ const ExpandableMenu = () => {
       </div>
       <div className="menu-content">
         <ul>
+        
           <li>{menuExpanded ?     <div><i class="bi bi-calendar3"></i> Planificacion</div>:<i class="bi bi-calendar3"></i>  }</li>
           <li>{menuExpanded ?     <div><i class="bi bi-box-seam"></i> Pedidos</div>:<i class="bi bi-box-seam"></i>  }</li>
           <li>{menuExpanded ?     <div><i class="bi bi-truck"></i> Flotas</div>:<i class="bi bi-truck"></i> }</li>
+          <li>{menuExpanded ?     <div><i class="bi bi-stopwatch"></i> Simulaciones</div>:<i class="bi bi-stopwatch"></i> }</li>
         </ul>
       </div>
     </div>
