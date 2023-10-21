@@ -1,11 +1,8 @@
-import AStar.AStar;
-import AStar.ANode;
 import Genetic.GA.Algorithm;
 import Genetic.MDVRP.Customer;
 import Genetic.MDVRP.Depot;
 import Genetic.MDVRP.Manager;
 import Genetic.MDVRP.Solution;
-import Hungarian.HungarianAlgorithm;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,9 +15,6 @@ public class Main {
         int iterations = 10;
         double[] algorithm1Costs = new double[iterations];
         long [] algorithm1Times = new long[iterations];
-
-        double[] algorithm2Costs = new double[iterations];
-        long [] algorithm2Times = new long[iterations];
 
         // define the general parameters for the problem
         Random r = new Random();
@@ -97,19 +91,6 @@ public class Main {
                 algorithm1Times[x] = duration;
 
 
-                // second algorithm
-                startTime = System.nanoTime();
-                // ------------------------ Hungarian + Genetic ------------------------ //
-
-                // run the algorithm
-                Hungarian.Algorihm hungarian = new Hungarian.Algorihm(depots, customers, obstacles, nVehicles, 100, width, height);
-                hungarian.run();
-
-                // save the results
-                algorithm2Costs[x] = hungarian.getCost();
-                endTime = System.nanoTime();
-                duration = (endTime - startTime) / 1000000;
-                algorithm2Times[x] = duration;
             }catch (Exception e){
                 System.out.println(e.getMessage());
                 x--;
@@ -118,7 +99,6 @@ public class Main {
 
         for (int i = 0; i < iterations; i++) {
             System.out.println("Algorithm 1: " + algorithm1Costs[i] + " - " + algorithm1Times[i]);
-            System.out.println("Algorithm 2: " + algorithm2Costs[i] + " - " + algorithm2Times[i]);
         }
 
     }

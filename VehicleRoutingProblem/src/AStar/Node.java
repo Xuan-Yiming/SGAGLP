@@ -1,33 +1,29 @@
 package AStar;
 
-public class ANode {
+public class Node {
 
     public int x, y;
     public double f, g, h;
     public NodeType type;
-    public ANode parent;
+    public Node parent;
 
-    public ANode(int x, int y)
-    {
+    public Node(int x, int y) {
         this(x, y, NodeType.Air);
     }
 
-    public ANode(int x, int y, NodeType type)
-    {
+    public Node(int x, int y, NodeType type) {
         this.x = x;
         this.y = y;
         this.type = type;
     }
 
-    public void clearData()
-    {
+    public void clearData() {
         f = 0;
         g = 0;
         h = 0;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return "(" + x + ", " + y + ", type:" + type + "), (f:" + f + ", g:" + g + ", h:" + h + ")";
     }
 }
