@@ -7,7 +7,7 @@ import SimulacionPrincipal from './SimulacionPrincipal';
 
 export function MenuContenedor() {
 
-    const [bandera,setBandera]=useState(false);
+    const [bandera,setBandera]=useState(true);
     const [bandera2,setBandera2]=useState(false);
     const [bandera3,setBandera3]=useState(false);
 
@@ -18,8 +18,8 @@ export function MenuContenedor() {
             <div className='totalMenuPrincipal'>
                 
                 <div className='contenedorTrabajo'>
-                    {bandera?<PlanificacionPrincipal cambiarComponente={setBandera} />:
-                    bandera2?<SimulacionPrincipal cambiarComponente={setBandera2} />:
+                    {bandera?<SimulacionPrincipal cambiarComponente={setBandera} />:
+                    bandera2?<PlanificacionPrincipal cambiarComponente={setBandera2} />:
                     <SimulacionPrincipal/>}
                 </div>
 
