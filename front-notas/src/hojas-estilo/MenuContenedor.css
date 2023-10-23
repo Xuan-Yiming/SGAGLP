@@ -1,10 +1,27 @@
 .totalMenuPrincipal{
 
 
-    width: 100%;
-    height: 931px;
+    width: 97%;
+    height: 100%;
     display: flex;
     flex-direction: row;
-    background-color: antiquewhite;
+    /* color: aqua; */
+    
+    /* antiquewhite */
+    background-color: #F0F0F0;
 }
 
+.superContenedor{
+
+    width: 100%;
+    height: 937px;
+    display: flex;
+    align-items: end;
+    justify-content: right;
+}
+.contenedorTrabajo{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* flex-direction: column; */
+}
