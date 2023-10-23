@@ -5,30 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52603478-d991-451e-a102-13ba82f4bbab" name="Changes" comment="Genetic">
-      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Chromosome.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Population.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Node.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Vehicle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GAProblem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Individual.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AStar/ANode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AStar/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AStar/AStar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AStar/AStar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticPathFinding/Algorithm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticPathFinding/Genetic.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticPathFinding/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticPathFinding/Mice.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticPathFinding/World.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hungarian/Algorihm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hungarian/Car.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hungarian/HungarianAlgorithm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hungarian/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hungarian/Node.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hungarian/Order.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hungarian/PathFind.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Hungarian/Storage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Chromosome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Chromosome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Population.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Population.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Vehicle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,19 +43,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/xuany/Documents/Github/SGAGLP/VehicleRoutingProblem",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/xuanyiming/Github/VehicleRoutingProblem&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\xuany\Documents\Github\SGAGLP\VehicleRoutingProblem\src\GeneticPathFinding" />
@@ -95,6 +80,8 @@
       <workItem from="1696380988616" duration="1128000" />
       <workItem from="1697304793164" duration="2511000" />
       <workItem from="1697861645248" duration="5819000" />
+      <workItem from="1697914911393" duration="109000" />
+      <workItem from="1697915049460" duration="8260000" />
     </task>
     <servers />
   </component>
