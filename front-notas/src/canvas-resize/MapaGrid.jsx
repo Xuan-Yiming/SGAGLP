@@ -7,7 +7,13 @@ const MapGrid = (props) => {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     // const [images, setImages] = useState({});
 
+    const objectX = useRef(0);
+    const objectSpeed = 2;
+
     useEffect(() => {
+
+        
+
         // const icons = {
         //     camion: logo,
         //     cliente: logo,
@@ -72,6 +78,18 @@ const MapGrid = (props) => {
         ctx.stroke();
 
 
+        const backgroundImage = new Image();
+        backgroundImage.src = 'ruta/a/la/imagen-de-fondo.png'; // Reemplaza con la ruta correcta
+        backgroundImage.onload = () => {
+            // Dibujar la imagen de fondo
+            ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
+            // ... (código para dibujar el objeto móvil)
+        };
+
+
+
+
         // function animate(){
         //     let a=0;
         //     ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
@@ -99,7 +117,31 @@ const MapGrid = (props) => {
         //         );
         //     }
         // });
+        // const updateMovingObject = () => {
+        //     objectX.current += objectSpeed;
+        //     if (objectX.current > canvas.width) {
+        //         objectX.current = -20; // Vuelve a empezar desde el principio
+        //     }
+        // };
+
+
+        // const drawMovingObject = () => {
+        //     ctx.clearRect(0, 0, canvas.width, canvas.height); 
+        //     ctx.fillStyle = 'red'; // Color del objeto móvil
+        //     ctx.fillRect(objectX.current, canvas.height / 2 - 10, 20, 20); // Dibuja un rectángulo móvil
+        // };
+
+        // const animateMovingObject = () => {
+        //     drawMovingObject();
+        //     updateMovingObject();
+        //     requestAnimationFrame(animateMovingObject);
+        // };
+
+        // animateMovingObject();
+
     }, [dimensions]);
+    
+    
 
     return <canvas ref={canvasRef} {...props} />;
 };
