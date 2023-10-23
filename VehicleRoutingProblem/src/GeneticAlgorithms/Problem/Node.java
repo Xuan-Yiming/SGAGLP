@@ -4,8 +4,9 @@ import java.awt.*;
 import java.util.Date;
 
 public class Node {
+    private String id;
     private Point posicion;
-    private char tipo; // C: Customer, D: Depot, B: Base, W: Wall
+    private char tipo; // C: Customer, D: Depot, B: Block
     private Date fechaInicio;
     private Date fechaFinal;
 
@@ -17,7 +18,7 @@ public class Node {
 
     // Constructor
     public Node(int x, int y) {
-        // Base
+        // Block
         this.posicion = new Point(x, y);
         this.tipo = 'B';
         this.fechaInicio = new Date();
@@ -44,6 +45,13 @@ public class Node {
 
     //getters and setters
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Point getPosicion() {
         return posicion;

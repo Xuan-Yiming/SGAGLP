@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52603478-d991-451e-a102-13ba82f4bbab" name="Changes" comment="Genetic">
-      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GAProblem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Individual.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Chromosome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Chromosome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Population.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Population.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Individual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Individual.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Vehicle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,6 +84,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Genetic" />

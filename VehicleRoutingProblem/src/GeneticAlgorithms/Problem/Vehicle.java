@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Vehicle {
     private static final int MINUTES_IN_A_DAY = 1440;
+    private String id;
     private char type;
     private double pesoBruto; // ton
     private double cargaGLP; // peso carga GLP = carga GLP/2 ton
@@ -136,6 +137,15 @@ public class Vehicle {
     }
 
     // getters and setters
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public char getType() {
         return type;
     }
