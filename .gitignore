@@ -28,3 +28,5 @@ node-modules/
 .cache/
 node-modules/.cache/
 front-notas/node_modules/.cache/.eslintcache
+front-notas/node_modules/.cache/.eslintcache
+node_modules/.cache/.eslintcache
