@@ -26,3 +26,4 @@ replay_pid*
 node-modules/
 .idea/
 .cache/
+node-modules/.cache/

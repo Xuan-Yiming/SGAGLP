@@ -66,7 +66,9 @@ export function SimulacionPrincipal() {
 
                 <div className='SimulacionLadoIzq'>
                     <div className='SimulacionTitulo'>
-                        <h1>Simulacion</h1>
+                        <div>
+                            <h1>Simulacion</h1>
+                        </div>
                     </div>
                     <div className='SimulacionMapa' ref={divRef}>
                         {/* <Canvas className='mapaSimulado'  draw = {draw} draw2 ={null} width='100%' height ='100%'/> */}
