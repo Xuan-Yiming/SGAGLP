@@ -54,7 +54,7 @@ public class Gene {
     public void addNode(Node node){
         this.route.add(node);
         if(node.getTipo() == 'C'){
-            this.cargaGLP -= node.getPedido();
+            this.cargaGLP -= node.getCantidad();
             this.cargaPetroleo -= consumoGLP(distanceToANode(node));
             this.totalTime += timeToANode(distanceToANode(node));
         }else if(node.getTipo() == 'D') {
@@ -82,7 +82,7 @@ public class Gene {
 
     public boolean canDeliver(Node custumor){
         //si tiene suficiente GLP
-        if(this.cargaGLP < custumor.getPedido()){
+        if(this.cargaGLP < custumor.getCantidad()){
             return false;
         }
         int distancia = distanceToANode(custumor);

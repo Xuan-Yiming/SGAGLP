@@ -11,7 +11,7 @@ public class Node {
     private Date fechaFinal;
 
     // Customer
-    private double pedido;
+    private double cantidad;
 
     // Depot
     private double capacidad;
@@ -25,12 +25,12 @@ public class Node {
         this.fechaFinal = new Date();
     }
 
-    public Node(String id, int x, int y, double pedido, Date fechaInicio, Date fechaFinal) {
+    public Node(String id, int x, int y, double cantidad, Date fechaInicio, Date fechaFinal) {
         // Customer
         this.id = id;
         this.posicion = new Point(x, y);
         this.tipo = 'C';
-        this.pedido = pedido;
+        this.cantidad = cantidad;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
     }
@@ -86,12 +86,12 @@ public class Node {
         this.fechaFinal = fechaFinal;
     }
 
-    public double getPedido() {
-        return pedido;
+    public double getCantidad() {
+        return cantidad;
     }
 
-    public void setPedido(double pedido) {
-        this.pedido = pedido;
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
     }
 
     public double getCapacidad() {
