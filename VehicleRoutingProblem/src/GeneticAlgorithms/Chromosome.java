@@ -8,231 +8,43 @@ import java.util.Date;
 import java.util.Random;
 
 public class Chromosome {
-    private static final int MINUTES_IN_A_DAY = 1440;
-    private String id;
-    private char type;
-    private double pesoBruto; // ton
-    private double cargaGLP; // peso carga GLP = carga GLP/2 ton
-    private double pesoNeto; // ton
-    private double velocidad = 50; // 50 km/h
-    private double cargaPetroleo = 25; // 25 Galones
-    private Date mantenimiento; // 1 mes
-    private ArrayList<Node> route;
-    private int totalTime;
-    public ArrayList<ArrayList<Gene>> genes;
+    public ArrayList<Gene> genes;
+    private GAProblem problem;
 
     public Chromosome(GAProblem problem){
+        // copy the problem
+        this.problem = problem.clone();
+
         Random random = new Random();
+
         genes = new ArrayList<>();
-        for (int i = 0; i < problem.getVehicles().size(); i++) {
-            genes.add(new ArrayList<>());
+        for (int i = 0; i < this.problem.getVehicles().size(); i++) {
+            //agregar los vehiculos que no estan en mantenimiento
+            if (this.problem.getDate() != this.problem.getVehicles().get(i).getMantenimiento()) {
+                genes.add(new Gene(this.problem.getVehicles().get(i), this.problem.getDepots().get(0)));
+            }
         }
 
-        for (int i = 0; i < problem.getOrders().size(); i++) {
-            int vehicleIndex = random.nextInt(problem.getVehicles().size());
-            if (problem.getVehicles().get(vehicleIndex).canDeliver(problem.getOrders().get(i))){
-                problem.getVehicles().get(vehicleIndex).addNode(problem.getOrders().get(i));
+        for (int i = 0; i < this.problem.getOrders().size(); i++) {
+            int vehicleIndex = random.nextInt(genes.size());
+            // si se puede entregar el pedido
+            if (this.problem.getVehicles().get(vehicleIndex).canDeliver(this.problem.getOrders().get(i))){
+                genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));
             }else{
-                problem.getVehicles().get(vehicleIndex).addNode(problem.getVehicles().get(vehicleIndex).bestDepot(problem.getDepots()));
-                problem.getVehicles().get(vehicleIndex).addNode(problem.getOrders().get(i));
-            }
-            genes.get(vehicleIndex).add(new Gene(problem.getOrders().get(i)));
-        }
-
-    }
-
-    // Methods
-
-    public double consumoGLP(double distancia){
-        return distancia * pesoNeto / 180;
-    }
-
-    public void addNode(Node node){
-        this.route.add(node);
-        if(node.getTipo() == 'C'){
-            this.cargaGLP -= node.getPedido();
-            this.cargaPetroleo -= consumoGLP(distanceToANode(node));
-            this.totalTime += timeToANode(distanceToANode(node));
-        }else if(node.getTipo() == 'D') {
-            switch (this.type){
-                case 'A':
-                    this.pesoBruto = 2.5;
-                    this.cargaGLP = 25;
-                    break;
-                case 'B':
-                    this.pesoBruto = 2;
-                    this.cargaGLP = 15;
-                    break;
-                case 'C':
-                    this.pesoBruto = 1.5;
-                    this.cargaGLP = 10;
-                    break;
-                case 'D':
-                    this.pesoBruto = 1;
-                    this.cargaGLP = 5;
-                    break;
+                // si no se puede entregar el pedido, se dirige al mejor deposito
+                genes.get(vehicleIndex).addNode(genes.get(vehicleIndex).bestDepot(this.problem.getDepots()));
+                i--;
             }
         }
-        this.pesoNeto = this.pesoBruto + this.cargaGLP/2;
+
     }
 
-    public boolean canDeliver(Node custumor){
-        //si tiene suficiente GLP
-        if(this.cargaGLP < custumor.getPedido()){
-            return false;
+    public double calculateFitness(){
+        double fitness = 0;
+        for (int i = 0; i < genes.size(); i++) {
+            fitness += genes.get(i).calculateFitness();
         }
-        int distancia = distanceToANode(custumor);
-
-        //si puede llegar antes de que termine el dia
-        if(totalTime + timeToANode(distancia) > MINUTES_IN_A_DAY){
-            return false;
-        }
-        //si puede llegar a tiempo
-        if(totalTime + timeToANode(distancia) > custumor.getFechaFinal().getTime() - custumor.getFechaInicio().getTime()){
-            return false;
-        }
-        //si tiene suficiente petroleo
-        if(this.cargaPetroleo < consumoGLP(distancia)){
-            return false;
-        }
-        return true;
+        return fitness;
     }
 
-    public int distanceToANode(Node node){
-        return (int) Math.sqrt(Math.pow(node.getPosicion().getX() - this.route.get(this.route.size()-1).getPosicion().getX(), 2) + Math.pow(node.getPosicion().getY() - this.route.get(this.route.size()-1).getPosicion().getY(), 2));
-    }
-
-    public int timeToANode(int distancia){
-        //time to a node in minutes
-        return (int)(distancia/this.velocidad * 60);
-    }
-
-    public Node bestDepot(ArrayList<Node> depots){
-        int shortestDistance = Integer.MAX_VALUE;
-        Node bestDepot = null;
-        for(Node depot: depots){
-            if(canDeliver(depot)){
-                if (distanceToANode(depot) < shortestDistance){
-                    shortestDistance = distanceToANode(depot);
-                    bestDepot = depot;
-                }
-            }
-        }
-        double maxCapacidadGLP = 0;
-        switch (this.type){
-            case 'A':
-                maxCapacidadGLP = 25;
-                break;
-            case 'B':
-                maxCapacidadGLP = 15;
-                break;
-            case 'C':
-                maxCapacidadGLP = 10;
-                break;
-            case 'D':
-                maxCapacidadGLP = 5;
-                break;
-        }
-        bestDepot.setCapacidad(bestDepot.getCapacidad()-(maxCapacidadGLP - this.cargaGLP));
-        return bestDepot;
-    }
-    // Constructor
-    public Individual(char type, Date mantenimiento){
-        this.type = type;
-        switch (type){
-            case 'A':
-                this.pesoBruto = 2.5;
-                this.cargaGLP = 25;
-                break;
-            case 'B':
-                this.pesoBruto = 2;
-                this.cargaGLP = 15;
-                break;
-            case 'C':
-                this.pesoBruto = 1.5;
-                this.cargaGLP = 10;
-                break;
-            case 'D':
-                this.pesoBruto = 1;
-                this.cargaGLP = 5;
-                break;
-        }
-        this.pesoNeto = this.pesoBruto + this.cargaGLP/2;
-        this.mantenimiento = mantenimiento;
-        this.route = new ArrayList<>();
-    }
-
-    // getters and setters
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public char getType() {
-        return type;
-    }
-
-    public void setType(char type) {
-        this.type = type;
-    }
-
-    public double getPesoBruto() {
-        return pesoBruto;
-    }
-
-    public void setPesoBruto(double pesoBruto) {
-        this.pesoBruto = pesoBruto;
-    }
-
-    public double getCargaGLP() {
-        return cargaGLP;
-    }
-
-    public void setCargaGLP(double cargaGLP) {
-        this.cargaGLP = cargaGLP;
-    }
-
-    public double getPesoNeto() {
-        return pesoNeto;
-    }
-
-    public void setPesoNeto(double pesoNeto) {
-        this.pesoNeto = pesoNeto;
-    }
-
-    public double getVelocidad() {
-        return velocidad;
-    }
-
-    public void setVelocidad(double velocidad) {
-        this.velocidad = velocidad;
-    }
-
-    public double getCargaPetroleo() {
-        return cargaPetroleo;
-    }
-
-    public void setCargaPetroleo(double cargaPetroleo) {
-        this.cargaPetroleo = cargaPetroleo;
-    }
-
-    public Date getMantenimiento() {
-        return mantenimiento;
-    }
-
-    public void setMantenimiento(Date mantenimiento) {
-        this.mantenimiento = mantenimiento;
-    }
-
-    public ArrayList<Node> getRoute() {
-        return route;
-    }
-
-    public void setRoute(ArrayList<Node> route) {
-        this.route = route;
-    }
 }

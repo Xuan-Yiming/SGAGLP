@@ -1,11 +1,13 @@
 package GeneticAlgorithms.Problem;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Vehicle {
     private static final int MINUTES_IN_A_DAY = 1440;
     private String id;
+    private Point posicion;
     private char type;
     private double pesoBruto; // ton
     private double cargaGLP; // peso carga GLP = carga GLP/2 ton
@@ -15,6 +17,7 @@ public class Vehicle {
     private Date mantenimiento; // 1 mes
     private ArrayList<Node> route;
     private int totalTime;
+
 
     // Methods
     public double consumoGLP(double distancia){
@@ -134,9 +137,26 @@ public class Vehicle {
         this.pesoNeto = this.pesoBruto + this.cargaGLP/2;
         this.mantenimiento = mantenimiento;
         this.route = new ArrayList<>();
+        this.posicion = new Point(12,8);
     }
 
     // getters and setters
+
+    public Point getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(Point posicion) {
+        this.posicion = posicion;
+    }
+
+    public int getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(int totalTime) {
+        this.totalTime = totalTime;
+    }
 
     public String getId() {
         return id;

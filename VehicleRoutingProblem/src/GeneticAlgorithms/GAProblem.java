@@ -4,12 +4,14 @@ import GeneticAlgorithms.Problem.Node;
 import GeneticAlgorithms.Problem.Vehicle;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-public class GAProblem {
+public class GAProblem implements Cloneable{
     private ArrayList<Vehicle> vehicles;
     private ArrayList<Node> orders;
     private ArrayList<Node> depots;
     private ArrayList<Node> blocks;
+    private Date date;
 
     // Constructors
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots, ArrayList<Node> blocks) {
@@ -19,7 +21,24 @@ public class GAProblem {
         this.blocks = blocks;
     }
 
+    //Methods
+    @Override
+    public GAProblem clone() {
+        try {
+            return (GAProblem) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();  // This should not happen.
+        }
+    }
     // Getters and Setters
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public ArrayList<Vehicle> getVehicles() {
         return vehicles;

@@ -25,8 +25,9 @@ public class Node {
         this.fechaFinal = new Date();
     }
 
-    public Node(int x, int y, double pedido, Date fechaInicio, Date fechaFinal) {
+    public Node(String id, int x, int y, double pedido, Date fechaInicio, Date fechaFinal) {
         // Customer
+        this.id = id;
         this.posicion = new Point(x, y);
         this.tipo = 'C';
         this.pedido = pedido;

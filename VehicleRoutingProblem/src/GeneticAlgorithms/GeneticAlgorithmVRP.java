@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class GeneticAlgorithmVRP {
     private Population population;
+    private int iterations = 100;
     public GeneticAlgorithmVRP(){
         ArrayList<Node> orders = new ArrayList<>();
         ArrayList<Vehicle> vehicles = new ArrayList<>();
@@ -16,6 +17,17 @@ public class GeneticAlgorithmVRP {
         GAProblem problem = new GAProblem(orders, vehicles, depots, blocks);
 
         population = new Population(problem);
+
+        Individual fittest = population.getFittest();
+
+        for (int i = 0; i < iterations; i++) {
+            ArrayList<Individual> parents = GeneticOperators.selection(population);
+            population = GeneticOperators.crossover(population);
+            population = GeneticOperators.mutation(population);
+            if (population.getFittest().calculateFitness() < fittest.calculateFitness()){
+                fittest = population.getFittest();
+            }
+        }
 
     }
     public static void excute(){
