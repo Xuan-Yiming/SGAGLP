@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="52603478-d991-451e-a102-13ba82f4bbab" name="Changes" comment="Genetic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Chromosome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Chromosome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticOperators.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticOperators.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Individual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Individual.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +80,7 @@
       <workItem from="1697914911393" duration="109000" />
       <workItem from="1697915049460" duration="8260000" />
       <workItem from="1698094122050" duration="17748000" />
+      <workItem from="1698156222901" duration="9477000" />
     </task>
     <servers />
   </component>

@@ -22,7 +22,7 @@ public class GeneticAlgorithmVRP {
 
         for (int i = 0; i < iterations; i++) {
             ArrayList<Individual> parents = GeneticOperators.selection(population);
-            population = GeneticOperators.crossover(population);
+            parents = GeneticOperators.crossover(parents);
             population = GeneticOperators.mutation(population);
             if (population.getFittest().calculateFitness() < fittest.calculateFitness()){
                 fittest = population.getFittest();

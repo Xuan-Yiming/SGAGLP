@@ -1,17 +1,15 @@
 package GeneticAlgorithms;
 
-import GeneticAlgorithms.Problem.Node;
-import GeneticAlgorithms.Problem.Vehicle;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 
 public class Chromosome {
     public ArrayList<Gene> genes;
     private GAProblem problem;
+    private static double DEPOTRATE = 0.3;
 
     public Chromosome(GAProblem problem){
+
         // copy the problem
         this.problem = problem.clone();
 
@@ -27,16 +25,15 @@ public class Chromosome {
 
         for (int i = 0; i < this.problem.getOrders().size(); i++) {
             int vehicleIndex = random.nextInt(genes.size());
-            // si se puede entregar el pedido
-            if (this.problem.getVehicles().get(vehicleIndex).canDeliver(this.problem.getOrders().get(i))){
-                genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));
-            }else{
-                // si no se puede entregar el pedido, se dirige al mejor deposito
+            double ifGoToDepot = random.nextDouble();
+            if (ifGoToDepot < DEPOTRATE) {
+                // si se dirige al deposito, se dirige al mejor deposito
                 genes.get(vehicleIndex).addNode(genes.get(vehicleIndex).bestDepot(this.problem.getDepots()));
                 i--;
+            } else {
+                genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));
             }
         }
-
     }
 
     public double calculateFitness(){
