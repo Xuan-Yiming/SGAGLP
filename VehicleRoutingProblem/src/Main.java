@@ -3,6 +3,7 @@ import Genetic.MDVRP.Customer;
 import Genetic.MDVRP.Depot;
 import Genetic.MDVRP.Manager;
 import Genetic.MDVRP.Solution;
+import GeneticAlgorithms.GeneticAlgorithmVRP;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,7 +11,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Main {
-    public static void main(String[] args) {
+
+    public static void main(String[] args){
+        new GeneticAlgorithmVRP();
+    }
+    public static void main2(String[] args) {
 
         int iterations = 10;
         double[] algorithm1Costs = new double[iterations];

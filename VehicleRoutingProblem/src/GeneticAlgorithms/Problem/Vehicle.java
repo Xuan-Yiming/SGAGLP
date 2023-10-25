@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Vehicle {
     private static final int MINUTES_IN_A_DAY = 1440;
-    private String id;
+    private int id;
     private Point posicion;
     private char type;
     private double pesoBruto; // ton
@@ -114,7 +114,7 @@ public class Vehicle {
         return bestDepot;
     }
     // Constructor
-    public Vehicle(char type, Date mantenimiento){
+    public Vehicle(int id, char type, Date mantenimiento){
         this.type = type;
         switch (type){
             case 'A':
@@ -158,11 +158,11 @@ public class Vehicle {
         this.totalTime = totalTime;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

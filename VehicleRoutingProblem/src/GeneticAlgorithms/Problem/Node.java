@@ -3,7 +3,7 @@ package GeneticAlgorithms.Problem;
 import java.awt.*;
 import java.util.Date;
 
-public class Node {
+public class Node implements Cloneable {
     private String id;
     private Point posicion;
     private char tipo; // C: Customer, D: Depot, B: Block
@@ -42,6 +42,15 @@ public class Node {
         this.capacidad = capacidad;
         this.fechaInicio = new Date();
         this.fechaFinal = new Date();
+    }
+
+    @Override
+    public Node clone() {
+        try {
+            return (Node) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();  // This should not happen.
+        }
     }
 
     //getters and setters

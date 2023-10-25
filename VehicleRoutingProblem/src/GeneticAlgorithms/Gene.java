@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class Gene {
     private static final int MINUTES_IN_A_DAY = 1440;
-    private String id;
+    private int id;
     private Point posicion;
     private char type;
     private double pesoBruto; // ton
@@ -159,11 +159,11 @@ public class Gene {
         this.totalTime = totalTime;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

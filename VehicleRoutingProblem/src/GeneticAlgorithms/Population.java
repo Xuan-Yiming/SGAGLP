@@ -46,4 +46,20 @@ public class Population {
         }
         return secondFittest;
     }
+
+    public void replaceLastFittest(Individual fittestOffspring) {
+        //replace the lowest fitness
+        double lowestFitness = Double.MAX_VALUE;
+        int lowestFitnessIndex = 0;
+
+        for (Individual individual : individuals) {
+            if (lowestFitness >= individual.getFitness()){
+                lowestFitness = individual.getFitness();
+                lowestFitnessIndex = individuals.indexOf(individual);
+            }
+        }
+
+        individuals.set(lowestFitnessIndex, fittestOffspring);
+
+    }
 }
