@@ -118,7 +118,7 @@ const MapGrid2 = (props) => {
             // ctx.stroke();
             ctx.fillRect(delta + unidadCuadroAncho*0.5,0 +unidadCuadroAlto*0.5,
                                 unidadCuadroAncho,unidadCuadroAlto);
-            x+=(unidadCuadroAncho)/50;  //esto se divide entre 60 para el tiempo real
+            x+=(unidadCuadroAncho)/50;  //esto se divide entre 60 para el tiempo real cada min y 3600 para segundo
             // requestAnimationFrame(animate);
             // console.log('loop');
         
