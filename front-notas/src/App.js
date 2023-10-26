@@ -1,5 +1,6 @@
 
 import './App.css';
+import React from 'react';
 import IngresarCuenta from './componentes/IngresarCuenta';
 import MenuContenedor from './componentes/MenuContenedor';
 import PlanificacionPrincipal from './componentes/PlanificacionPrincipal';

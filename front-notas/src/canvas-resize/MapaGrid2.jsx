@@ -14,6 +14,33 @@ const MapGrid2 = (props) => {
     const objectX = useRef(0);
     const objectSpeed = 2;
 
+    const inicio ={"x":1,"y":1};
+    const actual ={"x":1,"y":1};
+    const final ={"x":2,"y":1};
+
+
+
+    const dibujarHacia = (context,actual,inicio,final,velocidad,direccion)=>{
+
+
+        //NO TRATAR DE REHACER EL -TAMAÑAO POR QUE ESTO PUEDE MALOGRARSE
+        // context.clearRect(0,0,context.canvas.width,context.canvas.height);
+
+        // console.log(velocidad);
+
+        if(velocidad + unidadCuadroAncho*(0.5 + inicio.x) <= unidadCuadroAncho*(0.5 + final.x) && 
+                            unidadCuadroAlto*(0.5 + inicio.y) <= unidadCuadroAlto*(0.5 + final.y))console.log(velocidad);
+        else if (velocidad + unidadCuadroAncho*(0.5 + inicio.x) < unidadCuadroAncho*(0.5 + final.x) && 
+        unidadCuadroAlto*(0.5 + inicio.y) < unidadCuadroAlto*(0.5 + final.y)){
+            context.fillStyle = 'grey';
+            context.fillRect(velocidad + unidadCuadroAncho*(0.5 + inicio.x),unidadCuadroAlto*(0.5+inicio.y),
+                                    unidadCuadroAncho,unidadCuadroAlto);
+            // actual.x++;
+            
+        }
+
+
+    }
 
 
     // useEffect(() => {
@@ -116,9 +143,15 @@ const MapGrid2 = (props) => {
             // ctx.arc(delta,300,30,0,Math.PI,true);
             // ctx.strokeStyle='blue';
             // ctx.stroke();
-            ctx.fillRect(delta + unidadCuadroAncho*0.5,0 +unidadCuadroAlto*0.5,
-                                unidadCuadroAncho,unidadCuadroAlto);
-            x+=(unidadCuadroAncho)/50;  //esto se divide entre 60 para el tiempo real
+
+            // ctx.fillRect(delta + unidadCuadroAncho*0.5,0 +unidadCuadroAlto*0.5,
+            //                     unidadCuadroAncho,unidadCuadroAlto);
+
+
+            dibujarHacia(ctx,actual,inicio,final,delta,1);
+
+
+            x+=(unidadCuadroAncho)/(50);  //esto se divide entre 60 para el tiempo real
             // requestAnimationFrame(animate);
             // console.log('loop');
         
