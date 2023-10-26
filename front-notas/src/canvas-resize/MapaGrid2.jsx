@@ -82,8 +82,8 @@ const MapGrid2 = (props) => {
 
         const cuadrosAlto = 50;
         const cuadrosAncho = 70;
-        console.log(`Ancho del cuadricula: ${canvas.width / cuadrosAncho}`);
-        console.log(`alto cuadricula: ${canvas.height / cuadrosAncho}`);
+        // console.log(`Ancho del cuadricula: ${canvas.width / cuadrosAncho}`);
+        // console.log(`alto cuadricula: ${canvas.height / cuadrosAncho}`);
 
         var x=0;
 
@@ -144,22 +144,22 @@ const MapGrid2 = (props) => {
             // ctx.strokeStyle='blue';
             // ctx.stroke();
 
-            // ctx.fillRect(delta + unidadCuadroAncho*0.5,0 +unidadCuadroAlto*0.5,
+            // ctx.fillRect(props.tiempo + unidadCuadroAncho*0.5,0 +unidadCuadroAlto*0.5,
             //                     unidadCuadroAncho,unidadCuadroAlto);
 
 
-            dibujarHacia(ctx,actual,inicio,final,delta,1);
+            // console.log(props.tiempo);
+
+            dibujarHacia(ctx,actual,inicio,final,props.tiempo,1);
 
 
             x+=(unidadCuadroAncho)/(50);  //esto se divide entre 60 para el tiempo real
-            // requestAnimationFrame(animate);
-            // console.log('loop');
         
         }
         
         animate();
 
-    }, [dimensions]);
+    }, [dimensions,props.tiempo]);
     
     
 
