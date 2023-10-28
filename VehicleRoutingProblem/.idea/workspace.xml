@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="52603478-d991-451e-a102-13ba82f4bbab" name="Changes" comment="Genetic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Population.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Population.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +80,8 @@
       <workItem from="1698094122050" duration="17748000" />
       <workItem from="1698156222901" duration="9558000" />
       <workItem from="1698182029626" duration="12973000" />
+      <workItem from="1698281318078" duration="503000" />
+      <workItem from="1698507460976" duration="181000" />
     </task>
     <servers />
   </component>
@@ -98,5 +102,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Genetic" />
     <option name="LAST_COMMIT_MESSAGE" value="Genetic" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java</url>
+          <line>119</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -24,27 +24,27 @@ public class Population {
     }
 
     public Individual getFittest(){
-        Individual fittest = individuals.get(0);
+        int fittest = 0;
         for (int i = 0; i < populationSize; i++) {
-            if (fittest.calculateFitness() <= individuals.get(i).calculateFitness()){
-                fittest = individuals.get(i);
+            if (individuals.get(fittest).calculateFitness() <= individuals.get(i).calculateFitness()){
+                fittest = i;
             }
         }
-        return fittest;
+        return individuals.get(fittest);
     }
 
     public Individual getSecondFittest(){
-        Individual fittest = individuals.get(0);
-        Individual secondFittest = individuals.get(0);
+        int fittest = 0;
+        int secondFittest = 0;
         for (int i = 0; i < populationSize; i++) {
-            if (fittest.calculateFitness() <= individuals.get(i).calculateFitness()){
+            if (individuals.get(fittest).calculateFitness() <= individuals.get(i).calculateFitness()){
                 secondFittest = fittest;
-                fittest = individuals.get(i);
-            }else if (secondFittest.calculateFitness() <= individuals.get(i).calculateFitness()){
-                secondFittest = individuals.get(i);
+                fittest = i;
+            }else if (individuals.get(secondFittest).calculateFitness() <= individuals.get(i).calculateFitness()){
+                secondFittest = i;
             }
         }
-        return secondFittest;
+        return individuals.get(secondFittest);
     }
 
     public void replaceLastFittest(Individual fittestOffspring) {

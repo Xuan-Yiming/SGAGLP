@@ -80,21 +80,26 @@ public class Gene {
         this.pesoNeto = this.pesoBruto + this.cargaGLP/2;
     }
 
-    public boolean canDeliver(Node custumor){
-        //si tiene suficiente GLP
-        if(this.cargaGLP < custumor.getCantidad()){
-            return false;
-        }
+    public boolean canDeliver(Node custumor) {
         int distancia = distanceToANode(custumor);
 
-        //si puede llegar antes de que termine el dia
-        if(totalTime + timeToANode(distancia) > MINUTES_IN_A_DAY){
-            return false;
+        if (custumor.getTipo() == 'C') {
+            //si tiene suficiente GLP
+            if (this.cargaGLP < custumor.getCantidad()) {
+                return false;
+            }
+
+            //si puede llegar antes de que termine el dia
+            if (totalTime + timeToANode(distancia) > MINUTES_IN_A_DAY) {
+                return false;
+            }
+            //si puede llegar a tiempo
+            if (totalTime + timeToANode(distancia) > custumor.getFechaFinal().getTime()
+                    - custumor.getFechaInicio().getTime()) {
+                return false;
+            }
         }
-        //si puede llegar a tiempo
-        if(totalTime + timeToANode(distancia) > custumor.getFechaFinal().getTime() - custumor.getFechaInicio().getTime()){
-            return false;
-        }
+
         //si tiene suficiente petroleo
         if(this.cargaPetroleo < consumoGLP(distancia)){
             return false;
