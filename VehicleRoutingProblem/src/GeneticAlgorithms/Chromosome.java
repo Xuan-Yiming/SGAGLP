@@ -3,10 +3,15 @@ package GeneticAlgorithms;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Chromosome {
+public class Chromosome implements Cloneable {
     public ArrayList<Gene> genes;
     private GAProblem problem;
-    private  double DEPOTRATE;
+    private double DEPOTRATE;
+    
+    // Constructors
+
+    public Chromosome() {
+    }
 
     public Chromosome(GAProblem problem) {
 
@@ -47,10 +52,26 @@ public class Chromosome {
     
     
     public void print() {
-        System.out.println("Chromosome: ");
         for (int i = 0; i < genes.size(); i++) {
             genes.get(i).print();
         }
     }
 
+    @Override
+    public Chromosome clone() {
+        try {
+            return (Chromosome) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(); // This should not happen.
+        }
+    }
+    
+    //getters and setters
+    public void setGAProblem(GAProblem problem) {
+        this.problem = problem;
+    }
+
+    public void setDepotRate(double depotRate) {
+        this.DEPOTRATE = depotRate;
+    }
 }

@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Vehicle {
+public class Vehicle implements Cloneable {
     private static final int MINUTES_IN_A_DAY = 1440;
     private int id;
     private Point posicion;
@@ -20,6 +20,15 @@ public class Vehicle {
 
 
     // Methods
+    @Override
+    public Vehicle clone() {
+        try {
+            return (Vehicle) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();  // This should not happen.
+        }
+    }
+
     public double consumoGLP(double distancia){
         return distancia * pesoNeto / 180;
     }

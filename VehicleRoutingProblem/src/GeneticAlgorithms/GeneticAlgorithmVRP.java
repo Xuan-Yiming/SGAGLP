@@ -45,11 +45,15 @@ public class GeneticAlgorithmVRP {
         if (isFittest) {
             System.out.println("Solution found!");
             System.out.println("Generation: " + i);
-            System.out.println("Genes:");
             population.getFittest().getChromosome().print();
             System.out.println("Fitness: " + population.getFittest().getFitness());
         } else {
             System.out.println("Solution not found!");
+            System.out.println("Solution found!");
+            System.out.println("Generation: " + i);
+            population.getFittest().getChromosome().print();
+            System.out.println("Fitness: " + population.getFittest().getFitness());
+
         }
 
     }
