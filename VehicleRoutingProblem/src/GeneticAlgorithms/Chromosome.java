@@ -34,7 +34,9 @@ public class Chromosome implements Cloneable {
             double ifGoToDepot = random.nextDouble();
             if (ifGoToDepot < DEPOTRATE) {
                 // si se dirige al deposito, se dirige al mejor deposito
-                genes.get(vehicleIndex).addNode(genes.get(vehicleIndex).bestDepot(this.problem.getDepots()));
+                // get a random depot
+                int depotIndex = random.nextInt(this.problem.getDepots().size());
+                genes.get(vehicleIndex).addNode(this.problem.getDepots().get(depotIndex));
                 i--;
             } else {
                 genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));

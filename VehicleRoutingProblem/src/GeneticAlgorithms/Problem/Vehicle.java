@@ -35,31 +35,31 @@ public class Vehicle implements Cloneable {
 
     public void addNode(Node node){
         this.route.add(node);
-        if(node.getTipo() == 'C'){
-            this.cargaGLP -= node.getCantidad();
-            this.cargaPetroleo -= consumoGLP(distanceToANode(node));
-            this.totalTime += timeToANode(distanceToANode(node));
-        }else if(node.getTipo() == 'D') {
-            switch (this.type){
-                case 'A':
-                    this.pesoBruto = 2.5;
-                    this.cargaGLP = 25;
-                    break;
-                case 'B':
-                    this.pesoBruto = 2;
-                    this.cargaGLP = 15;
-                    break;
-                case 'C':
-                    this.pesoBruto = 1.5;
-                    this.cargaGLP = 10;
-                    break;
-                case 'D':
-                    this.pesoBruto = 1;
-                    this.cargaGLP = 5;
-                    break;
-            }
-        }
-        this.pesoNeto = this.pesoBruto + this.cargaGLP/2;
+        // if(node.getTipo() == 'C'){
+        //     this.cargaGLP -= node.getCantidad();
+        //     this.cargaPetroleo -= consumoGLP(distanceToANode(node));
+        //     this.totalTime += timeToANode(distanceToANode(node));
+        // }else if(node.getTipo() == 'D') {
+        //     switch (this.type){
+        //         case 'A':
+        //             this.pesoBruto = 2.5;
+        //             this.cargaGLP = 25;
+        //             break;
+        //         case 'B':
+        //             this.pesoBruto = 2;
+        //             this.cargaGLP = 15;
+        //             break;
+        //         case 'C':
+        //             this.pesoBruto = 1.5;
+        //             this.cargaGLP = 10;
+        //             break;
+        //         case 'D':
+        //             this.pesoBruto = 1;
+        //             this.cargaGLP = 5;
+        //             break;
+        //     }
+        // }
+        // this.pesoNeto = this.pesoBruto + this.cargaGLP/2;
     }
 
     public boolean canDeliver(Node custumor){

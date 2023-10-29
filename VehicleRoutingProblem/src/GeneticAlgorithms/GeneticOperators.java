@@ -176,17 +176,18 @@ public class GeneticOperators {
         }
         // replace the repeated nodes in a child with the not used nodes
         if (notUsedNodesChild1.size() != 0) {
-            for (int i = 0; i < child1.getChromosome().genes.size(); i++) {
-                for (int j = 0; j < child1.getChromosome().genes.get(i).getRoute().size(); j++) {
-                    for (int k = 0; k < child1.getChromosome().genes.size(); k++) {
-                        for (int l = 0; l < child1.getChromosome().genes.get(k).getRoute().size(); l++) {
-                            if (child1.getChromosome().genes.get(i).getRoute().get(j)
-                                    .getId() == child1.getChromosome().genes.get(k).getRoute().get(l).getId() && i != k
-                                    && j != l && child1.getChromosome().genes.get(i).getRoute().get(j).getTipo() == 'C') {
-                                child1.getChromosome().genes.get(i).getRoute().set(j, notUsedNodesChild1.get(0));
-                                notUsedNodesChild1.remove(0);
-                                if (notUsedNodesChild1.size() == 0)
-                                    break;
+            for (Node node : notUsedNodesChild1) {
+                for (int i = 0; i < child1.getChromosome().genes.size(); i++) {
+                    for (int j = 0; j < child1.getChromosome().genes.get(i).getRoute().size(); j++) {
+                        for (int k = 0; k < child1.getChromosome().genes.size(); k++) {
+                            for (int l = 0; l < child1.getChromosome().genes.get(k).getRoute().size(); l++) {
+                                if (child1.getChromosome().genes.get(i).getRoute().get(j)
+                                        .getId() == child1.getChromosome().genes.get(k).getRoute().get(l).getId()
+                                        && i != k
+                                        && j != l
+                                        && child1.getChromosome().genes.get(i).getRoute().get(j).getTipo() == 'C') {
+                                    child1.getChromosome().genes.get(i).getRoute().set(j, node);
+                                }
                             }
                         }
                     }
@@ -195,17 +196,18 @@ public class GeneticOperators {
         }
 
         if (notUsedNodesChild2.size() != 0) {
-            for (int i = 0; i < child2.getChromosome().genes.size(); i++) {
-                for (int j = 0; j < child2.getChromosome().genes.get(i).getRoute().size(); j++) {
-                    for (int k = 0; k < child2.getChromosome().genes.size(); k++) {
-                        for (int l = 0; l < child2.getChromosome().genes.get(k).getRoute().size(); l++) {
-                            if (child2.getChromosome().genes.get(i).getRoute().get(j)
-                                    .getId() == child2.getChromosome().genes.get(k).getRoute().get(l).getId() && i != k
-                                    && j != l && child2.getChromosome().genes.get(i).getRoute().get(j).getTipo() == 'C') {
-                                child2.getChromosome().genes.get(i).getRoute().set(j, notUsedNodesChild2.get(0));
-                                notUsedNodesChild2.remove(0);
-                                if (notUsedNodesChild2.size() == 0)
-                                    break;
+            for (Node node : notUsedNodesChild2) {
+                for (int i = 0; i < child2.getChromosome().genes.size(); i++) {
+                    for (int j = 0; j < child2.getChromosome().genes.get(i).getRoute().size(); j++) {
+                        for (int k = 0; k < child2.getChromosome().genes.size(); k++) {
+                            for (int l = 0; l < child2.getChromosome().genes.get(k).getRoute().size(); l++) {
+                                if (child2.getChromosome().genes.get(i).getRoute().get(j)
+                                        .getId() == child2.getChromosome().genes.get(k).getRoute().get(l).getId()
+                                        && i != k
+                                        && j != l
+                                        && child2.getChromosome().genes.get(i).getRoute().get(j).getTipo() == 'C') {
+                                    child2.getChromosome().genes.get(i).getRoute().set(j, node);
+                                }
                             }
                         }
                     }

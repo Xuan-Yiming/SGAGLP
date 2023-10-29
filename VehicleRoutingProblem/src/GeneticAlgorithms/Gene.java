@@ -62,6 +62,12 @@ public class Gene implements Cloneable {
 
     public double calculateFitness() {
         double fitness = 0;
+        Point _posicion = this.posicion;
+        double _cargaGLP = this.cargaGLP;
+        double _pesoNeto = this.pesoNeto;
+        double _cargaPetroleo = this.cargaPetroleo;
+        int _totalTime = this.totalTime;
+
         for (int i = 0; i < route.size() - 1; i++) {
             // if can deliver to this node then fitness +1
             if (canDeliver(route.get(i))) {
@@ -100,6 +106,11 @@ public class Gene implements Cloneable {
             // Math.pow(route.get(i).getPosicion().getY() -
             // route.get(i+1).getPosicion().getY(), 2));
         }
+        this.posicion = _posicion;
+        this.totalTime = _totalTime;
+        this.cargaGLP = _cargaGLP;
+        this.pesoNeto = _pesoNeto;
+        this.cargaPetroleo = _cargaPetroleo;
         return fitness;
     }
 
@@ -109,31 +120,31 @@ public class Gene implements Cloneable {
 
     public void addNode(Node node) {
         this.route.add(node);
-        if (node.getTipo() == 'C') {
-            this.cargaGLP -= node.getCantidad();
-            this.cargaPetroleo -= consumoGLP(distanceToANode(node));
-            this.totalTime += timeToANode(distanceToANode(node));
-        } else if (node.getTipo() == 'D') {
-            switch (this.type) {
-                case 'A':
-                    this.pesoBruto = 2.5;
-                    this.cargaGLP = 25;
-                    break;
-                case 'B':
-                    this.pesoBruto = 2;
-                    this.cargaGLP = 15;
-                    break;
-                case 'C':
-                    this.pesoBruto = 1.5;
-                    this.cargaGLP = 10;
-                    break;
-                case 'D':
-                    this.pesoBruto = 1;
-                    this.cargaGLP = 5;
-                    break;
-            }
-        }
-        this.pesoNeto = this.pesoBruto + this.cargaGLP / 2;
+        // if (node.getTipo() == 'C') {
+        //     this.cargaGLP -= node.getCantidad();
+        //     this.cargaPetroleo -= consumoGLP(distanceToANode(node));
+        //     this.totalTime += timeToANode(distanceToANode(node));
+        // } else if (node.getTipo() == 'D') {
+        //     switch (this.type) {
+        //         case 'A':
+        //             this.pesoBruto = 2.5;
+        //             this.cargaGLP = 25;
+        //             break;
+        //         case 'B':
+        //             this.pesoBruto = 2;
+        //             this.cargaGLP = 15;
+        //             break;
+        //         case 'C':
+        //             this.pesoBruto = 1.5;
+        //             this.cargaGLP = 10;
+        //             break;
+        //         case 'D':
+        //             this.pesoBruto = 1;
+        //             this.cargaGLP = 5;
+        //             break;
+        //     }
+        // }
+        // this.pesoNeto = this.pesoBruto + this.cargaGLP / 2;
     }
 
     public boolean canDeliver(Node custumor) {
