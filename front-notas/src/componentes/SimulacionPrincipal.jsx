@@ -9,6 +9,9 @@ export function SimulacionPrincipal() {
     const divRef = useRef();
     let divWidth = null; // Variable para almacenar el ancho del div
     let divHeight = null;
+    const [segundosEnviados, setSegundosEnviados] = useState(0);
+
+
 
 
 
@@ -112,6 +115,7 @@ export function SimulacionPrincipal() {
       const minutes = Math.floor((timeInSeconds % 3600) / 60);
     //   const seconds = timeInSeconds % 60;
       const seconds = Math.floor(timeInSeconds % 60);
+      // setSegundosEnviados(seconds);
   
       return `${days}d ${hours}h ${minutes}m ${seconds}s`;
     };
@@ -209,6 +213,7 @@ export function SimulacionPrincipal() {
                             <button onClick={() => setSpeed(2)}>Double Speed</button>
                             <button onClick={() => setSpeed(4)}>Quadruple Speed</button>
                             <button onClick={() => setSpeed(8)}>Octuple Speed</button>
+                            <button onClick={() => setSpeed(32)}>32 Speed</button>
                             <button onClick={resetMultiplier} disabled={speedMultiplier === 1}>
                             Reset Speed
                             </button>

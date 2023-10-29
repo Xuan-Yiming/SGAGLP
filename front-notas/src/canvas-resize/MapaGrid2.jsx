@@ -5,9 +5,70 @@ import React, { useRef, useEffect, useState } from 'react';
 const MapGrid2 = (props) => {
     const canvasRef = useRef(null);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    let rapidez = 1/72;
 
     let [unidadCuadroAncho, setUnidadCuadroAncho] = useState('');
     let [unidadCuadroAlto, setUnidadCuadroAlto] = useState('');
+
+
+    const elementosEstaticos = [{tipo: 'planta',x:12,y:8},
+    {tipo: 'cisterna',x:42,y:42},
+    {tipo: 'cisterna',x:63,y:3}
+    // ,
+    // {tipo: 'cliente',x:12,y:8},
+    // {tipo: 'cliente',x:12,y:8},
+    // {tipo: 'cliente',x:12,y:8},
+    // {tipo: 'cliente',x:12,y:8},
+    // {tipo: 'cliente',x:12,y:8},
+    // {tipo: 'cliente',x:12,y:8}
+  ]
+
+
+const elementosCamiones =[
+{tipo: 'camion',id:'TA01',x:12,y:8,time:1},
+{tipo: 'camion',id:'TA01',x:13,y:8,time:2},
+{tipo: 'camion',id:'TA01',x:14,y:8,time:3},
+{tipo: 'camion',id:'TA01',x:15,y:8,time:4},
+{tipo: 'camion',id:'TA01',x:16,y:8,time:5},
+{tipo: 'camion',id:'TA01',x:17,y:8,time:6},
+{tipo: 'camion',id:'TA01',x:18,y:8,time:7},
+{tipo: 'camion',id:'TA01',x:19,y:8,time:8},
+{tipo: 'camion',id:'TA01',x:20,y:8,time:9},
+{tipo: 'camion',id:'TA01',x:20,y:9,time:10},
+{tipo: 'camion',id:'TA01',x:20,y:10,time:11},
+{tipo: 'camion',id:'TA01',x:21,y:10,time:12},
+{tipo: 'camion',id:'TA01',x:22,y:10,time:13},
+{tipo: 'camion',id:'TA01',x:23,y:10,time:14},
+{tipo: 'camion',id:'TA01',x:24,y:10,time:15},
+{tipo: 'camion',id:'TA01',x:25,y:10,time:16},
+{tipo: 'camion',id:'TA01',x:26,y:10,time:17},
+{tipo: 'camion',id:'TA01',x:27,y:10,time:18},
+{tipo: 'camion',id:'TA01',x:28,y:10,time:19},
+{tipo: 'camion',id:'TA01',x:29,y:10,time:20},
+
+// {tipo: 'camion',id:'TA02',x:12,y:8,time:1},
+// {tipo: 'camion',id:'TA02',x:13,y:8,time:2},
+// {tipo: 'camion',id:'TA02',x:14,y:8,time:3},
+// {tipo: 'camion',id:'TA02',x:15,y:8,time:4},
+// {tipo: 'camion',id:'TA02',x:16,y:8,time:5},
+// {tipo: 'camion',id:'TA02',x:17,y:8,time:6},
+// {tipo: 'camion',id:'TA02',x:18,y:8,time:7},
+// {tipo: 'camion',id:'TA02',x:19,y:8,time:8},
+// {tipo: 'camion',id:'TA02',x:20,y:8,time:9},
+// {tipo: 'camion',id:'TA02',x:20,y:9,time:10},
+// {tipo: 'camion',id:'TA02',x:20,y:10,time:11},
+// {tipo: 'camion',id:'TA02',x:21,y:10,time:12},
+// {tipo: 'camion',id:'TA02',x:22,y:10,time:13},
+// {tipo: 'camion',id:'TA02',x:23,y:10,time:14},
+// {tipo: 'camion',id:'TA02',x:24,y:10,time:15},
+// {tipo: 'camion',id:'TA02',x:25,y:10,time:16},
+// {tipo: 'camion',id:'TA02',x:26,y:10,time:17},
+// {tipo: 'camion',id:'TA02',x:27,y:10,time:18},
+// {tipo: 'camion',id:'TA02',x:28,y:10,time:19},
+// {tipo: 'camion',id:'TA02',x:29,y:10,time:20}
+
+]
+
 
     // const [images, setImages] = useState({});
 
@@ -29,7 +90,9 @@ const MapGrid2 = (props) => {
         // console.log(velocidad);
 
         if(velocidad + unidadCuadroAncho*(0.5 + inicio.x) <= unidadCuadroAncho*(0.5 + final.x) && 
-                            unidadCuadroAlto*(0.5 + inicio.y) <= unidadCuadroAlto*(0.5 + final.y))console.log(velocidad);
+                            unidadCuadroAlto*(0.5 + inicio.y) <= unidadCuadroAlto*(0.5 + final.y)){
+                                console.log(velocidad);
+                            }
         else if (velocidad + unidadCuadroAncho*(0.5 + inicio.x) < unidadCuadroAncho*(0.5 + final.x) && 
         unidadCuadroAlto*(0.5 + inicio.y) < unidadCuadroAlto*(0.5 + final.y)){
             context.fillStyle = 'grey';
@@ -39,6 +102,13 @@ const MapGrid2 = (props) => {
             
         }
 
+
+    }
+
+
+    const dibujarHacia2 = (context,inicio,final,velocidad)=>{
+
+        
 
     }
 
@@ -150,11 +220,34 @@ const MapGrid2 = (props) => {
 
             // console.log(props.tiempo);
 
-            dibujarHacia(ctx,actual,inicio,final,props.tiempo,1);
+            //dibujarHacia(ctx,actual,inicio,final,props.tiempo,1);
 
+            for (let i = 0; i < elementosCamiones.length; i++) {
 
-            x+=(unidadCuadroAncho)/(50);  //esto se divide entre 60 para el tiempo real
-        
+                const camion = elementosCamiones[i];
+                let idAnt = 'aaa';
+                let clockActual=0;
+                if(camion.id != idAnt && clockActual*72<props.tiempo && props.tiempo < camion.time*72){
+                    ctx.fillStyle = 'grey';
+                    // console.log(idAnt);
+                    // console.log(camion.id);
+                    // console.log(props.tiempo);
+
+                    // console.log(camion.x);
+                    // console.log(camion.y);
+                    ctx.fillRect( unidadCuadroAncho*(0.5 +  camion.x),unidadCuadroAlto*(0.5+camion.y),
+                                            unidadCuadroAncho,unidadCuadroAlto);
+                    idAnt=camion.id;
+                    clockActual=Math.floor(props.tiempo/72);
+                    break;
+                }
+                // console.log(`Truck ID: ${camion.id}`);
+                // console.log(`Type: ${camion.tipo}`);
+                // console.log(`Coordinates (x, y): (${camion.x}, ${camion.y})`);
+                // console.log(`Time: ${camion.time}`);
+                // console.log('------------------');
+            }
+
         }
         
         animate();
