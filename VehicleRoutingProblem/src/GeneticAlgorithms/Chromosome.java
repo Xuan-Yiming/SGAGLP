@@ -6,10 +6,11 @@ import java.util.Random;
 public class Chromosome {
     public ArrayList<Gene> genes;
     private GAProblem problem;
-    private static double DEPOTRATE = 0.3;
+    private  double DEPOTRATE;
 
-    public Chromosome(GAProblem problem){
+    public Chromosome(GAProblem problem) {
 
+        this.DEPOTRATE = problem.DEPOTRATE;
         // copy the problem
         this.problem = problem.clone();
 
@@ -36,12 +37,20 @@ public class Chromosome {
         }
     }
 
-    public double calculateFitness(){
+    public double calculateFitness() {
         double fitness = 0;
         for (int i = 0; i < genes.size(); i++) {
             fitness += genes.get(i).calculateFitness();
         }
         return fitness;
+    }
+    
+    
+    public void print() {
+        System.out.println("Chromosome: ");
+        for (int i = 0; i < genes.size(); i++) {
+            genes.get(i).print();
+        }
     }
 
 }

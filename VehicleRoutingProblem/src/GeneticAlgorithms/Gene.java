@@ -39,10 +39,35 @@ public class Gene {
 
     // Methods
 
+    public void print() {
+        System.out.println("Vehicle: " + this.id);
+        System.out.println("Route: ");
+        for (int i = 0; i < route.size(); i++) {
+            // print in the same line saparated by ' - '
+            if (i != 0) {
+                System.out.print(route.get(i).getId() + ": (" + route.get(i).getPosicion().getX() + ", " + route.get(i).getPosicion().getY() + ") - ");
+            }
+        }
+        System.out.println();
+        System.out.println("Total time: " + totalTime);
+        System.out.println("Fitness: " + calculateFitness());
+    }
+
     public double calculateFitness(){
         double fitness = 0;
-        for (int i = 0; i < route.size()-1; i++) {
-            fitness += Math.sqrt(Math.pow(route.get(i).getPosicion().getX() - route.get(i+1).getPosicion().getX(), 2) + Math.pow(route.get(i).getPosicion().getY() - route.get(i+1).getPosicion().getY(), 2));
+        for (int i = 0; i < route.size() - 1; i++) {
+            //if can deliver to this node then fitness +1
+            if (canDeliver(route.get(i))) {
+                this.cargaGLP -= route.get(i).getCantidad();
+                this.pesoNeto = this.pesoBruto + this.cargaGLP/2;
+                this.cargaPetroleo -= consumoGLP(distanceToANode(route.get(i)));
+                this.totalTime += timeToANode(distanceToANode(route.get(i)));
+                this.posicion = route.get(i).getPosicion();
+                if (route.get(i).getTipo() == 'C') {
+                    fitness++;
+                } 
+            }
+            // fitness += Math.sqrt(Math.pow(route.get(i).getPosicion().getX() - route.get(i+1).getPosicion().getX(), 2) + Math.pow(route.get(i).getPosicion().getY() - route.get(i+1).getPosicion().getY(), 2));
         }
         return fitness;
     }
@@ -82,7 +107,7 @@ public class Gene {
 
     public boolean canDeliver(Node custumor) {
         int distancia = distanceToANode(custumor);
-
+        if (distancia != 0) {
         if (custumor.getTipo() == 'C') {
             //si tiene suficiente GLP
             if (this.cargaGLP < custumor.getCantidad()) {
@@ -94,8 +119,7 @@ public class Gene {
                 return false;
             }
             //si puede llegar a tiempo
-            if (totalTime + timeToANode(distancia) > custumor.getFechaFinal().getTime()
-                    - custumor.getFechaInicio().getTime()) {
+            if (totalTime + timeToANode(distancia) > (custumor.getFechaFinal().getTime() - custumor.getFechaInicio().getTime())/60000) {
                 return false;
             }
         }
@@ -103,6 +127,7 @@ public class Gene {
         //si tiene suficiente petroleo
         if(this.cargaPetroleo < consumoGLP(distancia)){
             return false;
+        }
         }
         return true;
     }

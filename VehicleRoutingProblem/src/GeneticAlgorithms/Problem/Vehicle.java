@@ -114,7 +114,8 @@ public class Vehicle {
         return bestDepot;
     }
     // Constructor
-    public Vehicle(int id, char type, Date mantenimiento){
+    public Vehicle(int id, char type, Date mantenimiento) {
+        this.id = id;
         this.type = type;
         switch (type){
             case 'A':

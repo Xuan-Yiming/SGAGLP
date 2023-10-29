@@ -8,14 +8,20 @@ import java.util.Random;
 
 public class GeneticOperators {
     private static GAProblem problem;
-    private static double mutationRate = 0.15;
-    public static ArrayList<Individual> selection(Population population){
+    private double mutationRate;
+
+    public GeneticOperators(GAProblem problem) {
+        this.problem = problem.clone();
+        this.mutationRate = problem.mutationRate;
+    }
+
+    public ArrayList<Individual> selection(Population population){
         ArrayList<Individual> parents = new ArrayList<>();
         parents.add(population.getFittest());
         parents.add(population.getSecondFittest());
         return parents;
     }
-    public static ArrayList<Individual> crossover(ArrayList<Individual> parents){
+    public ArrayList<Individual> crossover(ArrayList<Individual> parents){
         Random random = new Random();
         int maxVehicle = parents.get(0).getChromosome().genes.size();
         int maxNode = 0;
@@ -29,14 +35,17 @@ public class GeneticOperators {
 
 
         for (int i = 0; i < maxVehicle; i++) {
-            if (parents.get(0).getChromosome().genes.get(i).getRoute().size() > maxNode){
+            if (parents.get(0).getChromosome().genes.get(i).getRoute().size() > maxNode) {
                 maxNode = parents.get(0).getChromosome().genes.get(i).getRoute().size();
             }
-            if (parents.get(1).getChromosome().genes.get(i).getRoute().size() > maxNode){
+            if (parents.get(1).getChromosome().genes.get(i).getRoute().size() > maxNode) {
                 maxNode = parents.get(1).getChromosome().genes.get(i).getRoute().size();
             }
         }
 
+        if (maxNode == 0 || maxVehicle == 0){
+            return parents;
+        }
         int verticalCrossPoint = random.nextInt(maxVehicle);
         int horizontalCrossPoint = random.nextInt(maxNode);
 
@@ -174,16 +183,19 @@ public class GeneticOperators {
     }
 
 
-    public static ArrayList<Individual> mutation(ArrayList<Individual> parents){
+    public ArrayList<Individual> mutation(ArrayList<Individual> parents){
         Random random = new Random();
         int maxVehicle = parents.get(0).getChromosome().genes.size();
 
         Individual child1 = parents.get(0).clone();
         Individual child2 = parents.get(1).clone();
 
-        while (random.nextDouble()<mutationRate){
+        while (random.nextDouble()<this.mutationRate){
             int mutationVehicle1 = random.nextInt(maxVehicle);
             int maxNode = child1.getChromosome().genes.get(mutationVehicle1).getRoute().size();
+            if (maxNode == 0){
+                continue;
+            }
             int mutationNode1 = random.nextInt(maxNode);
 
 

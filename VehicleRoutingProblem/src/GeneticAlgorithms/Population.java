@@ -7,9 +7,12 @@ import java.util.ArrayList;
 
 //conjunto de soluciones
 public class Population {
-    private int populationSize = 100;
-    private ArrayList<Individual> individuals ;
-    public Population(GAProblem problem){
+    private int populationSize ;
+    private ArrayList<Individual> individuals;
+    
+    public Population(GAProblem problem) {
+        this.populationSize = problem.populationSize;
+        
         individuals = new ArrayList<>();
         for (int i = 0; i < populationSize; i++) {
             individuals.add(new Individual(problem));

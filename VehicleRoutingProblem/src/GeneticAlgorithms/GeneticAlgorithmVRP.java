@@ -7,53 +7,55 @@ import java.util.ArrayList;
 
 public class GeneticAlgorithmVRP {
     private Population population;
-    private int maxGenerations = 2000;
-    public GeneticAlgorithmVRP(){
-//        ArrayList<Node> orders = new ArrayList<>();
-//        ArrayList<Vehicle> vehicles = new ArrayList<>();
-//        ArrayList<Node> depots = new ArrayList<>();
-//        ArrayList<Node> blocks = new ArrayList<>();
-//
-//        GAProblem problem = new GAProblem(orders, vehicles, depots, blocks);
+    private int maxGenerations;
+
+    public GeneticAlgorithmVRP() {
+        // ArrayList<Node> orders = new ArrayList<>();
+        // ArrayList<Vehicle> vehicles = new ArrayList<>();
+        // ArrayList<Node> depots = new ArrayList<>();
+        // ArrayList<Node> blocks = new ArrayList<>();
+        //
+        // GAProblem problem = new GAProblem(orders, vehicles, depots, blocks);
         GAProblem problem = new GAProblem();
         population = new Population(problem);
-
+        maxGenerations = problem.maxGenerations;
         boolean isFittest = false;
         int i = 0;
 
         Individual fittest = population.getFittest();
 
-        if (fittest.calculateFitness() != problem.getOrders().size()){
+        if (fittest.calculateFitness() != problem.getOrders().size()) {
             for (; i < maxGenerations; i++) {
-                ArrayList<Individual> parents = GeneticOperators.selection(population);
-                parents = GeneticOperators.crossover(parents);
-                parents = GeneticOperators.mutation(parents);
-                Individual fittestOffspring = GeneticOperators.getFittestOffspring(parents);
+                GeneticOperators geneticOperators = new GeneticOperators(problem);
+                ArrayList<Individual> parents = geneticOperators.selection(population);
+                parents = geneticOperators.crossover(parents);
+                parents = geneticOperators.mutation(parents);
+                Individual fittestOffspring = geneticOperators.getFittestOffspring(parents);
                 population.replaceLastFittest(fittestOffspring);
                 fittest = population.getFittest();
-                if (fittest.calculateFitness() == problem.getOrders().size()){
+                if (fittest.calculateFitness() == problem.getOrders().size()) {
                     isFittest = true;
                     break;
                 }
             }
-        }else {
+        } else {
             isFittest = true;
         }
 
-        if (isFittest){
+        if (isFittest) {
             System.out.println("Solution found!");
             System.out.println("Generation: " + i);
             System.out.println("Genes:");
-            System.out.println(population.getFittest().getChromosome().genes);
+            population.getFittest().getChromosome().print();
             System.out.println("Fitness: " + population.getFittest().getFitness());
-        }else {
+        } else {
             System.out.println("Solution not found!");
         }
 
     }
-    public static void excute(){
+
+    public static void excute() {
 
     }
-
 
 }
