@@ -8,6 +8,7 @@ const MapGrid2 = (props) => {
     let rapidez = 1/72;
     const [cantidadCamiones, setCantidadCamiones] = useState(0);
     const [todosCamiones, setTodosCamiones] = useState('');
+    const [todosBloqueos, setTodosBloqueos] = useState('');
 
     let [unidadCuadroAncho, setUnidadCuadroAncho] = useState('');
     let [unidadCuadroAlto, setUnidadCuadroAlto] = useState('');
@@ -16,9 +17,7 @@ const MapGrid2 = (props) => {
     const elementosEstaticos = [{tipo: 'planta',x:12,y:8},
     {tipo: 'cisterna',x:42,y:42},
     {tipo: 'cisterna',x:63,y:3}
-    ,
-    {tipo: 'cliente',x:29,y:10},
-    {tipo: 'cliente',x:14,y:25}
+
     // ,
     // {tipo: 'cliente',x:12,y:8},
     // {tipo: 'cliente',x:12,y:8},
@@ -70,6 +69,30 @@ const elementosCamiones =[
 {tipo: 'camion',id:'TA02',x:14,y:24,time:19},
 {tipo: 'camion',id:'TA02',x:14,y:25,time:20}
 
+]
+
+const elementosEstaticosTemporales =[
+    {tipo: 'bloqueo',id:'B01',x:18,y:6,inicio:1,final:600},
+    {tipo: 'bloqueo',id:'B01',x:19,y:6,inicio:1,final:600},
+    {tipo: 'bloqueo',id:'B01',x:20,y:6,inicio:1,final:600},
+    {tipo: 'bloqueo',id:'B01',x:21,y:6,inicio:1,final:600},
+    {tipo: 'bloqueo',id:'B01',x:21,y:7,inicio:1,final:600},
+    // {tipo: 'bloqueo',id:'B01',x:22,y:7,inicio:1,final:600},
+    // {tipo: 'bloqueo',id:'B01',x:22,y:9,inicio:1,final:600},
+    // {tipo: 'bloqueo',id:'B01',x:22,y:10,inicio:1,final:600},
+    // {tipo: 'bloqueo',id:'B01',x:23,y:6,inicio:1,final:600},
+    // {tipo: 'bloqueo',id:'B01',x:24,y:6,inicio:1,final:600},
+    // {tipo: 'bloqueo',id:'B01',x:25,y:6,inicio:1,final:600},
+    {tipo: 'bloqueo',id:'B02',x:26,y:6,inicio:1,final:600},
+    {tipo: 'bloqueo',id:'B02',x:26,y:5,inicio:1,final:600},
+    {tipo: 'bloqueo',id:'B02',x:26,y:4,inicio:1,final:600},
+    {tipo: 'bloqueo',id:'B02',x:26,y:3,inicio:1,final:600},
+    {tipo: 'bloqueo',id:'B02',x:26,y:2,inicio:1,final:600},
+
+    
+    {tipo: 'cliente',id:'CLI01',x:29,y:10,inicio:0,final:21},
+    {tipo: 'cliente',id:'CLI02',x:14,y:25,inicio:0,final:21}
+    
 ]
 
 
@@ -133,33 +156,120 @@ const elementosCamiones =[
                 c.fillStyle = 'orange'; // Fill color
                 c.fill();
                 c.stroke();
-            }else if(elemento.tipo == 'cliente'){
-                c.beginPath();
-                c.moveTo((elemento.x)*unidadCuadroAncho,(elemento.y-0.5)*unidadCuadroAlto); // Move to the starting point
+            }
+            // else if(elemento.tipo == 'cliente'){
+            //     c.beginPath();
+            //     c.moveTo((elemento.x)*unidadCuadroAncho,(elemento.y-0.5)*unidadCuadroAlto); // Move to the starting point
                 
-                // Draw the diamond shape using lines
-                c.lineTo((elemento.x)*unidadCuadroAncho - unidadCuadroAncho / 2, (elemento.y-0.5)*unidadCuadroAlto + unidadCuadroAncho / 2); // Left point
-                c.lineTo((elemento.x)*unidadCuadroAncho , (elemento.y-0.5)*unidadCuadroAlto + unidadCuadroAncho); // Bottom point
-                c.lineTo((elemento.x)*unidadCuadroAncho  + unidadCuadroAncho / 2, (elemento.y-0.5)*unidadCuadroAlto + unidadCuadroAncho / 2); // Right point
+            //     // Draw the diamond shape using lines
+            //     c.lineTo((elemento.x)*unidadCuadroAncho - unidadCuadroAncho / 2, (elemento.y-0.5)*unidadCuadroAlto + unidadCuadroAncho / 2); // Left point
+            //     c.lineTo((elemento.x)*unidadCuadroAncho , (elemento.y-0.5)*unidadCuadroAlto + unidadCuadroAncho); // Bottom point
+            //     c.lineTo((elemento.x)*unidadCuadroAncho  + unidadCuadroAncho / 2, (elemento.y-0.5)*unidadCuadroAlto + unidadCuadroAncho / 2); // Right point
                 
-                // Close the path to complete the shape
-                c.closePath();
+            //     // Close the path to complete the shape
+            //     c.closePath();
                 
-                // Set the fill and stroke styles
-                c.fillStyle = 'blue'; // Fill color
-                c.strokeStyle = 'black'; // Stroke color
+            //     // Set the fill and stroke styles
+            //     c.fillStyle = 'blue'; // Fill color
+            //     c.strokeStyle = 'black'; // Stroke color
                 
-                // Fill and stroke the diamond
-                c.fill();
-                c.stroke();
+            //     // Fill and stroke the diamond
+            //     c.fill();
+            //     c.stroke();
+            // }
+
+        }
+
+    }
+
+
+    const graficarEstaticosTemporales = (c,tiempo)=>{
+
+        let idAnt = 'aaa';
+        c.lineWidth = 1;
+        for (let i = 0; i < elementosEstaticosTemporales.length; i++){
+            const elemento = elementosEstaticosTemporales[i];
+            // Math.floor(props.tiempo/72)==camion.time
+// console.log(elemento);
+            if(elemento.inicio*72 <= tiempo&& tiempo <= elemento.final*72){
+                // console.log(elemento.inicio);
+                if(elemento.tipo == 'bloqueo'){
+                    // if(elemento.tipo = 'bloqueo' && elemento.inicio < Math.floor(tiempo/72) && Math.floor(tiempo/72) < elemento.final){
+                        // console.log(elemento.inicio);
+                            // c.beginPath();
+                            // c.moveTo(elemento.x * unidadCuadroAncho, unidadCuadroAlto*elemento.y); // Move to the previous point
+                            // idAnt = elemento.id;
+                            c.lineWidth = 4;
+                            c.strokeStyle="red";
+                        if(elemento.id != idAnt){
+                            c.beginPath();
+                            c.moveTo(elemento.x * unidadCuadroAncho, unidadCuadroAlto*elemento.y); // Move to the previous point
+                            idAnt = elemento.id;
+                        }else{
+                            // c.strokeStyle="green";
+                            c.lineTo(elemento.x * unidadCuadroAncho, unidadCuadroAlto*elemento.y); // Draw a line to the new point
+                            c.stroke(); // Render the line
+                        }
+
+
+                        // while(1){
+                        //     i++;
+                        //     if(i == elementosEstaticosTemporales.length)return;
+                        //     const seleccionado=elementosEstaticosTemporales[i];
+                        //     if(seleccionado.id == idAnt){
+                                
+                        //         c.lineTo(elemento.x * unidadCuadroAncho, unidadCuadroAlto*elemento.y); // Draw a line to the new point
+                        //         c.stroke(); // Render the line
+                        //     }else{
+                        //         i--;
+                        //         break;
+                        //     }
+                        // }
+                    }
+                    else if(elemento.tipo == 'cliente'){
+                        c.lineWidth = 1;
+                        console.log(elemento.inicio);
+                        c.beginPath();
+                        c.moveTo((elemento.x)*unidadCuadroAncho,(elemento.y-0.5)*unidadCuadroAlto); // Move to the starting point
+                        
+                        // Draw the diamond shape using lines
+                        c.lineTo((elemento.x)*unidadCuadroAncho - unidadCuadroAncho / 2, (elemento.y-0.5)*unidadCuadroAlto + unidadCuadroAncho / 2); // Left point
+                        c.lineTo((elemento.x)*unidadCuadroAncho , (elemento.y-0.5)*unidadCuadroAlto + unidadCuadroAncho); // Bottom point
+                        c.lineTo((elemento.x)*unidadCuadroAncho  + unidadCuadroAncho / 2, (elemento.y-0.5)*unidadCuadroAlto + unidadCuadroAncho / 2); // Right point
+                        
+                        // Close the path to complete the shape
+                        c.closePath();
+                        
+                        // Set the fill and stroke styles
+                        c.fillStyle = 'blue'; // Fill color
+                        c.strokeStyle = 'black'; // Stroke color
+                        
+                        // Fill and stroke the diamond
+                        c.fill();
+                        c.stroke();
+                    }
             }
 
         }
 
 
-
     }
 
+    const getBloqueosTotales =()=>{
+
+        let idAnt = 'aaa';
+        let bloqueos = [];
+
+        for (let i = 0; i < elementosEstaticosTemporales.length; i++){
+            const elemento = elementosEstaticosTemporales[i];
+            if(idAnt!=elemento.id){
+                idAnt = elemento.id;
+                bloqueos.push(elemento);
+                // console.log(camionEscogido.id);
+            }
+        }
+        setTodosBloqueos(bloqueos);
+    }
 
 
     const getCantidadCamiones =()=>{
@@ -174,7 +284,7 @@ const elementosCamiones =[
                 camionAnt = camionEscogido.id;
                 cantidadCamiones++;
                 camiones.push(camionAnt);
-                console.log(camionEscogido.id);
+                // console.log(camionEscogido.id);
             }
         }
         setTodosCamiones(camiones);
@@ -195,6 +305,7 @@ const elementosCamiones =[
     useEffect(() => {
         
         getCantidadCamiones();
+        // getBloqueosTotales();
         // Ajustar el tamaño del canvas al del contenedor
         function updateSize() {
             if (canvasRef.current && canvasRef.current.parentElement) {
@@ -247,7 +358,7 @@ const elementosCamiones =[
             requestAnimationFrame(animate);
             ctx.clearRect(0,0,canvas.width,canvas.height);
 
-
+            
             ctx.beginPath();
             // Dibujar cuadrícula
             for (let x = 0; x < canvas.width; x += canvas.width / cuadrosAncho) {
@@ -265,6 +376,13 @@ const elementosCamiones =[
             ctx.beginPath();
             graficarPuntosFijos(ctx);
             ctx.stroke();
+            ////FINAL CUADRICULA
+
+            // ctx.beginPath();
+            ctx.lineWidth = 1;
+            graficarEstaticosTemporales(ctx,props.tiempo);
+            ctx.lineWidth = 1;
+            // ctx.stroke();
 
 
             for(let j=0;j<cantidadCamiones;j++){

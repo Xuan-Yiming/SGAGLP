@@ -120,7 +120,58 @@ export function SimulacionPrincipal() {
       return `${days}d ${hours}h ${minutes}m ${seconds}s`;
     };
   
+    const [fileContent, setFileContent] = useState(null);
 
+    const procesarTXT=()=>{
+//TERMINAR
+      // Dividir el texto en líneas
+      const lineas = fileContent.trim().split('\n');
+
+      // Array para almacenar los objetos JSON
+      const objetosJSON = [];
+
+      // Expresión regular para analizar cada línea
+      const regex = /^(\d{2})d(\d{2})h(\d{2})m:(\d+),(\d+),c-(\d+),(\d+)m(\d+),(\d+)h$/;
+
+      // Procesar cada línea y convertirla en un objeto JSON
+      lineas.forEach((linea) => {
+        const match = linea.match(regex);
+        if (match) {
+          const objetoJSON = {
+            dia: match[1],
+            hora: match[2],
+            minuto: match[3],
+            x: match[4],
+            y: match[5],
+            id: `c-${match[6]}`,
+            cantidad: match[7],
+            horas: match[8],
+          };
+          objetosJSON.push(objetoJSON);
+        }
+      });
+
+      // El resultado será un array de objetos JSON
+      console.log(objetosJSON);
+
+    }
+
+
+    const handleFileChange = (event) => {
+      const selectedFile = event.target.files[0];
+  
+
+      if (selectedFile) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const content = e.target.result;
+          setFileContent(content);
+        };
+        reader.readAsText(selectedFile);
+      } else {
+        setFileContent(null);
+      }
+    };
 
 
     const draw = (context,count)=>{
@@ -241,7 +292,18 @@ export function SimulacionPrincipal() {
                 <div className='SimulacionLadoDer'>
 
                     <div className='SimulacionBotonesDer'></div>
-                    <div className='SimulacionConfigurar'></div>
+                    <div className='SimulacionConfigurar'>
+                      <div className='SimulacionConfigTItulo'>Configurar Datos</div>
+                      <div className='SimulacionConfigBody'>
+
+                        Ingresar Archivo TXT de Pedidos:
+                        <input type="file" accept=".txt" onChange={handleFileChange} />
+                        <div><button onClick={procesarTXT}>procesar</button></div>
+                        <strong>File Content:</strong>
+                        <pre>{fileContent}</pre>
+
+                      </div>
+                    </div>
                     <div className='SimulacionResumen'></div>
 
                 </div>
