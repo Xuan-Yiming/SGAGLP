@@ -1,17 +1,17 @@
-package AStar;
+package GeneticAlgorithms.AStar;
 
-public class Node {
+public class NodeA {
 
     public int x, y;
     public double f, g, h;
     public NodeType type;
-    public Node parent;
+    public NodeA parent;
 
-    public Node(int x, int y) {
+    public NodeA(int x, int y) {
         this(x, y, NodeType.Air);
     }
 
-    public Node(int x, int y, NodeType type) {
+    public NodeA(int x, int y, NodeType type) {
         this.x = x;
         this.y = y;
         this.type = type;

@@ -17,17 +17,18 @@ public class Node implements Cloneable {
     private double capacidad;
 
     // Constructor
-    public Node(int x, int y) {
+    public Node(int id, int x, int y) {
         // Block
         this.posicion = new Point(x, y);
         this.tipo = 'B';
+        this.id = "B" + id;
         this.fechaInicio = new Date();
         this.fechaFinal = new Date();
     }
 
     public Node(String id, int x, int y, double cantidad, Date fechaInicio, Date fechaFinal) {
         // Customer
-        this.id = id;
+        this.id = "C" + id;
         this.posicion = new Point(x, y);
         this.tipo = 'C';
         this.cantidad = cantidad;
@@ -35,8 +36,9 @@ public class Node implements Cloneable {
         this.fechaFinal = fechaFinal;
     }
 
-    public Node(int x, int y, double capacidad) {
+    public Node(int id, int x, int y, double capacidad) {
         // Depot
+        this.id = "D" + id;
         this.posicion = new Point(x, y);
         this.tipo = 'D';
         this.capacidad = capacidad;

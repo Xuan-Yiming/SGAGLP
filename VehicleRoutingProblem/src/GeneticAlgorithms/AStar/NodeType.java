@@ -1,4 +1,4 @@
-package AStar;
+package GeneticAlgorithms.AStar;
 
 public enum NodeType {
         Air,

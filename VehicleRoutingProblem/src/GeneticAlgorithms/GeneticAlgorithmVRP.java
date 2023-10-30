@@ -1,7 +1,6 @@
 package GeneticAlgorithms;
 
-import GeneticAlgorithms.Problem.Node;
-import GeneticAlgorithms.Problem.Vehicle;
+import GeneticAlgorithms.Problem.Solucion;
 
 import java.util.ArrayList;
 
@@ -9,14 +8,15 @@ public class GeneticAlgorithmVRP {
     private Population population;
     private int maxGenerations;
 
-    public GeneticAlgorithmVRP() {
-        // ArrayList<Node> orders = new ArrayList<>();
-        // ArrayList<Vehicle> vehicles = new ArrayList<>();
-        // ArrayList<Node> depots = new ArrayList<>();
-        // ArrayList<Node> blocks = new ArrayList<>();
-        //
-        // GAProblem problem = new GAProblem(orders, vehicles, depots, blocks);
-        GAProblem problem = new GAProblem();
+    private GAProblem problem = null;
+
+    private Solucion solucion;
+
+    public GeneticAlgorithmVRP(char mode) {
+        if (this.problem == null) {
+            this.problem = new GAProblem();
+        }
+
         population = new Population(problem);
         maxGenerations = problem.maxGenerations;
         boolean isFittest = false;
@@ -42,20 +42,34 @@ public class GeneticAlgorithmVRP {
             isFittest = true;
         }
 
-        if (isFittest) {
-            System.out.println("Solution found!");
-            System.out.println("Generation: " + i);
-            population.getFittest().getChromosome().print();
-            System.out.println("Fitness: " + population.getFittest().getFitness());
-        } else {
-            System.out.println("Solution not found!");
-            System.out.println("Solution found!");
-            System.out.println("Generation: " + i);
-            population.getFittest().getChromosome().print();
-            System.out.println("Fitness: " + population.getFittest().getFitness());
+        if (mode == 'T'){
+            if (isFittest) {
+                System.out.println("Solution found!");
+                System.out.println("Generation: " + i);
+                fittest.getChromosome().print();
+                System.out.println("Fitness: " + population.getFittest().getFitness());
+            } else {
+                System.out.println("Solution not found!");
+                System.out.println("Solution found!");
+                System.out.println("Generation: " + i);
+                fittest.getChromosome().print();
+                System.out.println("Fitness: " + population.getFittest().getFitness());
 
+            }
         }
 
+        if (mode == 'R'){
+            this.solucion = new Solucion(problem, fittest);
+        }
+
+
+    }
+
+    public void setProblem(GAProblem problem) {
+        this.problem = problem;
+    }
+    public Solucion getSolucion(){
+        return this.solucion;
     }
 
     public static void excute() {

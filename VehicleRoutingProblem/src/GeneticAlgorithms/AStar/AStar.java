@@ -1,4 +1,4 @@
-package AStar;
+package GeneticAlgorithms.AStar;
 
 import java.awt.*;
 import java.util.List;
@@ -9,17 +9,17 @@ public class AStar {
 
     private final int width;
     private final int height;
-    private final Node[] Nodes;
+    private final NodeA[] nodeAS;
 
-    private final PriorityQueue<Node> open;
-    private final Set<Node> close;
-    private final ArrayList<Node> result;
+    private final PriorityQueue<NodeA> open;
+    private final Set<NodeA> close;
+    private final ArrayList<NodeA> result;
 
     private final Point current;
     private final Point previous;
 
-    private final Node start;
-    private final Node end;
+    private final NodeA start;
+    private final NodeA end;
 
     private final long lastTime = 0;
 
@@ -27,22 +27,22 @@ public class AStar {
         this.width = width;
         this.height = height;
 
-        Nodes = new Node[width * height];
+        nodeAS = new NodeA[width * height];
 
         for (int i = 0; i < width * height; i++)
-            Nodes[i] = new Node(i % width, i / width);
+            nodeAS[i] = new NodeA(i % width, i / width);
 
         for (Point p : obstacles) {
             setType(p.x, p.y, NodeType.Wall);
         }
 
-        this.start = Nodes[start.x + start.y * width];
-        this.end = Nodes[end.x + end.y * width];
+        this.start = nodeAS[start.x + start.y * width];
+        this.end = nodeAS[end.x + end.y * width];
 
 
-        open = new PriorityQueue<Node>(Nodes.length, (Node a, Node b) -> (a.f - b.f) < 0 ? -1 : 1);
-        close = new HashSet(Nodes.length);
-        result = new ArrayList(Nodes.length);
+        open = new PriorityQueue<NodeA>(nodeAS.length, (NodeA a, NodeA b) -> (a.f - b.f) < 0 ? -1 : 1);
+        close = new HashSet(nodeAS.length);
+        result = new ArrayList(nodeAS.length);
 
         current = new Point(0, 0);
         previous = new Point(0, 0);
@@ -53,8 +53,12 @@ public class AStar {
         return result.size();
     }
 
-    public List<Node> getPath() {
-        return result;
+    public List<Point> getPath() {
+        List<Point> path = new ArrayList<Point>();
+        for (NodeA n : result) {
+            path.add(new Point(n.x, n.y));
+        }
+        return path;
     }
 
 
@@ -66,12 +70,12 @@ public class AStar {
 
         // Set up heuristic value
 
-        for (int i = 0; i < Nodes.length; i++) {
+        for (int i = 0; i < nodeAS.length; i++) {
             double dx = Math.abs(end.x - i % width);
             double dy = Math.abs(end.y - i / width);
 
-            Nodes[i].h = Math.sqrt(dx * dx + dy * dy);
-            Nodes[i].f = Nodes[i].h;
+            nodeAS[i].h = Math.sqrt(dx * dx + dy * dy);
+            nodeAS[i].f = nodeAS[i].h;
         }
 
         open.add(start);
@@ -87,7 +91,7 @@ public class AStar {
                 break;
             }
 
-            Node current = open.poll();
+            NodeA current = open.poll();
             close.add(current);
 
             if (current.type == NodeType.Air)
@@ -104,7 +108,7 @@ public class AStar {
 
                 if (x < 0 || y < 0 || x >= width || y >= height) continue;
 
-                if (Nodes[x + y * width].type == NodeType.Wall) {
+                if (nodeAS[x + y * width].type == NodeType.Wall) {
                     if (i == 1) u = true;
                     else if (i == 3) l = true;
                     else if (i == 5) r = true;
@@ -124,7 +128,7 @@ public class AStar {
 
                 if (x < 0 || y < 0 || x >= width || y >= height || i == 4) continue;
 
-                Node t = Nodes[x + y * width];
+                NodeA t = nodeAS[x + y * width];
 
                 if (getType(x, y) == NodeType.Wall || close.contains(t)) continue;
 
@@ -151,7 +155,7 @@ public class AStar {
         if (error) {
             System.err.println("Error: No path, " + passedTime + "ms");
         } else {
-            Node t = end.parent;
+            NodeA t = end.parent;
 
             // Back track
             while (t != start) {
@@ -181,12 +185,12 @@ public class AStar {
             }
         }
 
-        Nodes[x + y * width].type = type;
+        nodeAS[x + y * width].type = type;
     }
 
 
     public NodeType getType(int x, int y) {
-        return Nodes[x + y * width].type;
+        return nodeAS[x + y * width].type;
     }
 
 }

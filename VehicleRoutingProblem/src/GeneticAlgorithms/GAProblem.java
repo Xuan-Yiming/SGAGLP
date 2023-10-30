@@ -35,9 +35,9 @@ public class GAProblem implements Cloneable{
 
         //create depots
         this.depots = new ArrayList<>();
-        this.depots.add(new Node(12,8,Double.MAX_VALUE));
-        this.depots.add(new Node(42,42,160.0));
-        this.depots.add(new Node(63,3,160.0));
+        this.depots.add(new Node(1,12,8,Double.MAX_VALUE));
+        this.depots.add(new Node(2, 42,42,160.0));
+        this.depots.add(new Node(3,63,3,160.0));
 
         //create orders
         this.orders = new ArrayList<>();
@@ -67,7 +67,7 @@ public class GAProblem implements Cloneable{
                 }
             }
 
-            this.blocks.add(new Node(String.valueOf(i), random.nextInt(70),random.nextInt(50),(double)(random.nextInt(25)),date, date));
+            this.blocks.add(i,new Node(String.valueOf(i), random.nextInt(70),random.nextInt(50),(double)(random.nextInt(25)),date, date));
         }
 
         //create vehicles

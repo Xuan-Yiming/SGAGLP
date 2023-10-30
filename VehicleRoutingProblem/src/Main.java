@@ -13,7 +13,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args){
-        new GeneticAlgorithmVRP();
+        new GeneticAlgorithmVRP('T');
     }
     public static void main2(String[] args) {
 
