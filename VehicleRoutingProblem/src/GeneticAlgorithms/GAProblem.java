@@ -43,7 +43,7 @@ public class GAProblem implements Cloneable{
         this.orders = new ArrayList<>();
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
             calendar.setTime(date);
             calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(24));
             Date finalDate = calendar.getTime();
