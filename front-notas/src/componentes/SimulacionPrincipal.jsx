@@ -5,9 +5,174 @@ import MapaGrid from '../canvas-resize/MapaGrid.jsx';
 import MapaGrid2 from '../canvas-resize/MapaGrid2.jsx';
 
 export function SimulacionPrincipal() {
+    
     const divRef = useRef();
     let divWidth = null; // Variable para almacenar el ancho del div
     let divHeight = null;
+    const [segundosEnviados, setSegundosEnviados] = useState(0);
+
+
+
+
+
+    // const [time, setTime] = useState(0);
+    // const [isRunning, setIsRunning] = useState(false);
+    // const [timeMultiplier, setTimeMultiplier] = useState(1);
+  
+    // useEffect(() => {
+    //   let intervalId;
+  
+    //   if (isRunning) {
+    //     intervalId = setInterval(() => {
+    //       setTime((prevTime) => prevTime + timeMultiplier);
+    //     }, 1000);
+    //   }
+  
+    //   return () => {
+    //     clearInterval(intervalId);
+    //   };
+    // }, [isRunning,timeMultiplier]);
+  
+    // const startTimer = () => {
+    //   setIsRunning(true);
+    // };
+  
+    // const stopTimer = () => {
+    //   setIsRunning(false);
+    // };
+  
+    // const resetTimer = () => {
+    //   setIsRunning(false);
+    //   setTime(0);
+    // };
+    // const doubleTime = () => {
+    //     setTimeMultiplier(2);
+    //   };
+
+      const resetMultiplier = () => {
+        setSpeedMultiplier(1);
+      };
+
+    // const formatTime = (timeInSeconds) => {
+    //     const days = Math.floor(timeInSeconds / 86400);
+    //     const hours = Math.floor((timeInSeconds % 86400) / 3600);
+    //     const minutes = Math.floor((timeInSeconds % 3600) / 60);
+    //     const seconds = timeInSeconds % 60;
+    
+    //     return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    //   };
+
+
+
+    const [elapsedTime, setElapsedTime] = useState(0);
+    const [isRunning, setIsRunning] = useState(false);
+    const [speedMultiplier, setSpeedMultiplier] = useState(1);
+  
+    useEffect(() => {
+      let startTime = Date.now();
+      let timerId;
+  
+      const updateTimer = () => {
+        const now = Date.now();
+        const elapsedMilliseconds = now - startTime;
+        const elapsedSeconds = (elapsedMilliseconds / 1000) * speedMultiplier;
+  
+        setElapsedTime((prevElapsedTime) => prevElapsedTime + elapsedSeconds);
+  
+        startTime = now;
+        timerId = requestAnimationFrame(updateTimer);
+      };
+  
+      if (isRunning) {
+        timerId = requestAnimationFrame(updateTimer);
+      }
+  
+      return () => {
+        cancelAnimationFrame(timerId);
+      };
+    }, [isRunning, speedMultiplier]);
+  
+    const startTimer = () => {
+      setIsRunning(true);
+    };
+  
+    const stopTimer = () => {
+      setIsRunning(false);
+    };
+  
+    const resetTimer = () => {
+      setIsRunning(false);
+      setElapsedTime(0);
+    };
+  
+    const setSpeed = (multiplier) => {
+      setSpeedMultiplier(multiplier);
+    };
+  
+    const formatTime = (timeInSeconds) => {
+      const days = Math.floor(timeInSeconds / 86400);
+      const hours = Math.floor((timeInSeconds % 86400) / 3600);
+      const minutes = Math.floor((timeInSeconds % 3600) / 60);
+    //   const seconds = timeInSeconds % 60;
+      const seconds = Math.floor(timeInSeconds % 60);
+      // setSegundosEnviados(seconds);
+  
+      return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    };
+  
+    const [fileContent, setFileContent] = useState(null);
+
+    const procesarTXT=()=>{
+//TERMINAR
+      // Dividir el texto en líneas
+      const lineas = fileContent.trim().split('\n');
+
+      // Array para almacenar los objetos JSON
+      const objetosJSON = [];
+
+      // Expresión regular para analizar cada línea
+      const regex = /^(\d{2})d(\d{2})h(\d{2})m:(\d+),(\d+),c-(\d+),(\d+)m(\d+),(\d+)h$/;
+
+      // Procesar cada línea y convertirla en un objeto JSON
+      lineas.forEach((linea) => {
+        const match = linea.match(regex);
+        if (match) {
+          const objetoJSON = {
+            dia: match[1],
+            hora: match[2],
+            minuto: match[3],
+            x: match[4],
+            y: match[5],
+            id: `c-${match[6]}`,
+            cantidad: match[7],
+            horas: match[8],
+          };
+          objetosJSON.push(objetoJSON);
+        }
+      });
+
+      // El resultado será un array de objetos JSON
+      console.log(objetosJSON);
+
+    }
+
+
+    const handleFileChange = (event) => {
+      const selectedFile = event.target.files[0];
+  
+
+      if (selectedFile) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const content = e.target.result;
+          setFileContent(content);
+        };
+        reader.readAsText(selectedFile);
+      } else {
+        setFileContent(null);
+      }
+    };
+
 
     const draw = (context,count)=>{
         // context.clearRect(0,0,context.canvas.width,context.canvas.height);
@@ -66,13 +231,52 @@ export function SimulacionPrincipal() {
 
                 <div className='SimulacionLadoIzq'>
                     <div className='SimulacionTitulo'>
+                        <h1>Simulacion</h1>
+                        
+                    </div>
+                    {/* <p>Elapsed Time: {formatTime(time)}</p>
                         <div>
-                            <h1>Simulacion</h1>
+                            <button onClick={startTimer} disabled={isRunning}>
+                            Start
+                            </button>
+                            <button onClick={stopTimer} disabled={!isRunning}>
+                            Stop
+                            </button>
+                            <button onClick={resetTimer}>Reset</button>
+                            <button onClick={doubleTime} disabled={timeMultiplier === 2}>
+                            Double Speed
+                            </button>
+                            <button onClick={resetMultiplier} disabled={timeMultiplier === 1}>
+                            Reset Speed
+                            </button>
+                            
+                            <div>&nbsp;&nbsp;</div>
+                        </div> */}
+                        <p>Elapsed Time: {formatTime(elapsedTime)}</p>
+                        <div>
+                            <button onClick={startTimer} disabled={isRunning}>
+                            Start
+                            </button>
+                            <button onClick={stopTimer} disabled={!isRunning}>
+                            Stop
+                            </button>
+                            <button onClick={resetTimer}>Reset</button>
+                            <button onClick={() => setSpeed(2)}>Double Speed</button>
+                            <button onClick={() => setSpeed(4)}>Quadruple Speed</button>
+                            <button onClick={() => setSpeed(8)}>Octuple Speed</button>
+                            <button onClick={() => setSpeed(32)}>32 Speed</button>
+                            <button onClick={resetMultiplier} disabled={speedMultiplier === 1}>
+                            Reset Speed
+                            </button>
                         </div>
+                        <div>&nbsp;&nbsp;</div>
+                        
+                    <div>
+
                     </div>
                     <div className='SimulacionMapa' ref={divRef}>
                         {/* <Canvas className='mapaSimulado'  draw = {draw} draw2 ={null} width='100%' height ='100%'/> */}
-                        <MapaGrid2 ancho ={divWidth} alto = {divHeight}/>
+                        <MapaGrid2 ancho ={divWidth} alto ={divHeight} tiempo={elapsedTime}/>
                         {/* <Canvas className='mapaSimulado'  draw = {draw2} width='100%' height ='100%'/> */}
                         
                         {/* <div id="canvas-container" style={{ width: '100%', height: '100%' }}>
@@ -88,7 +292,18 @@ export function SimulacionPrincipal() {
                 <div className='SimulacionLadoDer'>
 
                     <div className='SimulacionBotonesDer'></div>
-                    <div className='SimulacionConfigurar'></div>
+                    <div className='SimulacionConfigurar'>
+                      <div className='SimulacionConfigTItulo'>Configurar Datos</div>
+                      <div className='SimulacionConfigBody'>
+
+                        Ingresar Archivo TXT de Pedidos:
+                        <input type="file" accept=".txt" onChange={handleFileChange} />
+                        <div><button onClick={procesarTXT}>procesar</button></div>
+                        <strong>File Content:</strong>
+                        <pre>{fileContent}</pre>
+
+                      </div>
+                    </div>
                     <div className='SimulacionResumen'></div>
 
                 </div>
