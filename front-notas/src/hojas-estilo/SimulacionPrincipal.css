@@ -35,7 +35,7 @@
 
 .SimulacionTitulo{
     width: 100%;
-    height: 15%;
+    height: 8%;
     /* background-color: aliceblue; */
 }
 .SimulacionMapa{
@@ -47,13 +47,64 @@
 .SimulacionLadoDer{
     width: 95%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
     /* background-color: orange; */
+    /* text-align: center; */
 }
 
-/* .mapaSimulado{
+.mapaSimulado{
     
     position: absolute;
     top: 0;
     left: 0;
     background-color: aliceblue;
-} */
+}
+
+.SimulacionBotonesDer{
+    width: 100%;
+    height: 20.5%;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: row;
+}
+.SimulacionConfigurar{
+
+    width: 100%;
+    height: 30%;
+
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction:column;
+
+}
+
+.SimulacionResumen{
+    width: 100%;
+    height: 49.5%;
+    display: flex;
+    /* background-color: red; */
+
+}
+
+.SimulacionConfigTItulo{
+
+    width: 100%;
+    height: 20%;
+    display: flex;
+    /* text-align: center; */
+    /* background-color: aqua; */
+
+}
+
+.SimulacionConfigBody{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    /* background-color: antiquewhite; */
+    font-size: small;
+    
+}
