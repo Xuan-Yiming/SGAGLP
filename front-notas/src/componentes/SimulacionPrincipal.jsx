@@ -3,6 +3,7 @@ import '../hojas-estilo/SimulacionPrincipal.css';
 import Canvas from '../canvas-resize/CanvasPrime.js';
 import MapaGrid from '../canvas-resize/MapaGrid.jsx';
 import MapaGrid2 from '../canvas-resize/MapaGrid2.jsx';
+import axios from 'axios';
 
 export function SimulacionPrincipal() {
     
@@ -78,6 +79,9 @@ export function SimulacionPrincipal() {
         const elapsedSeconds = (elapsedMilliseconds / 1000) * speedMultiplier;
   
         setElapsedTime((prevElapsedTime) => prevElapsedTime + elapsedSeconds);
+        // setPrevTime((prevElapsedTime) => prevElapsedTime + elapsedSeconds);
+        // if(elapsedTime!=prevTime)setElapsedTime(prevTime);
+        // console.log(elapsedTime);
   
         startTime = now;
         timerId = requestAnimationFrame(updateTimer);
@@ -157,20 +161,24 @@ export function SimulacionPrincipal() {
     }
 
 
-    const handleFileChange = (event) => {
-      const selectedFile = event.target.files[0];
+    // const handleFileChange = (event) => {
+    //   const selectedFile = event.target.files[0];
   
 
-      if (selectedFile) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const content = e.target.result;
-          setFileContent(content);
-        };
-        reader.readAsText(selectedFile);
-      } else {
-        setFileContent(null);
-      }
+    //   if (selectedFile) {
+    //     const reader = new FileReader();
+    //     reader.onload = (e) => {
+    //       const content = e.target.result;
+    //       setFileContent(content);
+    //     };
+    //     reader.readAsText(selectedFile);
+    //   } else {
+    //     setFileContent(null);
+    //   }
+    // };
+
+    const handleFileChange = (event) => {
+      setFile(event.target.files[0]);
     };
 
 
@@ -216,6 +224,7 @@ export function SimulacionPrincipal() {
     }
 
     useEffect(() => {
+      // getDataCamiones()
         if (divRef.current) {
           // Accede al ancho actual del div a través de clientWidth
           divWidth = divRef.current.clientWidth;
@@ -224,6 +233,60 @@ export function SimulacionPrincipal() {
           console.log(`alto del div: ${divHeight}`);
         }
       }, []);
+
+
+
+      const [elementosCamiones,setElementosCamiones] = useState('');
+      const  getDataCamiones = async () =>{
+        try {
+          const response = await axios.get('http://localhost:3000/estructuraCamiones');
+    
+          setElementosCamiones(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    
+      useEffect(() => {
+        getDataCamiones();
+        console.log(elementosCamiones);
+    }, []);
+
+
+    const [file, setFile] = useState(null);
+    const handleFileUpload = async (event) => {
+      event.preventDefault();
+  
+      if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+  
+        try {
+          const response = await fetch('/cargaMasivaDePedidos', {
+            method: 'POST',
+            body: formData,
+          });
+  
+          // Handle the response from the server as needed
+        } catch (error) {
+          // Handle any errors that occur during the upload
+          console.error('Error uploading file:', error);
+        }
+      }
+    };
+
+
+
+    const [prevTime, setPrevTime] = useState(0);
+    // useEffect(() => {
+    //   // This effect will run whenever elapsedTime changes to a different time
+    //   // You can put your MapaGrid2 logic here
+    //   console.log('Elapsed time changed to:', elapsedTime);
+    // }, [elapsedTime]);
+
+
+
 
     return (
         <div className='principalSimulacion'>
@@ -276,7 +339,7 @@ export function SimulacionPrincipal() {
                     </div>
                     <div className='SimulacionMapa' ref={divRef}>
                         {/* <Canvas className='mapaSimulado'  draw = {draw} draw2 ={null} width='100%' height ='100%'/> */}
-                        <MapaGrid2 ancho ={divWidth} alto ={divHeight} tiempo={elapsedTime}/>
+                        <MapaGrid2 ancho ={divWidth} alto ={divHeight} tiempo={elapsedTime} elementosCamiones={elementosCamiones}/>
                         {/* <Canvas className='mapaSimulado'  draw = {draw2} width='100%' height ='100%'/> */}
                         
                         {/* <div id="canvas-container" style={{ width: '100%', height: '100%' }}>
@@ -297,11 +360,22 @@ export function SimulacionPrincipal() {
                       <div className='SimulacionConfigBody'>
 
                         Ingresar Archivo TXT de Pedidos:
-                        <input type="file" accept=".txt" onChange={handleFileChange} />
+                        {/* <input type="file" accept=".txt" onChange={handleFileChange} />
                         <div><button onClick={procesarTXT}>procesar</button></div>
                         <strong>File Content:</strong>
-                        <pre>{fileContent}</pre>
+                        <pre>{fileContent}</pre> */}
 
+                        {/* <input class="custom-file-input-label" type="file" id="btn-masiva" accept=".csv" display="none"/>
+
+                        <button class="button-blue-transparente-blue-border" id="btn-reporte">
+                            Reporte de lista negra
+                        </button> */}
+
+
+                        <form onSubmit={handleFileUpload}>
+                          <input type="file" name="file" onChange={handleFileChange} />
+                          <button type="submit">Subir Archivo</button>
+                        </form>
                       </div>
                     </div>
                     <div className='SimulacionResumen'></div>
