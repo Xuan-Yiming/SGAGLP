@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import axios from 'axios';
 // import '../HojasDeEstilo/MapGrid.css';
 // import logo from "../images/logoCircular.png";
 
@@ -25,8 +26,11 @@ const MapGrid2 = (props) => {
     // {tipo: 'cliente',x:12,y:8}
   ]
 
+  const [elementosCamiones,setElementosCamiones] = useState([]);
 
-const elementosCamiones =[
+    // const elementosCamiones = props.elementosCamiones;
+
+const elementosCamiones1 =[
 {tipo: 'camion',id:'TA01',x:12,y:8,time:1},
 {tipo: 'camion',id:'TA01',x:13,y:8,time:2},
 {tipo: 'camion',id:'TA01',x:14,y:8,time:3},
@@ -95,6 +99,18 @@ const elementosEstaticosTemporales =[
     
 ]
 
+const  getDataCamiones = async () =>{
+    try {
+      const response = await axios.get('http://localhost:3000/estructuraCamiones');
+
+      setElementosCamiones(response.data)
+    //   console.log(response.data); // Response data
+    //   console.log(elementosCamiones); // Response data
+    //   console.log(elementosCamiones1); // Response data
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
     // const [images, setImages] = useState({});
 
@@ -117,7 +133,7 @@ const elementosEstaticosTemporales =[
 
         if(velocidad + unidadCuadroAncho*(0.5 + inicio.x) <= unidadCuadroAncho*(0.5 + final.x) && 
                             unidadCuadroAlto*(0.5 + inicio.y) <= unidadCuadroAlto*(0.5 + final.y)){
-                                console.log(velocidad);
+                                // console.log(velocidad);
                             }
         else if (velocidad + unidadCuadroAncho*(0.5 + inicio.x) < unidadCuadroAncho*(0.5 + final.x) && 
         unidadCuadroAlto*(0.5 + inicio.y) < unidadCuadroAlto*(0.5 + final.y)){
@@ -228,7 +244,7 @@ const elementosEstaticosTemporales =[
                     }
                     else if(elemento.tipo == 'cliente'){
                         c.lineWidth = 1;
-                        console.log(elemento.inicio);
+                        // console.log(elemento.inicio);
                         c.beginPath();
                         c.moveTo((elemento.x)*unidadCuadroAncho,(elemento.y-0.5)*unidadCuadroAlto); // Move to the starting point
                         
@@ -272,12 +288,14 @@ const elementosEstaticosTemporales =[
     }
 
 
-    const getCantidadCamiones =()=>{
+    const getCantidadCamiones  = async ()=>{
 
         let cantidadCamiones=0;
         let camionAnt = 'aaa';
         let camiones = [];
 
+
+        // console.log(elementosCamiones);
         for (let i = 0; i < elementosCamiones.length; i++){
             const camionEscogido = elementosCamiones[i];
             if(camionAnt!=camionEscogido.id){
@@ -304,7 +322,9 @@ const elementosEstaticosTemporales =[
 
     useEffect(() => {
         
+        getDataCamiones();
         getCantidadCamiones();
+        
         // getBloqueosTotales();
         // Ajustar el tamaño del canvas al del contenedor
         function updateSize() {
@@ -325,6 +345,9 @@ const elementosEstaticosTemporales =[
     }, []);
 
     useEffect(() => {
+
+        getDataCamiones();
+        getCantidadCamiones();
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
 
@@ -337,10 +360,6 @@ const elementosEstaticosTemporales =[
         const cuadrosAncho = 70;
         // console.log(`Ancho del cuadricula: ${canvas.width / cuadrosAncho}`);
         // console.log(`alto cuadricula: ${canvas.height / cuadrosAncho}`);
-
-        var x=0;
-
-
 
 
         function animate(){
@@ -384,10 +403,11 @@ const elementosEstaticosTemporales =[
             ctx.lineWidth = 1;
             // ctx.stroke();
 
-
+            // console.log(elementosCamiones);
             for(let j=0;j<cantidadCamiones;j++){
 
                 for (let i = 0; i < elementosCamiones.length; i++) {
+                    
 
                     const camion = elementosCamiones[i];
                     // let idAnt = 'aaa';
