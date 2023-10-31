@@ -178,6 +178,7 @@ export function SimulacionPrincipal() {
     // };
 
     const handleFileChange = (event) => {
+      event.preventDefault()
       setFile(event.target.files[0]);
     };
 
@@ -255,26 +256,85 @@ export function SimulacionPrincipal() {
 
 
     const [file, setFile] = useState(null);
+
+
+    useEffect(() => {
+      // getDataCamiones(
+        console.log(file);
+    }, [file]);
+
+    // const handleFileUpload = async (event) => {
+    //   event.preventDefault();
+  
+    //   if (file) {
+    //     const formData = new FormData();
+    //     formData.append('file', file);
+  
+    //     try {
+    //       const response = await fetch('http://localhost:8080/cargaMasivaDePedidos', {
+    //         method: 'POST',
+    //         body: formData,
+    //       });
+  
+    //       // Handle the response from the server as needed
+    //     } catch (error) {
+    //       // Handle any errors that occur during the upload
+    //       console.error('Error uploading file:', error);
+    //     }
+    //   }
+      
+    // };
+
+
     const handleFileUpload = async (event) => {
-      event.preventDefault();
   
-      if (file) {
-        const formData = new FormData();
-        formData.append('file', file);
-  
-        try {
-          const response = await fetch('/cargaMasivaDePedidos', {
-            method: 'POST',
-            body: formData,
-          });
-  
-          // Handle the response from the server as needed
-        } catch (error) {
-          // Handle any errors that occur during the upload
-          console.error('Error uploading file:', error);
-        }
+      event.preventDefault()
+      const config = {
+          headers: {
+              Authorization: 'Bearer ' 
+          }
       }
+
+      const data = {
+        file:file
+      }
+      console.log("AQUI ESTA LA DATAAAAAAA");
+      try {
+
+          const respuesta = await axios.post("http://localhost:8080/DP15E/api/v1/node/cargaMasivaDePedidos", data, config);
+          console.log("AQUI ESTA LA DATAAAAAAA CURSO 333");
+          console.log(respuesta);
+      }
+      catch (error) {
+          console.log(error);
+      }
+      
     };
+
+
+    const subirArchivo = async (e) =>{
+      e.preventDefault()
+      const config = {
+          headers: {
+              Authorization: 'Bearer ' 
+          }
+      }
+
+      const data = {
+        file:file
+      }
+      console.log("AQUI ESTA LA DATAAAAAAA");
+      try {
+
+          const respuesta = await axios.post("http://localhost:8080/DP15E/api/v1/node/cargaMasivaDePedidos", data, config);
+          console.log("AQUI ESTA LA DATAAAAAAA CURSO 333");
+          console.log(respuesta);
+      }
+      catch (error) {
+          console.log(error);
+      }
+
+    }
 
 
 
@@ -285,7 +345,26 @@ export function SimulacionPrincipal() {
     //   console.log('Elapsed time changed to:', elapsedTime);
     // }, [elapsedTime]);
 
-
+  
+    const handleUpload = () => {
+      // Realiza la carga del archivo aquí
+      const formData = new FormData();
+      formData.append("file", file,file.name);
+  
+      // Realiza una solicitud POST al backend para cargar el archivo
+      fetch("http://localhost:8080/DP15E/api/v1/node/cargaMasivaDePedidos", {
+        method: "POST",
+        body: formData,
+        redirect:"follow",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data); // Puedes manejar la respuesta del servidor aquí
+        })
+        .catch((error) => {
+          console.error("Error al cargar el archivo:", error);
+        });
+    };
 
 
     return (
@@ -372,10 +451,12 @@ export function SimulacionPrincipal() {
                         </button> */}
 
 
-                        <form onSubmit={handleFileUpload}>
-                          <input type="file" name="file" onChange={handleFileChange} />
-                          <button type="submit">Subir Archivo</button>
-                        </form>
+                        {/*<form>*/}
+
+                        <div>
+                          <input type="file" accept=".txt" onChange={handleFileChange} />
+                          <button onClick={handleUpload}>Cargar Archivo</button>
+                        </div>
                       </div>
                     </div>
                     <div className='SimulacionResumen'></div>
