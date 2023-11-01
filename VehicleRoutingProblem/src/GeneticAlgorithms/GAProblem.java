@@ -3,7 +3,6 @@ package GeneticAlgorithms;
 import GeneticAlgorithms.Problem.Node;
 import GeneticAlgorithms.Problem.Vehicle;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,9 +16,9 @@ public class GAProblem implements Cloneable{
     private Date date;
 
     public int populationSize = 100;
-    public double mutationRate = 0.7;
+    public double mutationRate = 0.5;
     public int maxGenerations = 5000;
-    public double DEPOTRATE = 0.6;
+    public double depotRate = 0.4;
 
     // Constructors
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots, ArrayList<Node> blocks) {
@@ -43,7 +42,7 @@ public class GAProblem implements Cloneable{
         this.orders = new ArrayList<>();
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 300; i++) {
             calendar.setTime(date);
             calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(24));
             Date finalDate = calendar.getTime();

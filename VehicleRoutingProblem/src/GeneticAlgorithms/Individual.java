@@ -1,10 +1,8 @@
 package GeneticAlgorithms;
 
 import GeneticAlgorithms.Problem.Node;
-import GeneticAlgorithms.Problem.Vehicle;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 //una solucion
 public class Individual implements Cloneable {
@@ -38,7 +36,7 @@ public class Individual implements Cloneable {
         individual.setFitness(this.fitness);
         individual.setChromosome(new Chromosome());
         individual.getChromosome().setGAProblem(problem.clone());
-        individual.getChromosome().setDepotRate(problem.DEPOTRATE);
+        individual.getChromosome().setDepotRate(problem.depotRate);
 
         ArrayList<Gene> genes = new ArrayList<>();
         for (int i = 0; i < this.chromosome.genes.size(); i++) {

@@ -15,7 +15,7 @@ public class Chromosome implements Cloneable {
 
     public Chromosome(GAProblem problem) {
 
-        this.DEPOTRATE = problem.DEPOTRATE;
+        this.DEPOTRATE = problem.depotRate;
         // copy the problem
         this.problem = problem.clone();
 
