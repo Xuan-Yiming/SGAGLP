@@ -345,7 +345,6 @@ export function SimulacionPrincipal() {
     //   console.log('Elapsed time changed to:', elapsedTime);
     // }, [elapsedTime]);
 
-  
     const handleUpload = () => {
       // Realiza la carga del archivo aquí
       const formData = new FormData();
@@ -357,15 +356,26 @@ export function SimulacionPrincipal() {
         body: formData,
         redirect:"follow",
       })
-        .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.status + " " + response.statusText);
+        } else {
+          try {
+            return response.text();
+          } catch (error) {
+            return null;
+          }
+        }
+      })
         .then((data) => {
           console.log(data); // Puedes manejar la respuesta del servidor aquí
+          alert(data);
         })
         .catch((error) => {
+          alert("Ha ocurrido un error de comunicación con el servidor");
           console.error("Error al cargar el archivo:", error);
         });
     };
-
 
     return (
         <div className='principalSimulacion'>
