@@ -25,8 +25,35 @@ public class Vehicle implements Cloneable {
         try {
             return (Vehicle) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new AssertionError();  // This should not happen.
+            throw new AssertionError(); // This should not happen.
         }
+    }
+    
+    public void addNode(Node node) {
+        if (node.getTipo() == 'C') {
+            
+        } else if (node.getTipo() == 'D') {
+            switch (this.type) {
+                case 'A':
+                    this.pesoBruto = 2.5;
+                    this.cargaGLP = 25;
+                    break;
+                case 'B':
+                    this.pesoBruto = 2;
+                    this.cargaGLP = 15;
+                    break;
+                case 'C':
+                    this.pesoBruto = 1.5;
+                    this.cargaGLP = 10;
+                    break;
+                case 'D':
+                    this.pesoBruto = 1;
+                    this.cargaGLP = 5;
+                    break;
+            }
+        }
+        this.posicion = node.getPosicion();
+        route.add(node);
     }
 
     // Constructor

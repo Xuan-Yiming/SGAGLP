@@ -72,8 +72,8 @@ public class Gene implements Cloneable {
             // if can deliver to this node then fitness +1
             if (canDeliver(route.get(i))) {
                 this.cargaGLP -= route.get(i).getCantidad();
-                this.pesoNeto = this.pesoBruto + this.cargaGLP / 2;
                 this.cargaPetroleo -= consumoGLP(distanceToANode(route.get(i)));
+                this.pesoNeto = this.pesoBruto + this.cargaGLP / 2;
                 this.totalTime += timeToANode(distanceToANode(route.get(i)));
                 this.posicion = route.get(i).getPosicion();
                 if (route.get(i).getTipo() == 'C') {
@@ -97,6 +97,7 @@ public class Gene implements Cloneable {
                             this.cargaGLP = 5;
                             break;
                     }
+                    this.cargaPetroleo = 25;
                 }
             } else {
                 break;
@@ -120,31 +121,6 @@ public class Gene implements Cloneable {
 
     public void addNode(Node node) {
         this.route.add(node);
-        // if (node.getTipo() == 'C') {
-        //     this.cargaGLP -= node.getCantidad();
-        //     this.cargaPetroleo -= consumoGLP(distanceToANode(node));
-        //     this.totalTime += timeToANode(distanceToANode(node));
-        // } else if (node.getTipo() == 'D') {
-        //     switch (this.type) {
-        //         case 'A':
-        //             this.pesoBruto = 2.5;
-        //             this.cargaGLP = 25;
-        //             break;
-        //         case 'B':
-        //             this.pesoBruto = 2;
-        //             this.cargaGLP = 15;
-        //             break;
-        //         case 'C':
-        //             this.pesoBruto = 1.5;
-        //             this.cargaGLP = 10;
-        //             break;
-        //         case 'D':
-        //             this.pesoBruto = 1;
-        //             this.cargaGLP = 5;
-        //             break;
-        //     }
-        // }
-        // this.pesoNeto = this.pesoBruto + this.cargaGLP / 2;
     }
 
     public boolean canDeliver(Node custumor) {
@@ -167,7 +143,7 @@ public class Gene implements Cloneable {
                 }
             }
 
-            // si tiene suficiente petroleo
+            // si no tiene suficiente petroleo
             if (this.cargaPetroleo < consumoGLP(distancia)) {
                 return false;
             }
@@ -176,9 +152,7 @@ public class Gene implements Cloneable {
     }
 
     public int distanceToANode(Node node) {
-        return (int) Math.sqrt(Math
-                .pow(node.getPosicion().getX() - this.route.get(this.route.size() - 1).getPosicion().getX(), 2)
-                + Math.pow(node.getPosicion().getY() - this.route.get(this.route.size() - 1).getPosicion().getY(), 2));
+        return (int) (Math.abs(node.getPosicion().getX() - this.getPosicion().getX())  + Math.abs(node.getPosicion().getY() - this.getPosicion().getY()));
     }
 
     public int timeToANode(int distancia) {

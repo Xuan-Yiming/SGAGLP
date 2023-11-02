@@ -15,10 +15,10 @@ public class GAProblem implements Cloneable{
     private ArrayList<Node> blocks;
     private Date date;
 
-    public int populationSize = 100;
-    public double mutationRate = 0.5;
+    public int populationSize = 200;
+    public double mutationRate = 0.6;
     public int maxGenerations = 5000;
-    public double depotRate = 0.4;
+    public double depotRate = 0.6;
 
     // Constructors
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots, ArrayList<Node> blocks) {
@@ -42,7 +42,7 @@ public class GAProblem implements Cloneable{
         this.orders = new ArrayList<>();
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < 50; i++) {
             calendar.setTime(date);
             calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(24));
             Date finalDate = calendar.getTime();
