@@ -60,6 +60,86 @@ public class Gene implements Cloneable {
         System.out.println("===================================================");
     }
 
+    public void insertDepot(ArrayList<Node> depots) {
+        ArrayList<Node> newRoute = new ArrayList<>();
+
+        Point _posicion = this.posicion;
+        double _cargaGLP = this.cargaGLP;
+        double _pesoNeto = this.pesoNeto;
+        double _cargaPetroleo = this.cargaPetroleo;
+        int _totalTime = this.totalTime;
+
+        for (int i = 0; i < route.size(); i++) {
+            if (canDeliver(route.get(i))) {
+                newRoute.add(route.get(i));
+                this.cargaGLP -= route.get(i).getCantidad();
+                this.cargaPetroleo -= consumoGLP(distanceToANode(route.get(i)));
+                this.pesoNeto = this.pesoBruto + this.cargaGLP / 2;
+                this.totalTime += timeToANode(distanceToANode(route.get(i)));
+                this.posicion = route.get(i).getPosicion();
+            } else {
+                Node bestDepot = bestDepot(depots);
+                newRoute.add(bestDepot);
+
+                double maxCapacidadGLP = 0;
+                switch (this.type) {
+                    case 'A':
+                        maxCapacidadGLP = 25;
+                        break;
+                    case 'B':
+                        maxCapacidadGLP = 15;
+                        break;
+                    case 'C':
+                        maxCapacidadGLP = 10;
+                        break;
+                    case 'D':
+                        maxCapacidadGLP = 5;
+                        break;
+                }
+                bestDepot.setCapacidad(bestDepot.getCapacidad() - (maxCapacidadGLP - this.cargaGLP));
+
+                switch (this.type) {
+                    case 'A':
+                        this.pesoBruto = 2.5;
+                        this.cargaGLP = 25;
+                        break;
+                    case 'B':
+                        this.pesoBruto = 2;
+                        this.cargaGLP = 15;
+                        break;
+                    case 'C':
+                        this.pesoBruto = 1.5;
+                        this.cargaGLP = 10;
+                        break;
+                    case 'D':
+                        this.pesoBruto = 1;
+                        this.cargaGLP = 5;
+                        break;
+                }
+                this.cargaPetroleo = 25;
+                newRoute.add(route.get(i));
+            }
+        }
+        
+        this.posicion = _posicion;
+        this.totalTime = _totalTime;
+        this.cargaGLP = _cargaGLP;
+        this.pesoNeto = _pesoNeto;
+        this.cargaPetroleo = _cargaPetroleo;
+
+        this.route = newRoute;
+    }
+    
+    public void removeDepots() {
+        for (int i = 0; i < route.size(); i++) {
+            if (route.get(i).getTipo() == 'D') {
+                route.remove(i);
+                i--;
+            }
+        }
+    }
+
+
     public double calculateFitness() {
         double fitness = 0;
         Point _posicion = this.posicion;
@@ -70,6 +150,9 @@ public class Gene implements Cloneable {
 
         for (int i = 0; i < route.size() - 1; i++) {
             // if can deliver to this node then fitness +1
+            if (route.get(i) == null) {
+                continue;
+            }
             if (canDeliver(route.get(i))) {
                 this.cargaGLP -= route.get(i).getCantidad();
                 this.cargaPetroleo -= consumoGLP(distanceToANode(route.get(i)));
@@ -171,22 +254,6 @@ public class Gene implements Cloneable {
                 }
             }
         }
-        double maxCapacidadGLP = 0;
-        switch (this.type) {
-            case 'A':
-                maxCapacidadGLP = 25;
-                break;
-            case 'B':
-                maxCapacidadGLP = 15;
-                break;
-            case 'C':
-                maxCapacidadGLP = 10;
-                break;
-            case 'D':
-                maxCapacidadGLP = 5;
-                break;
-        }
-        bestDepot.setCapacidad(bestDepot.getCapacidad() - (maxCapacidadGLP - this.cargaGLP));
         return bestDepot;
     }
 

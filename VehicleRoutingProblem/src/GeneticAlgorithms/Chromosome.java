@@ -6,8 +6,8 @@ import java.util.Random;
 public class Chromosome implements Cloneable {
     public ArrayList<Gene> genes;
     private GAProblem problem;
-    private double DEPOTRATE;
-    
+    private double depotRate;
+
     // Constructors
 
     public Chromosome() {
@@ -15,7 +15,7 @@ public class Chromosome implements Cloneable {
 
     public Chromosome(GAProblem problem) {
 
-        this.DEPOTRATE = problem.depotRate;
+        this.depotRate = problem.depotRate;
         // copy the problem
         this.problem = problem.clone();
 
@@ -23,36 +23,42 @@ public class Chromosome implements Cloneable {
 
         genes = new ArrayList<>();
         for (int i = 0; i < this.problem.getVehicles().size(); i++) {
-            //agregar los vehiculos que no estan en mantenimiento
+            // agregar los vehiculos que no estan en mantenimiento
             if (this.problem.getDate() != this.problem.getVehicles().get(i).getMantenimiento()) {
                 genes.add(new Gene(this.problem.getVehicles().get(i), this.problem.getDepots().get(0)));
             }
         }
 
+        // for (int i = 0; i < this.problem.getOrders().size(); i++) {
+        // int vehicleIndex = random.nextInt(genes.size());
+        // double ifGoToDepot = random.nextDouble();
+        // if (ifGoToDepot < depotRate) {
+        // // si se dirige al deposito, se dirige al mejor deposito
+        // // get a random depot
+        // int depotIndex = random.nextInt(this.problem.getDepots().size());
+        // genes.get(vehicleIndex).addNode(this.problem.getDepots().get(depotIndex));
+        // i--;
+        // } else {
+        // genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));
+        // }
+        // }
+
         for (int i = 0; i < this.problem.getOrders().size(); i++) {
             int vehicleIndex = random.nextInt(genes.size());
-            double ifGoToDepot = random.nextDouble();
-            if (ifGoToDepot < DEPOTRATE) {
-                // si se dirige al deposito, se dirige al mejor deposito
-                // get a random depot
-                int depotIndex = random.nextInt(this.problem.getDepots().size());
-                genes.get(vehicleIndex).addNode(this.problem.getDepots().get(depotIndex));
-                i--;
-            } else {
-                genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));
-            }
+            genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));
         }
     }
 
     public double calculateFitness() {
         double fitness = 0;
         for (int i = 0; i < genes.size(); i++) {
+            genes.get(i).insertDepot(this.problem.getDepots());
             fitness += genes.get(i).calculateFitness();
+            genes.get(i).removeDepots();
         }
         return fitness;
     }
-    
-    
+
     public void print() {
         for (int i = 0; i < genes.size(); i++) {
             genes.get(i).print();
@@ -67,13 +73,13 @@ public class Chromosome implements Cloneable {
             throw new AssertionError(); // This should not happen.
         }
     }
-    
-    //getters and setters
+
+    // getters and setters
     public void setGAProblem(GAProblem problem) {
         this.problem = problem;
     }
 
     public void setDepotRate(double depotRate) {
-        this.DEPOTRATE = depotRate;
+        this.depotRate = depotRate;
     }
 }
