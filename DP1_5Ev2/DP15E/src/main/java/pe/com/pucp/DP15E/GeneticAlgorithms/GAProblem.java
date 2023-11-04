@@ -3,10 +3,8 @@ package pe.com.pucp.DP15E.GeneticAlgorithms;
 import pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node;
 import pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Vehicle;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.sql.Timestamp;
+import java.util.*;
 
 public class GAProblem implements Cloneable{
     private ArrayList<Vehicle> vehicles;
@@ -26,6 +24,37 @@ public class GAProblem implements Cloneable{
         this.vehicles = vehicles;
         this.depots = depots;
         this.blocks = blocks;
+    }
+
+    public GAProblem(ArrayList<pe.com.pucp.DP15E.model.Vehicle> vehicles, ArrayList<pe.com.pucp.DP15E.model.Node> orders, int a){
+        int i=0;
+        this.orders = new ArrayList<>();
+
+        for (pe.com.pucp.DP15E.model.Node order : orders) {
+            if(order.getTipo()=='C'){
+                this.orders.add(new Node("C" + order.getId() , order.getX(), order.getY(), order.getCantidad(), Timestamp.valueOf(order.getFechaOrigen()), Timestamp.valueOf(order.getFechaOrigen().plusHours(order.getHoraDemandada()))));
+            }
+        }
+        this.blocks = new ArrayList<>();
+        for (pe.com.pucp.DP15E.model.Node order : orders) {
+            if(order.getTipo()=='B'){
+                this.blocks.add(new Node(order.getId(), order.getX(), order.getY(), Timestamp.valueOf(order.getFechaInicio()), Timestamp.valueOf(order.getFechaFinal())) );
+            }
+        }
+        for (pe.com.pucp.DP15E.model.Node order : orders) {
+            if(order.getTipo()=='D'){
+                this.orders.add(new Node( order.getId() , order.getX(), order.getY(), order.getCapacidad()));
+            }
+        }
+        this.vehicles = new ArrayList<>();
+        for (pe.com.pucp.DP15E.model.Vehicle vehicle : vehicles) {
+            this.vehicles.add(new Vehicle( vehicle.getId() , vehicle.getType(), vehicle.getX(), vehicle.getY(), vehicle.getPesoBruto(),
+                    vehicle.getCargaGLP(),vehicle.getPesoNeto(),vehicle.getVelocidad(),vehicle.getCargaPetroleo(),vehicle.getTotalTime()));
+
+        }
+
+
+
     }
 
     public GAProblem(){

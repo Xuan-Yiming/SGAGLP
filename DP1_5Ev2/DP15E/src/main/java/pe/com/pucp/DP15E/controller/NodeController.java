@@ -33,4 +33,14 @@ public class NodeController {
     public List<Node> ListarDatosImportantesNode(){
         return nodeService.ListarDatosImportantesNode();
     }
+
+    @GetMapping(path ="/listarDataResultadoAlgoritmo")
+    public String listarDataResultadoAlgoritmo(){
+        return nodeService.ListarDataResultadoAlgoritmo();
+    }
+
+    @GetMapping(path ="/listarDataResultadoAlgoritmo2")
+    public String listarDataResultadoAlgoritmo2(){
+        return nodeService.ListarDataResultadoAlgoritmo2();
+    }
 }

@@ -1,16 +1,18 @@
 package pe.com.pucp.DP15E.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jmx.export.UnableToRegisterMBeanException;
 import org.springframework.stereotype.Component;
+import pe.com.pucp.DP15E.GeneticAlgorithms.GAProblem;
+import pe.com.pucp.DP15E.GeneticAlgorithms.Individual;
+import pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Solucion;
 import pe.com.pucp.DP15E.model.Cliente;
 import pe.com.pucp.DP15E.model.Node;
 import pe.com.pucp.DP15E.model.Vehicle;
 import pe.com.pucp.DP15E.repository.ClienteRepository;
 import pe.com.pucp.DP15E.repository.NodeRepository;
 import org.springframework.web.multipart.MultipartFile;
+import pe.com.pucp.DP15E.repository.VehicleRepository;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,21 +20,119 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class NodeService {
     private final NodeRepository nodeRepository;
     private final ClienteRepository clienteRepository;
+    private final VehicleRepository vehicleRepository;
+
 
     @Autowired
-    public NodeService(NodeRepository nodeRepository, ClienteRepository clienteRepository) {
+    public NodeService(NodeRepository nodeRepository, ClienteRepository clienteRepository, VehicleRepository vehicleRepository) {
         this.nodeRepository = nodeRepository;
         this.clienteRepository = clienteRepository;
+        this.vehicleRepository = vehicleRepository;
     }
 
+    public String ListarDataResultadoAlgoritmo() {
+
+
+        List<Object[]> resultList = nodeRepository.listarDataImportante();
+        ArrayList<Node> nodes = new ArrayList<>();
+
+
+
+        for (Object[] result : resultList) {
+            Node node = new Node();
+            node.setId((Integer) result[0]);
+            node.setX((Integer) result[1]);
+            node.setY((Integer) result[2]);
+            node.setTipo((Character) result[3]);
+            node.setFechaInicio((LocalDateTime) result[4]);
+            node.setFechaFinal((LocalDateTime) result[5]);
+            node.setFechaOrigen((LocalDateTime) result[6]);
+            node.setCantidad((Double) result[7]);
+            node.setCapacidad((Double) result[8]);
+            node.setHoraDemandada((Integer) result[9]);
+            nodes.add(node);
+        }
+
+        List<Object[]> resultList2 = vehicleRepository.listarDataImportanteVehiculo();
+        ArrayList<pe.com.pucp.DP15E.model.Vehicle> vehicles = new ArrayList<>();
+
+
+
+        for (Object[] result : resultList2) {
+            pe.com.pucp.DP15E.model.Vehicle vehicle = new Vehicle();
+            vehicle.setId((Integer) result[0]);
+            vehicle.setX((Integer)result[1]);
+            vehicle.setY((Integer)result[2]);
+            vehicle.setTotalTime((Integer) result[3]);
+            vehicle.setType((Character) result[4]);
+            vehicle.setCargaGLP((Double) result[5]);
+            vehicle.setCargaPetroleo((Double) result[6]);
+            vehicle.setPesoBruto((Double) result[7]);
+            vehicle.setPesoNeto((Double) result[8]);
+            vehicle.setVelocidad((Double) result[9]);
+            vehicles.add(vehicle);
+        }
+
+
+        Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
+
+        return solucion.elementosEstaticosTemporalesToJson();
+    }
+
+    public String ListarDataResultadoAlgoritmo2() {
+
+
+        List<Object[]> resultList = nodeRepository.listarDataImportante();
+        ArrayList<Node> nodes = new ArrayList<>();
+
+
+
+        for (Object[] result : resultList) {
+            Node node = new Node();
+            node.setId((Integer) result[0]);
+            node.setX((Integer) result[1]);
+            node.setY((Integer) result[2]);
+            node.setTipo((Character) result[3]);
+            node.setFechaInicio((LocalDateTime) result[4]);
+            node.setFechaFinal((LocalDateTime) result[5]);
+            node.setFechaOrigen((LocalDateTime) result[6]);
+            node.setCantidad((Double) result[7]);
+            node.setCapacidad((Double) result[8]);
+            node.setHoraDemandada((Integer) result[9]);
+            nodes.add(node);
+        }
+
+        List<Object[]> resultList2 = vehicleRepository.listarDataImportanteVehiculo();
+        ArrayList<pe.com.pucp.DP15E.model.Vehicle> vehicles = new ArrayList<>();
+
+
+
+        for (Object[] result : resultList2) {
+            pe.com.pucp.DP15E.model.Vehicle vehicle = new Vehicle();
+            vehicle.setId((Integer) result[0]);
+            vehicle.setX((Integer)result[1]);
+            vehicle.setY((Integer)result[2]);
+            vehicle.setTotalTime((Integer) result[3]);
+            vehicle.setType((Character) result[4]);
+            vehicle.setCargaGLP((Double) result[5]);
+            vehicle.setCargaPetroleo((Double) result[6]);
+            vehicle.setPesoBruto((Double) result[7]);
+            vehicle.setPesoNeto((Double) result[8]);
+            vehicle.setVelocidad((Double) result[9]);
+            vehicles.add(vehicle);
+        }
+
+
+        Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
+
+        return solucion.elementosCamionesToJson();
+    }
 
     public  String cargaMasivaDePedidos(MultipartFile file){
         //private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd'd'HH'h'mm'm':");

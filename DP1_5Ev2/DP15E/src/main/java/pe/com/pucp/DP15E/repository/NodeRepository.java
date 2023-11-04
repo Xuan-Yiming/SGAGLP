@@ -11,6 +11,7 @@ import java.util.List;
 public interface NodeRepository  extends JpaRepository<Node,Integer> {
     @Query("SELECT n.id, n.x, n.y, n.tipo, n.fechaInicio, n.fechaFinal, n.fechaOrigen, n.fechaOrigen FROM Node n WHERE n.activo = true")
     List<Object[]> listarDatosImportantesNode();
-
+    @Query("SELECT n.id, n.x, n.y, n.tipo, n.fechaInicio, n.fechaFinal, n.fechaOrigen, n.cantidad,n.capacidad,n.horaDemandada FROM Node n WHERE n.activo = true")
+    List<Object[]> listarDataImportante();
 }
 

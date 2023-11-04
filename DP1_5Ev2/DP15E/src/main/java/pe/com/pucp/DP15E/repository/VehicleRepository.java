@@ -10,8 +10,14 @@ import java.util.List;
 @Repository
 public interface VehicleRepository  extends JpaRepository<Vehicle,Integer> {
 
-    @Query(value = "SELECT v.id, v.x, v.y, v.totalTime FROM Vehicle v " +
+    @Query(value = "SELECT v.id, v.x, v.y, v.totalTime, v.type,v.cargaGLP,v.cargaPetroleo,v.pesoBruto,v.pesoNeto, v.velocidad" +
+            " FROM Vehicle v " +
            "WHERE v.activo = true ")
     public List<Vehicle> listarDatosImportantesVehiculo();
+
+    @Query(value = "SELECT v.id, v.x, v.y, v.totalTime, v.type,v.cargaGLP,v.cargaPetroleo,v.pesoBruto,v.pesoNeto, v.velocidad" +
+            " FROM Vehicle v " +
+            "WHERE v.activo = true ")
+    List<Object[]> listarDataImportanteVehiculo();
 
 }

@@ -5,39 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52603478-d991-451e-a102-13ba82f4bbab" name="Changes" comment="Genetic">
-      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Solucion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/SolucionNodo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/SolucionRuta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/GAProblem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/GAProblem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/Problem/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/Problem/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/Problem/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/Problem/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/controller/NodeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/controller/NodeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/model/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/model/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/repository/NodeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/repository/NodeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/repository/VehicleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/repository/VehicleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/service/NodeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/service/NodeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/service/VehicleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/service/VehicleService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VehicleRoutingProblem.iml" beforeDir="false" afterPath="$PROJECT_DIR$/VehicleRoutingProblem.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AStar/AStar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/AStar/AStar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AStar/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/AStar/NodeA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AStar/NodeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/AStar/NodeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/GA/Algorithm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/GA/Components/Individual.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/GA/Components/Route.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/GA/Metrics.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/GA/Operations/Crossover.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/GA/Operations/Initializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/GA/Operations/Inserter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/GA/Operations/Insertion.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/GA/Operations/Mutation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/GA/Operations/Selection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/Genetic.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/MDVRP/CrowdedDepot.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/MDVRP/Customer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/MDVRP/Depot.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/MDVRP/Manager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/MDVRP/RouteScheduler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/MDVRP/Solution.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/Utils/Euclidian.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic/Utils/Formatter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/GAProblem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GAProblem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Problem/Vehicle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,27 +45,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/xuanyiming/Github/VehicleRoutingProblem",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Global Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/xuanyiming/Github/VehicleRoutingProblem&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\xuany\Documents\Github\SGAGLP\VehicleRoutingProblem\src\GeneticPathFinding" />

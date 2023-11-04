@@ -183,6 +183,7 @@ public class Vehicle  implements Serializable {
         this.y=8;
     }
 
+
     // getters and setters
 
     //public Point getPosicion() {
