@@ -15,9 +15,9 @@ public class GAProblem implements Cloneable{
     private ArrayList<Node> blocks;
     private Date date;
 
-    public int populationSize = 200;
+    public int populationSize = 10;
     public double mutationRate = 0.6;
-    public int maxGenerations = 5000;
+    public int maxGenerations = 10000;
     public double depotRate = 0.6;
 
     // Constructors
