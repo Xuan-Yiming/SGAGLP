@@ -4,6 +4,7 @@ import pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node;
 import pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Vehicle;
 
 import java.sql.Timestamp;
+import java.time.ZoneId;
 import java.util.*;
 
 public class GAProblem implements Cloneable{
@@ -35,17 +36,20 @@ public class GAProblem implements Cloneable{
                 this.orders.add(new Node("C" + order.getId() , order.getX(), order.getY(), order.getCantidad(), Timestamp.valueOf(order.getFechaOrigen()), Timestamp.valueOf(order.getFechaOrigen().plusHours(order.getHoraDemandada()))));
             }
         }
+        this.depots = new ArrayList<>();
+        for (pe.com.pucp.DP15E.model.Node order : orders) {
+            if(order.getTipo()=='D'){
+                this.depots.add(new Node( order.getId() , order.getX(), order.getY(), order.getCapacidad()));
+            }
+        }
+
         this.blocks = new ArrayList<>();
         for (pe.com.pucp.DP15E.model.Node order : orders) {
             if(order.getTipo()=='B'){
-                this.blocks.add(new Node(order.getId(), order.getX(), order.getY(), Timestamp.valueOf(order.getFechaInicio()), Timestamp.valueOf(order.getFechaFinal())) );
+                this.blocks.add(new Node(order.getId(), order.getX(), order.getY(), Timestamp.valueOf(order.getFechaInicio()),  Timestamp.valueOf(order.getFechaFinal())) );
             }
         }
-        for (pe.com.pucp.DP15E.model.Node order : orders) {
-            if(order.getTipo()=='D'){
-                this.orders.add(new Node( order.getId() , order.getX(), order.getY(), order.getCapacidad()));
-            }
-        }
+
         this.vehicles = new ArrayList<>();
         for (pe.com.pucp.DP15E.model.Vehicle vehicle : vehicles) {
             this.vehicles.add(new Vehicle( vehicle.getId() , vehicle.getType(), vehicle.getX(), vehicle.getY(), vehicle.getPesoBruto(),

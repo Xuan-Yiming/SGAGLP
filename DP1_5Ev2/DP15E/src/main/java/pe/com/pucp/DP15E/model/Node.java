@@ -11,12 +11,15 @@ import javax.persistence.*;
 import java.awt.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Builder
 @AllArgsConstructor
 //@NoArgsConstructor
 @Data
+
 @Entity(name="Node")
 @Table(name="nodo_simulacion")
 @SecondaryTable(name = "pedido_simulacion", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id_pedido"))
@@ -37,38 +40,39 @@ public class Node implements Serializable , Cloneable {
     private char tipo; // C: Customer, D: Depot, B: Block
 
 
-    @JsonIgnore
+
+
     @Column(name = "activo")
     private boolean activo;
     // Block
-    @JsonIgnore
+
     @Column(name = "fecha_inicio", table = "bloqueo_simulacion")
-    private LocalDateTime fechaInicio;
-    @JsonIgnore
+    private String fechaInicio;
+
     @Column(name = "fecha_final", table = "bloqueo_simulacion")
-    private LocalDateTime fechaFinal;
+    private String fechaFinal;
 
     // Customer
-    @JsonIgnore
+
     @Column(name = "cantidad", table = "pedido_simulacion")
     private Double cantidad;
-    @JsonIgnore
+
     @Column(name = "fid_cliente", table = "pedido_simulacion")
     private String idCliente;
-    @JsonIgnore
+
     @Column(name = "fecha_origen", table = "pedido_simulacion")
     private LocalDateTime fechaOrigen;
-    @JsonIgnore
+
     @Column(name = "hora_demandada", table = "pedido_simulacion")
     private Integer horaDemandada;
     // Depot
-    @JsonIgnore
+
     @Column(name = "capacidad", table = "depot_simulacion")
     private Double capacidad;
 
 
     // Constructor
-    public Node(int x, int y,LocalDateTime fechaInicio,LocalDateTime fechaFinal) {
+    public Node(int x, int y,String fechaInicio,String fechaFinal) {
         // Block
         //this.posicion = new Point(x, y);
         this.x=x;
@@ -105,8 +109,10 @@ public class Node implements Serializable , Cloneable {
         this.cantidad = 0.0;
         this.activo = false;
         this.capacidad=0.0;
-        this.fechaInicio = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
-        this.fechaFinal = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
+        //this.fechaInicio = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
+        //this.fechaFinal = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
+        this.fechaInicio = "2023-01-01 00:00:00";
+        this.fechaFinal = "2023-01-01 00:00:00";
         this.fechaOrigen = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
         this.idCliente = " ";
         this.horaDemandada = 0;
@@ -158,19 +164,19 @@ public class Node implements Serializable , Cloneable {
         this.tipo = tipo;
     }
 
-    public LocalDateTime getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(LocalDateTime fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public LocalDateTime getFechaFinal() {
+    public String getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(LocalDateTime fechaFinal) {
+    public void setFechaFinal(String fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 

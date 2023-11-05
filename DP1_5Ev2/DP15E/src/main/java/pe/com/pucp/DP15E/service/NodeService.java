@@ -18,9 +18,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 @Component
 public class NodeService {
@@ -38,7 +43,7 @@ public class NodeService {
 
     public String ListarDataResultadoAlgoritmo() {
 
-
+        int i=0;
         List<Object[]> resultList = nodeRepository.listarDataImportante();
         ArrayList<Node> nodes = new ArrayList<>();
 
@@ -46,17 +51,45 @@ public class NodeService {
 
         for (Object[] result : resultList) {
             Node node = new Node();
-            node.setId((Integer) result[0]);
-            node.setX((Integer) result[1]);
-            node.setY((Integer) result[2]);
-            node.setTipo((Character) result[3]);
-            node.setFechaInicio((LocalDateTime) result[4]);
-            node.setFechaFinal((LocalDateTime) result[5]);
-            node.setFechaOrigen((LocalDateTime) result[6]);
-            node.setCantidad((Double) result[7]);
-            node.setCapacidad((Double) result[8]);
-            node.setHoraDemandada((Integer) result[9]);
-            nodes.add(node);
+            if(result[0] != null){
+
+                node.setId((Integer) result[0]);
+                node.setX((Integer) result[1]);
+                node.setY((Integer) result[2]);
+                node.setTipo((Character) result[3]);
+                if(node.getTipo()=='C'){
+                    //node.setFechaInicio((LocalDateTime) result[4]);
+                    //node.setFechaFinal((LocalDateTime) result[5]);
+                    node.setFechaOrigen((LocalDateTime) result[6]);
+                    node.setCantidad((Double) result[7]);
+                    //node.setCapacidad((Double) result[8]);
+                    node.setHoraDemandada((Integer) result[9]);
+                }else if(node.getTipo()=='D'){
+                    //node.setFechaInicio((LocalDateTime) result[4]);
+                    //node.setFechaFinal((LocalDateTime) result[5]);
+                    //node.setFechaOrigen((LocalDateTime) result[6]);
+                    //node.setCantidad((Double) result[7]);
+                    if(i==0) node.setCapacidad(100000);
+                    else node.setCapacidad(500);
+                    //node.setHoraDemandada((Integer) result[9]);
+                    i++;
+                }else if(node.getTipo()=='B'){
+                    //Timestamp timestamp = new Timestamp(((Date) result[4]).getTime());
+                    //LocalDateTime localDateTime = timestamp.toLocalDateTime();
+                    //node.setFechaInicio(localDateTime);
+                    node.setFechaInicio(String.valueOf((LocalDateTime) result[4]));
+
+                    node.setFechaFinal(String.valueOf((LocalDateTime) result[5]));
+                    //node.setFechaOrigen((LocalDateTime) result[6]);
+                    //node.setCantidad((Double) result[7]);
+                    //node.setCapacidad((Double) result[8]);
+                    //node.setHoraDemandada((Integer) result[9]);
+                }
+
+                node.setActivo(true);
+                nodes.add(node);
+            }
+
         }
 
         List<Object[]> resultList2 = vehicleRepository.listarDataImportanteVehiculo();
@@ -87,7 +120,7 @@ public class NodeService {
 
     public String ListarDataResultadoAlgoritmo2() {
 
-
+        int i=0;
         List<Object[]> resultList = nodeRepository.listarDataImportante();
         ArrayList<Node> nodes = new ArrayList<>();
 
@@ -99,13 +132,116 @@ public class NodeService {
             node.setX((Integer) result[1]);
             node.setY((Integer) result[2]);
             node.setTipo((Character) result[3]);
-            node.setFechaInicio((LocalDateTime) result[4]);
-            node.setFechaFinal((LocalDateTime) result[5]);
-            node.setFechaOrigen((LocalDateTime) result[6]);
-            node.setCantidad((Double) result[7]);
-            node.setCapacidad((Double) result[8]);
-            node.setHoraDemandada((Integer) result[9]);
+            if(node.getTipo()=='C'){
+                //node.setFechaInicio((LocalDateTime) result[4]);
+                //node.setFechaFinal((LocalDateTime) result[5]);
+                node.setFechaOrigen((LocalDateTime) result[6]);
+                node.setCantidad((Double) result[7]);
+                //node.setCapacidad((Double) result[8]);
+                node.setHoraDemandada((Integer) result[9]);
+            }else if(node.getTipo()=='D'){
+                //node.setFechaInicio((LocalDateTime) result[4]);
+                //node.setFechaFinal((LocalDateTime) result[5]);
+                //node.setFechaOrigen((LocalDateTime) result[6]);
+                //node.setCantidad((Double) result[7]);
+                if(i==0) node.setCapacidad(1000000000);
+                else node.setCapacidad(500);
+                //node.setHoraDemandada((Integer) result[9]);
+            }else if(node.getTipo()=='B'){
+                node.setFechaInicio(String.valueOf((LocalDateTime) result[4]));
+                node.setFechaFinal(String.valueOf((LocalDateTime) result[5]));
+                //node.setFechaOrigen((LocalDateTime) result[6]);
+                //node.setCantidad((Double) result[7]);
+                //node.setCapacidad((Double) result[8]);
+                //node.setHoraDemandada((Integer) result[9]);
+            }
+            i++;
+            node.setActivo(true);
             nodes.add(node);
+        }
+
+        List<Object[]> resultList2 = vehicleRepository.listarDataImportanteVehiculo();
+        ArrayList<pe.com.pucp.DP15E.model.Vehicle> vehicles = new ArrayList<>();
+
+
+
+        for (Object[] result : resultList2) {
+            pe.com.pucp.DP15E.model.Vehicle vehicle = new Vehicle();
+            vehicle.setId((Integer) result[0]);
+            vehicle.setX((Integer)result[1]);
+            vehicle.setY((Integer)result[2]);
+            vehicle.setTotalTime((Integer) result[3]);
+            vehicle.setType((Character) result[4]);
+            vehicle.setCargaGLP((Double) result[5]);
+            vehicle.setCargaPetroleo((Double) result[6]);
+            vehicle.setPesoBruto((Double) result[7]);
+            vehicle.setPesoNeto((Double) result[8]);
+            vehicle.setVelocidad((Double) result[9]);
+            vehicles.add(vehicle);
+        }
+
+        Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
+
+        return solucion.elementosCamionesToJson();
+    }
+
+
+    public String ListarDataResultadoAlgoritmo3() {
+
+        int i=0;
+        List<Object[]> resultList = nodeRepository.listarDataImportanteC();
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (Object[] result : resultList) {
+            Node node = new Node();
+            if(result[0] != null){
+
+                node.setId((Integer) result[0]);
+                node.setX((Integer) result[1]);
+                node.setY((Integer) result[2]);
+                node.setTipo((Character) result[3]);
+                node.setFechaOrigen((LocalDateTime) result[4]);
+                node.setCantidad((Double) result[5]);
+                node.setHoraDemandada((Integer) result[6]);
+                node.setActivo(true);
+                nodes.add(node);
+            }
+        }
+
+        List<Object[]>resultList3 = nodeRepository.listarDataImportanteD();
+        for (Object[] result : resultList3) {
+            Node node = new Node();
+            if(result[0] != null){
+
+                node.setId((Integer) result[0]);
+                node.setX((Integer) result[1]);
+                node.setY((Integer) result[2]);
+                node.setTipo((Character) result[3]);
+                //node.setCapacidad((Double) result[4]);
+                if(i==0) node.setCapacidad(100000);
+                else node.setCapacidad(500);
+                i++;
+                node.setActivo(true);
+                nodes.add(node);
+            }
+        }
+
+        List<Object[]>resultList4 = nodeRepository.listarDataImportanteB();
+        for (Object[] result : resultList4) {
+            Node node = new Node();
+            if(result[0] != null){
+
+                //ZoneId zonaHoraria = ZoneId.of("America/Lima");
+                //ZonedDateTime zonedDateTime = result[4].toInstant().atZone(zonaHoraria);
+                //LocalDateTime fechaInicio = zonedDateTime.toLocalDateTime();
+                node.setId((Integer) result[0]);
+                node.setX((Integer) result[1]);
+                node.setY((Integer) result[2]);
+                node.setTipo((Character) result[3]);
+                node.setFechaInicio(String.valueOf(result[4]));
+                node.setFechaFinal(String.valueOf(result[5]));
+                node.setActivo(true);
+                nodes.add(node);
+            }
         }
 
         List<Object[]> resultList2 = vehicleRepository.listarDataImportanteVehiculo();
@@ -131,7 +267,7 @@ public class NodeService {
 
         Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
 
-        return solucion.elementosCamionesToJson();
+        return solucion.elementosEstaticosTemporalesToJson();
     }
 
     public  String cargaMasivaDePedidos(MultipartFile file){
@@ -376,8 +512,24 @@ public class NodeService {
                         int x = Integer.parseInt(parts3[i]);
                         int y = Integer.parseInt(parts3[i + 1]);
                         Node node = new Node();
-                        node.setFechaInicio(LocalDateTime.of(anho, mes, dia, hora, minuto, 0));
-                        node.setFechaFinal(LocalDateTime.of(anho, mes, dia2, hora2, minuto2, 0));
+                        LocalDateTime fechaHora = LocalDateTime.of(anho, mes, dia, hora, minuto, 0);
+
+                        // Definir un formato para la fecha y hora
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                        // Formatear la fecha y hora como cadena en el formato datetime
+                        String fechaHoraComoString = fechaHora.format(formatter);
+                        node.setFechaInicio(fechaHoraComoString);
+
+                        LocalDateTime fechaHora2 = LocalDateTime.of(anho, mes, dia2, hora2, minuto2, 0);
+
+                        // Definir un formato para la fecha y hora
+                        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                        // Formatear la fecha y hora como cadena en el formato datetime
+                        String fechaHoraComoString2 = fechaHora2.format(formatter2);
+
+                        node.setFechaFinal(fechaHoraComoString2);
 
                         //node.setPosicion(new Point(x,y));
                         node.setX(x);
