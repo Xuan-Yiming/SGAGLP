@@ -1,0 +1,82 @@
+.principalPlanificacion{
+
+    width: 100%;
+    height: 100%;
+    /* background-color: yellowgreen; */
+    display: flex;
+    flex-direction: row;
+}
+
+.principalPlanificacionIzq{
+
+    
+    width: 80%;
+    height: 100%;
+    /* background-color: antiquewhite; */
+    display: flex;
+    flex-direction: column;
+
+}
+
+.PlanificacicionTitulo{
+
+    width: 100%;
+    height: 20%;
+    /* background-color: aqua; */
+    align-items: start;
+    justify-content: start;
+    text-align: left;
+    font-style: inte;
+    
+}
+.PlanifiacionMapa{
+
+    width: 100%;
+    height: 80%;
+
+}
+
+
+.principalPlanificacionDer{
+    width: 20%;
+    height: 100%;
+    /* background-color: black; */
+}
+
+.PlanificacionBotonesDer{
+    width: 100%;
+    height: 20%;
+    /* background-color: aquamarine; */
+    
+}
+
+.PlanificacionTablaPedidos{
+    width: 100%;
+    height: 40%;
+    /* background-color: blueviolet; */
+}
+
+.PlanificacionResumen{
+    width: 100%;
+    height: 40%;
+}
+
+.BodyPlanificacionTitulo{
+    width: 100%;
+    height: 100%;
+    font-family: 'Inter-light', sans-serif;
+    font-size: larger;
+    font-weight: 100;
+
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: local('Inter-Regular'), url(../fonts/Inter-Regular.ttf) format('truetype');
+  }
+  
+
+  @font-face {
+    font-family: 'Inter-light';
+    src: local('Inter-light'), url(../fonts/Inter-Light.ttf) format('truetype');
+  }
