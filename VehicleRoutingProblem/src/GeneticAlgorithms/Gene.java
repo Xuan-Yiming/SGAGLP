@@ -257,6 +257,7 @@ public class Gene implements Cloneable {
         return bestDepot;
     }
 
+
     @Override
     public Gene clone() {
         try {

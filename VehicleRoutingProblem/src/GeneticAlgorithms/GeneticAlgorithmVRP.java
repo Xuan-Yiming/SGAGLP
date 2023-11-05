@@ -123,6 +123,7 @@ public class GeneticAlgorithmVRP {
     public void setProblem(GAProblem problem) {
         this.problem = problem;
     }
+    
     public Solucion getSolucion(){
         return this.solucion;
     }

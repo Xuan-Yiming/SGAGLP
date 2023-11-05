@@ -29,32 +29,44 @@ public class Chromosome implements Cloneable {
             }
         }
 
-         for (int i = 0; i < this.problem.getOrders().size(); i++) {
-         int vehicleIndex = random.nextInt(genes.size());
-         double ifGoToDepot = random.nextDouble();
-         if (ifGoToDepot < depotRate) {
-         // si se dirige al deposito, se dirige al mejor deposito
-         // get a random depot
-         int depotIndex = random.nextInt(this.problem.getDepots().size());
-         genes.get(vehicleIndex).addNode(this.problem.getDepots().get(depotIndex));
-         i--;
-         } else {
-         genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));
-         }
-         }
+        this.problem.getDepots().sort((o1, o2) -> {
+            int result = o1.getFechaFinal().compareTo(o2.getFechaFinal());
+            if (result > 0) {
+                return 1;
+            } else if (result < 0) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
 
-//        for (int i = 0; i < this.problem.getOrders().size(); i++) {
-//            int vehicleIndex = random.nextInt(genes.size());
-//            genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));
-//        }
+        for (int i = 0; i < this.problem.getOrders().size(); i++) {
+            int vehicleIndex = random.nextInt(genes.size());
+            double ifGoToDepot = random.nextDouble();
+            if (ifGoToDepot < depotRate) {
+                // si se dirige al deposito, se dirige al mejor deposito
+                // get a random depot
+                int depotIndex = random.nextInt(this.problem.getDepots().size());
+                genes.get(vehicleIndex).addNode(this.problem.getDepots().get(depotIndex));
+                i--;
+            } else {
+                genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));
+            }
+        }
+
+        // for (int i = 0; i < this.problem.getOrders().size(); i++) {
+        // int vehicleIndex = random.nextInt(genes.size());
+        // genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));
+        // }
     }
+    
 
     public double calculateFitness() {
         double fitness = 0;
         for (int i = 0; i < genes.size(); i++) {
-//            genes.get(i).insertDepot(this.problem.getDepots());
+            // genes.get(i).insertDepot(this.problem.getDepots());
             fitness += genes.get(i).calculateFitness();
-//            genes.get(i).removeDepots();
+            // genes.get(i).removeDepots();
         }
         return fitness;
     }
