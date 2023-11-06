@@ -217,7 +217,7 @@ public class NodeService {
                 node.setY((Integer) result[2]);
                 node.setTipo((Character) result[3]);
                 //node.setCapacidad((Double) result[4]);
-                if(i==0) node.setCapacidad(100000);
+                if(i==0) node.setCapacidad(10000);
                 else node.setCapacidad(500);
                 i++;
                 node.setActivo(true);

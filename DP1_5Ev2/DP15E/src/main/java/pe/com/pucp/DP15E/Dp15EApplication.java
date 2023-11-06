@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.time.ZoneId;
 import java.util.TimeZone;
 
 @SpringBootApplication
@@ -24,11 +25,16 @@ public class Dp15EApplication  extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 
 
-		TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
+		//TimeZone timeZone = TimeZone.getTimeZone("America/New_York");
 
 		// Establece la zona horaria deseada (por ejemplo, "America/Lima")
 		//TimeZone timeZone = TimeZone.getTimeZone("America/Lima");
-		TimeZone.setDefault(timeZone);
+		//TimeZone.setDefault(timeZone);
+
+		ZoneId zonaHorariaUTC = ZoneId.of("UTC");
+
+		// Obtener la hora actual en UTC
+		java.time.LocalDateTime horaActualUTC = java.time.LocalDateTime.now(zonaHorariaUTC);
 
 		SpringApplication.run(Dp15EApplication.class, args);
 	}

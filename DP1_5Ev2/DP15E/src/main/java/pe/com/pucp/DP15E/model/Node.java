@@ -22,9 +22,9 @@ import java.util.TimeZone;
 
 @Entity(name="Node")
 @Table(name="nodo_simulacion")
-@SecondaryTable(name = "pedido_simulacion", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id_pedido"))
-@SecondaryTable(name = "depot_simulacion", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id_depot"))
-@SecondaryTable(name = "bloqueo_simulacion", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id_bloqueo"))
+@SecondaryTable(name = "pedido_simulacion", pkJoinColumns = @PrimaryKeyJoinColumn(name = "fid_nodo"))
+@SecondaryTable(name = "depot_simulacion", pkJoinColumns = @PrimaryKeyJoinColumn(name = "fid_nodo"))
+@SecondaryTable(name = "bloqueo_simulacion", pkJoinColumns = @PrimaryKeyJoinColumn(name = "fid_nodo"))
 public class Node implements Serializable , Cloneable {
     private static final Integer serialVersionUID= 1;
     @Id

@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="52603478-d991-451e-a102-13ba82f4bbab" name="Changes" comment="Genetic">
       <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/Dp15EApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/Dp15EApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/GAProblem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/GAProblem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/controller/NodeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/controller/NodeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/model/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/model/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/repository/NodeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/repository/NodeRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/service/NodeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/service/NodeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
