@@ -57,6 +57,40 @@ public class Vehicle implements Cloneable {
         this.posicion = new Point(12,8);
     }
 
+    public Vehicle(int id, char type, int x, int y, double pesoBruto,double cargaGLP, double pesoNeto,
+                   double velocidad, double cargaPetroleo,int totalTime) {
+        this.id = id;
+        this.type = type;
+        this.pesoBruto = pesoBruto;
+        this.cargaGLP = cargaGLP;
+        this.velocidad =velocidad;
+        this.cargaPetroleo =cargaPetroleo;
+        this.totalTime =totalTime;
+        /*
+        switch (type){
+            case 'A':
+                this.pesoBruto = 2.5;
+                this.cargaGLP = 25;
+                break;
+            case 'B':
+                this.pesoBruto = 2;
+                this.cargaGLP = 15;
+                break;
+            case 'C':
+                this.pesoBruto = 1.5;
+                this.cargaGLP = 10;
+                break;
+            case 'D':
+                this.pesoBruto = 1;
+                this.cargaGLP = 5;
+                break;
+        }*/
+        this.pesoNeto = this.pesoBruto + this.cargaGLP/2;
+        this.mantenimiento = new Date(2024,1,1);
+        this.route = new ArrayList<>();
+        this.posicion = new Point(x,y);
+    }
+
     // getters and setters
 
     public Point getPosicion() {

@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52603478-d991-451e-a102-13ba82f4bbab" name="Changes" comment="Genetic">
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Chromosome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Chromosome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/GAProblem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GAProblem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/Gene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticOperators.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticOperators.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/GAProblem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/GAProblem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/Problem/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/Problem/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/Problem/Vehicle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/GeneticAlgorithms/Problem/Vehicle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/controller/NodeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/controller/NodeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/model/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/model/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/repository/NodeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/repository/NodeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/repository/VehicleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/repository/VehicleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/service/NodeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/service/NodeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/service/VehicleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DP1_5Ev2/DP15E/src/main/java/pe/com/pucp/DP15E/service/VehicleService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

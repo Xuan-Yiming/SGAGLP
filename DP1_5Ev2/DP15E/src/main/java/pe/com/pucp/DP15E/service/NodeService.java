@@ -3,12 +3,16 @@ package pe.com.pucp.DP15E.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jmx.export.UnableToRegisterMBeanException;
 import org.springframework.stereotype.Component;
+import pe.com.pucp.DP15E.GeneticAlgorithms.GAProblem;
+import pe.com.pucp.DP15E.GeneticAlgorithms.Individual;
+import pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Solucion;
 import pe.com.pucp.DP15E.model.Cliente;
 import pe.com.pucp.DP15E.model.Node;
 import pe.com.pucp.DP15E.model.Vehicle;
 import pe.com.pucp.DP15E.repository.ClienteRepository;
 import pe.com.pucp.DP15E.repository.NodeRepository;
 import org.springframework.web.multipart.MultipartFile;
+import pe.com.pucp.DP15E.repository.VehicleRepository;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -17,6 +21,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,13 +31,329 @@ import java.util.Optional;
 public class NodeService {
     private final NodeRepository nodeRepository;
     private final ClienteRepository clienteRepository;
+    private final VehicleRepository vehicleRepository;
+
 
     @Autowired
-    public NodeService(NodeRepository nodeRepository, ClienteRepository clienteRepository) {
+    public NodeService(NodeRepository nodeRepository, ClienteRepository clienteRepository, VehicleRepository vehicleRepository) {
         this.nodeRepository = nodeRepository;
         this.clienteRepository = clienteRepository;
+        this.vehicleRepository = vehicleRepository;
     }
 
+    public String ListarDataResultadoAlgoritmo() {
+
+        int i=0;
+        List<Object[]> resultList = nodeRepository.listarDataImportante();
+        ArrayList<Node> nodes = new ArrayList<>();
+
+
+
+        for (Object[] result : resultList) {
+            Node node = new Node();
+            if(result[0] != null){
+
+                node.setId((Integer) result[0]);
+                node.setX((Integer) result[1]);
+                node.setY((Integer) result[2]);
+                node.setTipo((Character) result[3]);
+                if(node.getTipo()=='C'){
+                    //node.setFechaInicio((LocalDateTime) result[4]);
+                    //node.setFechaFinal((LocalDateTime) result[5]);
+                    node.setFechaOrigen((LocalDateTime) result[6]);
+                    node.setCantidad((Double) result[7]);
+                    //node.setCapacidad((Double) result[8]);
+                    node.setHoraDemandada((Integer) result[9]);
+                }else if(node.getTipo()=='D'){
+                    //node.setFechaInicio((LocalDateTime) result[4]);
+                    //node.setFechaFinal((LocalDateTime) result[5]);
+                    //node.setFechaOrigen((LocalDateTime) result[6]);
+                    //node.setCantidad((Double) result[7]);
+                    if(i==0) node.setCapacidad(100000);
+                    else node.setCapacidad(500);
+                    //node.setHoraDemandada((Integer) result[9]);
+                    i++;
+                }else if(node.getTipo()=='B'){
+                    //Timestamp timestamp = new Timestamp(((Date) result[4]).getTime());
+                    //LocalDateTime localDateTime = timestamp.toLocalDateTime();
+                    //node.setFechaInicio(localDateTime);
+                    node.setFechaInicio(String.valueOf((LocalDateTime) result[4]));
+
+                    node.setFechaFinal(String.valueOf((LocalDateTime) result[5]));
+                    //node.setFechaOrigen((LocalDateTime) result[6]);
+                    //node.setCantidad((Double) result[7]);
+                    //node.setCapacidad((Double) result[8]);
+                    //node.setHoraDemandada((Integer) result[9]);
+                }
+
+                node.setActivo(true);
+                nodes.add(node);
+            }
+
+        }
+
+        List<Object[]> resultList2 = vehicleRepository.listarDataImportanteVehiculo();
+        ArrayList<pe.com.pucp.DP15E.model.Vehicle> vehicles = new ArrayList<>();
+
+
+
+        for (Object[] result : resultList2) {
+            pe.com.pucp.DP15E.model.Vehicle vehicle = new Vehicle();
+            vehicle.setId((Integer) result[0]);
+            vehicle.setX((Integer)result[1]);
+            vehicle.setY((Integer)result[2]);
+            vehicle.setTotalTime((Integer) result[3]);
+            vehicle.setType((Character) result[4]);
+            vehicle.setCargaGLP((Double) result[5]);
+            vehicle.setCargaPetroleo((Double) result[6]);
+            vehicle.setPesoBruto((Double) result[7]);
+            vehicle.setPesoNeto((Double) result[8]);
+            vehicle.setVelocidad((Double) result[9]);
+            vehicles.add(vehicle);
+        }
+
+
+        Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
+
+        return solucion.elementosEstaticosTemporalesToJson();
+    }
+
+    public String ListarDataResultadoAlgoritmo2() {
+
+        int i=0;
+        List<Object[]> resultList = nodeRepository.listarDataImportante();
+        ArrayList<Node> nodes = new ArrayList<>();
+
+
+
+        for (Object[] result : resultList) {
+            Node node = new Node();
+            node.setId((Integer) result[0]);
+            node.setX((Integer) result[1]);
+            node.setY((Integer) result[2]);
+            node.setTipo((Character) result[3]);
+            if(node.getTipo()=='C'){
+                //node.setFechaInicio((LocalDateTime) result[4]);
+                //node.setFechaFinal((LocalDateTime) result[5]);
+                node.setFechaOrigen((LocalDateTime) result[6]);
+                node.setCantidad((Double) result[7]);
+                //node.setCapacidad((Double) result[8]);
+                node.setHoraDemandada((Integer) result[9]);
+            }else if(node.getTipo()=='D'){
+                //node.setFechaInicio((LocalDateTime) result[4]);
+                //node.setFechaFinal((LocalDateTime) result[5]);
+                //node.setFechaOrigen((LocalDateTime) result[6]);
+                //node.setCantidad((Double) result[7]);
+                if(i==0) node.setCapacidad(1000000000);
+                else node.setCapacidad(500);
+                //node.setHoraDemandada((Integer) result[9]);
+            }else if(node.getTipo()=='B'){
+                node.setFechaInicio(String.valueOf((LocalDateTime) result[4]));
+                node.setFechaFinal(String.valueOf((LocalDateTime) result[5]));
+                //node.setFechaOrigen((LocalDateTime) result[6]);
+                //node.setCantidad((Double) result[7]);
+                //node.setCapacidad((Double) result[8]);
+                //node.setHoraDemandada((Integer) result[9]);
+            }
+            i++;
+            node.setActivo(true);
+            nodes.add(node);
+        }
+
+        List<Object[]> resultList2 = vehicleRepository.listarDataImportanteVehiculo();
+        ArrayList<pe.com.pucp.DP15E.model.Vehicle> vehicles = new ArrayList<>();
+
+
+
+        for (Object[] result : resultList2) {
+            pe.com.pucp.DP15E.model.Vehicle vehicle = new Vehicle();
+            vehicle.setId((Integer) result[0]);
+            vehicle.setX((Integer)result[1]);
+            vehicle.setY((Integer)result[2]);
+            vehicle.setTotalTime((Integer) result[3]);
+            vehicle.setType((Character) result[4]);
+            vehicle.setCargaGLP((Double) result[5]);
+            vehicle.setCargaPetroleo((Double) result[6]);
+            vehicle.setPesoBruto((Double) result[7]);
+            vehicle.setPesoNeto((Double) result[8]);
+            vehicle.setVelocidad((Double) result[9]);
+            vehicles.add(vehicle);
+        }
+
+        Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
+
+        return solucion.elementosCamionesToJson();
+    }
+
+
+    public String ListarDataResultadoAlgoritmo4() {
+
+        int i=0;
+        List<Object[]> resultList = nodeRepository.listarDataImportanteC();
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (Object[] result : resultList) {
+            Node node = new Node();
+            if(result[0] != null){
+
+                node.setId((Integer) result[0]);
+                node.setX((Integer) result[1]);
+                node.setY((Integer) result[2]);
+                node.setTipo((Character) result[3]);
+                node.setFechaOrigen((LocalDateTime) result[4]);
+                node.setCantidad((Double) result[5]);
+                node.setHoraDemandada((Integer) result[6]);
+                node.setActivo(true);
+                nodes.add(node);
+            }
+        }
+
+        List<Object[]>resultList3 = nodeRepository.listarDataImportanteD();
+        for (Object[] result : resultList3) {
+            Node node = new Node();
+            if(result[0] != null){
+
+                node.setId((Integer) result[0]);
+                node.setX((Integer) result[1]);
+                node.setY((Integer) result[2]);
+                node.setTipo((Character) result[3]);
+                //node.setCapacidad((Double) result[4]);
+                if(i==0) node.setCapacidad(10000);
+                else node.setCapacidad(500);
+                i++;
+                node.setActivo(true);
+                nodes.add(node);
+            }
+        }
+
+        List<Object[]>resultList4 = nodeRepository.listarDataImportanteB();
+        for (Object[] result : resultList4) {
+            Node node = new Node();
+            if(result[0] != null){
+
+                //ZoneId zonaHoraria = ZoneId.of("America/Lima");
+                //ZonedDateTime zonedDateTime = result[4].toInstant().atZone(zonaHoraria);
+                //LocalDateTime fechaInicio = zonedDateTime.toLocalDateTime();
+                node.setId((Integer) result[0]);
+                node.setX((Integer) result[1]);
+                node.setY((Integer) result[2]);
+                node.setTipo((Character) result[3]);
+                node.setFechaInicio(String.valueOf(result[4]));
+                node.setFechaFinal(String.valueOf(result[5]));
+                node.setActivo(true);
+                nodes.add(node);
+            }
+        }
+
+        List<Object[]> resultList2 = vehicleRepository.listarDataImportanteVehiculo();
+        ArrayList<pe.com.pucp.DP15E.model.Vehicle> vehicles = new ArrayList<>();
+
+
+
+        for (Object[] result : resultList2) {
+            pe.com.pucp.DP15E.model.Vehicle vehicle = new Vehicle();
+            vehicle.setId((Integer) result[0]);
+            vehicle.setX((Integer)result[1]);
+            vehicle.setY((Integer)result[2]);
+            vehicle.setTotalTime((Integer) result[3]);
+            vehicle.setType((Character) result[4]);
+            vehicle.setCargaGLP((Double) result[5]);
+            vehicle.setCargaPetroleo((Double) result[6]);
+            vehicle.setPesoBruto((Double) result[7]);
+            vehicle.setPesoNeto((Double) result[8]);
+            vehicle.setVelocidad((Double) result[9]);
+            vehicles.add(vehicle);
+        }
+
+
+        Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
+
+        return solucion.elementosEstaticosTemporalesToJson();
+    }
+
+
+    public String ListarDataResultadoAlgoritmo3() {
+
+        int i=0;
+        List<Object[]> resultList = nodeRepository.listarDataImportanteC();
+        ArrayList<Node> nodes = new ArrayList<>();
+        for (Object[] result : resultList) {
+            Node node = new Node();
+            if(result[0] != null){
+
+                node.setId((Integer) result[0]);
+                node.setX((Integer) result[1]);
+                node.setY((Integer) result[2]);
+                node.setTipo((Character) result[3]);
+                node.setFechaOrigen((LocalDateTime) result[4]);
+                node.setCantidad((Double) result[5]);
+                node.setHoraDemandada((Integer) result[6]);
+                node.setActivo(true);
+                nodes.add(node);
+            }
+        }
+
+        List<Object[]>resultList3 = nodeRepository.listarDataImportanteD();
+        for (Object[] result : resultList3) {
+            Node node = new Node();
+            if(result[0] != null){
+
+                node.setId((Integer) result[0]);
+                node.setX((Integer) result[1]);
+                node.setY((Integer) result[2]);
+                node.setTipo((Character) result[3]);
+                //node.setCapacidad((Double) result[4]);
+                if(i==0) node.setCapacidad(10000);
+                else node.setCapacidad(500);
+                i++;
+                node.setActivo(true);
+                nodes.add(node);
+            }
+        }
+
+        List<Object[]>resultList4 = nodeRepository.listarDataImportanteB();
+        for (Object[] result : resultList4) {
+            Node node = new Node();
+            if(result[0] != null){
+
+                //ZoneId zonaHoraria = ZoneId.of("America/Lima");
+                //ZonedDateTime zonedDateTime = result[4].toInstant().atZone(zonaHoraria);
+                //LocalDateTime fechaInicio = zonedDateTime.toLocalDateTime();
+                node.setId((Integer) result[0]);
+                node.setX((Integer) result[1]);
+                node.setY((Integer) result[2]);
+                node.setTipo((Character) result[3]);
+                node.setFechaInicio(String.valueOf(result[4]));
+                node.setFechaFinal(String.valueOf(result[5]));
+                node.setActivo(true);
+                nodes.add(node);
+            }
+        }
+
+        List<Object[]> resultList2 = vehicleRepository.listarDataImportanteVehiculo();
+        ArrayList<pe.com.pucp.DP15E.model.Vehicle> vehicles = new ArrayList<>();
+
+
+
+        for (Object[] result : resultList2) {
+            pe.com.pucp.DP15E.model.Vehicle vehicle = new Vehicle();
+            vehicle.setId((Integer) result[0]);
+            vehicle.setX((Integer)result[1]);
+            vehicle.setY((Integer)result[2]);
+            vehicle.setTotalTime((Integer) result[3]);
+            vehicle.setType((Character) result[4]);
+            vehicle.setCargaGLP((Double) result[5]);
+            vehicle.setCargaPetroleo((Double) result[6]);
+            vehicle.setPesoBruto((Double) result[7]);
+            vehicle.setPesoNeto((Double) result[8]);
+            vehicle.setVelocidad((Double) result[9]);
+            vehicles.add(vehicle);
+        }
+
+
+        Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
+
+        return solucion.elementosCamionesToJson();
+    }
 
     public  String cargaMasivaDePedidos(MultipartFile file){
         //private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd'd'HH'h'mm'm':");
@@ -112,10 +433,10 @@ public class NodeService {
         if((lista.size())==0) return 0;
         for (Node cal: lista) {
             if(
-                    //cal.getIdCliente().equals(abuscar.getIdCliente()) &&
+                //cal.getIdCliente().equals(abuscar.getIdCliente()) &&
                     (cal.getX() == (abuscar.getX())) &&
-                    (cal.getY() == (abuscar.getY())) &&
-                    (cal.getTipo()==abuscar.getTipo())){
+                            (cal.getY() == (abuscar.getY())) &&
+                            (cal.getTipo()==abuscar.getTipo())){
                 return 1;
             }
 
@@ -129,7 +450,7 @@ public class NodeService {
         if((lista.size())==0) return 0;
         for (Cliente cal: lista) {
             if(
-                cal.getIdCliente().equals(abuscar) ){
+                    cal.getIdCliente().equals(abuscar) ){
                 return 1;
             }
 
@@ -276,8 +597,24 @@ public class NodeService {
                         int x = Integer.parseInt(parts3[i]);
                         int y = Integer.parseInt(parts3[i + 1]);
                         Node node = new Node();
-                        node.setFechaInicio(LocalDateTime.of(anho, mes, dia, hora, minuto, 0));
-                        node.setFechaFinal(LocalDateTime.of(anho, mes, dia2, hora2, minuto2, 0));
+                        LocalDateTime fechaHora = LocalDateTime.of(anho, mes, dia, hora, minuto, 0);
+
+                        // Definir un formato para la fecha y hora
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                        // Formatear la fecha y hora como cadena en el formato datetime
+                        String fechaHoraComoString = fechaHora.format(formatter);
+                        node.setFechaInicio(fechaHoraComoString);
+
+                        LocalDateTime fechaHora2 = LocalDateTime.of(anho, mes, dia2, hora2, minuto2, 0);
+
+                        // Definir un formato para la fecha y hora
+                        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                        // Formatear la fecha y hora como cadena en el formato datetime
+                        String fechaHoraComoString2 = fechaHora2.format(formatter2);
+
+                        node.setFechaFinal(fechaHoraComoString2);
 
                         //node.setPosicion(new Point(x,y));
                         node.setX(x);
