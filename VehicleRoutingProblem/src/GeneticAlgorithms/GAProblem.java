@@ -41,6 +41,9 @@ public class GAProblem implements Cloneable{
         //create orders
         this.orders = new ArrayList<>();
         Date date = new Date();
+
+        this.date = date;
+        
         Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < 200; i++) {
             calendar.setTime(date);

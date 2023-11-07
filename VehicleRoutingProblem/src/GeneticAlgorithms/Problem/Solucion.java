@@ -65,10 +65,10 @@ public class Solucion {
                 List<Point> ruta = aStar.getPath();
                 for(Point node: ruta){
                     SolucionRuta solucionRuta = new SolucionRuta();
-                    solucionRuta.tipo = 'C';
-                    solucionRuta.id = "T" + vehiculo.getType() + vehiculo.getId();
                     solucionRuta.x = node.x;
                     solucionRuta.y = node.y;
+                    solucionRuta.idPedido = vehiculo.getRoute().get(i).getId();
+                    solucionRuta.placa = "T" + vehiculo.getType() + vehiculo.getId();
                     solucionRuta.time = totalTime;
                     elementosCamiones.add(solucionRuta);
                     totalTime++;
