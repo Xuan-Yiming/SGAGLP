@@ -183,6 +183,12 @@ export function SimulacionPrincipal() {
     };
 
 
+    const handleFileChange1 = (event) => {
+      event.preventDefault()
+      setFile1(event.target.files[0]);
+    };
+
+
     const draw = (context,count)=>{
         // context.clearRect(0,0,context.canvas.width,context.canvas.height);
         // // context.canvas.width = context.canvas.width;
@@ -256,6 +262,7 @@ export function SimulacionPrincipal() {
 
 
     const [file, setFile] = useState(null);
+    const [file1, setFile1] = useState(null);
 
 
     useEffect(() => {
@@ -377,6 +384,41 @@ export function SimulacionPrincipal() {
         });
     };
 
+
+
+    const subirBloqueos = () => {
+      // Realiza la carga del archivo aquí
+      const formData = new FormData();
+      formData.append("file", file1,file1.name);
+  
+      // Realiza una solicitud POST al backend para cargar el archivo
+      fetch("http://localhost:8080/DP15E/api/v1/node/cargaMasivaDeBloqueos", {
+        method: "POST",
+        body: formData,
+        redirect:"follow",
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.status + " " + response.statusText);
+        } else {
+          try {
+            return response.text();
+          } catch (error) {
+            return null;
+          }
+        }
+      })
+        .then((data) => {
+          console.log(data); // Puedes manejar la respuesta del servidor aquí
+          alert(data);
+        })
+        .catch((error) => {
+          alert("Ha ocurrido un error de comunicación con el servidor");
+          console.error("Error al cargar el archivo:", error);
+        });
+    };
+
+
     return (
         <div className='principalSimulacion'>
             <div className='principalSimulacionIzq'>
@@ -466,6 +508,11 @@ export function SimulacionPrincipal() {
                         <div>
                           <input type="file" accept=".txt" onChange={handleFileChange} />
                           <button onClick={handleUpload}>Cargar Archivo</button>
+                        </div>
+                        Ingresar Archivo TXT de Bloqueos:
+                        <div>
+                          <input type="file" accept=".txt" onChange={handleFileChange1} />
+                          <button onClick={subirBloqueos}>Cargar Archivo</button>
                         </div>
                       </div>
                     </div>

@@ -10,22 +10,25 @@ export function MenuContenedor() {
     const [bandera,setBandera]=useState(true);
     const [bandera2,setBandera2]=useState(false);
     const [bandera3,setBandera3]=useState(false);
+    const [bandera4,setBandera4]=useState(false);
 
 
     return (
-        <div className='superContenedor'>
+        <div className='superContenedor'> 
             
             <div className='totalMenuPrincipal'>
                 
                 <div className='contenedorTrabajo'>
-                    {bandera?<SimulacionPrincipal cambiarComponente={setBandera} />:
-                    bandera2?<PlanificacionPrincipal cambiarComponente={setBandera2} />:
+                    {bandera?<PlanificacionPrincipal  />:
+                    bandera2?<SimulacionPrincipal  />:
+                    bandera3?<SimulacionPrincipal  />:
+                    bandera4?<SimulacionPrincipal  />:
                     <SimulacionPrincipal/>}
                 </div>
 
             </div>
 
-            <ExpandableMenu />
+            <ExpandableMenu cambiarComponente={setBandera} cambiarComponente2={setBandera2} cambiarComponente3={setBandera3} cambiarComponente4={setBandera4}/>
         </div>
     );
 }
