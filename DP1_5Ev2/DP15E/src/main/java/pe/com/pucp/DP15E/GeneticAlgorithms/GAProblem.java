@@ -27,10 +27,13 @@ public class GAProblem implements Cloneable{
         this.vehicles = vehicles;
         this.depots = depots;
         this.blocks = blocks;
+
     }
 
     public GAProblem(ArrayList<pe.com.pucp.DP15E.model.Vehicle> vehicles, ArrayList<pe.com.pucp.DP15E.model.Node> orders, int a){
         int i=0;
+        this.date = new Date();
+        this.date=Calendar.getInstance().getTime();
         this.orders = new ArrayList<>();
 
         for (pe.com.pucp.DP15E.model.Node order : orders) {
