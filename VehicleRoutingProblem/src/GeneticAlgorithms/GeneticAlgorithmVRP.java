@@ -1,8 +1,11 @@
 package GeneticAlgorithms;
 
+import GeneticAlgorithms.Problem.Node;
 import GeneticAlgorithms.Problem.Solucion;
+import GeneticAlgorithms.Problem.Vehicle;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class GeneticAlgorithmVRP {
     private Population population;
@@ -12,7 +15,7 @@ public class GeneticAlgorithmVRP {
 
     private Solucion solucion;
 
-    public GeneticAlgorithmVRP(char mode) {
+    public GeneticAlgorithmVRP(char mode) throws Exception {
         if (this.problem == null) {
             this.problem = new GAProblem();
         }
@@ -63,8 +66,48 @@ public class GeneticAlgorithmVRP {
         }
 
     }
+
+    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots, ArrayList<Node> blocks, Date fecha) throws Exception{
+
+        this.problem = new GAProblem(orders, vehicles, depots, blocks, fecha);
+
+        this.problem.validate();
+
+
+        population = new Population(problem);
+        maxGenerations = problem.maxGenerations;
+        boolean isFittest = false;
+        int i = 0;
+
+        Individual fittest = population.getFittest();
+
+        if (fittest.calculateFitness() != problem.getOrders().size()) {
+            for (; i < maxGenerations; i++) {
+                GeneticOperators geneticOperators = new GeneticOperators(problem);
+                ArrayList<Individual> parents = geneticOperators.selection(population);
+                parents = geneticOperators.crossover(parents);
+                parents = geneticOperators.mutation(parents);
+                Individual fittestOffspring = geneticOperators.getFittestOffspring(parents);
+                population.replaceLastFittest(fittestOffspring);
+                fittest = population.getFittest();
+                if (fittest.calculateFitness() == problem.getOrders().size()) {
+                    isFittest = true;
+                    break;
+                }
+            }
+        } else {
+            isFittest = true;
+        }
+
+        this.solucion = new Solucion(problem, fittest);
+
+        if (!isFittest){
+            throw new Exception("Solution not found!");
+        }
+
+    }
     
-    public GeneticAlgorithmVRP(double mutationRate, int populationSize, int maxGenerations, double depotRate) {
+    public GeneticAlgorithmVRP(double mutationRate, int populationSize, int maxGenerations, double depotRate) throws Exception {
         if (this.problem == null) {
             this.problem = new GAProblem();
         }
@@ -72,6 +115,8 @@ public class GeneticAlgorithmVRP {
         this.problem.populationSize = populationSize;
         this.problem.maxGenerations = maxGenerations;
         this.problem.depotRate = depotRate;
+
+
 
         
         population = new Population(problem);

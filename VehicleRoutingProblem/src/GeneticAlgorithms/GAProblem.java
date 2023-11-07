@@ -21,11 +21,20 @@ public class GAProblem implements Cloneable{
     public double depotRate = 0.6;
 
     // Constructors
-    public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots, ArrayList<Node> blocks) {
+    public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots, ArrayList<Node> blocks, Date fecha) {
         this.orders = orders;
         this.vehicles = vehicles;
         this.depots = depots;
         this.blocks = blocks;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        this.date = calendar.getTime();
     }
 
     public GAProblem(){
@@ -181,8 +190,65 @@ public class GAProblem implements Cloneable{
 
 
     }
-
     //Methods
+
+    public boolean validate() throws Exception {
+        
+        // if has no vehicles
+        if (this.vehicles.size() == 0) {
+            throw new Exception("No vehicles");
+        }
+        
+        // if has no orders
+        if (this.orders.size() == 0) {
+            throw new Exception("No orders");
+        }
+
+        // if has no depots
+        if (this.depots.size() == 0) {
+            throw new Exception("No depots");
+        }
+
+        // if has no date
+        if (this.date == null) {
+            throw new Exception("No date");
+        }
+
+        // if any of the node out of the bounds
+        for (Node order: this.orders){
+            if (order.getPosicion().getX() < 0 || order.getPosicion().getX() > 70 || order.getPosicion().getY() < 0 || order.getPosicion().getY() > 50){
+                throw new Exception("Order coordinate out of bounds");
+            }
+        }
+
+        for(Node block: this.blocks){
+            if (block.getPosicion().getX() < 0 || block.getPosicion().getX() > 70 || block.getPosicion().getY() < 0 || block.getPosicion().getY() > 50){
+                throw new Exception("Block coordinate out of bounds");
+            }
+        }
+
+        for(Node depot: this.depots){
+            if (depot.getPosicion().getX() < 0 || depot.getPosicion().getX() > 70 || depot.getPosicion().getY() < 0 || depot.getPosicion().getY() > 50){
+                throw new Exception("Depot coordinate out of bounds");
+            }
+        }
+
+
+        // if any of the block any customer has overlay
+        for (Node block : this.blocks) {
+            for (Node order : this.orders) {
+                if (block.getPosicion().getX() == order.getPosicion().getX()
+                        && block.getPosicion().getY() == order.getPosicion().getY()) {
+                    throw new Exception("Block and order overlay");
+                }
+            }
+        }
+        
+        
+
+
+        return true;
+    }
     @Override
     public GAProblem clone() {
         try {

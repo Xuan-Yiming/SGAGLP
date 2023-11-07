@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="52603478-d991-451e-a102-13ba82f4bbab" name="Changes" comment="Genetic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/AStar/AStar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/AStar/AStar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/GAProblem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GAProblem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneticAlgorithms/GeneticAlgorithmVRP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -107,7 +108,8 @@
       <workItem from="1699123174066" duration="1459000" />
       <workItem from="1699136920511" duration="1659000" />
       <workItem from="1699148840581" duration="450000" />
-      <workItem from="1699335427059" duration="652000" />
+      <workItem from="1699335427059" duration="1021000" />
+      <workItem from="1699371698243" duration="982000" />
     </task>
     <servers />
   </component>

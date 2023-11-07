@@ -7,6 +7,7 @@ public class Main {
     public static void main(String[] args) {
         GeneticAlgorithmVRP algorithmVRP;
 
+        try{
         switch ('R'){
             case 'T':
                 algorithmVRP = new GeneticAlgorithmVRP('T');
@@ -19,6 +20,9 @@ public class Main {
                 System.out.println(solucion.elementosEstaticosTemporalesToJson());
                 System.out.println(solucion.elementosCamionesToJson());
                 break;
+        }}
+        catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 }
