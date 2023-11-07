@@ -214,7 +214,16 @@ public class GAProblem implements Cloneable {
             throw new Exception("No date");
         }
 
-        // if any of the node out of the bounds, or the date is before the current date
+
+        // get the max capacity of the vehicles
+        double maxCapacity = 0;
+        for (Vehicle vehicle : this.vehicles) {
+            if (vehicle.getCargaGLP() > maxCapacity) {
+                maxCapacity = vehicle.getCargaGLP();
+            }
+        }
+
+        // if any of the node out of the bounds, or the date is not valid
 
         for (Node order : this.orders) {
 
@@ -230,6 +239,11 @@ public class GAProblem implements Cloneable {
                     || order.getFechaInicio().after(order.getFechaFinal())) {
                 throw new Exception("Order :" + order.getId() + " not valid date range - " + order.getFechaInicio()
                         + " - " + order.getFechaFinal());
+            }
+
+            if (order.getCantidad() > maxCapacity) {
+                throw new Exception("Order :" + order.getId() + " quantity out of bounds - " + order.getCantidad()
+                        + " - " + maxCapacity);
             }
         }
 

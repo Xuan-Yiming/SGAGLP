@@ -73,12 +73,11 @@ public class GeneticAlgorithmVRP {
 
         this.problem.validate();
 
-
         population = new Population(problem);
         maxGenerations = problem.maxGenerations;
+
         boolean isFittest = false;
         int i = 0;
-
         Individual fittest = population.getFittest();
 
         if (fittest.calculateFitness() != problem.getOrders().size()) {
