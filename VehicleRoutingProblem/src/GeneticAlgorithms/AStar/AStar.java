@@ -158,7 +158,7 @@ public class AStar {
             NodeA t = end.parent;
 
             // Back track
-            while (t != start) {
+            while (t != start && t != null) {
                 t.type = NodeType.Road;
                 result.add(t);
                 t = t.parent;
