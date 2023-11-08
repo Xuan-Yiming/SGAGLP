@@ -160,7 +160,7 @@ const  getDataCamiones = async () =>{
                 //PLANTA
                 c.beginPath();
                 c.arc(elemento.x*unidadCuadroAncho,elemento.y*unidadCuadroAlto,unidadCuadroAncho/2,0,2*Math.PI,true);
-                c.strokeStyle='bla<ck';
+                c.strokeStyle='black';
                 c.fillStyle = 'green'; // Fill color
                 c.fill();
                 c.stroke();

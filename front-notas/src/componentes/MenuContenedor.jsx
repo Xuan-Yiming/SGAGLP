@@ -3,6 +3,7 @@ import '../hojas-estilo/MenuContenedor.css';
 import ExpandableMenu from './ExpandableMenu';
 import PlanificacionPrincipal from './PlanificacionPrincipal';
 import SimulacionPrincipal from './SimulacionPrincipal';
+import PedidosPrincipal from './PedidosPrincipal';
 
 
 export function MenuContenedor() {
@@ -20,7 +21,7 @@ export function MenuContenedor() {
                 
                 <div className='contenedorTrabajo'>
                     {bandera?<PlanificacionPrincipal  />:
-                    bandera2?<SimulacionPrincipal  />:
+                    bandera2?<PedidosPrincipal  />:
                     bandera3?<SimulacionPrincipal  />:
                     bandera4?<SimulacionPrincipal  />:
                     <SimulacionPrincipal/>}
