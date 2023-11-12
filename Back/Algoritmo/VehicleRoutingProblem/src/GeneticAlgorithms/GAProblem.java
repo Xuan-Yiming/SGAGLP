@@ -1,6 +1,7 @@
 package GeneticAlgorithms;
 
 import GeneticAlgorithms.Problem.Node;
+import GeneticAlgorithms.Problem.Solucion;
 import GeneticAlgorithms.Problem.Vehicle;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class GAProblem implements Cloneable {
     public double depotRate = 0.6;
 
     // Constructors
+
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
             ArrayList<Node> blocks, Date fecha) {
         this.orders = orders;
@@ -36,6 +38,11 @@ public class GAProblem implements Cloneable {
         calendar.set(Calendar.MILLISECOND, 0);
 
         this.date = calendar.getTime();
+    }
+
+    public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
+                     ArrayList<Node> blocks,Solucion solucion, int clock){
+
     }
 
     public GAProblem() {
@@ -55,7 +62,7 @@ public class GAProblem implements Cloneable {
         this.date = date;
 
         Calendar calendar = Calendar.getInstance();
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 0; i++) {
             calendar.setTime(date);
             calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(24));
             Date finalDate = calendar.getTime();

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 //conjunto de soluciones
 public class Population {
-    private int populationSize ;
+    private int populationSize;
     private ArrayList<Individual> individuals;
     
     public Population(GAProblem problem) {

@@ -7,5 +7,4 @@ public class SolucionNodo {
     public int y;
     public int inicio;
     public int fin;
-
 }

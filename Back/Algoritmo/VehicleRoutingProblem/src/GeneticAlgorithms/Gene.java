@@ -214,10 +214,10 @@ public class Gene implements Cloneable {
                 if (this.cargaGLP < custumor.getCantidad()) {
                     return false;
                 }
-                // // si puede llegar antes de que termine el dia
-                // if (totalTime + timeToANode(distancia) > MINUTES_IN_A_DAY) {
-                //     return false;
-                // }
+                // si puede llegar antes de que termine el dia
+                if (totalTime + timeToANode(distancia) > MINUTES_IN_A_DAY) {
+                    return false;
+                }
                 // si puede llegar a tiempo
                 if (totalTime + timeToANode(
                         distancia) > (custumor.getFechaFinal().getTime() - custumor.getFechaInicio().getTime())

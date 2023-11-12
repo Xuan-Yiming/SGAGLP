@@ -12,9 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Solucion {
-     ArrayList<SolucionNodo> elementosEstaticosTemporales;
-     ArrayList<SolucionRuta> elementosCamiones;
+    private ArrayList<SolucionNodo> elementosEstaticosTemporales;
+    private ArrayList<SolucionRuta> elementosCamiones;
 
+    public Solucion(){
+        elementosEstaticosTemporales = new ArrayList<>();
+        elementosCamiones = new ArrayList<>();
+    }
     public Solucion(GAProblem problem, Individual finalSolution){
          elementosEstaticosTemporales = new ArrayList<>();
          elementosCamiones = new ArrayList<>();
@@ -78,11 +82,36 @@ public class Solucion {
 
     }
 
+    public void addSolucion(Solucion solucion){
+    }
+
     public String elementosEstaticosTemporalesToJson(){
         return new Gson().toJson(elementosEstaticosTemporales);
     }
 
-    public String elementosCamionesToJson(){
+    public String elementosCamionesToJson() {
         return new Gson().toJson(elementosCamiones);
+    }
+    
+    public String solucionToJson(){
+        return new Gson().toJson(this);
+    }
+
+    //getters and setters
+
+    public ArrayList<SolucionNodo> getElementosEstaticosTemporales() {
+        return elementosEstaticosTemporales;
+    }
+
+    public void setElementosEstaticosTemporales(ArrayList<SolucionNodo> elementosEstaticosTemporales) {
+        this.elementosEstaticosTemporales = elementosEstaticosTemporales;
+    }
+
+    public ArrayList<SolucionRuta> getElementosCamiones() {
+        return elementosCamiones;
+    }
+
+    public void setElementosCamiones(ArrayList<SolucionRuta> elementosCamiones) {
+        this.elementosCamiones = elementosCamiones;
     }
 }

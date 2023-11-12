@@ -8,7 +8,7 @@ public class Main {
         GeneticAlgorithmVRP algorithmVRP;
 
         try{
-        switch ('R'){
+        switch ('T'){
             case 'T':
                 algorithmVRP = new GeneticAlgorithmVRP('T');
                 break;
