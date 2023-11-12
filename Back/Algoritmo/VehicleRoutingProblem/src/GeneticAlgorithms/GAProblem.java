@@ -2,8 +2,10 @@ package GeneticAlgorithms;
 
 import GeneticAlgorithms.Problem.Node;
 import GeneticAlgorithms.Problem.Solucion;
+import GeneticAlgorithms.Problem.SolucionNodo;
 import GeneticAlgorithms.Problem.Vehicle;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,8 +43,31 @@ public class GAProblem implements Cloneable {
     }
 
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
-                     ArrayList<Node> blocks,Solucion solucion, int clock){
+            ArrayList<Node> blocks, Solucion solucion, int clock) {
+        ArrayList<String> ordersPending = new ArrayList<>();
 
+        for (SolucionNodo solucionNodo : solucion.getElementosEstaticosTemporales()) {
+            if (solucionNodo.fin < clock) {
+                if (solucionNodo.tipo == 'C') {
+                    ordersPending.add(solucionNodo.id);
+                }
+            }
+        }
+
+        this.orders = new ArrayList<>();
+        for (Node order : orders) {
+            if (ordersPending.contains(order.getId())) {
+                this.orders.add(order);
+            }
+        }
+
+        this.depots = depots;
+        this.blocks = blocks;
+
+        // get the date of the first order
+        Date date = this.orders.get(0).getFechaFinal();
+        
+        
     }
 
     public GAProblem() {
