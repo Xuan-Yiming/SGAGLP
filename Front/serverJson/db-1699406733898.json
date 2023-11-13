@@ -1,0 +1,298 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "estructuraCamiones": [
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 12,
+      "y": 8,
+      "time": 1
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 13,
+      "y": 8,
+      "time": 2
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 14,
+      "y": 8,
+      "time": 3
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 15,
+      "y": 8,
+      "time": 4
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 16,
+      "y": 8,
+      "time": 5
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 17,
+      "y": 8,
+      "time": 6
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 18,
+      "y": 8,
+      "time": 7
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 19,
+      "y": 8,
+      "time": 8
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 20,
+      "y": 8,
+      "time": 9
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 20,
+      "y": 9,
+      "time": 10
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 20,
+      "y": 10,
+      "time": 11
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 21,
+      "y": 10,
+      "time": 12
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 22,
+      "y": 10,
+      "time": 13
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 23,
+      "y": 10,
+      "time": 14
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 24,
+      "y": 10,
+      "time": 15
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 25,
+      "y": 10,
+      "time": 16
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 26,
+      "y": 10,
+      "time": 17
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 27,
+      "y": 10,
+      "time": 18
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 28,
+      "y": 10,
+      "time": 19
+    },
+    {
+      "tipo": "camion",
+      "id": "TA01",
+      "x": 29,
+      "y": 10,
+      "time": 20
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 12,
+      "y": 8,
+      "time": 1
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 12,
+      "y": 9,
+      "time": 2
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 12,
+      "y": 10,
+      "time": 3
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 12,
+      "y": 11,
+      "time": 4
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 12,
+      "y": 12,
+      "time": 5
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 12,
+      "y": 13,
+      "time": 6
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 12,
+      "y": 14,
+      "time": 7
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 12,
+      "y": 15,
+      "time": 8
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 12,
+      "y": 16,
+      "time": 9
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 13,
+      "y": 16,
+      "time": 10
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 14,
+      "y": 16,
+      "time": 11
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 14,
+      "y": 17,
+      "time": 12
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 14,
+      "y": 18,
+      "time": 13
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 14,
+      "y": 19,
+      "time": 14
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 14,
+      "y": 20,
+      "time": 15
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 14,
+      "y": 21,
+      "time": 16
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 14,
+      "y": 22,
+      "time": 17
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 14,
+      "y": 23,
+      "time": 18
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 14,
+      "y": 24,
+      "time": 19
+    },
+    {
+      "tipo": "camion",
+      "id": "TA02",
+      "x": 14,
+      "y": 25,
+      "time": 20
+    }
+  ]
+}
