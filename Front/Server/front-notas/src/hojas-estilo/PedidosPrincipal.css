@@ -1,0 +1,225 @@
+.principalPedidos{
+
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* background-color: aqua; */
+
+}
+.tituloPedidos{
+    width: 95%;
+    height: 15%;
+    display: flex;
+    /* background-color: black; */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.buscadorPedidos{
+
+    width: 100%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* background-color:bisque; */
+}
+
+.contenedorTablaPedidos{
+    width: 100%;
+    height: 70%;
+    /* background-color:aqua; */
+}
+
+.tituloPedidosIzq{
+
+    width: 80%;
+    height: 100%;
+    display: flex;
+    /* background-color: beige; */
+    align-items: end;
+    justify-content: left;
+    text-align: left;
+    justify-items: end;
+    vertical-align: bottom;
+    font-family: 'Inter-light', sans-serif;
+    font-size: larger;
+    font-weight: 100;
+}
+
+.seccionBotonesPedidos{
+    width: 100%;
+    height: 40%;
+    display: flex;
+    /* align-items: center;
+    justify-content: center;
+    text-align: center; */
+    /* background-color: aqua; */
+}
+
+.botonIzqPedidos{
+    width: 50%;
+    height: 50%;
+    /* background-color: antiquewhite; */
+
+}
+
+.botonIzqPedidos button{
+    width: 90%;
+    height: 100%;
+    background-color: #FFD100;
+    border-radius: 5px;
+    border: 1px solid #FFD100 ;
+    cursor: pointer;
+}
+
+.botonDerPedidos button{
+    width: 90%;
+    height: 100%;
+    background-color: #FFD100;
+    border-radius: 5px;
+    border: 1px solid #FFD100 ;
+    cursor: pointer;
+}
+
+
+.botonDerPedidos{
+    width: 50%;
+    height: 50%;
+    /* background-color: blue; */
+}
+
+.tituloPedidosDer{
+
+    width: 20%;
+    height: 100%;
+    /* background-color: beige; */
+
+    align-items: end;
+    justify-content: center;
+    text-align: left;
+    justify-items: end;
+    display: flex;
+    /* background-color: aqua; */
+}
+
+.mitadContenedorBuscador{
+    width: 50%;
+    height: 100%;
+    /* background-color: aqua; */
+}
+
+.mitadBuscadorIzq{
+    width: 50%;
+    height: 100%;
+    /* background-color: azure; */
+    display: flex;
+    /* background-color: beige; */
+    align-items: start;
+    justify-content: center;
+    text-align: center;
+    justify-items: center;
+    flex-direction: column;
+
+}
+
+.tituloQuery{
+    width: 100%;
+    height: 50%;
+    /* background-color: aqua; */
+}
+
+.mitadBuscadorDer{
+    width: 50%;
+    height: 100%;
+}
+
+.contendorBuscador{
+
+    width: 95%;
+    height: 80%;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid white;
+}
+
+.principalTabla{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.contenedorTablaPedidos{
+    width: 95%;
+    height: 95%;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid white;
+
+}
+
+
+/* ESTA ES LA SECCION DE LOS MODALES*/
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    overflow: auto;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    position: relative;
+  }
+  
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover {
+    color: #000;
+  }
+
+  .botonModalCerrar button{
+    width: 10%;
+    height: 100%;
+    background-color: white;
+    border-radius: 2000px;
+    border: 1px solid black ;
+    cursor: pointer;
+  }
+
+  .botonModalCerrar{
+
+    width: 100%;
+    height: 10%;
+    display: flex;
+    /* background-color: beige; */
+    /* align-items: end; */
+    justify-content: right;
+    text-align: center;
+    justify-items: center;
+  }
