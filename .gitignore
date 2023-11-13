@@ -25,6 +25,7 @@ replay_pid*
 node-modules/*
 .idea/
 .cache/
+front-notas/node_modules/
 node-modules/.cache/
 front-notas/node_modules/*
 front-notas/node_modules/.cache/.eslintcache
