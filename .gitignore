@@ -23,10 +23,11 @@ hs_err_pid*
 replay_pid*
 
 node-modules
-node-modules/
+node-modules/*
 .idea/
 .cache/
 node-modules/.cache/
+front-notas/node_modules/
 front-notas/node_modules/.cache/.eslintcache
 front-notas/node_modules/.cache/.eslintcache
 node_modules/.cache/.eslintcache
