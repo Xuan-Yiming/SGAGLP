@@ -11,6 +11,8 @@ const MapGrid2 = (props) => {
     const [todosCamiones, setTodosCamiones] = useState('');
     const [todosBloqueos, setTodosBloqueos] = useState('');
 
+    const [todosPedidos, setTodosPedidos] = useState([]);
+
     let [unidadCuadroAncho, setUnidadCuadroAncho] = useState('');
     let [unidadCuadroAlto, setUnidadCuadroAlto] = useState('');
 
@@ -101,7 +103,7 @@ const elementosEstaticosTemporales =[
 
 const  getDataCamiones = async () =>{
     try {
-      const response = await axios.get('http://localhost:3000/estructuraCamiones');
+      const response = await axios.get('http://localhost:3000/estructuraCamiones4');
 
       setElementosCamiones(response.data)
     //   console.log(response.data); // Response data
@@ -120,32 +122,6 @@ const  getDataCamiones = async () =>{
     const inicio ={"x":1,"y":1};
     const actual ={"x":1,"y":1};
     const final ={"x":2,"y":1};
-
-
-
-    const dibujarHacia = (context,actual,inicio,final,velocidad,direccion)=>{
-
-
-        //NO TRATAR DE REHACER EL -TAMAÑAO POR QUE ESTO PUEDE MALOGRARSE
-        // context.clearRect(0,0,context.canvas.width,context.canvas.height);
-
-        // console.log(velocidad);
-
-        if(velocidad + unidadCuadroAncho*(0.5 + inicio.x) <= unidadCuadroAncho*(0.5 + final.x) && 
-                            unidadCuadroAlto*(0.5 + inicio.y) <= unidadCuadroAlto*(0.5 + final.y)){
-                                // console.log(velocidad);
-                            }
-        else if (velocidad + unidadCuadroAncho*(0.5 + inicio.x) < unidadCuadroAncho*(0.5 + final.x) && 
-        unidadCuadroAlto*(0.5 + inicio.y) < unidadCuadroAlto*(0.5 + final.y)){
-            context.fillStyle = 'grey';
-            context.fillRect(velocidad + unidadCuadroAncho*(0.5 + inicio.x),unidadCuadroAlto*(0.5+inicio.y),
-                                    unidadCuadroAncho,unidadCuadroAlto);
-            // actual.x++;
-            
-        }
-
-
-    }
 
     
     const graficarPuntosFijos = (c)=>{
@@ -197,6 +173,180 @@ const  getDataCamiones = async () =>{
         }
 
     }
+
+    const graficarRutas = (c,tiempo)=>{
+
+        let clockActual=0;
+        let idAnt ='aaaa';
+        let camArr =[];
+
+        c.lineWidth = 4;
+        c.strokeStyle="green";
+
+        // for (let i = 0; i < elementosCamiones.length; i++) {
+            
+        //     const camion = elementosCamiones[i];
+        //     // console.log(idAnt);
+        //     if(idAnt!=camion.placa && clockActual*72<tiempo && tiempo < camion.time*72){
+                
+                
+
+        //         c.beginPath();
+                
+        //         c.moveTo(camion.x * unidadCuadroAncho, unidadCuadroAlto*camion.y)
+        //         for (let j = i+1; j < elementosCamiones.length; j++) {
+        //             const camion1 = elementosCamiones[j];
+        //             // idAnt = camion1.placa;
+        //             if(camion.placa == camion1.placa){
+                        
+        //                 c.lineTo(camion1.x * unidadCuadroAncho, unidadCuadroAlto*camion1.y);
+        //             }else {
+                        
+        //                 c.stroke();
+        //                 break;
+        //             }
+                    
+        //         }
+        //         // clockActual=Math.floor(tiempo/72);
+        //         idAnt = camion.placa;
+        //     }
+            
+        // }
+
+        
+        // for (let j = 0; j < elementosCamiones.length; j++) {
+        //     const camion = elementosCamiones[j];
+
+        //     if(camion.time*72 ==Math.floor(tiempo/72)){
+        //         for (let i = j+1; i < elementosCamiones.length; i++) {
+
+        //             const camion1 = elementosCamiones[i];
+
+        //             if(camion.idPedido == camion1.idPedido){
+        //                 c.beginPath();
+        //                 c.fillStyle = 'green';
+        //                 c.fillRect( unidadCuadroAncho*(  -0.25+ camion.x),unidadCuadroAlto*(-0.25+camion.y),
+        //                                         unidadCuadroAncho/2,unidadCuadroAlto/2);
+        //                 clockActual=Math.floor(tiempo/72);
+        //                 c.stroke();
+        //             }
+
+        //         }
+        //     }
+        // }
+
+        for (let i = 0; i < todosPedidos.length; i++) {
+            const pedido = todosPedidos[i];
+            // console.log(todosPedidos[i]);
+            let idAnt = 'aaaa';
+
+            let disponibles = [];
+        
+            for (let j = 0; j < elementosCamiones.length; j++) {
+                const camion = elementosCamiones[j];
+                if(Math.floor(tiempo/72) == camion.time){
+                    disponibles.push(camion.idPedido);
+                }
+            }
+            
+            for (let j = 0; j < elementosCamiones.length; j++) {
+                const camion = elementosCamiones[j];
+                // let idAnt = 'aaa';
+                let idAnt = 'aaa';
+                
+                // let flag =false;
+
+                
+
+                if(camion.idPedido==todosPedidos[i] && tiempo < camion.time*72 && disponibles.includes(camion.idPedido)){
+                    
+                //&& (camion.time-1)*72<tiempo 
+
+
+                    c.beginPath();
+                    c.fillStyle = 'green';
+                    c.fillRect( unidadCuadroAncho*(  -0.25+ camion.x),unidadCuadroAlto*(-0.25+camion.y),
+                                            unidadCuadroAncho/2,unidadCuadroAlto/2);
+                    clockActual=Math.floor(tiempo/72);
+                    c.stroke();
+                    // break;
+                }
+            }
+            c.stroke();
+        }
+
+        // // let clockActual=0;
+        // for (let i = 0; i < todosPedidos.length; i++) {
+        //     const pedido = todosPedidos[i];
+        //     // console.log(todosPedidos[i]);
+        //     let idAnt = 'aaaa';
+            
+        //     for (let j = 0; j < elementosCamiones.length; j++) {
+        //         // const camion = elementosCamiones[j];
+
+        //         // if(idAnt != camion.idPedido){
+        //         //     c.beginPath();
+        //         //     c.lineWidth = 4;
+        //         //     c.strokeStyle="green";
+        //         //     c.moveTo((camion.x )* unidadCuadroAncho, unidadCuadroAlto*(camion.y));
+
+        //         // }
+
+                
+        //         // if(camion.idPedido == pedido){
+
+
+        //         //     let flag =false
+        //         //     for (let k = j; k < elementosCamiones.length; k++) {
+        //         //         const camion1 = elementosCamiones[k];
+        //         //         if(tiempo < camion.time*72){
+        //         //             flag =true;
+        //         //             break;
+        //         //         }
+        //         //     }
+        //         //     if(flag){
+        //         //         // c.lineWidth = 1;
+        //         //         // c.strokeStyle="black";
+        //         //         const nuevoPunto = elementosCamiones[i+1];
+
+        //         //         c.lineTo((nuevoPunto.x )* unidadCuadroAncho, unidadCuadroAlto*(nuevoPunto.y));
+    
+                        
+    
+        //         //         // c.lineWidth = 1;
+        //         //         // c.strokeStyle="black";
+        //         //     }
+
+        //         //     idAnt = camion.idPedido;
+        //         // }
+        //         const camion = elementosCamiones[j];
+        //         // let idAnt = 'aaa';
+        //         let idAnt = 'aaa';
+                
+        //         // let flag =false;
+        //         if(camion.idPedido==todosPedidos[i] && tiempo < camion.time*72){
+                    
+        //         //&& (camion.time-1)*72<tiempo 
+
+
+        //             c.beginPath();
+        //             // if(camion.idPedido==todosPedidos[i] && clockActual*72<props.tiempo && props.tiempo < camion.time*72){
+        //             // if(camion.id==todosCamiones[j] && clockActual*72<props.tiempo && props.tiempo < camion.time*72){
+        //             // if(camion.id != idAnt && clockActual*72<props.tiempo && props.tiempo < camion.time*72){
+        //             c.fillStyle = 'green';
+        //             c.fillRect( unidadCuadroAncho*(  -0.25+ camion.x),unidadCuadroAlto*(-0.25+camion.y),
+        //                                     unidadCuadroAncho/2,unidadCuadroAlto/2);
+        //             clockActual=Math.floor(tiempo/72);
+        //             c.stroke();
+        //             // break;
+        //         }
+        //     }
+        //     c.stroke();
+        // }
+
+    }
+
+
 
 
     const graficarEstaticosTemporales = (c,tiempo)=>{
@@ -292,33 +442,39 @@ const  getDataCamiones = async () =>{
 
         let cantidadCamiones=0;
         let camionAnt = 'aaa';
+        let pedidoAnt = 'aaa';
         let camiones = [];
+        let pedidos = [];
 
 
         // console.log(elementosCamiones);
         for (let i = 0; i < elementosCamiones.length; i++){
             const camionEscogido = elementosCamiones[i];
-            if(camionAnt!=camionEscogido.id){
-                camionAnt = camionEscogido.id;
+            // if(camionAnt!=camionEscogido.id){
+            //     camionAnt = camionEscogido.id;
+            //     cantidadCamiones++;
+            //     camiones.push(camionAnt);
+            //     // console.log(camionEscogido.id);
+            // }
+
+            if(camionAnt!=camionEscogido.placa){
+                camionAnt = camionEscogido.placa;
                 cantidadCamiones++;
                 camiones.push(camionAnt);
                 // console.log(camionEscogido.id);
             }
+            if(pedidoAnt!=camionEscogido.idPedido){
+                pedidoAnt = camionEscogido.idPedido;
+                // cantidadCamiones++;
+                pedidos.push(pedidoAnt);
+                // console.log(camionEscogido.idPedido);
+            }
         }
+        setTodosPedidos(pedidos);
         setTodosCamiones(camiones);
         setCantidadCamiones(cantidadCamiones);
+        // console.log(todosPedidos);
     }
-
-    // useEffect(() => {
-    //     // Maneja los cambios en los datos aquí
-
-    //     console.log(`propsv:`,props);
-
-    //     setDimensions(props.ancho,props.alto);
-    //     console.log(`Ancho del div: ${props.ancho}`);
-    //     console.log(`alto del div: ${props.alto}`);
-    // }, [props.ancho, props.alto]);
-
 
     useEffect(() => {
         
@@ -392,44 +548,126 @@ const  getDataCamiones = async () =>{
             ctx.strokeStyle = "black";
             ctx.stroke();
 
-            ctx.beginPath();
-            graficarPuntosFijos(ctx);
-            ctx.stroke();
+
+            
+                ctx.beginPath();
+                graficarPuntosFijos(ctx);
+                ctx.stroke();
             ////FINAL CUADRICULA
 
+
+            //BLOQUEOS  Y PEDIDOS
             // ctx.beginPath();
             ctx.lineWidth = 1;
             graficarEstaticosTemporales(ctx,props.tiempo);
             ctx.lineWidth = 1;
             // ctx.stroke();
 
+            
+
+            //RUTAS
+            ctx.beginPath();
+            ctx.stroke();
+            ctx.lineWidth = 1;
+            ctx.strokeStyle="black";
+            graficarRutas(ctx,props.tiempo);
+            ctx.lineWidth = 1;
+            ctx.strokeStyle="black";
+            ctx.beginPath();
+            ctx.stroke();
+
+
+            //BLOQUEOS  Y PEDIDOS
+
             // console.log(elementosCamiones);
             for(let j=0;j<cantidadCamiones;j++){
 
                 for (let i = 0; i < elementosCamiones.length; i++) {
                     
-
+                    
                     const camion = elementosCamiones[i];
                     // let idAnt = 'aaa';
+                    let idAnt = 'aaa';
                     let clockActual=0;
-                    if(camion.id==todosCamiones[j] && Math.floor(props.tiempo/72)==camion.time){
-                    // if(camion.id==todosCamiones[j] && clockActual*72<props.tiempo && props.tiempo < camion.time*72){
-                    // if(camion.id != idAnt && clockActual*72<props.tiempo && props.tiempo < camion.time*72){
+                    // let flag =false;
+                    if(camion.placa==todosCamiones[j] && Math.floor(props.tiempo/72)<=camion.time){
+                        
+
+
+
+                        ctx.beginPath();
+
+                        // if(camion.id==todosCamiones[j] && clockActual*72<props.tiempo && props.tiempo < camion.time*72){
+                        // if(camion.id != idAnt && clockActual*72<props.tiempo && props.tiempo < camion.time*72){
                         ctx.fillStyle = 'grey';
-                        // console.log(idAnt);
-                        // console.log(camion.id);
-                        // console.log(props.tiempo);
-    
-                        // console.log(camion.x);
-                        // console.log(camion.y);
                         ctx.fillRect( unidadCuadroAncho*(-0.5 +  camion.x),unidadCuadroAlto*(-0.5+camion.y),
                                                 unidadCuadroAncho,unidadCuadroAlto);
-                        // idAnt=camion.id;
                         clockActual=Math.floor(props.tiempo/72);
+                        ctx.stroke();
                         break;
                     }
+
+
+                    // if(i+1 <= elementosCamiones.length){
+                    //     const nuevoPunto = elementosCamiones[i+1];
+                    //     ctx.lineWidth = 1;
+                    //     ctx.strokeStyle="black";
+
+                    //     ctx.beginPath();
+                    //     ctx.lineWidth = 4;
+                    //     ctx.strokeStyle="green";
+                    //     ctx.moveTo((camion.x )* unidadCuadroAncho, unidadCuadroAlto*(camion.y));
+                    //     ctx.lineTo((nuevoPunto.x )* unidadCuadroAncho, unidadCuadroAlto*(nuevoPunto.y));
+
+                    //     ctx.stroke();
+
+                    //     ctx.lineWidth = 1;
+                    //     ctx.strokeStyle="black";
+                    // }
+
+                    // if(camion.placa != idAnt){
+                    //     ctx.beginPath();
+                    //     ctx.moveTo((camion.x )* unidadCuadroAncho, unidadCuadroAlto*(camion.y));
+                    //     idAnt = camion.placa;
+                    // }else{
+                    //     // c.strokeStyle="green";
+                    //     ctx.lineTo((camion.x )* unidadCuadroAncho, unidadCuadroAlto*(camion.y));
+                    //     ctx.stroke(); // Render the line
+                    // }
     
                 }
+                // for (let i = 0; i < elementosCamiones.length; i++) {
+                //     const camion = elementosCamiones[i];
+                //     // let idAnt = 'aaa';
+                //     let idAnt = 'aaa';
+                //     let clockActual=0;
+
+                //     if(camion.id != idAnt &&clockActual*72<props.tiempo && props.tiempo < camion.time*72 ){
+
+                //         clockActual=Math.floor(props.tiempo/72);
+                //         break;
+                //     }
+                //     // if(idAnt!=camion.placa && i+1 < elementosCamiones.length){
+                //     //     const nuevoPunto = elementosCamiones[i+1];
+                //     //     ctx.lineWidth = 1;
+                //     //     ctx.strokeStyle="black";
+
+                //     //     ctx.stroke();
+                //     //     ctx.beginPath();
+                //     //     ctx.lineWidth = 4;
+                //     //     ctx.strokeStyle="green";
+                //     //     ctx.moveTo((camion.x )* unidadCuadroAncho, unidadCuadroAlto*(camion.y));
+                //     //     ctx.lineTo((nuevoPunto.x )* unidadCuadroAncho, unidadCuadroAlto*(nuevoPunto.y));
+
+                //     //     ctx.stroke();
+
+                //     //     ctx.lineWidth = 1;
+                //     //     ctx.strokeStyle="black";
+                //     //     idAnt = camion.placa;
+                //     // }
+                //     // ctx.beginPath();
+                //     // ctx.stroke();
+                // }
             }
 
 

@@ -246,7 +246,7 @@ export function SimulacionPrincipal() {
       const [elementosCamiones,setElementosCamiones] = useState('');
       const  getDataCamiones = async () =>{
         try {
-          const response = await axios.get('http://localhost:3000/estructuraCamiones');
+          const response = await axios.get('http://localhost:3000/estructuraCamiones1');
     
           setElementosCamiones(response.data);
           console.log(response.data);
