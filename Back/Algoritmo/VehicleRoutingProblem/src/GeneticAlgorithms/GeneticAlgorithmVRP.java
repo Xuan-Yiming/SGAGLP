@@ -6,6 +6,7 @@ import GeneticAlgorithms.Problem.Vehicle;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Calendar;
 
 public class GeneticAlgorithmVRP {
     private Population population;
@@ -15,7 +16,7 @@ public class GeneticAlgorithmVRP {
 
     private Solucion solucion;
 
-    //Test
+    // Test
     public GeneticAlgorithmVRP(char mode) throws Exception {
         if (this.problem == null) {
             this.problem = new GAProblem();
@@ -68,28 +69,36 @@ public class GeneticAlgorithmVRP {
 
     }
 
-    //Simulation
-    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles,ArrayList<Node> blocks) throws Exception{
+    // Simulation
+    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks)
+            throws Exception {
 
         this.solucion = new Solucion();
 
         ArrayList<Date> dates = new ArrayList<>();
 
-        // get all the different dates in the orders only considering the date not the time
-        for (Node order: orders){
+        // get all the different dates in the orders only considering the date not the
+        // time
+        for (Node order : orders) {
             boolean isDifferent = true;
-            for (Date date: dates){
-                if (date.getDate() == order.getFechaInicio().getDate() && date.getMonth() == order.getFechaInicio().getMonth() && date.getYear() == order.getFechaInicio().getYear()){
+            for (Date date : dates) {
+                Calendar orderCal = Calendar.getInstance();
+                orderCal.setTime(order.getFechaInicio());
+                Calendar dateCal = Calendar.getInstance();
+                dateCal.setTime(date);
+                if (dateCal.get(Calendar.DATE) == orderCal.get(Calendar.DATE)
+                        && dateCal.get(Calendar.MONTH) == orderCal.get(Calendar.MONTH)
+                        && dateCal.get(Calendar.YEAR) == orderCal.get(Calendar.YEAR)) {
                     isDifferent = false;
                     break;
                 }
             }
-            if (isDifferent){
+            if (isDifferent) {
                 dates.add(order.getFechaInicio());
             }
         }
 
-        for (Date date: dates){
+        for (Date date : dates) {
 
             ArrayList<Node> depots = new ArrayList<>();
             depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
@@ -127,25 +136,22 @@ public class GeneticAlgorithmVRP {
 
             this.solucion.addSolucion(new Solucion(problem, fittest));
 
-            if (!isFittest){
+            if (!isFittest) {
                 throw new Exception("Solution not found!");
             }
 
-
         }
 
-
     }
-    
 
-    //Pacification
-    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks, Solucion solucion, int clock) throws Exception{
+    // Pacification
+    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks,
+            Solucion solucion, int clock) throws Exception {
 
         ArrayList<Node> depots = new ArrayList<>();
         depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
         depots.add(new Node(2, 42, 42, 160.0));
         depots.add(new Node(3, 63, 3, 160.0));
-
 
         this.problem = new GAProblem(orders, vehicles, depots, blocks, solucion, clock);
 
@@ -178,7 +184,7 @@ public class GeneticAlgorithmVRP {
 
         this.solucion = new Solucion(problem, fittest);
 
-        if (!isFittest){
+        if (!isFittest) {
             throw new Exception("Solution not found!");
         }
     }
@@ -186,8 +192,8 @@ public class GeneticAlgorithmVRP {
     public void setProblem(GAProblem problem) {
         this.problem = problem;
     }
-    
-    public Solucion getSolucion(){
+
+    public Solucion getSolucion() {
         return this.solucion;
     }
 

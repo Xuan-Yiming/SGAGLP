@@ -14,7 +14,7 @@ import java.util.List;
 public class Solucion {
     private int numOfDays = 1;
     private ArrayList<SolucionNodo> elementosEstaticosTemporales;
-    private ArrayList<SolucionRuta> elementosCamiones;
+    private ArrayList<SolucionCamion> elementosCamiones;
 
     public Solucion() {
         elementosEstaticosTemporales = new ArrayList<>();
@@ -66,6 +66,8 @@ public class Solucion {
 
         for (Gene vehiculo : finalSolution.getChromosome().genes) {
             int totalTime = 0;
+            SolucionCamion solucionCamion = new SolucionCamion();
+            solucionCamion.id = "T" + vehiculo.getType() + vehiculo.getId();
             for (int i = 0; i < vehiculo.getRoute().size() - 1; i++) {
                 AStar aStar = new AStar(70, 50, obstaculos, vehiculo.getRoute().get(i).getPosicion(),
                         vehiculo.getRoute().get(i + 1).getPosicion());
@@ -77,7 +79,7 @@ public class Solucion {
                     solucionRuta.idPedido = vehiculo.getRoute().get(i).getId();
                     solucionRuta.placa = "T" + vehiculo.getType() + vehiculo.getId();
                     solucionRuta.time = totalTime;
-                    elementosCamiones.add(solucionRuta);
+                    solucionCamion.rutas.add(solucionRuta);
                     totalTime++;
                     if (totalTime == 24 * 50) {
                         break;
@@ -88,17 +90,17 @@ public class Solucion {
                 }
             }
             if (totalTime < 24 * 50) {
-                for(;totalTime < 24 * 50; totalTime++) {
+                for (; totalTime < 24 * 50; totalTime++) {
                     SolucionRuta solucionRuta = new SolucionRuta();
                     solucionRuta.x = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getPosicion().x;
                     solucionRuta.y = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getPosicion().y;
                     solucionRuta.idPedido = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getId();
                     solucionRuta.placa = "T" + vehiculo.getType() + vehiculo.getId();
                     solucionRuta.time = totalTime;
-                    elementosCamiones.add(solucionRuta);
+                    solucionCamion.rutas.add(solucionRuta);
                 }
             }
-
+            elementosCamiones.add(solucionCamion);
         }
         this.numOfDays++;
     }
@@ -106,9 +108,8 @@ public class Solucion {
     public void addSolucion(Solucion solucion) {
         this.numOfDays++;
         this.elementosEstaticosTemporales.addAll(solucion.getElementosEstaticosTemporales());
-        for (SolucionRuta solucionRuta : solucion.getElementosCamiones()) {
-            solucionRuta.time += 24 * 50 * (this.numOfDays - 1);
-            this.elementosCamiones.add(solucionRuta);
+        for (SolucionCamion solucionCamion : solucion.getElementosCamiones()) {
+            
         }
     }
 
@@ -134,11 +135,11 @@ public class Solucion {
         this.elementosEstaticosTemporales = elementosEstaticosTemporales;
     }
 
-    public ArrayList<SolucionRuta> getElementosCamiones() {
+    public ArrayList<SolucionCamion> getElementosCamiones() {
         return elementosCamiones;
     }
 
-    public void setElementosCamiones(ArrayList<SolucionRuta> elementosCamiones) {
+    public void setElementosCamiones(ArrayList<SolucionCamion> elementosCamiones) {
         this.elementosCamiones = elementosCamiones;
     }
 }
