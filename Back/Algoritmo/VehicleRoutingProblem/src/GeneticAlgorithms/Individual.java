@@ -22,14 +22,6 @@ public class Individual implements Cloneable {
         return fitness;
     }
 
-    // @Override
-    // public Individual clone() {
-    // try {
-    // return (Individual) super.clone();
-    // } catch (CloneNotSupportedException e) {
-    // throw new AssertionError(); // This should not happen.
-    // }
-    // }
 
     public Individual clone() {
         Individual individual = new Individual(this.problem);

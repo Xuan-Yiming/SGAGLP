@@ -3,6 +3,8 @@ package GeneticAlgorithms;
 import java.util.ArrayList;
 import java.util.Random;
 
+import GeneticAlgorithms.Problem.Node;
+
 public class Chromosome implements Cloneable {
     public ArrayList<Gene> genes;
     private GAProblem problem;
@@ -64,10 +66,9 @@ public class Chromosome implements Cloneable {
     public double calculateFitness() {
         double fitness = 0;
         for (int i = 0; i < genes.size(); i++) {
-            // genes.get(i).insertDepot(this.problem.getDepots());
             fitness += genes.get(i).calculateFitness();
-            // genes.get(i).removeDepots();
         }
+
         return fitness;
     }
 

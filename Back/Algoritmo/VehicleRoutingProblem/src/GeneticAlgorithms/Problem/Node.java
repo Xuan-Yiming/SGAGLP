@@ -17,7 +17,7 @@ public class Node implements Cloneable {
     private double capacidad;
 
     // Constructor
-    public Node(int id, int x, int y) {
+    public Node(int id, int x, int y, Date fechaInicio, Date fechaFinal) {
         // Block
         this.posicion = new Point(x, y);
         this.tipo = 'B';

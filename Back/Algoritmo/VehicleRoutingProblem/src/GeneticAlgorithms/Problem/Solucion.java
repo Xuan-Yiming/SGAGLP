@@ -1,18 +1,15 @@
 package GeneticAlgorithms.Problem;
 
-import GeneticAlgorithms.AStar.AStar;
-import GeneticAlgorithms.Chromosome;
-import GeneticAlgorithms.GAProblem;
-import GeneticAlgorithms.Gene;
-import GeneticAlgorithms.Individual;
+import GeneticAlgorithms.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Solucion {
-    private int numOfDays = 1;
+    // private int numOfDays = 1;
     private ArrayList<SolucionNodo> elementosEstaticosTemporales;
     private ArrayList<SolucionCamion> elementosCamiones;
 
@@ -21,7 +18,7 @@ public class Solucion {
         elementosCamiones = new ArrayList<>();
     }
 
-    public Solucion(GAProblem problem, Individual finalSolution) {
+    public Solucion(GAProblem problem, Individual finalSolution) throws Exception{
         elementosEstaticosTemporales = new ArrayList<>();
         elementosCamiones = new ArrayList<>();
 
@@ -58,20 +55,25 @@ public class Solucion {
             elementosEstaticosTemporales.add(solucionNodo);
         }
 
-        List<Point> obstaculos = new ArrayList<>();
+        ArrayList<Point> obstaculos = new ArrayList<>();
 
         for (Node block : problem.getBlocks()) {
             obstaculos.add(block.getPosicion());
         }
 
+        
+
         for (Gene vehiculo : finalSolution.getChromosome().genes) {
             int totalTime = 0;
             SolucionCamion solucionCamion = new SolucionCamion();
             solucionCamion.id = "T" + vehiculo.getType() + vehiculo.getId();
+            solucionCamion.rutas = new ArrayList<>();
             for (int i = 0; i < vehiculo.getRoute().size() - 1; i++) {
-                AStar aStar = new AStar(70, 50, obstaculos, vehiculo.getRoute().get(i).getPosicion(),
-                        vehiculo.getRoute().get(i + 1).getPosicion());
-                List<Point> ruta = aStar.getPath();
+                // AStar aStar = new AStar(70, 50, obstaculos, vehiculo.getRoute().get(i).getPosicion(),
+                //         vehiculo.getRoute().get(i + 1).getPosicion());
+                // List<Point> ruta = aStar.getPath();
+                List<Point> ruta = new pathFinding().findPath(70, 50, obstaculos,
+                        vehiculo.getRoute().get(i).getPosicion(), vehiculo.getRoute().get(i + 1).getPosicion());
                 for (Point node : ruta) {
                     SolucionRuta solucionRuta = new SolucionRuta();
                     solucionRuta.x = node.x;
@@ -89,29 +91,29 @@ public class Solucion {
                     break;
                 }
             }
-            if (totalTime < 24 * 50) {
-                for (; totalTime < 24 * 50; totalTime++) {
-                    SolucionRuta solucionRuta = new SolucionRuta();
-                    solucionRuta.x = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getPosicion().x;
-                    solucionRuta.y = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getPosicion().y;
-                    solucionRuta.idPedido = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getId();
-                    solucionRuta.placa = "T" + vehiculo.getType() + vehiculo.getId();
-                    solucionRuta.time = totalTime;
-                    solucionCamion.rutas.add(solucionRuta);
-                }
-            }
+            // if (totalTime < 24 * 50) {
+            //     for (; totalTime < 24 * 50; totalTime++) {
+            //         SolucionRuta solucionRuta = new SolucionRuta();
+            //         solucionRuta.x = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getPosicion().x;
+            //         solucionRuta.y = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getPosicion().y;
+            //         solucionRuta.idPedido = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getId();
+            //         solucionRuta.placa = "T" + vehiculo.getType() + vehiculo.getId();
+            //         solucionRuta.time = totalTime;
+            //         solucionCamion.rutas.add(solucionRuta);
+            //     }
+            // }
             elementosCamiones.add(solucionCamion);
         }
-        this.numOfDays++;
+        // this.numOfDays++;
     }
 
-    public void addSolucion(Solucion solucion) {
-        this.numOfDays++;
-        this.elementosEstaticosTemporales.addAll(solucion.getElementosEstaticosTemporales());
-        for (SolucionCamion solucionCamion : solucion.getElementosCamiones()) {
-            
-        }
-    }
+    // public void addSolucion(Solucion solucion) {
+    // this.numOfDays++;
+    // this.elementosEstaticosTemporales.addAll(solucion.getElementosEstaticosTemporales());
+    // for (SolucionCamion solucionCamion : solucion.getElementosCamiones()) {
+
+    // }
+    // }
 
     public String elementosEstaticosTemporalesToJson() {
         return new Gson().toJson(elementosEstaticosTemporales);
@@ -121,8 +123,13 @@ public class Solucion {
         return new Gson().toJson(elementosCamiones);
     }
 
-    public String solucionToJson() {
+    public String solucionToJson() throws Exception{
         return new Gson().toJson(this);
+    }
+    public String solucionToPrettyJson() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(this);
+        return json;
     }
 
     // getters and setters

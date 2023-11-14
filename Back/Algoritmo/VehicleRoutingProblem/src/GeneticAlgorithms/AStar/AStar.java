@@ -41,8 +41,8 @@ public class AStar {
 
 
         open = new PriorityQueue<NodeA>(nodeAS.length, (NodeA a, NodeA b) -> (a.f - b.f) < 0 ? -1 : 1);
-        close = new HashSet(nodeAS.length);
-        result = new ArrayList(nodeAS.length);
+        close = new HashSet<NodeA>(nodeAS.length);
+        result = new ArrayList<NodeA>(nodeAS.length);
 
         current = new Point(0, 0);
         previous = new Point(0, 0);

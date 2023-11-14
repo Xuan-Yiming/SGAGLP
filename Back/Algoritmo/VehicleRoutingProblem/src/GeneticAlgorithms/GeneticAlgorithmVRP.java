@@ -22,6 +22,8 @@ public class GeneticAlgorithmVRP {
             this.problem = new GAProblem();
         }
 
+        problem.validate();
+
         population = new Population(problem);
         maxGenerations = problem.maxGenerations;
         boolean isFittest = false;
@@ -47,6 +49,13 @@ public class GeneticAlgorithmVRP {
             isFittest = true;
         }
 
+        // add the first depot to the beginning and end of each route
+
+        for (int j = 0; j < fittest.getChromosome().genes.size(); j++) {
+            fittest.getChromosome().genes.get(j).getRoute().add(0, problem.getDepots().get(0));
+            fittest.getChromosome().genes.get(j).getRoute().add(problem.getDepots().get(0));
+        }
+
         if (mode == 'T') {
             if (isFittest) {
                 System.out.println("Solution found!");
@@ -61,85 +70,60 @@ public class GeneticAlgorithmVRP {
                 System.out.println("Fitness: " + population.getFittest().getFitness());
 
             }
-        }
-
-        if (mode == 'R') {
+        } else {
             this.solucion = new Solucion(problem, fittest);
         }
 
     }
 
     // Simulation
-    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks)
+    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks, Date date)
             throws Exception {
 
         this.solucion = new Solucion();
 
-        ArrayList<Date> dates = new ArrayList<>();
+        ArrayList<Node> depots = new ArrayList<>();
+        depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
+        depots.add(new Node(2, 42, 42, 160.0));
+        depots.add(new Node(3, 63, 3, 160.0));
 
-        // get all the different dates in the orders only considering the date not the
-        // time
-        for (Node order : orders) {
-            boolean isDifferent = true;
-            for (Date date : dates) {
-                Calendar orderCal = Calendar.getInstance();
-                orderCal.setTime(order.getFechaInicio());
-                Calendar dateCal = Calendar.getInstance();
-                dateCal.setTime(date);
-                if (dateCal.get(Calendar.DATE) == orderCal.get(Calendar.DATE)
-                        && dateCal.get(Calendar.MONTH) == orderCal.get(Calendar.MONTH)
-                        && dateCal.get(Calendar.YEAR) == orderCal.get(Calendar.YEAR)) {
-                    isDifferent = false;
+        this.problem = new GAProblem(orders, vehicles, depots, blocks, date);
+
+        this.problem.validate();
+
+        population = new Population(problem);
+        maxGenerations = problem.maxGenerations;
+
+        boolean isFittest = false;
+        int i = 0;
+        Individual fittest = population.getFittest();
+
+        if (fittest.calculateFitness() != problem.getOrders().size()) {
+            for (; i < maxGenerations; i++) {
+                GeneticOperators geneticOperators = new GeneticOperators(problem);
+                ArrayList<Individual> parents = geneticOperators.selection(population);
+                parents = geneticOperators.crossover(parents);
+                parents = geneticOperators.mutation(parents);
+                Individual fittestOffspring = geneticOperators.getFittestOffspring(parents);
+                population.replaceLastFittest(fittestOffspring);
+                fittest = population.getFittest();
+                if (fittest.calculateFitness() == problem.getOrders().size()) {
+                    isFittest = true;
                     break;
                 }
             }
-            if (isDifferent) {
-                dates.add(order.getFechaInicio());
-            }
+        } else {
+            isFittest = true;
         }
 
-        for (Date date : dates) {
+        for (int j = 0; j < fittest.getChromosome().genes.size(); j++) {
+            fittest.getChromosome().genes.get(j).getRoute().add(0, problem.getDepots().get(0));
+            fittest.getChromosome().genes.get(j).getRoute().add(problem.getDepots().get(0));
+        }
 
-            ArrayList<Node> depots = new ArrayList<>();
-            depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
-            depots.add(new Node(2, 42, 42, 160.0));
-            depots.add(new Node(3, 63, 3, 160.0));
-
-            this.problem = new GAProblem(orders, vehicles, depots, blocks, date);
-
-            this.problem.validate();
-
-            population = new Population(problem);
-            maxGenerations = problem.maxGenerations;
-
-            boolean isFittest = false;
-            int i = 0;
-            Individual fittest = population.getFittest();
-
-            if (fittest.calculateFitness() != problem.getOrders().size()) {
-                for (; i < maxGenerations; i++) {
-                    GeneticOperators geneticOperators = new GeneticOperators(problem);
-                    ArrayList<Individual> parents = geneticOperators.selection(population);
-                    parents = geneticOperators.crossover(parents);
-                    parents = geneticOperators.mutation(parents);
-                    Individual fittestOffspring = geneticOperators.getFittestOffspring(parents);
-                    population.replaceLastFittest(fittestOffspring);
-                    fittest = population.getFittest();
-                    if (fittest.calculateFitness() == problem.getOrders().size()) {
-                        isFittest = true;
-                        break;
-                    }
-                }
-            } else {
-                isFittest = true;
-            }
-
-            this.solucion.addSolucion(new Solucion(problem, fittest));
-
-            if (!isFittest) {
-                throw new Exception("Solution not found!");
-            }
-
+        this.solucion = new Solucion(problem, fittest);
+        if (!isFittest) {
+            throw new Exception("Solution not found!");
         }
 
     }
@@ -180,6 +164,11 @@ public class GeneticAlgorithmVRP {
             }
         } else {
             isFittest = true;
+        }
+
+        for (int j = 0; j < fittest.getChromosome().genes.size(); j++) {
+            fittest.getChromosome().genes.get(j).getRoute().add(0, problem.getDepots().get(0));
+            fittest.getChromosome().genes.get(j).getRoute().add(problem.getDepots().get(0));
         }
 
         this.solucion = new Solucion(problem, fittest);

@@ -23,6 +23,8 @@ public class GAProblem implements Cloneable {
     public int maxGenerations = 100000;
     public double depotRate = 0.6;
 
+    private int numOfOrders = 100;
+    private int numOfBlocks = 50;
     // Constructors
 
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
@@ -83,12 +85,21 @@ public class GAProblem implements Cloneable {
         // create orders
         this.orders = new ArrayList<>();
         Date date = new Date();
+        // set the date to 00:00:00
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        date = calendar.getTime();
 
         this.date = date;
 
-        Calendar calendar = Calendar.getInstance();
-        for (int i = 0; i < 0; i++) {
+
+
+        for (int i = 0; i < numOfOrders; i++) {
             calendar.setTime(date);
+
             calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(24));
             Date finalDate = calendar.getTime();
             this.orders.add(new Node(String.valueOf(i), random.nextInt(70), random.nextInt(50),
@@ -98,23 +109,32 @@ public class GAProblem implements Cloneable {
         // create blocks
         this.blocks = new ArrayList<>();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < numOfBlocks; i++) {
             int x = random.nextInt(70);
             int y = random.nextInt(50);
             // if the point is inside a depot, or a order point, then generate another point
             while (x == 12 && y == 8 || x == 42 && y == 42 || x == 63 && y == 3) {
-                for (int j = 0; j < 50; j++) {
+                for (int j = 0; j < numOfOrders; j++) {
                     if (x == this.orders.get(j).getPosicion().getX() && y == this.orders.get(j).getPosicion().getY()) {
                         x = random.nextInt(70);
                         y = random.nextInt(50);
                         j = 0;
+                    }else {
+                        break;
                     }
                 }
             }
-
-            this.blocks.add(i, new Node(String.valueOf(i), random.nextInt(70), random.nextInt(50),
-                    (double) (random.nextInt(25)), date, date));
+            this.blocks.add(new Node(i, x, y, date, date));
         }
+        for (Node block : this.blocks) {
+            for (Node order : this.orders) {
+                if (block.getPosicion().getX() == order.getPosicion().getX()
+                        && block.getPosicion().getY() == order.getPosicion().getY()) {
+                    this.blocks.remove(block);
+                }
+            }
+        }
+
 
         // create vehicles
         this.vehicles = new ArrayList<>();
@@ -256,25 +276,29 @@ public class GAProblem implements Cloneable {
         }
 
         // if any of the node out of the bounds, or the date is not valid
+        // add one day to the date
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.date);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
 
         for (Node order : this.orders) {
 
             if (order.getPosicion().getX() < 0 || order.getPosicion().getX() > 70 || order.getPosicion().getY() < 0
                     || order.getPosicion().getY() > 50) {
-                throw new Exception("Order :" + order.getId() + "coordinate out of bounds - ("
+                throw new Exception("Order: " + order.getId() + " - coordinate out of bounds - ("
                         + order.getPosicion().getX() + " , " + order.getPosicion().getY() + ") - ("
                         + order.getPosicion().getY() + " , " + order.getPosicion().getY() + " )");
             }
 
-            if (order.getFechaFinal().before(this.date) || order.getFechaFinal().after(this.date)
-                    || order.getFechaInicio().before(this.date)
-                    || order.getFechaInicio().after(order.getFechaFinal())) {
-                throw new Exception("Order :" + order.getId() + " not valid date range - " + order.getFechaInicio()
+
+
+            if (order.getFechaFinal().after(calendar.getTime())) {
+                throw new Exception("Order: " + order.getId() + " - not valid date range - " + order.getFechaInicio()
                         + " - " + order.getFechaFinal());
             }
 
             if (order.getCantidad() > maxCapacity) {
-                throw new Exception("Order :" + order.getId() + " quantity out of bounds - " + order.getCantidad()
+                throw new Exception("Order: " + order.getId() + " - quantity out of bounds - " + order.getCantidad()
                         + " - " + maxCapacity);
             }
         }
@@ -282,16 +306,14 @@ public class GAProblem implements Cloneable {
         for (Node block : this.blocks) {
             if (block.getPosicion().getX() < 0 || block.getPosicion().getX() > 70 || block.getPosicion().getY() < 0
                     || block.getPosicion().getY() > 50) {
-                throw new Exception("Block :" + block.getId() + "coordinate out of bounds - ("
+                throw new Exception("Block: " + block.getId() + " - coordinate out of bounds - ("
                         + block.getPosicion().getX() + " , " + block.getPosicion().getY() + ") - ("
                         + block.getPosicion().getY() + " , " + block.getPosicion().getY() + " )");
 
             }
 
-            if (block.getFechaFinal().before(this.date) || block.getFechaFinal().after(this.date)
-                    || block.getFechaInicio().before(this.date)
-                    || block.getFechaInicio().after(block.getFechaFinal())) {
-                throw new Exception("Block :" + block.getId() + " not valid date range - " + block.getFechaInicio()
+            if (block.getFechaFinal().after(calendar.getTime())) {
+                throw new Exception("Block: " + block.getId() + " - not valid date range - " + block.getFechaInicio()
                         + " - " + block.getFechaFinal());
             }
         }
@@ -299,7 +321,7 @@ public class GAProblem implements Cloneable {
         for (Node depot : this.depots) {
             if (depot.getPosicion().getX() < 0 || depot.getPosicion().getX() > 70 || depot.getPosicion().getY() < 0
                     || depot.getPosicion().getY() > 50) {
-                throw new Exception("Depot :" + depot.getId() + "coordinate out of bounds - ("
+                throw new Exception("Depot: " + depot.getId() + " - coordinate out of bounds - ("
                         + depot.getPosicion().getX() + " , " + depot.getPosicion().getY() + ") - ("
                         + depot.getPosicion().getY() + " , " + depot.getPosicion().getY() + " )");
             }
