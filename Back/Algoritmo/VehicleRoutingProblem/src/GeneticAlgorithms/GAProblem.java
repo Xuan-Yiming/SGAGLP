@@ -23,8 +23,8 @@ public class GAProblem implements Cloneable {
     public int maxGenerations = 100000;
     public double depotRate = 0.6;
 
-    private int numOfOrders = 100;
-    private int numOfBlocks = 50;
+    private int numOfOrders = 10;
+    private int numOfBlocks = 30;
     // Constructors
 
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
@@ -147,7 +147,7 @@ public class GAProblem implements Cloneable {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         date = calendar.getTime();
         this.vehicles.add(new Vehicle(2, 'A', date));
-
+/* 
         // B - 4
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -240,7 +240,7 @@ public class GAProblem implements Cloneable {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         date = calendar.getTime();
         this.vehicles.add(new Vehicle(20, 'D', date));
-
+*/
     }
     // Methods
 

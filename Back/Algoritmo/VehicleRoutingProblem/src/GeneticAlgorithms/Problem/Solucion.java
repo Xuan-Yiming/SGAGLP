@@ -11,16 +11,17 @@ import java.util.List;
 public class Solucion {
     // private int numOfDays = 1;
     private ArrayList<SolucionNodo> elementosEstaticosTemporales;
-    private ArrayList<SolucionCamion> elementosCamiones;
+    private ArrayList<SolucionClock> elementosEnCadaClock;
 
     public Solucion() {
         elementosEstaticosTemporales = new ArrayList<>();
-        elementosCamiones = new ArrayList<>();
+        elementosEnCadaClock = new ArrayList<>();
     }
 
-    public Solucion(GAProblem problem, Individual finalSolution) throws Exception{
+    public Solucion(GAProblem problem, Individual finalSolution) throws Exception {
+        ArrayList<SolucionCamion> elementosCamiones = new ArrayList<>();
         elementosEstaticosTemporales = new ArrayList<>();
-        elementosCamiones = new ArrayList<>();
+        elementosEnCadaClock = new ArrayList<>();
 
         for (Node order : problem.getOrders()) {
             SolucionNodo solucionNodo = new SolucionNodo();
@@ -61,8 +62,6 @@ public class Solucion {
             obstaculos.add(block.getPosicion());
         }
 
-        
-
         for (Gene vehiculo : finalSolution.getChromosome().genes) {
             int totalTime = 0;
             SolucionCamion solucionCamion = new SolucionCamion();
@@ -91,41 +90,37 @@ public class Solucion {
                     break;
                 }
             }
-            // if (totalTime < 24 * 50) {
-            //     for (; totalTime < 24 * 50; totalTime++) {
-            //         SolucionRuta solucionRuta = new SolucionRuta();
-            //         solucionRuta.x = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getPosicion().x;
-            //         solucionRuta.y = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getPosicion().y;
-            //         solucionRuta.idPedido = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1).getId();
-            //         solucionRuta.placa = "T" + vehiculo.getType() + vehiculo.getId();
-            //         solucionRuta.time = totalTime;
-            //         solucionCamion.rutas.add(solucionRuta);
-            //     }
-            // }
             elementosCamiones.add(solucionCamion);
         }
-        // this.numOfDays++;
+
+        for (int i = 0; i < 50 * 24; i++) {
+            SolucionClock solucionClock = new SolucionClock();
+            solucionClock.clock = i;
+            solucionClock.nodos = new ArrayList<>();
+            for (SolucionCamion solucionCamion : elementosCamiones) {
+                for (SolucionRuta solucionRuta : solucionCamion.rutas) {
+                    if (solucionRuta.time == i) {
+                        solucionClockNode node = new solucionClockNode();
+                        node.x = solucionRuta.x;
+                        node.y = solucionRuta.y;
+                        node.idPedido = solucionRuta.idPedido;
+                        node.placa = solucionRuta.placa;
+                        solucionClock.nodos.add(node);
+                    }
+                }
+            }
+            elementosEnCadaClock.add(solucionClock);
+        }
     }
-
-    // public void addSolucion(Solucion solucion) {
-    // this.numOfDays++;
-    // this.elementosEstaticosTemporales.addAll(solucion.getElementosEstaticosTemporales());
-    // for (SolucionCamion solucionCamion : solucion.getElementosCamiones()) {
-
-    // }
-    // }
 
     public String elementosEstaticosTemporalesToJson() {
         return new Gson().toJson(elementosEstaticosTemporales);
     }
 
-    public String elementosCamionesToJson() {
-        return new Gson().toJson(elementosCamiones);
-    }
-
-    public String solucionToJson() throws Exception{
+    public String solucionToJson() throws Exception {
         return new Gson().toJson(this);
     }
+
     public String solucionToPrettyJson() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(this);
@@ -141,12 +136,6 @@ public class Solucion {
     public void setElementosEstaticosTemporales(ArrayList<SolucionNodo> elementosEstaticosTemporales) {
         this.elementosEstaticosTemporales = elementosEstaticosTemporales;
     }
-
-    public ArrayList<SolucionCamion> getElementosCamiones() {
-        return elementosCamiones;
-    }
-
-    public void setElementosCamiones(ArrayList<SolucionCamion> elementosCamiones) {
-        this.elementosCamiones = elementosCamiones;
-    }
 }
+
+
