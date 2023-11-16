@@ -244,7 +244,7 @@ const  getDataCamiones = async () =>{
         
             for (let j = 0; j < elementosCamiones.length; j++) {
                 const camion = elementosCamiones[j];
-                if(Math.floor(tiempo/72) == camion.time){
+                if(tiempo == camion.time){
                     disponibles.push(camion.idPedido);
                 }
             }
@@ -258,7 +258,7 @@ const  getDataCamiones = async () =>{
 
                 
 
-                if(camion.idPedido==todosPedidos[i] && tiempo < camion.time*72 && disponibles.includes(camion.idPedido)){
+                if(camion.idPedido==todosPedidos[i] && tiempo < camion.time && disponibles.includes(camion.idPedido)){
                     
                 //&& (camion.time-1)*72<tiempo 
 
@@ -267,7 +267,7 @@ const  getDataCamiones = async () =>{
                     c.fillStyle = 'green';
                     c.fillRect( unidadCuadroAncho*(  -0.25+ camion.x),unidadCuadroAlto*(-0.25+camion.y),
                                             unidadCuadroAncho/2,unidadCuadroAlto/2);
-                    clockActual=Math.floor(tiempo/72);
+                    clockActual=tiempo;
                     c.stroke();
                     // break;
                 }
@@ -357,7 +357,7 @@ const  getDataCamiones = async () =>{
             const elemento = elementosEstaticosTemporales[i];
             // Math.floor(props.tiempo/72)==camion.time
 // console.log(elemento);
-            if(elemento.inicio*72 <= tiempo&& tiempo <= elemento.final*72){
+            if(elemento.inicio <= tiempo&& tiempo <= elemento.final){
                 // console.log(elemento.inicio);
                 if(elemento.tipo == 'bloqueo'){
                     // if(elemento.tipo = 'bloqueo' && elemento.inicio < Math.floor(tiempo/72) && Math.floor(tiempo/72) < elemento.final){
@@ -480,6 +480,8 @@ const  getDataCamiones = async () =>{
         
         getDataCamiones();
         getCantidadCamiones();
+
+        console.log(props.tiempo);
         
         // getBloqueosTotales();
         // Ajustar el tamaño del canvas al del contenedor
@@ -499,6 +501,8 @@ const  getDataCamiones = async () =>{
 
         
     }, []);
+
+
 
     useEffect(() => {
 
@@ -580,6 +584,8 @@ const  getDataCamiones = async () =>{
             //BLOQUEOS  Y PEDIDOS
 
             // console.log(elementosCamiones);
+
+            // console.log(props.tiempo);
             for(let j=0;j<cantidadCamiones;j++){
 
                 for (let i = 0; i < elementosCamiones.length; i++) {
@@ -590,7 +596,128 @@ const  getDataCamiones = async () =>{
                     let idAnt = 'aaa';
                     let clockActual=0;
                     // let flag =false;
-                    if(camion.placa==todosCamiones[j] && Math.floor(props.tiempo/72)<=camion.time){
+                    if(camion.placa==todosCamiones[j] && props.tiempo<=camion.time){
+                        
+                        
+
+
+
+                        ctx.beginPath();
+                        ctx.fillStyle = 'grey';
+                        ctx.fillRect( unidadCuadroAncho*(-0.5 +  camion.x),unidadCuadroAlto*(-0.5+camion.y),
+                                                unidadCuadroAncho,unidadCuadroAlto);
+                        clockActual=props.tiempo;
+                        ctx.stroke();
+                        break;
+                    }
+    
+                }
+            }
+
+
+
+        }
+        
+        animate();
+
+    }, []);
+    
+
+
+    useEffect(() => {
+
+        getDataCamiones();
+        getCantidadCamiones();
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = dimensions.width;
+        canvas.height = dimensions.height;
+
+
+
+        const cuadrosAlto = 50;
+        const cuadrosAncho = 70;
+        // console.log(`Ancho del cuadricula: ${canvas.width / cuadrosAncho}`);
+        // console.log(`alto cuadricula: ${canvas.height / cuadrosAncho}`);
+
+
+        function animate(){
+            
+        
+            //seccion de medidas
+            // un cuadro es una separacion canvas.width / cuadrosAncho
+            // supoiniendo que un cuadro es 1km entonces para estar a 50kmh
+            //entoncesla velocdiadd o corriendo una hora por ms es velocidad --> canvas.width *50 / cuadrosAncho cada segundo
+            
+
+            unidadCuadroAncho = canvas.width / cuadrosAncho;
+            unidadCuadroAlto = canvas.height / cuadrosAlto;
+        
+            requestAnimationFrame(animate);
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+
+            
+            ctx.beginPath();
+            // Dibujar cuadrícula
+            for (let x = 0; x < canvas.width; x += canvas.width / cuadrosAncho) {
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+            }
+
+            for (let y = 0; y < canvas.height; y += canvas.height / cuadrosAlto) {
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+            }
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+
+
+            
+                ctx.beginPath();
+                graficarPuntosFijos(ctx);
+                ctx.stroke();
+            ////FINAL CUADRICULA
+
+
+            //BLOQUEOS  Y PEDIDOS
+            // ctx.beginPath();
+            ctx.lineWidth = 1;
+            graficarEstaticosTemporales(ctx,props.tiempo);
+            ctx.lineWidth = 1;
+            // ctx.stroke();
+
+            
+
+            //RUTAS
+            ctx.beginPath();
+            ctx.stroke();
+            ctx.lineWidth = 1;
+            ctx.strokeStyle="black";
+            graficarRutas(ctx,props.tiempo);
+            ctx.lineWidth = 1;
+            ctx.strokeStyle="black";
+            ctx.beginPath();
+            ctx.stroke();
+
+
+            //BLOQUEOS  Y PEDIDOS
+
+            // console.log(elementosCamiones);
+
+            // console.log(props.tiempo);
+            for(let j=0;j<cantidadCamiones;j++){
+
+                for (let i = 0; i < elementosCamiones.length; i++) {
+                    
+                    
+                    const camion = elementosCamiones[i];
+                    // let idAnt = 'aaa';
+                    let idAnt = 'aaa';
+                    let clockActual=0;
+                    // let flag =false;
+                    if(camion.placa==todosCamiones[j] && props.tiempo<=camion.time){
+                        
                         
 
 
@@ -602,7 +729,7 @@ const  getDataCamiones = async () =>{
                         ctx.fillStyle = 'grey';
                         ctx.fillRect( unidadCuadroAncho*(-0.5 +  camion.x),unidadCuadroAlto*(-0.5+camion.y),
                                                 unidadCuadroAncho,unidadCuadroAlto);
-                        clockActual=Math.floor(props.tiempo/72);
+                        clockActual=props.tiempo;
                         ctx.stroke();
                         break;
                     }

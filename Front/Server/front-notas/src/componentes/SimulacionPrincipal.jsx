@@ -11,6 +11,8 @@ export function SimulacionPrincipal() {
     let divWidth = null; // Variable para almacenar el ancho del div
     let divHeight = null;
     const [segundosEnviados, setSegundosEnviados] = useState(0);
+    const [clockEnviados, setClockEnviados] = useState(0);
+    const [clockPrevio, setClockPrevio] = useState(0);
 
 
 
@@ -79,6 +81,7 @@ export function SimulacionPrincipal() {
         const elapsedSeconds = (elapsedMilliseconds / 1000) * speedMultiplier;
   
         setElapsedTime((prevElapsedTime) => prevElapsedTime + elapsedSeconds);
+
         // setPrevTime((prevElapsedTime) => prevElapsedTime + elapsedSeconds);
         // if(elapsedTime!=prevTime)setElapsedTime(prevTime);
         // console.log(elapsedTime);
@@ -94,10 +97,31 @@ export function SimulacionPrincipal() {
       return () => {
         cancelAnimationFrame(timerId);
       };
-    }, [isRunning, speedMultiplier]);
+    }, [isRunning, speedMultiplier,clockPrevio]);
+
+    useEffect(() => {        
+      
+      if(Math.floor(elapsedTime/72 )!= clockPrevio ){
+        setClockPrevio(Math.floor(elapsedTime/72));
+        // if(clockEnviados!=clockEnviados){
+        //   setClockEnviados(clockPrevio);
+        //   // console.log(clockEnviados);
+        // }
+        console.log(clockPrevio);
+      }
+    }, [[],elapsedTime]);
+
+
+    useEffect(() => {        
+
+      setClockPrevio(0);
+      console.log(clockPrevio);
+    }, []);
   
     const startTimer = () => {
+      setClockPrevio(0);
       setIsRunning(true);
+      console.log(clockPrevio);
     };
   
     const stopTimer = () => {
@@ -107,6 +131,8 @@ export function SimulacionPrincipal() {
     const resetTimer = () => {
       setIsRunning(false);
       setElapsedTime(0);
+      setClockPrevio(0);
+      setClockEnviados(0);
     };
   
     const setSpeed = (multiplier) => {
@@ -470,7 +496,7 @@ export function SimulacionPrincipal() {
                     </div>
                     <div className='SimulacionMapa' ref={divRef}>
                         {/* <Canvas className='mapaSimulado'  draw = {draw} draw2 ={null} width='100%' height ='100%'/> */}
-                        <MapaGrid2 ancho ={divWidth} alto ={divHeight} tiempo={elapsedTime} elementosCamiones={elementosCamiones}/>
+                        <MapaGrid2 ancho ={divWidth} alto ={divHeight} tiempo={clockPrevio} elementosCamiones={elementosCamiones}/>
                         {/* <Canvas className='mapaSimulado'  draw = {draw2} width='100%' height ='100%'/> */}
                         
                         {/* <div id="canvas-container" style={{ width: '100%', height: '100%' }}>
