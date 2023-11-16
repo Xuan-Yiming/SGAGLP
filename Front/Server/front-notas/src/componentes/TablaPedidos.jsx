@@ -45,7 +45,7 @@ const TablaPedidos = ({ columns, data ,longitud}) =>{
 
 
       return (
-        <div>
+        <div className='tablaPedidosPrincipal'>
           <table {...getTableProps()} style={{ width: '100%' }}>
             <thead>
               {headerGroups.map(headerGroup => (
