@@ -54,7 +54,9 @@ export function PedidosPrincipal() {
         { id:'P40', cantidad: 3.0,fecha:'2023/08/04',hora:'11:08:09',horaLlegada:'11:08:09',  x:4,y:5,estado: 0},
         { id:'P41', cantidad: 1.0,fecha:'2023/08/04',hora:'11:08:09',horaLlegada:'11:08:09',  x:1,y:4,estado: 0},
         { id:'P42', cantidad: 18.0,fecha:'2023/08/04',hora:'11:08:09',horaLlegada:'11:08:09',  x:5,y:8,estado: 1},
-        { id:'P43', cantidad: 18.0,fecha:'2023/08/04',hora:'11:08:09',horaLlegada:'11:08:09',  x:5,y:8,estado: 1}
+        { id:'P43', cantidad: 18.0,fecha:'2023/08/04',hora:'11:08:09',horaLlegada:'11:08:09',  x:5,y:8,estado: 1},
+        { id:'P44', cantidad: 18.0,fecha:'2023/08/04',hora:'11:08:09',horaLlegada:'11:08:09',  x:5,y:8,estado: 1},
+        { id:'P45', cantidad: 18.0,fecha:'2023/08/04',hora:'11:08:09',horaLlegada:'11:08:09',  x:5,y:8,estado: 1}
         // Add more data as needed
     ];
 

@@ -4,6 +4,7 @@ import ExpandableMenu from './ExpandableMenu';
 import PlanificacionPrincipal from './PlanificacionPrincipal';
 import SimulacionPrincipal from './SimulacionPrincipal';
 import PedidosPrincipal from './PedidosPrincipal';
+import ContenedorHtml from './ContenedorHtml'
 
 
 export function MenuContenedor() {
@@ -22,7 +23,7 @@ export function MenuContenedor() {
                 <div className='contenedorTrabajo'>
                     {bandera?<PlanificacionPrincipal  />:
                     bandera2?<PedidosPrincipal  />:
-                    bandera3?<SimulacionPrincipal  />:
+                    bandera3?<ContenedorHtml  />:
                     bandera4?<SimulacionPrincipal  />:
                     <SimulacionPrincipal/>}
                 </div>
