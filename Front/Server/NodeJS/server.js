@@ -21,10 +21,37 @@ app.get('/', function(req, res) {
   });
 });
 
+// public page
+app.use('/public', express.static('public'));
 
 // about page
 app.get('/about', function(req, res) {
   res.render('pages/about');
+});
+
+// login page
+app.get('/login', function(req, res) {
+  res.render('pages/login');
+});
+
+// planificacion page
+app.get('/planificacion', function(req, res) {
+  res.render('pages/planificacion');
+});
+
+// pedido page
+app.get('/pedidos', function(req, res) {
+  res.render('pages/pedidos');
+});
+
+// flota page
+app.get('/flotas', function(req, res) {
+  res.render('pages/flotas');
+});
+
+// simulacion page
+app.get('/simulacion', function(req, res) {
+  res.render('pages/simulacion');
 });
 
 // error handling

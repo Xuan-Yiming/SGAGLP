@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/public/stylesheets/login.css">
+        <script src="/public/scripts/login.js"></script>
+    </head>
+
+    <body class="container">
+        <main>
+            <div>
+                <a href="/login">
+                    <img src="/public/images/logo.svg" alt="Logo" />
+                </a>
+                <h1>Login</h1>
+                <form action="/login" method="POST">
+                    <div>
+                        <label for="username">Usuario</label>
+                        <input type="text" name="username" id="username" placeholder="Tu correo electrónico" required>
+                    </div>
+                    <div>
+                        <label for="password">Contraseña</label>
+                        <input type="password" name="password" id="password" placeholder="Ingresar 6 caracteres o más" required>
+                    </div>
+                    <div>
+                        <input type="submit" value="Login">
+                    </div>
+                </form>
+            </div>
+        </main>
+    </body>
+
+</html>
