@@ -1,0 +1,11 @@
+.sidebar-wrapper{
+
+    background-color: white;
+    /* width: 10%;
+    height: 900px; */
+    /* width: 10%; */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+}
