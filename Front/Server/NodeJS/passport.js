@@ -14,7 +14,8 @@ function initialize(passport, getUserByUsername, getUserByID) {
         }
         console.log(user)
         try {
-            if (await bcrypt.compare(password, user.password)) {
+            // if (await bcrypt.compare(password, user.password)) {
+            if(passport === user.password) {
                 console.log("entro")
                 return done(null, user)
             } else {

@@ -18,6 +18,39 @@ initializePassport(
 
 const users = [];
 
+// initializePassport(
+//   passport,
+//   (username) => getUserByUsername(username),
+//   (id) => getUserByID(id)
+// );
+
+async function getUserByUsername(username) {
+  try {
+    fetch("http://localhost:8080/users")
+      .then((response) => response.json())
+      .then((data) => {
+        return data;
+      });
+    
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+async function getUserByID(id) {
+  try {
+    fetch("http://localhost:8080/users")
+      .then((response) => response.json())
+      .then((data) => {
+        return data;
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+
 async function createUser() {
   try {
     var hashedPassword = await bcrypt.hash("adm", 10);
@@ -53,19 +86,20 @@ app.set("view engine", "ejs");
 // use res.render to load up an ejs view file
 
 // index page
-app.get("/", checkAuthenticated, function (req, res) {
-  var mascots = [
-    { name: "Sammy", organization: "DigitalOcean", birth_year: 2012 },
-    { name: "Tux", organization: "Linux", birth_year: 1996 },
-    { name: "Moby Dock", organization: "Docker", birth_year: 2013 },
-  ];
-  var tagline =
-    "No programming concept is complete without a cute animal mascot.";
+app.get("/", CheckNotAuthenticated, function (req, res) {
+  // var mascots = [
+  //   { name: "Sammy", organization: "DigitalOcean", birth_year: 2012 },
+  //   { name: "Tux", organization: "Linux", birth_year: 1996 },
+  //   { name: "Moby Dock", organization: "Docker", birth_year: 2013 },
+  // ];
+  // var tagline =
+  //   "No programming concept is complete without a cute animal mascot.";
 
-  res.render("pages/index", {
-    mascots: mascots,
-    tagline: tagline,
-  });
+  // res.render("pages/index", {
+  //   mascots: mascots,
+  //   tagline: tagline,
+  // });
+  res.render("pages/login");
 });
 
 // public page
