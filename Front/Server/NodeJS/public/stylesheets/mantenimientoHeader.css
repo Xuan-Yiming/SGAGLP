@@ -1,0 +1,30 @@
+.mantenimiento-header{
+display: flex;
+flex-direction: row;
+margin-bottom: 50px;
+}
+
+.mantenimiento-header .buttons{
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: 0;
+    align-items: center;
+}
+
+.mantenimiento-header button{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #FFD100;
+    border-radius: 20px;
+    height: 2.5em;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #4d4d4d;
+    cursor: pointer;
+}

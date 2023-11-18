@@ -6,14 +6,23 @@
         <link rel="stylesheet" href="/public/stylesheets/pedidos.css">
         <link rel="stylesheet" href="/public/stylesheets/styles.css">
         <script src="/public/scripts/pedidos.js"></script>
+                <style>
+                    #btn-ped {
+                        background-color: #FFD100;
+                    }
+                </style>
     </head>
 
     <body class="container">
 
         <%- include('../partials/sidebar'); %>
+        <div class="main-continaer pedido-flota-container">
         <%- include('../partials/mantenimientoHeader', {title: 'Pedidos' }); %>
         <%- include('../partials/mantenimientoToolBar'); %>
         <%- include('../partials/table', {title: 'Pedidos' }); %>
+
+        </div>
+
 
 
     </body>

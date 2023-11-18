@@ -1,16 +1,141 @@
-body{
-    background-color: #F0F0F0;
-    padding: 0px;
-    margin: 0px;
+body {
+  background-color: #f0f0f0;
+  padding: 0px;
+  margin: 0px;
 }
 
-main{
-    padding: 0px;
+main {
+  padding: 0px;
 }
 
-html{
-    padding: 0px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: normal;
-    
+html {
+  padding: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.main-continaer {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  padding: 50px;
+}
+
+/* side bar */
+
+.sidebar {
+  background-color: white;
+  width: 250px;
+  height: 100vh;
+}
+
+.logo {
+  width: 100px;
+  margin: 50px auto;
+  margin-top: 30px;
+  display: block;
+}
+
+.menu-option {
+  list-style-type: none;
+  margin-top: 20px;
+  margin-bottom: 60px;
+    padding: 5px;
+    border-radius: 25px;
+}
+
+.menu-button {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: normal;
+}
+.menu-button b {
+  font-size: 20px;
+  margin-left: 10px;
+}
+.menu-button img {
+  width: 30px;
+}
+
+.sidebar ul {
+  margin: 0px;
+  padding-inline-start: 20px;
+  padding-right: 30px;
+}
+
+
+
+
+/* planificacion y simulacion */
+
+input[type="file"] {
+  display: none;
+}
+
+.plan-simu-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.plan-simu-container main{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+}
+.plan-simu-container main .tools {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 70vh;
+    position: fixed;
+    margin-right: 50px;
+    border-radius: 15px;
+    right: 0;
+}
+
+.plan-simu-container main .tools .controls {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+    border-radius: 15px;
+    background-color: white;
+    padding: 20px;
+}
+
+.plan-simu-container main .tools .resumen {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+    border-radius: 15px;
+    background-color: white;
+    padding: 20px;
+
+}
+
+/* pedidos y flota */
+
+.pedido-flota-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-color: #f0f0f0;
 }

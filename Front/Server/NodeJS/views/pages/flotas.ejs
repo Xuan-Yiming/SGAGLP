@@ -7,17 +7,37 @@
         <link rel="stylesheet" href="/public/stylesheets/styles.css">
 
         <script src="/public/scripts/flotas.js"></script>
+
     </head>
 
     <body class="container">
 
         <%- include('../partials/sidebar'); %>
+            <div class="main-continaer pedido-flota-container">
+                <%- include('../partials/mantenimientoHeader', {title: 'Flotas' }); %>
+                    <%- include('../partials/mantenimientoToolBar'); %>
+                        <%- include('../partials/table', {title: 'Flotas' }); %>
 
-        <%- include('../partials/mantenimientoHeader', {title: 'Flotas' }); %>
-        <%- include('../partials/mantenimientoToolBar'); %>
-        <%- include('../partials/table', {title: 'Flotas' }); %>
+            </div>
 
 
     </body>
-
+        <style>
+            #btn-flo {
+                background-color: #45AE17;
+        
+            }
+        
+            .mantenimiento-header button {
+                background-color: #45AE17;
+            }
+        
+            .table .table-tool-bar .table-pages button {
+                background-color: #45AE17;
+            }
+        
+            .table table thead tr th {
+                background-color: #C7E7B9;
+            }
+        </style>
 </html>

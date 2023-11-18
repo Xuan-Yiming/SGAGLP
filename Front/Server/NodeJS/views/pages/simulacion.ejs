@@ -9,47 +9,58 @@
 
 
         <script src="/public/scripts/simulacion.js"></script>
+        <style>
+            #btn-sim {
+                background-color: #00D5FF;
+            }
+        </style>
     </head>
 
     <body class="container">
-
         <%- include('../partials/sidebar'); %>
-
-        <h1>Simulación</h1>
-            <main>
-                <div class="map">
-
-                </div>
-                <div class="tools">
-                    <div class="controls">
-                        <input type="file" id="cmBloqueos" accept=".txt">
-                        <button id="btnBloqueos">Cargar Bloqueos</button>
-                        <input type="file" id="cmFlota" accept=".txt">
-                        <button id="btnFloya">Cargar Flotas</button>
-                        <input type="file" id="cmPedidos" accept=".txt">
-                        <button id="btnPedidos">Cargar Pedidos</button>
-                        <select id="selectSpeed">
-                            <option value="1">1x</option>
-                            <option value="2">2x</option>
-                            <option value="3">3x</option>
-                            <option value="4">4x</option>
-                            <option value="5">5x</option>
-                        </select>
-                        <button id="btnSimular">Simular</button>
+            <div class="main-continaer plan-simu-container">
+                <h1>Simulación</h1>
+                <main>
+                    <div class="map">
 
                     </div>
-                    <div class="resumen">
-                        <label for="txtPedidosEntregados">Pedidos Entregados: </label>
-                        <input type="text" id="txtPedidosEntregados" disabled>
-                        <label for="txtPedidosProgramados">Pedidos Programados: </label>
-                        <input type="text" id="txtPedidosProgramados" disabled>
-                        <input type="text" id="txtCantidadFlotas" disabled>
-                        <label for="txtCantidadFlotas">Cantidad de flotas: </label>
-                        <input type="text" id="txtColapso" disabled>
-                        <label for="txtColapso">Colapso: </label>
+                    <div class="tools">
+                        <div class="controls">
+                            <h2>Controles</h2>
+                            <input type="file" id="cmBloqueos" accept=".txt">
+                            <button id="btnBloqueos">Cargar Bloqueos</button>
+                            <input type="file" id="cmFlota" accept=".txt">
+                            <button id="btnFloya">Cargar Flotas</button>
+                            <input type="file" id="cmPedidos" accept=".txt">
+                            <button id="btnPedidos">Cargar Pedidos</button>
+                            <select id="selectSpeed">
+                                <option value="1">1x</option>
+                                <option value="2">2x</option>
+                                <option value="3">3x</option>
+                                <option value="4">4x</option>
+                                <option value="5">5x</option>
+                            </select>
+                            <button id="btnSimular">Simular</button>
+
+                        </div>
+                        <div class="resumen">
+                            <h2>Resumen</h2>
+                            <label for="txtPedidosEntregados">Pedidos Entregados: </label>
+                            <input type="text" id="txtPedidosEntregados" disabled>
+                            <label for="txtPedidosProgramados">Pedidos Programados: </label>
+                            <input type="text" id="txtPedidosProgramados" disabled>
+                            <input type="text" id="txtCantidadFlotas" disabled>
+                            <label for="txtCantidadFlotas">Cantidad de flotas: </label>
+                            <input type="text" id="txtColapso" disabled>
+                            <label for="txtColapso">Colapso: </label>
+                            <input type="text" id="txtTiempo" disabled>
+
+                        </div>
                     </div>
-                </div>
-            </main>
+                </main>
+
+
+            </div>
 
 
     </body>
