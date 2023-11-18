@@ -4,8 +4,10 @@ import GeneticAlgorithms.Problem.Node;
 import GeneticAlgorithms.Problem.Solucion;
 import GeneticAlgorithms.Problem.SolucionNodo;
 import GeneticAlgorithms.Problem.Vehicle;
+import GeneticAlgorithms.Problem.solucionClockNode;
 
 import java.awt.Point;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,6 +29,7 @@ public class GAProblem implements Cloneable {
     private int numOfBlocks = 30;
     // Constructors
 
+    //simulacion
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
             ArrayList<Node> blocks, Date fecha) {
         this.orders = orders;
@@ -44,34 +47,62 @@ public class GAProblem implements Cloneable {
         this.date = calendar.getTime();
     }
 
+    //planificacion
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
-            ArrayList<Node> blocks, Solucion solucion, int clock) {
-        ArrayList<String> ordersPending = new ArrayList<>();
+            ArrayList<Node> blocks, Solucion solucion, int clock, Date fecha) {
 
-        for (SolucionNodo solucionNodo : solucion.getElementosEstaticosTemporales()) {
-            if (solucionNodo.fin < clock) {
-                if (solucionNodo.tipo == 'C') {
-                    ordersPending.add(solucionNodo.id);
+        if (clock >= solucion.elementosEnCadaClock.size()) {
+            clock = solucion.elementosEnCadaClock.size() - 1;
+        }
+
+        ArrayList<solucionClockNode> nodos = solucion.elementosEnCadaClock.get(clock).nodos;
+        ArrayList<String> pedidosEntregados = new ArrayList<>();
+
+        for (int i = 0; i < nodos.size(); i++) {
+            for (Vehicle vehicle : vehicles) {
+                if (nodos.get(i).placa == "" + vehicle.getType() + vehicle.getId()) {
+                    vehicle.setPosicion(new Point(nodos.get(i).x, nodos.get(i).y));
                 }
             }
         }
 
-        this.orders = new ArrayList<>();
-        for (Node order : orders) {
-            if (ordersPending.contains(order.getId())) {
-                this.orders.add(order);
+        for (int i = 0; i < clock; i++) {
+            for (int j = 0; j < solucion.elementosEnCadaClock.get(i).nodos.size(); j++) {
+                if (j - 1 >= 0) {
+                    if (!solucion.elementosEnCadaClock.get(i).nodos.get(j).idPedido
+                            .equals(solucion.elementosEnCadaClock.get(i).nodos.get(j - 1).idPedido)) {
+                        pedidosEntregados.add(solucion.elementosEnCadaClock.get(i).nodos.get(j).idPedido);
+                    }
+                }
+            }
+        }
+        
+        //remove all delivered orders
+        for (int i = 0; i < orders.size(); i++) {
+            if (pedidosEntregados.contains(orders.get(i).getId())) {
+                orders.remove(i);
+                i--;
             }
         }
 
+        
+        this.orders = orders;
+        this.vehicles = vehicles;
         this.depots = depots;
         this.blocks = blocks;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
-        // get the date of the first order
-        Date date = this.orders.get(0).getFechaFinal();
-        
-        
+        calendar.add(Calendar.SECOND, clock*72);
+
+        this.date = calendar.getTime();
     }
 
+    // Test
     public GAProblem() {
         // create random problem
         Random random = new Random();

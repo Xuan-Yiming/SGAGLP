@@ -128,7 +128,7 @@ public class GeneticAlgorithmVRP {
 
     }
 
-    // Pacification
+    // planificacion
     public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks,
             Solucion solucion, int clock) throws Exception {
 

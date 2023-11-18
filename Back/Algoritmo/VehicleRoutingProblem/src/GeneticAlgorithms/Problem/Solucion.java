@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Solucion {
     // private int numOfDays = 1;
-    private ArrayList<SolucionNodo> elementosEstaticosTemporales;
-    private ArrayList<SolucionClock> elementosEnCadaClock;
+    public ArrayList<SolucionNodo> elementosEstaticosTemporales;
+    public ArrayList<SolucionClock> elementosEnCadaClock;
 
     public Solucion() {
         elementosEstaticosTemporales = new ArrayList<>();
