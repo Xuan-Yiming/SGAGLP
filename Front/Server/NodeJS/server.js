@@ -7,66 +7,37 @@ const passport = require("passport");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 const flash = require("express-flash");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+
 
 const initializePassport = require("./passport");
 
+var app = express();
+
 initializePassport(
   passport,
-  (username) => users.find((user) => user.username === username),
-  (id) => users.find((user) => user.id === id)
+  (username) => getUserByUsername(username),
+  (id) => getUserByID(id)
 );
 
-const users = [];
-
-// initializePassport(
-//   passport,
-//   (username) => getUserByUsername(username),
-//   (id) => getUserByID(id)
-// );
+var loginController = require("./controller/login.js");
 
 async function getUserByUsername(username) {
-  try {
-    fetch("http://localhost:8080/users")
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      });
-    
-  } catch (e) {
-    console.log(e);
-  }
+  const user = await loginController.getUserByUsername(username);
+  return user;
 };
-
 async function getUserByID(id) {
-  try {
-    fetch("http://localhost:8080/users")
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      }
-    );
-  } catch (e) {
-    console.log(e);
-  }
+  const user = await loginController.getUserByID(id);
+  return user;
 };
 
+app.use(cors());
+app.use(cookieParser());
+app.use(bodyParser.json());
 
-async function createUser() {
-  try {
-    var hashedPassword = await bcrypt.hash("adm", 10);
-    users.push({
-      id: 1,
-      username: "adm",
-      password: hashedPassword,
-    });
-  } catch (e) {
-    console.log(e);
-  }
-}
 
-createUser();
-
-var app = express();
 app.use(express.urlencoded({ extended: false }));
 
 app.use(flash());
