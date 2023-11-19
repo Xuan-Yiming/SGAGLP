@@ -27,12 +27,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class NodeService {
     private final NodeRepository nodeRepository;
     private final ClienteRepository clienteRepository;
     private final VehicleRepository vehicleRepository;
+
+    private final int NUMERO_DE_HILOS = 5; // Número de hilos a utilizar
+    private final int TIEMPO_MAXIMO_ESPERA = 5; // Tiempo máximo de espera para que los hilos terminen
 
 
     @Autowired
@@ -41,6 +47,8 @@ public class NodeService {
         this.clienteRepository = clienteRepository;
         this.vehicleRepository = vehicleRepository;
     }
+
+
 
     /*public String ListarDataResultadoAlgoritmo() {
 
@@ -396,6 +404,7 @@ public class NodeService {
             String line;
             List<Node> ListaNode = new ArrayList<>();
             //br.readLine();
+            ExecutorService executor = Executors.newFixedThreadPool(NUMERO_DE_HILOS);
             while((line=br.readLine())!=null){
                 String[] data = line.split(getSeparator(line));
                 Node node = new Node();
@@ -419,22 +428,29 @@ public class NodeService {
                     node.setHoraDemandada(Integer.parseInt(parts2[0]));
 
                 }
-                encontrado = buscarRepetidos(node,lista);
-                if(encontrado==0){
-                    ListaNode.add(node);
-                }
+                executor.submit(() -> processNode(node, lista));
 
 
             }
 
-            if (!ListaNode.isEmpty()) {
-                // Guardar manualmente en la base de datos
-                saveNodesToDatabase(ListaNode);
-            }
+            executor.shutdown();
+            executor.awaitTermination(TIEMPO_MAXIMO_ESPERA, TimeUnit.SECONDS);
             //NodeRepository.saveAllAndFlush(ListaNode);
             return "Archivo CSV cargado exitosamente";
         } catch (IOException e) {
             return "Error al cargar el archivo csv: "+ e.getMessage();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Método para procesar un nodo en un hilo
+    private void processNode(Node node, List<Node> lista) {
+        int encontrado = buscarRepetidos(node, lista);
+        if (encontrado == 0) {
+            List<Node> singleNodeList = new ArrayList<>();
+            singleNodeList.add(node);
+            saveNodesToDatabase(singleNodeList);
         }
     }
 
@@ -594,9 +610,11 @@ public class NodeService {
                 }
             }
             String line;
-            List<Node> ListaNode = new ArrayList<>();
+
             //br.readLine();
+            ExecutorService executor = Executors.newFixedThreadPool(NUMERO_DE_HILOS);
             while((line=br.readLine())!=null){
+                List<Node> ListaNode = new ArrayList<>();
                 String[] data = line.split(getSeparator2(line));
 
                 if(data.length >=2){
@@ -645,18 +663,31 @@ public class NodeService {
 
                     }
 
+                    executor.submit(() -> processBloqueo(ListaNode));
                 }
             }
 
-            if (!ListaNode.isEmpty()) {
-                // Guardar manualmente en la base de datos
-                saveNodesToDatabase2(ListaNode);
-            }
+            executor.shutdown();
+            executor.awaitTermination(TIEMPO_MAXIMO_ESPERA, TimeUnit.SECONDS);
             //NodeRepository.saveAllAndFlush(ListaNode);
             return "Archivo CSV cargado exitosamente";
         } catch (IOException e) {
             return "Error al cargar el archivo csv: "+ e.getMessage();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+
+    // Método para procesar un bloqueo en un hilo
+    private void processBloqueo(List<Node> ListaNode) {
+
+        if (!ListaNode.isEmpty()) {
+            // Guardar manualmente en la base de datos
+            saveNodesToDatabase2(ListaNode);
+        }
+
+
     }
 
     private String getSeparator2(String line) {
