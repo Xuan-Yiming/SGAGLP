@@ -128,7 +128,7 @@ public class GeneticAlgorithmVRP {
 
     }
 
-    // Pacification
+    // planificacion
     public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks,
             Solucion solucion, int clock) throws Exception {
 
@@ -137,7 +137,7 @@ public class GeneticAlgorithmVRP {
         depots.add(new Node(2, 42, 42, 160.0));
         depots.add(new Node(3, 63, 3, 160.0));
 
-        this.problem = new GAProblem(orders, vehicles, depots, blocks, solucion, clock);
+       // this.problem = new GAProblem(orders, vehicles, depots, blocks, solucion, clock);
 
         this.problem.validate();
 

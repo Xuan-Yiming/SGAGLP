@@ -84,6 +84,7 @@ public class Vehicle implements Cloneable {
         this.posicion = new Point(12,8);
     }
 
+
     public Vehicle(int id, char type, int x, int y, double pesoBruto,double cargaGLP, double pesoNeto,
                    double velocidad, double cargaPetroleo,int totalTime,Date mantenimiento) {
         this.id = id;
@@ -117,7 +118,6 @@ public class Vehicle implements Cloneable {
         this.route = new ArrayList<>();
         this.posicion = new Point(12,8);
     }
-
     // getters and setters
 
     public Point getPosicion() {

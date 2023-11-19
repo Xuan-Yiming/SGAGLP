@@ -272,7 +272,7 @@ public class NodeService {
     }*/
 
 
-    public String ListarDataResultadoAlgoritmo3(Date FechaEntrada) throws Exception {
+    public String algoritmoSimulacion(Date FechaEntrada) throws Exception {
 
         int i=0;
         List<Object[]> resultList = nodeRepository.listarDataImportanteC();
