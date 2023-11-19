@@ -102,8 +102,10 @@ input[type="file"] {
 .plan-simu-container main .tools {
     display: flex;
     flex-direction: column;
-    width: 300px;
-    height: 70vh;
+    /* width: 300px; */
+    height: 130vh;
+    /* height: 100%; */
+    width: 20%;
     position: fixed;
     margin-right: 20px;
     border-radius: 15px;
@@ -111,6 +113,8 @@ input[type="file"] {
 }
 
 .plan-simu-container main .tools .controls {
+    height: 50%;
+    /* width: 60%; */
     margin-bottom: 50px;
     display: flex;
     flex-direction: column;
@@ -120,7 +124,7 @@ input[type="file"] {
     padding: 20px;
 }
 
-.plan-simu-container main .tools .resumen {
+/* .plan-simu-container main .tools .resumen {
     display: flex;
     flex-direction: column;
     margin-right: 50px;
@@ -128,7 +132,7 @@ input[type="file"] {
     background-color: white;
     padding: 20px;
 
-}
+} */
 
 /* pedidos y flota */
 
