@@ -24,22 +24,51 @@
                     <div class="tools">
                         <div class="controls">
                             <h2>Controles</h2>
-                            <input type="file" id="cmBloqueos" accept=".txt" />
-                            <button id="btnBloqueos">Cargar Bloqueos</button>
-                            <input type="file" id="cmFlota" accept=".txt" />
-                            <button id="btnFloya">Cargar Flotas</button>
-                            <input type="file" id="cmPedidos" accept=".txt" />
-                            <button id="btnPedidos">Cargar Pedidos</button>
-                            <select id="selectSpeed">
-                                <option value="1">1x</option>
-                                <option value="2">2x</option>
-                                <option value="3">3x</option>
-                                <option value="4">4x</option>
-                                <option value="5">5x</option>
-                            </select>
-                            <button id="btnSimular">Simular</button>
+                            
+                            <div class="contenedorBotonesCargaB">
+                                <div class="btnBloqueos">
+                                    <!-- <img src="/public/images/filetype-txt.svg" alt="archivo" width="30px" /> -->
+                                    <input type="file" id="cmBloqueos" accept=".txt" />
+                                    <button id="btnBloqueos">
+                                        <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
+                                        &nbsp;&nbsp; Cargar Bloqueos
+                                    </button>
+                                </div>
+                                
+                                <div class="btnFlota">
+                                    <input type="file" id="cmFlota" accept=".txt" />
+                                    <button id="btnFlota">
+                                        <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
+                                        &nbsp;&nbsp;Cargar Flotas
+                                    </button>
+                                </div>
+                                <div class="btnPedidos">
+                                    <input type="file" id="cmPedidos" accept=".txt" />
+                                    <button id="btnPedidos">
+                                        <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
+                                        &nbsp;&nbsp;Cargar Pedidos
+                                    </button>
+                                </div>
+                                <div>
+                            </div>
+
+                            <div class="contenedorBtnSimuladcion">
+                                <div class="btnSimular">
+                                    <button id="btnSimular">Simular</button>
+                                </div>
+                                <div class="contenedorSelector">
+                                    <select id="selectSpeed">
+                                        <option value="1">1x</option>
+                                        <option value="2">2x</option>
+                                        <option value="3">3x</option>
+                                        <option value="4">4x</option>
+                                        <option value="5">5x</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
                         </div>
-                        <div class="resumen">
+                        <!-- <div class="resumen">
                             <h2>Resumen</h2>
                             <label for="txtPedidosEntregados">Pedidos Entregados: </label>
                             <input type="text" id="txtPedidosEntregados" disabled />
@@ -50,7 +79,45 @@
                             <input type="text" id="txtColapso" disabled />
                             <label for="txtColapso">Colapso: </label>
                             <input type="text" id="txtTiempo" disabled />
-                        </div>
+                        </div> -->
+                        <div class="resumen">
+                            <div class="tituloResumen">
+                                <!-- <h2></h2> -->
+                                Resumen
+                            </div>
+                            <div class="txtPedidosEntregados">
+                                <div class="labelPedidos">
+                                    <label for="txtPedidosEntregados">Pedidos Entregados: </label>
+                                </div>
+                                <div class="inputPedidos">
+                                    <input type="text" id="txtPedidosEntregados" disabled>
+                                </div>
+                            </div>
+                            <div class="txtPedidosProgramados">
+                                <div class="labelProgramados">
+                                    <label for="txtPedidosProgramados">Pedidos Programados: </label>
+                                </div>
+                                <div class="inputProgramados">
+                                    <input type="text" id="txtPedidosProgramados" disabled>
+                                    <input type="text" id="txtCantidadFlotas" disabled>
+                                </div>
+                            </div>
+                            <div class="txtCantidadFlotas">
+                                <div class="labelFlotas">
+                                    <label for="txtCantidadFlotas">Cantidad de flotas: </label>
+                                </div>
+                                <div class="inputColapso">
+                                    <input type="text" id="txtColapso" disabled>
+                                </div>
+                            </div>
+                            <div class="txtColapso">
+                                <div class="labelColapso">
+                                    <label for="txtColapso">Colapso: </label>
+                                </div>
+                                <div class="inputTiempo">
+                                    <input type="text" id="txtTiempo" disabled />
+                                </div>
+                            </div>
                     </div>
                 </main>
             </div>

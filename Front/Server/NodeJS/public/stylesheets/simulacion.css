@@ -1,0 +1,121 @@
+.contenedorBotonesCargaB{
+    /* background-color: black; */
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.btnBloqueos,.btnFlota,.btnPedidos{
+    /* background-color: antiquewhite; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.btnBloqueos button,.btnFlota button,.btnPedidos button{
+    width: 100%;
+    height: 50%;
+
+    /* color: white; */
+    /* background-color: black; */
+    border-radius: 7px;
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.contenedorBtnSimuladcion{
+    width: 100%;
+    height: 100%;
+    /* background-color: aqua  ; */
+    display: flex;
+    flex-direction: row;
+}
+.btnSimular{
+    width: 70%;
+    height: 100%;
+    /* background-color: aqua; */
+
+}
+.btnSimular button{
+    width: 70%;
+    height: 50%;
+    border-radius: 7px;
+    border: 1px solid grey;
+}
+
+.contenedorSelector{
+    width:30%;
+    height: 100%;
+
+}
+
+.contenedorSelector select{
+    width:100%;
+    height: 50%;
+
+}
+
+.resumen{
+
+    width: 100%;
+    height: 60%;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+}
+
+.tituloResumen{
+    width: 100%;
+    height: 20%;
+    font-size: x-large;
+    /* background-color: beige; */
+    align-items: center;
+    justify-content: center;
+}
+
+.txtPedidosEntregados, .txtPedidosProgramados, .txtCantidadFlotas,.txtColapso{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    border-bottom: 1px solid grey;
+    align-items: center;
+    align-content: start;
+    justify-content: center;
+    
+}
+
+
+.labelPedidos,.labelProgramados,.labelFlotas,.labelColapso{
+
+    width: 60%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-content: start;
+    justify-content: start;
+    /* background-color: blanchedalmond; */
+}
+.inputPedidos,.inputProgramados,.inputColapso,.inputTiempo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 40%;
+    height: 100%;
+}
+.inputPedidos input,.inputProgramados input,.inputColapso input ,.inputTiempo input{
+    width: 90%;
+    /* height: 200%; */
+    /* background-color: black; */
+}
