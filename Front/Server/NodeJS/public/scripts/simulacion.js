@@ -59,3 +59,64 @@ document.getElementById("btnSimular").addEventListener("click", function () {
             processElements(result);
         });
 });
+
+
+var btnBloqueos = document.getElementById('btnBloqueos');
+var cmBloqueos = document.getElementById('cmBloqueos');
+btnBloqueos.addEventListener('click', function() {
+    // Trigger a click event on the file input element
+    cmBloqueos.click();
+});
+cmBloqueos.addEventListener('change', function() {
+    // Handle the selected file(s) here, for example, log the file name
+    console.log('Selected file:', cmBloqueos.files[0].name);
+});
+
+var btnFlota = document.getElementById('btnFlota');
+var cmFlota = document.getElementById('cmFlota');
+btnFlota.addEventListener('click', function() {
+    // Trigger a click event on the file input element
+    cmFlota.click();
+});
+cmFlota.addEventListener('change', function() {
+    // Handle the selected file(s) here, for example, log the file name
+    console.log('Selected file:', cmFlota.files[0].name);
+});
+
+
+var btnPedidos = document.getElementById('btnPedidos');
+var cmPedidos = document.getElementById('cmPedidos');
+btnPedidos.addEventListener('click', function() {
+    // Trigger a click event on the file input element
+    cmPedidos.click();
+});
+cmPedidos.addEventListener('change', function() {
+    // Handle the selected file(s) here, for example, log the file name
+    console.log('Selected file:', cmPedidos.files[0].name);
+});
+
+
+document.getElementById('btnCarga').addEventListener('click', function () {
+    // Trigger click on the hidden file input element
+    // document.getElementById('cmCarga').click();
+
+    fetch('http://localhost:8080/DP15E/api/v1/vehicle/cargaMasivaDeFlotas', {
+        method: 'POST',
+        body: cmFlota,
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Files uploaded successfully:', data);
+        // Handle the API response as needed
+    })
+    .catch(error => {
+        console.error('Error uploading files:', error);
+        // Handle errors
+    });
+});
+
+document.getElementById('cmCarga').addEventListener('change', function () {
+        // Make a POST request to the API endpoint
+
+
+});
