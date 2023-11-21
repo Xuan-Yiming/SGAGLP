@@ -32,10 +32,7 @@ public class GAProblem implements Cloneable {
     //simulacion
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
             ArrayList<Node> blocks, Date fecha) {
-        this.orders = orders;
-        this.vehicles = vehicles;
-        this.depots = depots;
-        this.blocks = blocks;
+
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fecha);
@@ -44,6 +41,11 @@ public class GAProblem implements Cloneable {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
+                this.orders = orders;
+        this.vehicles = vehicles;
+        this.depots = depots;
+        this.blocks = blocks;
+        
         this.date = calendar.getTime();
     }
 
@@ -314,8 +316,8 @@ public class GAProblem implements Cloneable {
 
         for (Node order : this.orders) {
 
-            if (order.getPosicion().getX() < 0 || order.getPosicion().getX() > 70 || order.getPosicion().getY() < 0
-                    || order.getPosicion().getY() > 50) {
+            if (order.getPosicion().getX() < 0 || order.getPosicion().getX() >=70 || order.getPosicion().getY() < 0
+                    || order.getPosicion().getY() >= 50) {
                 throw new Exception("Order: " + order.getId() + " - coordinate out of bounds - ("
                         + order.getPosicion().getX() + " , " + order.getPosicion().getY() + ") - ("
                         + order.getPosicion().getY() + " , " + order.getPosicion().getY() + " )");

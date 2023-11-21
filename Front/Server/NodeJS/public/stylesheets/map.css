@@ -1,13 +1,13 @@
 .map {
-  width: 700px;
-  height: 500px;
+  width: 1050px;
+  height: 750px;
   background: #ccc;
   position: relative;
 }
 
 .map__cell {
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   background: white;
   border: #ccc solid 1px;
   position: absolute;
