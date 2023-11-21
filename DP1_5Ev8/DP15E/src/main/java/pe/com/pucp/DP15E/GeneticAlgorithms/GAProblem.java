@@ -13,8 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-public class GAProblem implements Cloneable {
-    private ArrayList<Vehicle> vehicles;
+public class GAProblem implements Cloneable { private ArrayList<Vehicle> vehicles;
     private ArrayList<Node> orders;
     private ArrayList<Node> depots;
     private ArrayList<Node> blocks;
@@ -31,11 +30,8 @@ public class GAProblem implements Cloneable {
 
     //simulacion
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
-            ArrayList<Node> blocks, Date fecha) {
-        this.orders = orders;
-        this.vehicles = vehicles;
-        this.depots = depots;
-        this.blocks = blocks;
+                     ArrayList<Node> blocks, Date fecha) {
+
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fecha);
@@ -44,12 +40,17 @@ public class GAProblem implements Cloneable {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
+        this.orders = orders;
+        this.vehicles = vehicles;
+        this.depots = depots;
+        this.blocks = blocks;
+
         this.date = calendar.getTime();
     }
 
     //planificacion
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
-            ArrayList<Node> blocks, Solucion solucion, int clock, Date fecha) {
+                     ArrayList<Node> blocks, Solucion solucion, int clock, Date fecha) {
 
         if (clock >= solucion.elementosEnCadaClock.size()) {
             clock = solucion.elementosEnCadaClock.size() - 1;
@@ -76,7 +77,7 @@ public class GAProblem implements Cloneable {
                 }
             }
         }
-        
+
         //remove all delivered orders
         for (int i = 0; i < orders.size(); i++) {
             if (pedidosEntregados.contains(orders.get(i).getId())) {
@@ -85,7 +86,7 @@ public class GAProblem implements Cloneable {
             }
         }
 
-        
+
         this.orders = orders;
         this.vehicles = vehicles;
         this.depots = depots;
@@ -178,7 +179,7 @@ public class GAProblem implements Cloneable {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         date = calendar.getTime();
         this.vehicles.add(new Vehicle(2, 'A', date));
-/* 
+/*
         // B - 4
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -314,8 +315,8 @@ public class GAProblem implements Cloneable {
 
         for (Node order : this.orders) {
 
-            if (order.getPosicion().getX() < 0 || order.getPosicion().getX() > 70 || order.getPosicion().getY() < 0
-                    || order.getPosicion().getY() > 50) {
+            if (order.getPosicion().getX() < 0 || order.getPosicion().getX() >=70 || order.getPosicion().getY() < 0
+                    || order.getPosicion().getY() >= 50) {
                 throw new Exception("Order: " + order.getId() + " - coordinate out of bounds - ("
                         + order.getPosicion().getX() + " , " + order.getPosicion().getY() + ") - ("
                         + order.getPosicion().getY() + " , " + order.getPosicion().getY() + " )");
