@@ -14,209 +14,189 @@
                 background-color: #EE2E0B;
             }
 
-            .plan-simu-container .controles .carga-container button{
+            .plan-simu-container .controles .carga-container button {
                 background-color: #EE2E0B;
             }
         </style>
     </head>
 
-<body class="container">
-    <%- include('../partials/sidebar'); %>
-        <div class="main-continaer plan-simu-container">
-            <h1>Simulación</h1>
-            <div class="controles">
-                <div class="carga-container">
-                    <!-- <img src="/public/images/filetype-txt.svg" alt="archivo" width="30px" /> -->
-                    <input type="file" id="cmBloqueos" accept=".txt" />
-                    <button id="btnBloqueos">
-                        <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
-                        &nbsp;&nbsp; Cargar Bloqueos
-                    </button>
-                </div>
-
-                <div class="carga-container">
-                    <input type="file" id="cmFlota" accept=".txt" />
-                    <button id="btnFlota">
-                        <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
-                        &nbsp;&nbsp;Cargar Flotas
-                    </button>
-                </div>
-                <div class="carga-container">
-                    <input type="file" id="cmPedidos" accept=".txt" />
-                    <button id="btnPedidos">
-                        <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
-                        &nbsp;&nbsp;Cargar Pedidos
-                    </button>
-                </div>
-                <div class="carga-container">
-                    <!-- <input type="file" id="cmCarga" accept=".txt" /> -->
-                    <!-- <input type="file" id="cmCarga" accept=".txt" style="display: none;" /> -->
-                    <button id="btnCarga">
-                        <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
-                        &nbsp;&nbsp;Subir archivos
-                    </button>
-                </div>
-
-                <div class="btnVelocidad">
-                    <label for="selectSpeed">Velocidad: </label>
-                    <select id="selectSpeed">
-                        <option value="1">1x</option>
-                        <option value="2">2x</option>
-                        <option value="3">3x</option>
-                        <option value="4">4x</option>
-                        <option value="5">5x</option>
-                    </select>
-                </div>
-
-                <div class="carga-container">
-                    <button id="btnSimular">Empezar</button>
-                </div>
-            </div>
-            <main>
-                <div class="map" id="map"></div>
-                <div class="tools">
-                    <div class="resumen">
-                        <h2>Pedidos</h2>
-                        <table class="table-pedidos" id="tblPedidos">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Destino</th>
-                                    <th>Plazo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
+    <body class="container">
+        <%- include('../partials/sidebar'); %>
+            <div class="main-continaer plan-simu-container">
+                <h1>Simulación</h1>
+                <div class="controles">
+                    <div class="carga-container">
+                        <!-- <img src="/public/images/filetype-txt.svg" alt="archivo" width="30px" /> -->
+                        <input type="file" id="cmBloqueos" accept=".txt" />
+                        <button id="btnBloqueos">
+                            <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
+                            &nbsp;&nbsp; Cargar Bloqueos
+                        </button>
                     </div>
-                    <div class="resumen">
-                        <h2>Resumen</h2>
-                        <div class="">
+
+                    <div class="carga-container">
+                        <input type="file" id="cmFlota" accept=".txt" />
+                        <button id="btnFlota">
+                            <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
+                            &nbsp;&nbsp;Cargar Flotas
+                        </button>
+                    </div>
+                    <div class="carga-container">
+                        <input type="file" id="cmPedidos" accept=".txt" />
+                        <button id="btnPedidos">
+                            <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
+                            &nbsp;&nbsp;Cargar Pedidos
+                        </button>
+                    </div>
+                    <div class="carga-container">
+                        <!-- <input type="file" id="cmCarga" accept=".txt" /> -->
+                        <!-- <input type="file" id="cmCarga" accept=".txt" style="display: none;" /> -->
+                        <button id="btnCarga">
+                            <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
+                            &nbsp;&nbsp;Subir archivos
+                        </button>
+                    </div>
+
+                    <div class="btnVelocidad">
+                        <label for="selectSpeed">Velocidad: </label>
+                        <select id="selectSpeed">
+                            <option value="1">1x</option>
+                            <option value="2">2x</option>
+                            <option value="3">3x</option>
+                            <option value="4">4x</option>
+                            <option value="5">5x</option>
+                        </select>
+                    </div>
+
+                    <div class="carga-container">
+                        <button id="btnSimular">Empezar</button>
+                    </div>
+                </div>
+                <main>
+                    <div class="map" id="map"></div>
+                    <div class="tools">
+                        <div class="resumen">
+                            <h2>Pedidos</h2>
+                            <table class="table-pedidos" id="tblPedidos">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Destino</th>
+                                        <th>Plazo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>2</td>
+                                        <td>3</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="resumen">
+                            <h2>Resumen</h2>
                             <div class="">
                                 <label for="txtDuracion">Duracion: </label>
-                            </div>
-                            <div class="">
                                 <input type="text" id="txtDuracion" disabled>
                             </div>
-                        </div>
-                        <div class="">
                             <div class="">
                                 <label for="txtPedidosEntregados">Pedidos Entregados: </label>
-                            </div>
-                            <div class="">
                                 <input type="text" id="txtPedidosEntregados" disabled>
                             </div>
-                        </div>
-                        <div class="">
                             <div class="">
                                 <label for="txtPedidosProgramados">Pedidos Programados: </label>
-                            </div>
-                            <div class="">
                                 <input type="text" id="txtPedidosProgramados" disabled>
                             </div>
-                        </div>
-                        <div class="">
                             <div class="">
-                                <label for="txtCantidadFlotas">Cantidad de flotas: </label>
+                                <label for="txtCantidadVehiculos">Cantidad de flotas: </label>
+                                <input type="text" id="txtCantidadVehiculos" disabled>
                             </div>
-                            <div class="">
-                                <input type="text" id="txtColapso" disabled>
-                            </div>
-                        </div>
-                        <div class="">
                             <div class="">
                                 <label for="txtColapso">Colapso: </label>
-                            </div>
-                            <div class="">
-                                <input type="text" id="txtTiempo" disabled />
+                                <input type="text" id="txtColapso" disabled />
                             </div>
                         </div>
-                    </div>
 
-            </main>
-        </div>
-</body>
+                </main>
+            </div>
+    </body>
 
 
 </html>
