@@ -23,10 +23,10 @@ public class GAProblem implements Cloneable {
     public int populationSize = 10;
     public double mutationRate = 0.6;
     public int maxGenerations = 100000;
-    public double depotRate = 0.6;
+    public double depotRate = 0.4;
 
-    private int numOfOrders = 10;
-    private int numOfBlocks = 30;
+    private int numOfOrders = 200;
+    private int numOfBlocks = 0;
     // Constructors
 
     //simulacion
@@ -41,7 +41,19 @@ public class GAProblem implements Cloneable {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-                this.orders = orders;
+        //select the orders that no at the same day as fecha
+        for (int i = 0; i < orders.size(); i++) {
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(orders.get(i).getFechaFinal());
+            if (calendar1.get(Calendar.DAY_OF_MONTH) != calendar.get(Calendar.DAY_OF_MONTH)
+                    || calendar1.get(Calendar.MONTH) != calendar.get(Calendar.MONTH)
+                    || calendar1.get(Calendar.YEAR) != calendar.get(Calendar.YEAR)) {
+                orders.remove(i);
+                i--;
+            }
+        }
+
+        this.orders = orders;
         this.vehicles = vehicles;
         this.depots = depots;
         this.blocks = blocks;
@@ -159,14 +171,6 @@ public class GAProblem implements Cloneable {
             }
             this.blocks.add(new Node(i, x, y, date, date));
         }
-        for (Node block : this.blocks) {
-            for (Node order : this.orders) {
-                if (block.getPosicion().getX() == order.getPosicion().getX()
-                        && block.getPosicion().getY() == order.getPosicion().getY()) {
-                    this.blocks.remove(block);
-                }
-            }
-        }
 
 
         // create vehicles
@@ -180,7 +184,7 @@ public class GAProblem implements Cloneable {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         date = calendar.getTime();
         this.vehicles.add(new Vehicle(2, 'A', date));
-/* 
+
         // B - 4
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -273,7 +277,7 @@ public class GAProblem implements Cloneable {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         date = calendar.getTime();
         this.vehicles.add(new Vehicle(20, 'D', date));
-*/
+
     }
     // Methods
 

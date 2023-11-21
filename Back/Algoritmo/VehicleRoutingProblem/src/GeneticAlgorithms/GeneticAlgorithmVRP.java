@@ -130,14 +130,14 @@ public class GeneticAlgorithmVRP {
 
     // planificacion
     public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks,
-            Solucion solucion, int clock) throws Exception {
+            Solucion solucion, int clock, Date fecha) throws Exception {
 
         ArrayList<Node> depots = new ArrayList<>();
         depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
         depots.add(new Node(2, 42, 42, 160.0));
         depots.add(new Node(3, 63, 3, 160.0));
 
-        this.problem = new GAProblem(orders, vehicles, depots, blocks, solucion, clock);
+        this.problem = new GAProblem(orders, vehicles, depots, blocks, solucion, clock, fecha);
 
         this.problem.validate();
 
