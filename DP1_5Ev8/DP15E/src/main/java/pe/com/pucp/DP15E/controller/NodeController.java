@@ -45,7 +45,7 @@ public class NodeController {
         return nodeService.ListarDataResultadoAlgoritmo2();
     }
 */
-    @GetMapping(path ="/algoritmoSimulacion/{date}")
+    @PostMapping(path ="/algoritmoSimulacion/{date}")
     public String algoritmoSimulacion(@RequestParam("date") Date date) throws Exception {
         return nodeService.algoritmoSimulacion(date);
     }
