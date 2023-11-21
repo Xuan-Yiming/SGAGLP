@@ -97,26 +97,59 @@ cmPedidos.addEventListener('change', function() {
 
 
 document.getElementById('btnCarga').addEventListener('click', function () {
-    // Trigger click on the hidden file input element
-    // document.getElementById('cmCarga').click();
 
-    fetch('http://localhost:8080/DP15E/api/v1/vehicle/cargaMasivaDeFlotas', {
-        method: 'POST',
-        body: cmFlota,
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Files uploaded successfully:', data);
-        // Handle the API response as needed
-    })
-    .catch(error => {
-        console.error('Error uploading files:', error);
-        // Handle errors
+    var formdata = new FormData();
+    formdata.append("file", cmFlota.files[0]);
+
+    var requestOptions = {
+    method: 'POST',
+    body: formdata,
+    redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/DP15E/api/v1/vehicle/cargaMasivaDeFlotas", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+
+    var formdata1 = new FormData();
+    formdata1.append("file", cmPedidos.files[0]);
+
+    var requestOptions = {
+    method: 'POST',
+    body: formdata1,
+    redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/DP15E/api/v1/node/cargaMasivaDePedidos", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+
+
+    var formdata2 = new FormData();
+    formdata2.append("file", cmBloqueos.files[0]);
+
+    var requestOptions = {
+    method: 'POST',
+    body: formdata2,
+    redirect: 'follow'
+    };
+
+    fetch("http://localhost:8080/DP15E/api/v1/node/cargaMasivaDeBloqueos", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+
+
     });
-});
 
 document.getElementById('cmCarga').addEventListener('change', function () {
         // Make a POST request to the API endpoint
 
 
 });
+
+
