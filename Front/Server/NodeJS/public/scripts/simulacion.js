@@ -4,6 +4,14 @@ var pixelWidth = 15;
 var velocidad = 1;
 var start;
 var pedidosEntregados = 0;
+var pedidos = 0;
+
+//set the date to today
+document.getElementById("txtFecha").valueAsDate = new Date();
+//set the fecha final to today + y days
+var fechaFinal = new Date();
+fechaFinal.setDate(fechaFinal.getDate() + 7);
+document.getElementById("txtFechaFinal").valueAsDate = fechaFinal;
 
 document.getElementById("selectSpeed").addEventListener("change", function () {
   velocidad = document.getElementById("selectSpeed").value;
@@ -47,15 +55,64 @@ async function processElements(result) {
   }
 }
 
-document.getElementById("btnSimular").addEventListener("click", function () {
+document.getElementById("btnSimular").addEventListener("click", async function () {
   console.log("Simular");
   start = Date.now();
+  
+  
+  var fecha = new Date(document.getElementById("txtFecha").value);
+  var formattedFecha = fecha.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
+
+  var fechaFinal = new Date(document.getElementById("txtFechaFinal").value);
+  var formattedFechaFinal = fechaFinal.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
+
+  //for each day between the two dates
+  while (fecha <= fechaFinal) {
+    var formdata = new FormData();
+    formdata.append("date", formattedFecha);
+    await simular(formdata);
+    fecha.setDate(fecha.getDate() + 1);
+    formattedFecha = fecha.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
+  }
+
+  var formdata = new FormData();
+  formdata.append("date", formattedFecha);
+
+
+});
+
+async function simular(formdata) {
+  //clean the map
+  document.querySelectorAll(".map__cell__vehicle").forEach((vehicle) => {
+    vehicle.classList.remove("map__cell__vehicle");
+  });
+
+  document.querySelectorAll(".map__cell__custom").forEach((custom) => {
+    custom.classList.remove("map__cell__custom");
+  });
+
+  document.querySelectorAll(".map__cell__depot").forEach((depot) => {
+    depot.classList.remove("map__cell__depot");
+  });
+
+  document.querySelectorAll(".map__cell__block").forEach((block) => {
+    block.classList.remove("map__cell__block");
+  });
+
+
+
   fetch(
-    "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json"
+    "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json",
+    //"http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion/date="+formattedFecha,
+    // {
+    //   method: "POST",
+    //   body: formdata,
+    //   redirect: "follow",
+    // }
   )
     .then((response) => response.json())
     .then((result) => {
-      var pedidos = 0;
+
       var vehicles = 0;
       result.elementosEstaticosTemporales.forEach((element) => {
         var seletecCell = document.querySelector(
@@ -79,7 +136,7 @@ document.getElementById("btnSimular").addEventListener("click", function () {
 
       processElements(result);
     });
-});
+}
 
 // cargar archivos
 var btnBloqueos = document.getElementById("btnBloqueos");
