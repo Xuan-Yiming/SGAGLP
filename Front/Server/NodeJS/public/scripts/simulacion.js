@@ -138,6 +138,8 @@ async function simular(formdata) {
     });
 }
 
+
+
 // cargar archivos
 var btnBloqueos = document.getElementById("btnBloqueos");
 var cmBloqueos = document.getElementById("cmBloqueos");
