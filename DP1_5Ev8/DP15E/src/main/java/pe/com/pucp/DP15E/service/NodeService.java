@@ -1,6 +1,7 @@
 package pe.com.pucp.DP15E.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.jmx.export.UnableToRegisterMBeanException;
 import org.springframework.stereotype.Component;
 import pe.com.pucp.DP15E.GeneticAlgorithms.GAProblem;
@@ -16,17 +17,17 @@ import org.springframework.web.multipart.MultipartFile;
 import pe.com.pucp.DP15E.repository.VehicleRepository;
 
 import java.awt.*;
+import org.springframework.data.domain.Pageable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -750,6 +751,42 @@ public class NodeService {
         }
 
         return nodes;
+    }
+
+
+    public Map<String, Object> buscarPedidos(String parametro, int page, int pageSize) {
+        // Realiza la consulta paginada
+        Pageable pageable = (Pageable) PageRequest.of(page - 1, pageSize);
+        List<Object[]> results = nodeRepository.buscarPedidosPorParam(parametro, pageable);
+
+        // Obtiene el total de resultados sin paginar
+        long totalResults = nodeRepository.countPedidosPorParam(parametro);
+
+        // Calcula el total de páginas
+        int totalPage = (int) Math.ceil((double) totalResults / pageSize);
+
+        // Mapea los resultados al formato deseado
+        List<Map<String, Object>> mappedResults = new ArrayList<>();
+
+        for (Object[] result : results) {
+            Map<String, Object> mappedResult = new HashMap<>();
+            mappedResult.put("pedido_id", result[0]);
+            mappedResult.put("pedido_positionX", result[1]);
+            mappedResult.put("pedido_positionY", result[2]);
+            mappedResult.put("pedido_idCliente", result[3]);
+            mappedResult.put("pedido_fechaOrigen", result[4]);
+            mappedResult.put("pedido_cantidad", result[5]);
+            mappedResult.put("pedido_horaDemandada", result[6]);
+            mappedResults.add(mappedResult);
+        }
+
+        // Crea la respuesta final
+        Map<String, Object> response = new HashMap<>();
+        response.put("page", page);
+        response.put("totalPage", totalPage);
+        response.put("results", mappedResults);
+
+        return response;
     }
 }
 
