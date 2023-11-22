@@ -13,7 +13,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-public class GAProblem implements Cloneable { private ArrayList<Vehicle> vehicles;
+public class GAProblem implements Cloneable {
+    private ArrayList<Vehicle> vehicles;
     private ArrayList<Node> orders;
     private ArrayList<Node> depots;
     private ArrayList<Node> blocks;
@@ -22,15 +23,15 @@ public class GAProblem implements Cloneable { private ArrayList<Vehicle> vehicle
     public int populationSize = 10;
     public double mutationRate = 0.6;
     public int maxGenerations = 100000;
-    public double depotRate = 0.6;
+    public double depotRate = 0.4;
 
-    private int numOfOrders = 10;
-    private int numOfBlocks = 30;
+    private int numOfOrders = 200;
+    private int numOfBlocks = 0;
     // Constructors
 
     //simulacion
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
-                     ArrayList<Node> blocks, Date fecha) {
+            ArrayList<Node> blocks, Date fecha) {
 
 
         Calendar calendar = Calendar.getInstance();
@@ -40,17 +41,29 @@ public class GAProblem implements Cloneable { private ArrayList<Vehicle> vehicle
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
+        //select the orders that no at the same day as fecha
+        for (int i = 0; i < orders.size(); i++) {
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(orders.get(i).getFechaFinal());
+            if (calendar1.get(Calendar.DAY_OF_MONTH) != calendar.get(Calendar.DAY_OF_MONTH)
+                    || calendar1.get(Calendar.MONTH) != calendar.get(Calendar.MONTH)
+                    || calendar1.get(Calendar.YEAR) != calendar.get(Calendar.YEAR)) {
+                orders.remove(i);
+                i--;
+            }
+        }
+
         this.orders = orders;
         this.vehicles = vehicles;
         this.depots = depots;
         this.blocks = blocks;
-
+        
         this.date = calendar.getTime();
     }
 
     //planificacion
     public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
-                     ArrayList<Node> blocks, Solucion solucion, int clock, Date fecha) {
+            ArrayList<Node> blocks, Solucion solucion, int clock, Date fecha) {
 
         if (clock >= solucion.elementosEnCadaClock.size()) {
             clock = solucion.elementosEnCadaClock.size() - 1;
@@ -77,7 +90,7 @@ public class GAProblem implements Cloneable { private ArrayList<Vehicle> vehicle
                 }
             }
         }
-
+        
         //remove all delivered orders
         for (int i = 0; i < orders.size(); i++) {
             if (pedidosEntregados.contains(orders.get(i).getId())) {
@@ -86,7 +99,7 @@ public class GAProblem implements Cloneable { private ArrayList<Vehicle> vehicle
             }
         }
 
-
+        
         this.orders = orders;
         this.vehicles = vehicles;
         this.depots = depots;
@@ -158,14 +171,6 @@ public class GAProblem implements Cloneable { private ArrayList<Vehicle> vehicle
             }
             this.blocks.add(new Node(i, x, y, date, date));
         }
-        for (Node block : this.blocks) {
-            for (Node order : this.orders) {
-                if (block.getPosicion().getX() == order.getPosicion().getX()
-                        && block.getPosicion().getY() == order.getPosicion().getY()) {
-                    this.blocks.remove(block);
-                }
-            }
-        }
 
 
         // create vehicles
@@ -179,7 +184,7 @@ public class GAProblem implements Cloneable { private ArrayList<Vehicle> vehicle
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         date = calendar.getTime();
         this.vehicles.add(new Vehicle(2, 'A', date));
-/*
+
         // B - 4
         calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
@@ -272,7 +277,7 @@ public class GAProblem implements Cloneable { private ArrayList<Vehicle> vehicle
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         date = calendar.getTime();
         this.vehicles.add(new Vehicle(20, 'D', date));
-*/
+
     }
     // Methods
 
