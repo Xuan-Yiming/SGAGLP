@@ -1,6 +1,8 @@
 package pe.com.pucp.DP15E.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,6 +11,7 @@ import pe.com.pucp.DP15E.service.NodeService;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RestController
@@ -53,6 +56,25 @@ public class NodeController {
     /*@GetMapping(path ="/listarDataResultadoAlgoritmo4")
     public String listarDataResultadoAlgoritmo4(){
         return nodeService.ListarDataResultadoAlgoritmo4();
+    }
+*/
+
+    @GetMapping(path ="/mantenimientoPedidos/{busqueda}{page}{pageSize}")
+    public ResponseEntity< Map<String, Object>> buscarPedidos(
+            @RequestParam String busqueda,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "15") int pageSize) {
+
+
+        Map<String, Object>  pedidoResponse= nodeService.buscarPedidos(busqueda, page, pageSize);
+        return new ResponseEntity<>(pedidoResponse, HttpStatus.OK);
+    }
+
+/*
+    @GetMapping(path ="/mantenimientoPedidos/{parametro}/{page}/{pageSize}")
+    public ResponseEntity<Map<String, Object>> mantenimientoPedidos(@RequestParam String parametro, @RequestParam int page, @RequestParam int pageSize) {
+        Map<String, Object> response = nodeService.buscarPedidos(parametro, page, pageSize);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 */
 }
