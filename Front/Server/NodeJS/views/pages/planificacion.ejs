@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="/public/stylesheets/planificacion.css">
         <link rel="stylesheet" href="/public/stylesheets/styles.css">
         <link rel="stylesheet" href="/public/stylesheets/map.css">
-        <script type="text/javascript" src="/public/scripts/map.js"></script>
+        <!-- <script type="text/javascript" src="/public/scripts/map.js"></script> -->
         <style>
             #btn-plan {
                 background-color: #EE2E0B;
@@ -23,7 +23,7 @@
     <body class="container">
         <%- include('../partials/sidebar'); %>
             <div class="main-continaer plan-simu-container">
-                <h1>Simulación</h1>
+                <h1>Planificación</h1>
                 <div class="controles">
                     <div class="carga-container">
                         <!-- <img src="/public/images/filetype-txt.svg" alt="archivo" width="30px" /> -->
@@ -173,6 +173,10 @@
                         <div class="resumen">
                             <h2>Resumen</h2>
                             <div class="">
+                                <label for="txtFecha">Fecha Inicio: </label>
+                                <input type="date" id="txtFecha">
+                            </div>
+                            <div class="">
                                 <label for="txtDuracion">Duracion: </label>
                                 <input type="text" id="txtDuracion" disabled>
                             </div>
@@ -197,6 +201,8 @@
                 </main>
             </div>
     </body>
-
+    <!-- <script type="text/javascript" src="/public/scripts/simulacion.js"></script> -->
+    
+    <script type="text/javascript" src="/public/scripts/planificacion.js"></script>
 
 </html>
