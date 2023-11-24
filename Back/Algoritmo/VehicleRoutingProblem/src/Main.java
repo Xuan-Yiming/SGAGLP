@@ -14,7 +14,7 @@ public class Main {
         GeneticAlgorithmVRP algorithmVRP;
 
         try {
-            switch ('T') {
+            switch ('R') {
                 case 'T':
                     algorithmVRP = new GeneticAlgorithmVRP('T');
                     break;
@@ -23,13 +23,14 @@ public class Main {
 
                     Solucion solucion = algorithmVRP.getSolucion();
 
-                    System.out.println(solucion.solucionToJson());
+                    // System.out.println(solucion.solucionToJson());
                     // write the solucion to a file save it to the desktop
 
-                    //get the default desktop path
-                    //                 String desktopPath = System.getProperty("user.home") + "/Desktop";
-                    //                 FileWriter fileWriter = new FileWriter(desktopPath + "/solucion.json");
-                    //                 fileWriter.write(solucion.solucionToPrettyJson());
+                    // get the default desktop path
+                                    String desktopPath = System.getProperty("user.home") + "/Desktop";
+                                    FileWriter fileWriter = new FileWriter(desktopPath + "/solucion.json");
+                                    fileWriter.write(solucion.solucionToJson());
+                                    fileWriter.close();
 
                     break;
             }
