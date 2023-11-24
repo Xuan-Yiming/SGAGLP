@@ -113,10 +113,6 @@ public class Solucion {
         }
     }
 
-    public String elementosEstaticosTemporalesToJson() {
-        return new Gson().toJson(elementosEstaticosTemporales);
-    }
-
     public String solucionToJson() throws Exception {
         return new Gson().toJson(this);
     }
@@ -127,15 +123,7 @@ public class Solucion {
         return json;
     }
 
-    // getters and setters
 
-    public ArrayList<SolucionNodo> getElementosEstaticosTemporales() {
-        return elementosEstaticosTemporales;
-    }
-
-    public void setElementosEstaticosTemporales(ArrayList<SolucionNodo> elementosEstaticosTemporales) {
-        this.elementosEstaticosTemporales = elementosEstaticosTemporales;
-    }
 }
 
 
