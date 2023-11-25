@@ -72,6 +72,30 @@ async function processElements(result) {
   }
 }
 
+
+window.onload = function() {
+  // Tu código JavaScript aquí
+  // console.log("La página se ha cargado completamente. Puedes ejecutar tu código ahora.");
+  document.getElementById("btnSimular").click();
+  var variableFecha = new Date();
+  console.log(variableFecha);
+};
+
+function tiempoRestanteHastaSiguienteMultiploDeQuince() {
+  const ahora = new Date();
+  const minutosActuales = ahora.getMinutes();
+  const segundosActuales = ahora.getSeconds();
+  const segundosRestantes = 900 - (minutosActuales * 60 + segundosActuales) % 900;
+
+  return segundosRestantes * 1000; // Convertir segundos a milisegundos
+}
+
+setInterval(function() {
+  document.getElementById("btnSimular").click();
+  console.log("tiempo a transcurrido");
+}, 60000);
+
+
 document.getElementById("btnSimular").addEventListener("click", async function () {
   console.log("Simular");
   start = Date.now();
