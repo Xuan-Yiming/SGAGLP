@@ -68,9 +68,6 @@ public class Solucion {
             solucionCamion.id = "T" + vehiculo.getType() + vehiculo.getId();
             solucionCamion.rutas = new ArrayList<>();
             for (int i = 0; i < vehiculo.getRoute().size() - 1; i++) {
-                // AStar aStar = new AStar(70, 50, obstaculos, vehiculo.getRoute().get(i).getPosicion(),
-                //         vehiculo.getRoute().get(i + 1).getPosicion());
-                // List<Point> ruta = aStar.getPath();
                 List<Point> ruta = new pathFinding().findPath(70, 50, obstaculos,
                         vehiculo.getRoute().get(i).getPosicion(), vehiculo.getRoute().get(i + 1).getPosicion());
                 for (Point node : ruta) {
@@ -82,12 +79,6 @@ public class Solucion {
                     solucionRuta.time = totalTime;
                     solucionCamion.rutas.add(solucionRuta);
                     totalTime++;
-                    if (totalTime == 24 * 50) {
-                        break;
-                    }
-                }
-                if (totalTime == 24 * 50) {
-                    break;
                 }
             }
             elementosCamiones.add(solucionCamion);

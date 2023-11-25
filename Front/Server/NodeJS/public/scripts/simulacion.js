@@ -98,9 +98,7 @@ async function simular(formdata) {
   document.querySelectorAll(".map__cell__block").forEach((block) => {
     block.classList.remove("map__cell__block");
   });
-
-
-
+  
   fetch(
     "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json",
     //"http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion/date="+formattedFecha,

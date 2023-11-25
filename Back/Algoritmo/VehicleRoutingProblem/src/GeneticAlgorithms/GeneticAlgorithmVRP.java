@@ -76,68 +76,10 @@ public class GeneticAlgorithmVRP {
 
     }
 
-    // Simulation
-    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks, Date date)
-            throws Exception {
+    // Real
+    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks) throws Exception {
 
-        this.solucion = new Solucion();
-
-        ArrayList<Node> depots = new ArrayList<>();
-        depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
-        depots.add(new Node(2, 42, 42, 160.0));
-        depots.add(new Node(3, 63, 3, 160.0));
-
-        this.problem = new GAProblem(orders, vehicles, depots, blocks, date);
-
-        this.problem.validate();
-
-        population = new Population(problem);
-        maxGenerations = problem.maxGenerations;
-
-        boolean isFittest = false;
-        int i = 0;
-        Individual fittest = population.getFittest();
-
-        if (fittest.calculateFitness() != problem.getOrders().size()) {
-            for (; i < maxGenerations; i++) {
-                GeneticOperators geneticOperators = new GeneticOperators(problem);
-                ArrayList<Individual> parents = geneticOperators.selection(population);
-                parents = geneticOperators.crossover(parents);
-                parents = geneticOperators.mutation(parents);
-                Individual fittestOffspring = geneticOperators.getFittestOffspring(parents);
-                population.replaceLastFittest(fittestOffspring);
-                fittest = population.getFittest();
-                if (fittest.calculateFitness() == problem.getOrders().size()) {
-                    isFittest = true;
-                    break;
-                }
-            }
-        } else {
-            isFittest = true;
-        }
-
-        for (int j = 0; j < fittest.getChromosome().genes.size(); j++) {
-            fittest.getChromosome().genes.get(j).getRoute().add(0, problem.getDepots().get(0));
-            fittest.getChromosome().genes.get(j).getRoute().add(problem.getDepots().get(0));
-        }
-
-        this.solucion = new Solucion(problem, fittest);
-        if (!isFittest) {
-            throw new Exception("Solution not found!");
-        }
-
-    }
-
-    // planificacion
-    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks,
-            Solucion solucion, int clock, Date fecha) throws Exception {
-
-        ArrayList<Node> depots = new ArrayList<>();
-        depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
-        depots.add(new Node(2, 42, 42, 160.0));
-        depots.add(new Node(3, 63, 3, 160.0));
-
-        this.problem = new GAProblem(orders, vehicles, depots, blocks, solucion, clock, fecha);
+        this.problem = new GAProblem(orders, vehicles, blocks);
 
         this.problem.validate();
 

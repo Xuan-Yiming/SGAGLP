@@ -2,12 +2,10 @@ package GeneticAlgorithms;
 
 import GeneticAlgorithms.Problem.Node;
 import GeneticAlgorithms.Problem.Solucion;
-import GeneticAlgorithms.Problem.SolucionNodo;
 import GeneticAlgorithms.Problem.Vehicle;
 import GeneticAlgorithms.Problem.solucionClockNode;
 
 import java.awt.Point;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,7 +16,6 @@ public class GAProblem implements Cloneable {
     private ArrayList<Node> orders;
     private ArrayList<Node> depots;
     private ArrayList<Node> blocks;
-    private Date date;
 
     public int populationSize = 10;
     public double mutationRate = 0.6;
@@ -30,92 +27,18 @@ public class GAProblem implements Cloneable {
     // Constructors
 
     //simulacion
-    public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
-            ArrayList<Node> blocks, Date fecha) {
+    public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks) {
 
+        this.depots = new ArrayList<>();
+        this.depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
+        this.depots.add(new Node(2, 42, 42, Double.MAX_VALUE));
+        this.depots.add(new Node(3, 63, 3, Double.MAX_VALUE));
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fecha);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        //select the orders that no at the same day as fecha
-        for (int i = 0; i < orders.size(); i++) {
-            Calendar calendar1 = Calendar.getInstance();
-            calendar1.setTime(orders.get(i).getFechaFinal());
-            if (calendar1.get(Calendar.DAY_OF_MONTH) != calendar.get(Calendar.DAY_OF_MONTH)
-                    || calendar1.get(Calendar.MONTH) != calendar.get(Calendar.MONTH)
-                    || calendar1.get(Calendar.YEAR) != calendar.get(Calendar.YEAR)) {
-                orders.remove(i);
-                i--;
-            }
-        }
 
         this.orders = orders;
         this.vehicles = vehicles;
-        this.depots = depots;
         this.blocks = blocks;
-        
-        this.date = calendar.getTime();
     }
-
-    //planificacion
-    public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> depots,
-            ArrayList<Node> blocks, Solucion solucion, int clock, Date fecha) {
-
-        if (clock >= solucion.elementosEnCadaClock.size()) {
-            clock = solucion.elementosEnCadaClock.size() - 1;
-        }
-
-        ArrayList<solucionClockNode> nodos = solucion.elementosEnCadaClock.get(clock).nodos;
-        ArrayList<String> pedidosEntregados = new ArrayList<>();
-
-        for (int i = 0; i < nodos.size(); i++) {
-            for (Vehicle vehicle : vehicles) {
-                if (nodos.get(i).placa == "" + vehicle.getType() + vehicle.getId()) {
-                    vehicle.setPosicion(new Point(nodos.get(i).x, nodos.get(i).y));
-                }
-            }
-        }
-
-        for (int i = 0; i < clock; i++) {
-            for (int j = 0; j < solucion.elementosEnCadaClock.get(i).nodos.size(); j++) {
-                if (j - 1 >= 0) {
-                    if (!solucion.elementosEnCadaClock.get(i).nodos.get(j).idPedido
-                            .equals(solucion.elementosEnCadaClock.get(i).nodos.get(j - 1).idPedido)) {
-                        pedidosEntregados.add(solucion.elementosEnCadaClock.get(i).nodos.get(j).idPedido);
-                    }
-                }
-            }
-        }
-        
-        //remove all delivered orders
-        for (int i = 0; i < orders.size(); i++) {
-            if (pedidosEntregados.contains(orders.get(i).getId())) {
-                orders.remove(i);
-                i--;
-            }
-        }
-
-        
-        this.orders = orders;
-        this.vehicles = vehicles;
-        this.depots = depots;
-        this.blocks = blocks;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fecha);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        calendar.add(Calendar.SECOND, clock*72);
-
-        this.date = calendar.getTime();
-    }
-
     // Test
     public GAProblem() {
         // create random problem
@@ -124,8 +47,8 @@ public class GAProblem implements Cloneable {
         // create depots
         this.depots = new ArrayList<>();
         this.depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
-        this.depots.add(new Node(2, 42, 42, 160.0));
-        this.depots.add(new Node(3, 63, 3, 160.0));
+        this.depots.add(new Node(2, 42, 42, Double.MAX_VALUE));
+        this.depots.add(new Node(3, 63, 3, Double.MAX_VALUE));
 
         // create orders
         this.orders = new ArrayList<>();
@@ -137,10 +60,6 @@ public class GAProblem implements Cloneable {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         date = calendar.getTime();
-
-        this.date = date;
-
-
 
         for (int i = 0; i < numOfOrders; i++) {
             calendar.setTime(date);
@@ -299,9 +218,6 @@ public class GAProblem implements Cloneable {
         }
 
         // if has no date
-        if (this.date == null) {
-            throw new Exception("No date");
-        }
 
 
         // get the max capacity of the vehicles
@@ -314,9 +230,6 @@ public class GAProblem implements Cloneable {
 
         // if any of the node out of the bounds, or the date is not valid
         // add one day to the date
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(this.date);
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
 
         for (Node order : this.orders) {
 
@@ -325,13 +238,6 @@ public class GAProblem implements Cloneable {
                 throw new Exception("Order: " + order.getId() + " - coordinate out of bounds - ("
                         + order.getPosicion().getX() + " , " + order.getPosicion().getY() + ") - ("
                         + order.getPosicion().getY() + " , " + order.getPosicion().getY() + " )");
-            }
-
-
-
-            if (order.getFechaFinal().after(calendar.getTime())) {
-                throw new Exception("Order: " + order.getId() + " - not valid date range - " + order.getFechaInicio()
-                        + " - " + order.getFechaFinal());
             }
 
             if (order.getCantidad() > maxCapacity) {
@@ -349,10 +255,6 @@ public class GAProblem implements Cloneable {
 
             }
 
-            if (block.getFechaFinal().after(calendar.getTime())) {
-                throw new Exception("Block: " + block.getId() + " - not valid date range - " + block.getFechaInicio()
-                        + " - " + block.getFechaFinal());
-            }
         }
 
         for (Node depot : this.depots) {
@@ -386,14 +288,6 @@ public class GAProblem implements Cloneable {
         }
     }
     // Getters and Setters
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public ArrayList<Vehicle> getVehicles() {
         return vehicles;
