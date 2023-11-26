@@ -62,23 +62,26 @@ public class GeneticAlgorithmVRP {
             fittest.getChromosome().genes.get(j).getRoute().add(problem.getDepots().get(0));
         }
 
-        ArrayList<Boolean> list = new ArrayList<>(Collections.nCopies(this.problem.getOrders().size(), false));
-
-        for(Gene vehicle: fittest.getChromosome().genes) {
-            for(Node order: vehicle.getRoute()) {
-                String id = order.getId();
-                int number = Integer.parseInt(id.substring(1));
-                if(number!= 0) {
-                    list.set(number, true);
+        ArrayList<Node> orders = new ArrayList<>();
+        for(Gene gene: fittest.getChromosome().genes){
+            for(Node node: gene.getRoute()){
+                if(node.getTipo() == 'C'){
+                    orders.add(node);
                 }
             }
         }
 
-        for(int j = 0; j < list.size(); j++) {
-            if(!list.get(j)) {
-                System.out.println("Order " + j + " not found!");
+        Collections.sort(orders, (o1, o2) -> {
+            if(Integer.parseInt(o1.getId().substring(1))> Integer.parseInt(o2.getId().substring(1))){
+                return 1;
+            }else if(Integer.parseInt(o1.getId().substring(1))< Integer.parseInt(o2.getId().substring(1))){
+                return -1;
+            }else{
+                return 0;
             }
-        }
+        });
+
+
 
         if (isFittest) {
             System.out.println("Solution found!");

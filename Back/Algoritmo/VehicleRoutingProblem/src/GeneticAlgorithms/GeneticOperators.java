@@ -123,32 +123,64 @@ public class GeneticOperators {
         Individual child2 = parents.get(1).clone();
 
         while (random.nextDouble() < this.mutationRate) {
-            int mutationVehicle1 = random.nextInt(maxVehicle);
-            int maxNode = child1.getChromosome().genes.get(mutationVehicle1).getRoute().size();
-            if (maxNode == 0) {
-                continue;
+
+            //get a random number < 1,
+            //if it is less than 0.50 than mutate child1, otherwise mutate child2
+
+            if(random.nextDouble() < 0.50) {
+
+                int mutationVehicle1 = random.nextInt(maxVehicle);
+                int maxNode = child1.getChromosome().genes.get(mutationVehicle1).getRoute().size();
+                if (maxNode == 0) {
+                    continue;
+                }
+                int mutationNode1 = random.nextInt(maxNode);
+
+                int mutationVehicle2 = random.nextInt(maxVehicle);
+                maxNode = child1.getChromosome().genes.get(mutationVehicle2).getRoute().size();
+                int mutationNode2 = random.nextInt(maxNode);
+
+                // check if the node exits in the route, if not continue the loop
+                if (child1.getChromosome().genes.get(mutationVehicle2).getRoute().size() < mutationNode2) {
+                    continue;
+                }
+
+                if (child1.getChromosome().genes.get(mutationVehicle1).getRoute().size() < mutationNode1) {
+                    continue;
+                }
+
+                // swap the nodes
+                Node temp = child1.getChromosome().genes.get(mutationVehicle1).getRoute().get(mutationNode1);
+                child1.getChromosome().genes.get(mutationVehicle1).getRoute().set(mutationNode1,
+                        child1.getChromosome().genes.get(mutationVehicle2).getRoute().get(mutationNode2));
+                child1.getChromosome().genes.get(mutationVehicle2).getRoute().set(mutationNode2, temp);
+            }else{
+                int mutationVehicle1 = random.nextInt(maxVehicle);
+                int maxNode = child2.getChromosome().genes.get(mutationVehicle1).getRoute().size();
+                if (maxNode == 0) {
+                    continue;
+                }
+                int mutationNode1 = random.nextInt(maxNode);
+
+                int mutationVehicle2 = random.nextInt(maxVehicle);
+                maxNode = child2.getChromosome().genes.get(mutationVehicle2).getRoute().size();
+                int mutationNode2 = random.nextInt(maxNode);
+
+                // check if the node exits in the route, if not continue the loop
+                if (child2.getChromosome().genes.get(mutationVehicle2).getRoute().size() < mutationNode2) {
+                    continue;
+                }
+
+                if (child2.getChromosome().genes.get(mutationVehicle1).getRoute().size() < mutationNode1) {
+                    continue;
+                }
+
+                // swap the nodes
+                Node temp = child2.getChromosome().genes.get(mutationVehicle1).getRoute().get(mutationNode1);
+                child2.getChromosome().genes.get(mutationVehicle1).getRoute().set(mutationNode1,
+                        child2.getChromosome().genes.get(mutationVehicle2).getRoute().get(mutationNode2));
+                child2.getChromosome().genes.get(mutationVehicle2).getRoute().set(mutationNode2, temp);
             }
-            int mutationNode1 = random.nextInt(maxNode);
-
-            int mutationVehicle2 = random.nextInt(maxVehicle);
-            maxNode = child2.getChromosome().genes.get(mutationVehicle2).getRoute().size();
-            int mutationNode2 = random.nextInt(maxNode);
-
-            // check if the node exits in the route, if not continue the loop
-            if (child1.getChromosome().genes.get(mutationVehicle2).getRoute().size() < mutationNode2) {
-                continue;
-            }
-
-            if (child2.getChromosome().genes.get(mutationVehicle1).getRoute().size() < mutationNode1) {
-                continue;
-            }
-
-            // swap the nodes
-            Node temp = child1.getChromosome().genes.get(mutationVehicle1).getRoute().get(mutationNode1);
-            child1.getChromosome().genes.get(mutationVehicle1).getRoute().set(mutationNode1,
-                    child2.getChromosome().genes.get(mutationVehicle2).getRoute().get(mutationNode2));
-            child2.getChromosome().genes.get(mutationVehicle2).getRoute().set(mutationNode2, temp);
-
         }
 
         
