@@ -25,7 +25,7 @@ public class GeneticOperators {
     public ArrayList<Individual> crossover(ArrayList<Individual> parents) {
         Random random = new Random();
         int maxVehicle = parents.get(0).getChromosome().genes.size();
-        int maxNode = 0;
+        int minNode = Integer.MAX_VALUE;
         Individual child1 = parents.get(0).clone();
         Individual child2 = parents.get(1).clone();
 
@@ -35,19 +35,19 @@ public class GeneticOperators {
         }
 
         for (int i = 0; i < maxVehicle; i++) {
-            if (parents.get(0).getChromosome().genes.get(i).getRoute().size() > maxNode) {
-                maxNode = parents.get(0).getChromosome().genes.get(i).getRoute().size();
+            if (parents.get(0).getChromosome().genes.get(i).getRoute().size() < minNode) {
+                minNode = parents.get(0).getChromosome().genes.get(i).getRoute().size();
             }
-            if (parents.get(1).getChromosome().genes.get(i).getRoute().size() > maxNode) {
-                maxNode = parents.get(1).getChromosome().genes.get(i).getRoute().size();
+            if (parents.get(1).getChromosome().genes.get(i).getRoute().size() < minNode) {
+                minNode = parents.get(1).getChromosome().genes.get(i).getRoute().size();
             }
         }
 
-        if (maxNode == 0 || maxVehicle == 0) {
+        if (minNode == 0 || maxVehicle == 0) {
             return parents;
         }
         int verticalCrossPoint = random.nextInt(maxVehicle);
-        int horizontalCrossPoint = random.nextInt(maxNode);
+        int horizontalCrossPoint = minNode;
 
         /*
         * 1111111111222222
@@ -59,14 +59,16 @@ public class GeneticOperators {
         *
         * */
         if (random.nextDouble() < 0.5) {
-
+//            parents.get(0).getChromosome().print();
             for (int i = 0; i < parents.get(0).getChromosome().genes.size(); i++) {
-                for (int j = 0; j < parents.get(0).getChromosome().genes.get(i).getRoute().size(); j++) {
-                    if (j < horizontalCrossPoint) {
+                for (int j = 0; j < parents.get(0).getChromosome().genes.get(i).getRoute().size() && j< horizontalCrossPoint; j++) {
                         // if before the cross point
                         child1.getChromosome().genes.get(i).getRoute()
                                 .add(parents.get(0).getChromosome().genes.get(i).getRoute().get(j));
-                    } else {
+                }
+            }
+            for (int i = 0; i < parents.get(0).getChromosome().genes.size(); i++) {
+                for (int j = horizontalCrossPoint; j < parents.get(0).getChromosome().genes.get(i).getRoute().size(); j++) {
                         int index = 0;
                         if (i + verticalCrossPoint >= maxVehicle){
                             index = (i + verticalCrossPoint) - maxVehicle;
@@ -75,17 +77,22 @@ public class GeneticOperators {
                         }
                         child1.getChromosome().genes.get(index).getRoute()
                                 .add(parents.get(0).getChromosome().genes.get(i).getRoute().get(j));
-                    }
+
+                }
+            }
+//            System.out.println("========================================================");
+//            child1.getChromosome().print();
+
+            for (int i = 0; i < parents.get(1).getChromosome().genes.size(); i++) {
+                for (int j = 0; j < parents.get(1).getChromosome().genes.get(i).getRoute().size() && j< horizontalCrossPoint; j++) {
+                        // if before the cross point
+                        child2.getChromosome().genes.get(i).getRoute()
+                                .add(parents.get(1).getChromosome().genes.get(i).getRoute().get(j));
                 }
             }
 
             for (int i = 0; i < parents.get(1).getChromosome().genes.size(); i++) {
-                for (int j = 0; j < parents.get(1).getChromosome().genes.get(i).getRoute().size(); j++) {
-                    if (j < horizontalCrossPoint) {
-                        // if before the cross point
-                        child2.getChromosome().genes.get(i).getRoute()
-                                .add(parents.get(1).getChromosome().genes.get(i).getRoute().get(j));
-                    } else {
+                for (int j = 0; j < parents.get(1).getChromosome().genes.get(i).getRoute().size() && j< horizontalCrossPoint; j++) {
                         int index = 0;
                         if (i + verticalCrossPoint >= maxVehicle){
                             index = (i + verticalCrossPoint) - maxVehicle;
@@ -94,7 +101,7 @@ public class GeneticOperators {
                         }
                         child2.getChromosome().genes.get(index).getRoute()
                                 .add(parents.get(1).getChromosome().genes.get(i).getRoute().get(j));
-                    }
+
                 }
             }
 

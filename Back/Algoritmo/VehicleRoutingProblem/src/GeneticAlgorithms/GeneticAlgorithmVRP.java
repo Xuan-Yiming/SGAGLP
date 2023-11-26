@@ -5,6 +5,7 @@ import GeneticAlgorithms.Problem.Solucion;
 import GeneticAlgorithms.Problem.Vehicle;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Calendar;
 
@@ -61,9 +62,33 @@ public class GeneticAlgorithmVRP {
             fittest.getChromosome().genes.get(j).getRoute().add(problem.getDepots().get(0));
         }
 
+        ArrayList<Boolean> list = new ArrayList<>(Collections.nCopies(this.problem.getOrders().size(), false));
+
+        for(Gene vehicle: fittest.getChromosome().genes) {
+            for(Node order: vehicle.getRoute()) {
+                String id = order.getId();
+                int number = Integer.parseInt(id.substring(1));
+                if(number!= 0) {
+                    list.set(number, true);
+                }
+            }
+        }
+
+        for(int j = 0; j < list.size(); j++) {
+            if(!list.get(j)) {
+                System.out.println("Order " + j + " not found!");
+            }
+        }
+
+        if (isFittest) {
+            System.out.println("Solution found!");
+        }else {
+            System.out.println("Solution not found!");
+        }
+
         if (mode == 'T') {
             if (isFittest) {
-                System.out.println("Solution found!");
+
                 System.out.println("Generation: " + i);
                 fittest.getChromosome().print();
                 System.out.println("Fitness: " + population.getFittest().getFitness());

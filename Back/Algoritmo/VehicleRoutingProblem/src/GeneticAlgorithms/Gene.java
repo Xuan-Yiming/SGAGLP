@@ -44,20 +44,21 @@ public class Gene implements Cloneable {
     // Methods
 
     public void print() {
-        System.out.print("Vehicle: " + this.id);
-        System.out.print(" - Total time: " + totalTime);
-        System.out.println(" - Fitness: " + calculateFitness());
-        System.out.println("Route: ");
+//        System.out.print("Vehicle: " + this.id);
+//        System.out.print(" - Total time: " + totalTime);
+//        System.out.println(" - Fitness: " + calculateFitness());
+//        System.out.println("Route: ");
         for (int i = 0; i < route.size(); i++) {
             // print in the same line saparated by ' - '
             if (i != 0) {
-                System.out.print(route.get(i).getId() + ": (" + route.get(i).getPosicion().getX() + ", "
-                        + route.get(i).getPosicion().getY() + ") - ");
+                System.out.print(route.get(i).getId() +",");
+//                System.out.print(route.get(i).getId() + ": (" + route.get(i).getPosicion().getX() + ", "
+//                        + route.get(i).getPosicion().getY() + ") - ");
             }
         }
         System.out.println();
 
-        System.out.println("===================================================");
+//        System.out.println("===================================================");
     }
 
 
