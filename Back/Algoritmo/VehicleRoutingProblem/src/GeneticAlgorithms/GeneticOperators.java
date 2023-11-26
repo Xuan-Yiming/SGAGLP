@@ -183,7 +183,26 @@ public class GeneticOperators {
             }
         }
 
+        // remove two depots whichs are together in the route
+        for (int i = 0; i < child1.getChromosome().genes.size(); i++) {
+            for (int j = 0; j < child1.getChromosome().genes.get(i).getRoute().size() - 1; j++) {
+                if (child1.getChromosome().genes.get(i).getRoute().get(j).getTipo() == 'D' &&
+                        child1.getChromosome().genes.get(i).getRoute().get(j + 1).getTipo() == 'D'
+                        && j + 1 < child1.getChromosome().genes.get(i).getRoute().size()) {
+                    child1.getChromosome().genes.get(i).getRoute().remove(j);
+                }
+            }
+        }
         
+        for (int i = 0; i < child2.getChromosome().genes.size(); i++) {
+            for (int j = 0; j < child2.getChromosome().genes.get(i).getRoute().size() - 1; j++) {
+                if (child2.getChromosome().genes.get(i).getRoute().get(j).getTipo() == 'D' &&
+                        child2.getChromosome().genes.get(i).getRoute().get(j + 1).getTipo() == 'D'
+                        && j + 1 < child2.getChromosome().genes.get(i).getRoute().size()) {
+                    child2.getChromosome().genes.get(i).getRoute().remove(j);
+                }
+            }
+        }
 
         return new ArrayList<Individual>() {
             {

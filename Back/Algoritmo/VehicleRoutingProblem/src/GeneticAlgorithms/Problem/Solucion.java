@@ -30,6 +30,7 @@ public class Solucion {
             solucionNodo.id = order.getId();
             solucionNodo.x = order.getPosicion().x;
             solucionNodo.y = order.getPosicion().y;
+            solucionNodo.hora = order.getFechaFinal();
             elementosEstaticosTemporales.add(solucionNodo);
         }
 

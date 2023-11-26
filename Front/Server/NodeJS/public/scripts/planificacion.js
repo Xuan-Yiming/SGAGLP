@@ -4,6 +4,8 @@ var start;
 var pedidosEntregados = 0;
 var pedidos = 0;
 var period = 40;
+const totalClocks = 1200;
+var clock = 0;
 
 class Vehicle {
   constructor(id, x, y) {
@@ -68,10 +70,9 @@ document
     console.log("planificar");
     start = Date.now();
 
+
     //empezar la simulacion
-    for (var i = 0; i < 1200 / period; i++) {
-      await Promise.all([empezar()]);
-    }
+    empezar();
   });
 
 async function empezar() {
@@ -206,11 +207,13 @@ async function processElements(result) {
     for (const vehicle of vehicles) {
       vehicle.classList.remove("map__cell__vehicle");
     }
-
-    //add the vehicles
+    
     if (element.clock == period) {
-      return;
+      break;
     }
+
+    clock++;
+    //add the vehicles
     for (const nodo of element.nodos) {
       var seletecCell = document.querySelector(
         "#cell_" + nodo.x + "_" + nodo.y
@@ -238,5 +241,14 @@ async function processElements(result) {
     const end = Date.now();
     document.querySelector("#txtDuracion").value = (end - start) / 1000;
     await new Promise((resolve) => setTimeout(resolve, 1000 / velocidad));
+
+    //
+    if (clock == totalClocks) {
+      break;
+    }
+  }
+
+  if (clock < totalClocks) {
+    empezar();
   }
 }
