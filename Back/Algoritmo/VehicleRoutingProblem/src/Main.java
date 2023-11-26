@@ -13,7 +13,6 @@ public class Main {
     public static void main(String[] args) {
         GeneticAlgorithmVRP algorithmVRP;
 
-        try {
             switch ('R') {
                 case 'T':
                     algorithmVRP = new GeneticAlgorithmVRP('T');
@@ -23,30 +22,19 @@ public class Main {
 
                     Solucion solucion = algorithmVRP.getSolucion();
 
-                    // System.out.println(solucion.solucionToJson());
-                    // write the solucion to a file save it to the desktop
+                    try{
+                        // get the default desktop path
+                        String desktopPath = System.getProperty("user.home") + "/Desktop";
+                        FileWriter fileWriter = new FileWriter(desktopPath + "/solucion.json");
+                        fileWriter.write(solucion.solucionToJson());
+                        fileWriter.close();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
 
-                    // get the default desktop path
-                                    String desktopPath = System.getProperty("user.home") + "/Desktop";
-                                    FileWriter fileWriter = new FileWriter(desktopPath + "/solucion.json");
-                                    fileWriter.write(solucion.solucionToJson());
-                                    fileWriter.close();
 
-                    break;
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
-    // public static void main(String[] args) {
-    //     ArrayList<Point> obstacles = new ArrayList<>();
-    //     obstacles.add(new Point(10, 20));
-    //     try{
-    //     System.out.println(new pathFinding().findPath(70, 50, obstacles, new Point(12, 8), new Point(64 ,13)));
-
-    // } catch (Exception e) {
-    //     System.out.println(e.getMessage());
-    // }
-    // }
 }

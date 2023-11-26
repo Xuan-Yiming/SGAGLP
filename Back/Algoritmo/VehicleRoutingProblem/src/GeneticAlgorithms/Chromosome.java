@@ -25,12 +25,9 @@ public class Chromosome implements Cloneable {
         Random random = new Random();
 
         genes = new ArrayList<>();
-        // for (int i = 0; i < this.problem.getVehicles().size(); i++) {
-        //     // agregar los vehiculos que no estan en mantenimiento
-        //     if (this.problem.getDate() != this.problem.getVehicles().get(i).getMantenimiento()) {
-        //         genes.add(new Gene(this.problem.getVehicles().get(i), this.problem.getDepots().get(0)));
-        //     }
-        // }
+         for (int i = 0; i < this.problem.getVehicles().size(); i++) {
+             genes.add(new Gene(this.problem.getVehicles().get(i), this.problem.getDepots().get(0)));
+         }
 
         // ordenar las ordenes por fecha final
         this.problem.getOrders().sort((o1, o2) -> {

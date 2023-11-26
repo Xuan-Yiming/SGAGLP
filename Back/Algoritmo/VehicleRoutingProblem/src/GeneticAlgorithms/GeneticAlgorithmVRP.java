@@ -17,12 +17,17 @@ public class GeneticAlgorithmVRP {
     private Solucion solucion;
 
     // Test
-    public GeneticAlgorithmVRP(char mode) throws Exception {
+    public GeneticAlgorithmVRP(char mode){
         if (this.problem == null) {
             this.problem = new GAProblem();
         }
 
-        problem.validate();
+        try {
+            problem.validate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         population = new Population(problem);
         maxGenerations = problem.maxGenerations;
@@ -71,7 +76,11 @@ public class GeneticAlgorithmVRP {
 
             }
         } else {
-            this.solucion = new Solucion(problem, fittest);
+            try{
+                this.solucion = new Solucion(problem, fittest);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
     }

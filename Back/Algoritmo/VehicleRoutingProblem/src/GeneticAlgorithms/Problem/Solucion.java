@@ -23,14 +23,13 @@ public class Solucion {
         elementosEstaticosTemporales = new ArrayList<>();
         elementosEnCadaClock = new ArrayList<>();
 
+        // elementos estaticos
         for (Node order : problem.getOrders()) {
             SolucionNodo solucionNodo = new SolucionNodo();
             solucionNodo.tipo = 'C';
             solucionNodo.id = order.getId();
             solucionNodo.x = order.getPosicion().x;
             solucionNodo.y = order.getPosicion().y;
-            solucionNodo.inicio = (int) (order.getFechaInicio().getTime() - problem.getDate().getTime()) / 1000 / 72;
-            solucionNodo.fin = (int) (order.getFechaFinal().getTime() - problem.getDate().getTime()) / 1000 / 72;
             elementosEstaticosTemporales.add(solucionNodo);
         }
 
@@ -40,8 +39,6 @@ public class Solucion {
             solucionNodo.id = depots.getId();
             solucionNodo.x = depots.getPosicion().x;
             solucionNodo.y = depots.getPosicion().y;
-            solucionNodo.inicio = 0;
-            solucionNodo.fin = 24 * 50;
             elementosEstaticosTemporales.add(solucionNodo);
         }
 
@@ -51,11 +48,10 @@ public class Solucion {
             solucionNodo.id = block.getId();
             solucionNodo.x = block.getPosicion().x;
             solucionNodo.y = block.getPosicion().y;
-            solucionNodo.inicio = (int) (block.getFechaInicio().getTime() - problem.getDate().getTime()) / 1000 / 72;
-            solucionNodo.fin = (int) (block.getFechaFinal().getTime() - problem.getDate().getTime()) / 1000 / 72;
             elementosEstaticosTemporales.add(solucionNodo);
         }
 
+        // elementos en cada clock
         ArrayList<Point> obstaculos = new ArrayList<>();
 
         for (Node block : problem.getBlocks()) {

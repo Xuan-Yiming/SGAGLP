@@ -60,14 +60,6 @@ public class Gene implements Cloneable {
         System.out.println("===================================================");
     }
 
-    public void removeDepots() {
-        for (int i = 0; i < route.size(); i++) {
-            if (route.get(i).getTipo() == 'D') {
-                route.remove(i);
-                i--;
-            }
-        }
-    }
 
 
     public double calculateFitness() {
@@ -171,21 +163,6 @@ public class Gene implements Cloneable {
         // time to a node in minutes
         return (int) (distancia / this.velocidad * 60);
     }
-
-    public Node bestDepot(ArrayList<Node> depots) {
-        int shortestDistance = Integer.MAX_VALUE;
-        Node bestDepot = null;
-        for (Node depot : depots) {
-            if (canDeliver(depot)) {
-                if (distanceToANode(depot) < shortestDistance) {
-                    shortestDistance = distanceToANode(depot);
-                    bestDepot = depot;
-                }
-            }
-        }
-        return bestDepot;
-    }
-
 
     @Override
     public Gene clone() {
