@@ -67,13 +67,13 @@ document.getElementById("btnSimular").addEventListener("click", async function (
   var formattedFechaFinal = fechaFinal.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
 
   //for each day between the two dates
-  while (fecha <= fechaFinal) {
+
     var formdata = new FormData();
     formdata.append("date", formattedFecha);
     await simular(formdata);
     fecha.setDate(fecha.getDate() + 1);
     formattedFecha = fecha.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
-  }
+  
 
   var formdata = new FormData();
   formdata.append("date", formattedFecha);

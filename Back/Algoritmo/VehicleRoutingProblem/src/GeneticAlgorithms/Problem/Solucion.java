@@ -59,34 +59,40 @@ public class Solucion {
         }
 
         for (Gene vehiculo : finalSolution.getChromosome().genes) {
-            int totalTime = 0;
+            int totalClock = 0;
+
             SolucionCamion solucionCamion = new SolucionCamion();
             solucionCamion.id = "T" + vehiculo.getType() + vehiculo.getId();
+
             solucionCamion.rutas = new ArrayList<>();
             for (int i = 0; i < vehiculo.getRoute().size() - 1; i++) {
+                // calcular la ruta
                 List<Point> ruta = new pathFinding().findPath(70, 50, obstaculos,
                         vehiculo.getRoute().get(i).getPosicion(), vehiculo.getRoute().get(i + 1).getPosicion());
+
                 for (Point node : ruta) {
                     SolucionRuta solucionRuta = new SolucionRuta();
                     solucionRuta.x = node.x;
                     solucionRuta.y = node.y;
                     solucionRuta.idPedido = vehiculo.getRoute().get(i).getId();
                     solucionRuta.placa = "T" + vehiculo.getType() + vehiculo.getId();
-                    solucionRuta.time = totalTime;
+                    solucionRuta.time = totalClock;
                     solucionCamion.rutas.add(solucionRuta);
-                    totalTime++;
+
+
+                    totalClock++;
                 }
             }
             elementosCamiones.add(solucionCamion);
         }
-
-        for (int i = 0; i < 50 * 24; i++) {
+        int maxTime = 0;
+        while (true) {
             SolucionClock solucionClock = new SolucionClock();
-            solucionClock.clock = i;
+            solucionClock.clock = maxTime;
             solucionClock.nodos = new ArrayList<>();
             for (SolucionCamion solucionCamion : elementosCamiones) {
                 for (SolucionRuta solucionRuta : solucionCamion.rutas) {
-                    if (solucionRuta.time == i) {
+                    if (solucionRuta.time == maxTime) {
                         solucionClockNode node = new solucionClockNode();
                         node.x = solucionRuta.x;
                         node.y = solucionRuta.y;
@@ -96,7 +102,11 @@ public class Solucion {
                     }
                 }
             }
+            if (solucionClock.nodos.size() == 0) {
+                break;
+            }
             elementosEnCadaClock.add(solucionClock);
+            maxTime++;
         }
     }
 

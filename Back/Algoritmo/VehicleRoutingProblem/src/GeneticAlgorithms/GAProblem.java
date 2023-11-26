@@ -22,7 +22,7 @@ public class GAProblem implements Cloneable {
     public int maxGenerations = 100000;
     public double depotRate = 0.2;
 
-    private int numOfOrders = 200;
+    private int numOfOrders = 400;
     private int numOfBlocks = 0;
     // Constructors
 
@@ -64,7 +64,7 @@ public class GAProblem implements Cloneable {
         for (int i = 0; i < numOfOrders; i++) {
             calendar.setTime(date);
 
-            calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(24));
+            calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(24*7));
             Date finalDate = calendar.getTime();
             this.orders.add(new Node(String.valueOf(i), random.nextInt(70), random.nextInt(50),
                     (double) (random.nextInt(25)), date, finalDate));
