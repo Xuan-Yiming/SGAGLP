@@ -92,7 +92,7 @@ public class GeneticOperators {
             }
 
             for (int i = 0; i < parents.get(1).getChromosome().genes.size(); i++) {
-                for (int j = 0; j < parents.get(1).getChromosome().genes.get(i).getRoute().size() && j< horizontalCrossPoint; j++) {
+                for (int j = horizontalCrossPoint; j < parents.get(1).getChromosome().genes.get(i).getRoute().size(); j++) {
                         int index = 0;
                         if (i + verticalCrossPoint >= maxVehicle){
                             index = (i + verticalCrossPoint) - maxVehicle;
