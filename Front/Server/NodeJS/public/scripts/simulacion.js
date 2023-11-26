@@ -1,5 +1,3 @@
-console.log("Simulacion");
-
 var pixelWidth = 15;
 var velocidad = 1;
 var start;
@@ -17,6 +15,7 @@ document.getElementById("selectSpeed").addEventListener("change", function () {
   velocidad = document.getElementById("selectSpeed").value;
 });
 
+//create the map
 for (var w = 0; w < 70; w++) {
   for (var h = 0; h < 50; h++) {
     var div = document.createElement("div");
@@ -29,59 +28,40 @@ for (var w = 0; w < 70; w++) {
   }
 }
 
-async function processElements(result) {
-  for (const element of result.elementosEnCadaClock) {
-    //replace all vehicles with road
-    var vehicles = document.querySelectorAll(".map__cell__vehicle");
-    for (const vehicle of vehicles) {
-      vehicle.classList.remove("map__cell__vehicle");
-    }
-    for (const nodo of element.nodos) {
-      var seletecCell = document.querySelector(
-        "#cell_" + nodo.x + "_" + nodo.y
-      );
-      if (seletecCell.classList.contains("map__cell__custom")) {
-        seletecCell.classList.remove("map__cell__custom");
-        pedidosEntregados++;
-        document.querySelector("#txtPedidosEntregados").value =
-          pedidosEntregados;
-      }
-      seletecCell.classList.add("map__cell__vehicle");
-    }
-    const end = Date.now();
-    document.querySelector("#txtDuracion").value = (end - start) / 1000;
-    await new Promise((resolve) => setTimeout(resolve, 1000 / velocidad));
+// cargar archivos
+var btnBloqueos = document.getElementById("btnBloqueos");
+var cmBloqueos = document.getElementById("cmBloqueos");
+btnBloqueos.addEventListener("click", function () {
+  cmBloqueos.click();
+});
 
-  }
-}
 
+var btnFlota = document.getElementById("btnFlota");
+var cmFlota = document.getElementById("cmFlota");
+btnFlota.addEventListener("click", function () {
+  cmFlota.click();
+});
+
+
+var btnPedidos = document.getElementById("btnPedidos");
+var cmPedidos = document.getElementById("cmPedidos");
+btnPedidos.addEventListener("click", function () {
+  cmPedidos.click();
+});
+
+
+//simular
 document.getElementById("btnSimular").addEventListener("click", async function () {
   console.log("Simular");
   start = Date.now();
-  
-  
-  var fecha = new Date(document.getElementById("txtFecha").value);
-  var formattedFecha = fecha.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
 
-  var fechaFinal = new Date(document.getElementById("txtFechaFinal").value);
-  var formattedFechaFinal = fechaFinal.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
 
-  //for each day between the two dates
-
-    var formdata = new FormData();
-    formdata.append("date", formattedFecha);
-    await simular(formdata);
-    fecha.setDate(fecha.getDate() + 1);
-    formattedFecha = fecha.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
-  
-
-  var formdata = new FormData();
-  formdata.append("date", formattedFecha);
-
+  //empezar la simulacion
+  await simular();
 
 });
 
-async function simular(formdata) {
+async function simular() {
   //clean the map
   document.querySelectorAll(".map__cell__vehicle").forEach((vehicle) => {
     vehicle.classList.remove("map__cell__vehicle");
@@ -98,28 +78,68 @@ async function simular(formdata) {
   document.querySelectorAll(".map__cell__block").forEach((block) => {
     block.classList.remove("map__cell__block");
   });
-  
+  var formdata = new FormData();
+  formdata.append("fFlota", cmFlota.files[0]);
+  formdata.append("fPedido", cmPedidos.files[0]);
+  formdata.append("fBloqueo", cmBloqueos.files[0]);
+
   fetch(
     "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json",
-    //"http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion/date="+formattedFecha,
-    // {
-    //   method: "POST",
-    //   body: formdata,
-    //   redirect: "follow",
-    // }
+    {
+      // method: "POST",
+      // body: formdata,
+      // redirect: "follow",
+    }
   )
     .then((response) => response.json())
     .then((result) => {
-
       var vehicles = 0;
+      //mark the static elements
+
+      //clean the table
+      var table = document.getElementById("tblPedidos");
+      table.innerHTML = "";
+
       result.elementosEstaticosTemporales.forEach((element) => {
         var seletecCell = document.querySelector(
           "#cell_" + element.x + "_" + element.y
         );
-        seletecCell.title = element.id + " - " + element.x + ";" + element.y;
 
+        //add the title
+        if (seletecCell.title == "") {
+          seletecCell.title =
+            element.id + " - (" + element.x + ";" + element.y + ")";
+        } else {
+          seletecCell.title =
+            seletecCell.title +
+            "\n" +
+            element.id +
+            " - (" +
+            element.x +
+            ";" +
+            element.y +
+            ")";
+        }
+
+        //add the type of the element
         if (element.tipo == "C") {
+          table.innerHTML +=
+            "<tr><td>" +
+            element.id +
+            "</td><td>" +
+            element.x +
+            "</td><td>" +
+            element.y +
+            "</td></tr>";
           seletecCell.classList.add("map__cell__custom");
+          if (!seletecCell.getAttribute("data-id")) {
+            seletecCell.setAttribute("data-id", 0);
+          } else {
+            seletecCell.setAttribute(
+              "data-id",
+              parseInt(seletecCell.getAttribute("data-id")) + 1
+            );
+          }
           pedidos++;
         } else if (element.tipo == "D") {
           seletecCell.classList.add("map__cell__depot");
@@ -127,6 +147,7 @@ async function simular(formdata) {
           seletecCell.classList.add("map__cell__block");
         }
       });
+
       document.querySelector("#txtPedidosProgramados").value = pedidos;
 
       vehicles = result.elementosEnCadaClock[0].nodos.length;
@@ -136,110 +157,43 @@ async function simular(formdata) {
     });
 }
 
+async function processElements(result) {
+  // for each clock
+  for (const element of result.elementosEnCadaClock) {
+    //remove all the vehicles
+    var vehicles = document.querySelectorAll(".map__cell__vehicle");
+    for (const vehicle of vehicles) {
+      vehicle.classList.remove("map__cell__vehicle");
+    }
 
+    //add the vehicles
+    for (const nodo of element.nodos) {
+      var seletecCell = document.querySelector(
+        "#cell_" + nodo.x + "_" + nodo.y
+      );
+      // remove the custom from the map
+      if (seletecCell.classList.contains("map__cell__custom")) {
+        if (seletecCell.getAttribute("data-id")) {
+          var id = seletecCell.getAttribute("data-id");
+          if (id > 0) {
+            seletecCell.setAttribute("data-id", id - 1);
+          } else {
+            seletecCell.classList.remove("map__cell__custom");
+          }
+        }
 
-// cargar archivos
-var btnBloqueos = document.getElementById("btnBloqueos");
-var cmBloqueos = document.getElementById("cmBloqueos");
-btnBloqueos.addEventListener("click", function () {
-  // Trigger a click event on the file input element
-  cmBloqueos.click();
-});
-cmBloqueos.addEventListener("change", function () {
-  // Handle the selected file(s) here, for example, log the file name
-  console.log("Selected file:", cmBloqueos.files[0].name);
-});
+        pedidosEntregados++;
+        document.querySelector("#txtPedidosEntregados").value =
+          pedidosEntregados;
+      }
+      //replace it with the vehicle
+      seletecCell.classList.add("map__cell__vehicle");
+    }
 
-var btnFlota = document.getElementById("btnFlota");
-var cmFlota = document.getElementById("cmFlota");
-btnFlota.addEventListener("click", function () {
-  // Trigger a click event on the file input element
-  cmFlota.click();
-});
-cmFlota.addEventListener("change", function () {
-  // Handle the selected file(s) here, for example, log the file name
-  console.log("Selected file:", cmFlota.files[0].name);
-});
-
-var btnPedidos = document.getElementById("btnPedidos");
-var cmPedidos = document.getElementById("cmPedidos");
-btnPedidos.addEventListener("click", function () {
-  // Trigger a click event on the file input element
-  cmPedidos.click();
-});
-cmPedidos.addEventListener("change", function () {
-  // Handle the selected file(s) here, for example, log the file name
-  console.log("Selected file:", cmPedidos.files[0].name);
-});
-
-document.getElementById("btnCarga").addEventListener("click", function () {
-  // do the three uploads simultaneously
-  Promise.all([cargarVehiculos(), cargarPedidos(), cargarBloqueos()])
-    .then(() => {
-      //show a alert when all uploads are done
-
-      alert("Carga masiva realizada con exito");
-
-      console.log("All uploads completed successfully");
-    })
-    .catch((error) => {
-      console.log("Error occurred during uploads:", error);
-    });
-});
-
-async function cargarVehiculos() {
-  var formdata = new FormData();
-  formdata.append("file", cmFlota.files[0]);
-
-  var requestOptions = {
-    method: "POST",
-    body: formdata,
-    redirect: "follow",
-  };
-
-  fetch(
-    "http://localhost:8080/DP15E/api/v1/vehicle/cargaMasivaDeFlotas",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+    //update the timer
+    const end = Date.now();
+    document.querySelector("#txtDuracion").value = (end - start) / 1000;
+    await new Promise((resolve) => setTimeout(resolve, 1000 / velocidad));
+  }
 }
 
-async function cargarPedidos() {
-  var formdata1 = new FormData();
-  formdata1.append("file", cmPedidos.files[0]);
-
-  var requestOptions = {
-    method: "POST",
-    body: formdata1,
-    redirect: "follow",
-  };
-
-  fetch(
-    "http://localhost:8080/DP15E/api/v1/node/cargaMasivaDePedidos",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-}
-
-async function cargarBloqueos() {
-  var formdata2 = new FormData();
-  formdata2.append("file", cmBloqueos.files[0]);
-
-  var requestOptions = {
-    method: "POST",
-    body: formdata2,
-    redirect: "follow",
-  };
-
-  fetch(
-    "http://localhost:8080/DP15E/api/v1/node/cargaMasivaDeBloqueos",
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
-}
