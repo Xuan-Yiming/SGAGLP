@@ -70,7 +70,6 @@ document
     console.log("planificar");
     start = Date.now();
 
-
     //empezar la simulacion
     empezar();
   });
@@ -174,7 +173,7 @@ async function empezar() {
             "</td><td>" +
             element.y +
             "</td></tr>";
-          
+
           seletecCell.classList.add("map__cell__custom");
           if (!seletecCell.getAttribute("data-id")) {
             seletecCell.setAttribute("data-id", 0);
@@ -202,41 +201,70 @@ async function empezar() {
 }
 
 async function processElements(result) {
-  // for each clock
   for (const element of result.elementosEnCadaClock) {
-    //remove all the vehicles
-    var vehicles = document.querySelectorAll(".map__cell__vehicle");
-    for (const vehicle of vehicles) {
-      vehicle.classList.remove("map__cell__vehicle");
-    }
-    
+    //remove the dinamic elements
     if (element.clock == period) {
       break;
     }
-
     clock++;
-    //add the vehicles
+    //remove all the vehicles
+    document
+      .querySelectorAll('[class*="map__cell__vehicle__"]')
+      .forEach((element) => {
+        let classes = element.className.split(" ");
+        for (let i = 0; i < classes.length; i++) {
+          if (classes[i].startsWith("map__cell__vehicle__")) {
+            element.classList.remove(classes[i]);
+          }
+        }
+      });
+
+    //remove all the current custom
+    var currentCustom = document.querySelectorAll(".map__cell__custom_current");
+    for (const custom of currentCustom) {
+      custom.classList.remove("map__cell__custom_current");
+    }
+
+    //remove all the routes
+    document
+      .querySelectorAll('[class*="map__cell__road__"]')
+      .forEach((element) => {
+        let classes = element.className.split(" ");
+        for (let i = 0; i < classes.length; i++) {
+          if (classes[i].startsWith("map__cell__road__")) {
+            element.classList.remove(classes[i]);
+          }
+        }
+      });
+
+    //add the dinamic elements to the map
+
     for (const nodo of element.nodos) {
+      // get the cell
       var seletecCell = document.querySelector(
         "#cell_" + nodo.x + "_" + nodo.y
       );
-      // remove the custom from the map
-      if (seletecCell.classList.contains("map__cell__custom")) {
-        if (seletecCell.getAttribute("data-id")) {
-          var id = seletecCell.getAttribute("data-id");
-          if (id > 0) {
-            seletecCell.setAttribute("data-id", id - 1);
-          } else {
-            seletecCell.classList.remove("map__cell__custom");
-          }
-        }
-
-        pedidosEntregados++;
-        document.querySelector("#txtPedidosEntregados").value =
-          pedidosEntregados;
+      var tipo = nodo.tipo;
+      switch (tipo) {
+        case "X":
+          seletecCell.classList.add("map__cell__custom_current");
+          break;
+        case "R":
+          seletecCell.classList.add(
+            "map__cell__road__" + nodo.placa.match(/\d+/)[0]
+          );
+          break;
+        case "E":
+          pedidosEntregados++;
+          document.querySelector("#txtPedidosEntregados").value =
+            pedidosEntregados;
+        default:
+          seletecCell.classList.add(
+            "map__cell__vehicle__" + nodo.placa.match(/\d+/)[0]
+          );
+          break;
       }
-      //replace it with the vehicle
-      seletecCell.classList.add("map__cell__vehicle");
+      // set the destination of the vehicle
     }
 
     //update the timer
@@ -244,7 +272,6 @@ async function processElements(result) {
     document.querySelector("#txtDuracion").value = (end - start) / 1000;
     await new Promise((resolve) => setTimeout(resolve, 1000 / velocidad));
 
-    //
     if (clock == totalClocks) {
       break;
     }

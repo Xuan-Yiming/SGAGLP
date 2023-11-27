@@ -35,13 +35,11 @@ btnBloqueos.addEventListener("click", function () {
   cmBloqueos.click();
 });
 
-
 var btnFlota = document.getElementById("btnFlota");
 var cmFlota = document.getElementById("cmFlota");
 btnFlota.addEventListener("click", function () {
   cmFlota.click();
 });
-
 
 var btnPedidos = document.getElementById("btnPedidos");
 var cmPedidos = document.getElementById("cmPedidos");
@@ -49,17 +47,16 @@ btnPedidos.addEventListener("click", function () {
   cmPedidos.click();
 });
 
-
 //simular
-document.getElementById("btnSimular").addEventListener("click", async function () {
-  console.log("Simular");
-  start = Date.now();
+document
+  .getElementById("btnSimular")
+  .addEventListener("click", async function () {
+    console.log("Simular");
+    start = Date.now();
 
-
-  //empezar la simulacion
-  await simular();
-
-});
+    //empezar la simulacion
+    await simular();
+  });
 
 async function simular() {
   //clean the map
@@ -132,7 +129,7 @@ async function simular() {
             "</td><td>" +
             element.y +
             "</td></tr>";
-          
+
           //add the custom to the map
           seletecCell.classList.add("map__cell__custom");
           if (!seletecCell.getAttribute("data-n")) {
@@ -172,10 +169,16 @@ async function processElements(result) {
     //remove the dinamic elements
 
     //remove all the vehicles
-    var vehicles = document.querySelectorAll(".map__cell__vehicle");
-    for (const vehicle of vehicles) {
-      vehicle.classList.remove("map__cell__vehicle");
-    }
+    document
+      .querySelectorAll('[class*="map__cell__vehicle__"]')
+      .forEach((element) => {
+        let classes = element.className.split(" ");
+        for (let i = 0; i < classes.length; i++) {
+          if (classes[i].startsWith("map__cell__vehicle__")) {
+            element.classList.remove(classes[i]);
+          }
+        }
+      });
 
     //remove all the current custom
     var currentCustom = document.querySelectorAll(".map__cell__custom_current");
@@ -184,10 +187,16 @@ async function processElements(result) {
     }
 
     //remove all the routes
-    var routes = document.querySelectorAll(".map__cell__road");
-    for (const route of routes) {
-      route.classList.remove("map__cell__road");
-    }
+    document
+      .querySelectorAll('[class*="map__cell__road__"]')
+      .forEach((element) => {
+        let classes = element.className.split(" ");
+        for (let i = 0; i < classes.length; i++) {
+          if (classes[i].startsWith("map__cell__road__")) {
+            element.classList.remove(classes[i]);
+          }
+        }
+      });
 
     //add the dinamic elements to the map
 
@@ -202,10 +211,18 @@ async function processElements(result) {
           seletecCell.classList.add("map__cell__custom_current");
           break;
         case "R":
-          seletecCell.classList.add("map__cell__road");
+          seletecCell.classList.add(
+            "map__cell__road__" + nodo.placa.match(/\d+/)[0]
+          );
           break;
+        case "E":
+          pedidosEntregados++;
+          document.querySelector("#txtPedidosEntregados").value =
+            pedidosEntregados;
         default:
-          seletecCell.classList.add("map__cell__vehicle");
+          seletecCell.classList.add(
+            "map__cell__vehicle__" + nodo.placa.match(/\d+/)[0]
+          );
           break;
       }
       // set the destination of the vehicle
@@ -217,4 +234,3 @@ async function processElements(result) {
     await new Promise((resolve) => setTimeout(resolve, 1000 / velocidad));
   }
 }
-
