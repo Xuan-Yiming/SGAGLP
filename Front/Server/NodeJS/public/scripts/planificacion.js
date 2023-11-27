@@ -165,6 +165,7 @@ async function empezar() {
 
         //add the type of the element
         if (element.tipo == "C") {
+          //add the order to the table
           table.innerHTML +=
             "<tr><td>" +
             element.id +
@@ -173,6 +174,7 @@ async function empezar() {
             "</td><td>" +
             element.y +
             "</td></tr>";
+          
           seletecCell.classList.add("map__cell__custom");
           if (!seletecCell.getAttribute("data-id")) {
             seletecCell.setAttribute("data-id", 0);

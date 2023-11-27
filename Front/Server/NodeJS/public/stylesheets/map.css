@@ -20,6 +20,10 @@
 }
 
 .map__cell__custom {
+  background: white;
+}
+
+.map__cell__custom_current {
   background: orange;
 }
 

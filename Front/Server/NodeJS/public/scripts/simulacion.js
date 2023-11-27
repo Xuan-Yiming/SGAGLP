@@ -123,6 +123,7 @@ async function simular() {
 
         //add the type of the element
         if (element.tipo == "C") {
+          //add the element to the table
           table.innerHTML +=
             "<tr><td>" +
             element.id +
@@ -131,13 +132,21 @@ async function simular() {
             "</td><td>" +
             element.y +
             "</td></tr>";
+          
+          //add the custom to the map
           seletecCell.classList.add("map__cell__custom");
-          if (!seletecCell.getAttribute("data-id")) {
-            seletecCell.setAttribute("data-id", 0);
+          if (!seletecCell.getAttribute("data-n")) {
+            seletecCell.setAttribute("data-n", 0);
+            seletecCell.setAttribute("data-id", element.id);
           } else {
             seletecCell.setAttribute(
+              "data-n",
+              parseInt(seletecCell.getAttribute("data-n")) + 1
+            );
+
+            seletecCell.setAttribute(
               "data-id",
-              parseInt(seletecCell.getAttribute("data-id")) + 1
+              seletecCell.getAttribute("data-id") + "," + element.id
             );
           }
           pedidos++;
@@ -160,34 +169,45 @@ async function simular() {
 async function processElements(result) {
   // for each clock
   for (const element of result.elementosEnCadaClock) {
+    //remove the dinamic elements
+
     //remove all the vehicles
     var vehicles = document.querySelectorAll(".map__cell__vehicle");
     for (const vehicle of vehicles) {
       vehicle.classList.remove("map__cell__vehicle");
     }
 
-    //add the vehicles
+    //remove all the current custom
+    var currentCustom = document.querySelectorAll(".map__cell__custom_current");
+    for (const custom of currentCustom) {
+      custom.classList.remove("map__cell__custom_current");
+    }
+
+    //add the dinamic elements to the map
     for (const nodo of element.nodos) {
+      // get the cell
       var seletecCell = document.querySelector(
         "#cell_" + nodo.x + "_" + nodo.y
       );
-      // remove the custom from the map
-      if (seletecCell.classList.contains("map__cell__custom")) {
-        if (seletecCell.getAttribute("data-id")) {
-          var id = seletecCell.getAttribute("data-id");
-          if (id > 0) {
-            seletecCell.setAttribute("data-id", id - 1);
-          } else {
-            seletecCell.classList.remove("map__cell__custom");
+      seletecCell.classList.add("map__cell__vehicle");
+
+      // set the destination of the vehicle
+      for (var customer of document.querySelectorAll(".map__cell__custom")) {
+        if (customer.getAttribute("data-id").includes(nodo.idPedido)) {
+          //get the id of the div #cell_x_y
+          var id = customer.id.split("_");
+          var x = id[1];
+          var y = id[2];
+
+          if (x == nodo.x && y == nodo.y) {
+            pedidosEntregados++;
+            document.querySelector("#txtPedidosEntregados").value =
+              pedidosEntregados;
+          }else{
+            customer.classList.add("map__cell__custom_current");
           }
         }
-
-        pedidosEntregados++;
-        document.querySelector("#txtPedidosEntregados").value =
-          pedidosEntregados;
       }
-      //replace it with the vehicle
-      seletecCell.classList.add("map__cell__vehicle");
     }
 
     //update the timer

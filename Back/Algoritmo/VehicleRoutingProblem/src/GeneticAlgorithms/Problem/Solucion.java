@@ -75,7 +75,7 @@ public class Solucion {
                     SolucionRuta solucionRuta = new SolucionRuta();
                     solucionRuta.x = node.x;
                     solucionRuta.y = node.y;
-                    solucionRuta.idPedido = vehiculo.getRoute().get(i).getId();
+                    solucionRuta.idPedido = vehiculo.getRoute().get(i+1).getId();
                     solucionRuta.placa = "T" + vehiculo.getType() + vehiculo.getId();
                     solucionRuta.time = totalClock;
                     solucionCamion.rutas.add(solucionRuta);
