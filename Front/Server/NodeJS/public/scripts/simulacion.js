@@ -183,6 +183,12 @@ async function processElements(result) {
       custom.classList.remove("map__cell__custom_current");
     }
 
+    //remove all the routes
+    var routes = document.querySelectorAll(".map__cell__road");
+    for (const route of routes) {
+      route.classList.remove("map__cell__road");
+    }
+
     //add the dinamic elements to the map
 
     for (const nodo of element.nodos) {
@@ -190,7 +196,7 @@ async function processElements(result) {
       var seletecCell = document.querySelector(
         "#cell_" + nodo.x + "_" + nodo.y
       );
-      var tipo = nodo.idPedido[0];
+      var tipo = nodo.tipo;
       switch (tipo) {
         case "X":
           seletecCell.classList.add("map__cell__custom_current");
