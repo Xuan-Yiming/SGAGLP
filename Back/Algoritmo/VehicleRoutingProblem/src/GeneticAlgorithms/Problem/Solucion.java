@@ -53,61 +53,52 @@ public class Solucion {
         }
 
         // elementos en cada clock
+
+        // obstaculos
         ArrayList<Point> obstaculos = new ArrayList<>();
 
         for (Node block : problem.getBlocks()) {
             obstaculos.add(block.getPosicion());
         }
 
+        // 
         for (Gene vehiculo : finalSolution.getChromosome().genes) {
             int totalClock = 0;
 
-            SolucionCamion solucionCamion = new SolucionCamion();
-            solucionCamion.id = "T" + vehiculo.getType() + vehiculo.getId();
-
-            solucionCamion.rutas = new ArrayList<>();
             for (int i = 0; i < vehiculo.getRoute().size() - 1; i++) {
                 // calcular la ruta
                 List<Point> ruta = new pathFinding().findPath(70, 50, obstaculos,
                         vehiculo.getRoute().get(i).getPosicion(), vehiculo.getRoute().get(i + 1).getPosicion());
 
-                for (Point node : ruta) {
-                    SolucionRuta solucionRuta = new SolucionRuta();
-                    solucionRuta.x = node.x;
-                    solucionRuta.y = node.y;
-                    solucionRuta.idPedido = vehiculo.getRoute().get(i+1).getId();
-                    solucionRuta.placa = "T" + vehiculo.getType() + vehiculo.getId();
-                    solucionRuta.time = totalClock;
-                    solucionCamion.rutas.add(solucionRuta);
+                // agregar a la solucion
+                for (int j = 0; j < ruta.size() - 1; j++) {
 
-
+                    // si no existe el clock, crearlo
+                    if (this.elementosEnCadaClock.size() <= totalClock) {
+                        SolucionClock solucionClock = new SolucionClock();
+                        solucionClock.clock = totalClock;
+                        solucionClock.nodos = new ArrayList<>();
+                        this.elementosEnCadaClock.add(solucionClock);
+                    }
+                    
+                    for (int k = j; k < ruta.size() - 1; k++) {
+                        solucionClockNode _node = new solucionClockNode();
+                        _node.x = ruta.get(k).x;
+                        _node.y = ruta.get(k).y;
+                        _node.idPedido = vehiculo.getRoute().get(i+1).getId();
+                        _node.placa = "T" + vehiculo.getType() + vehiculo.getId();
+                        if (k == 0) {
+                            _node.tipo = 'I';
+                        }else if (k == ruta.size() - 2) {
+                            _node.tipo = 'X';
+                        }else {
+                            _node.tipo = 'R';
+                        }
+                        this.elementosEnCadaClock.get(totalClock).nodos.add(_node);
+                    }
                     totalClock++;
                 }
             }
-            elementosCamiones.add(solucionCamion);
-        }
-        int maxTime = 0;
-        while (true) {
-            SolucionClock solucionClock = new SolucionClock();
-            solucionClock.clock = maxTime;
-            solucionClock.nodos = new ArrayList<>();
-            for (SolucionCamion solucionCamion : elementosCamiones) {
-                for (SolucionRuta solucionRuta : solucionCamion.rutas) {
-                    if (solucionRuta.time == maxTime) {
-                        solucionClockNode node = new solucionClockNode();
-                        node.x = solucionRuta.x;
-                        node.y = solucionRuta.y;
-                        node.idPedido = solucionRuta.idPedido;
-                        node.placa = solucionRuta.placa;
-                        solucionClock.nodos.add(node);
-                    }
-                }
-            }
-            if (solucionClock.nodos.size() == 0) {
-                break;
-            }
-            elementosEnCadaClock.add(solucionClock);
-            maxTime++;
         }
     }
 

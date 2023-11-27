@@ -184,30 +184,25 @@ async function processElements(result) {
     }
 
     //add the dinamic elements to the map
+
     for (const nodo of element.nodos) {
       // get the cell
       var seletecCell = document.querySelector(
         "#cell_" + nodo.x + "_" + nodo.y
       );
-      seletecCell.classList.add("map__cell__vehicle");
-
-      // set the destination of the vehicle
-      for (var customer of document.querySelectorAll(".map__cell__custom")) {
-        if (customer.getAttribute("data-id").includes(nodo.idPedido)) {
-          //get the id of the div #cell_x_y
-          var id = customer.id.split("_");
-          var x = id[1];
-          var y = id[2];
-
-          if (x == nodo.x && y == nodo.y) {
-            pedidosEntregados++;
-            document.querySelector("#txtPedidosEntregados").value =
-              pedidosEntregados;
-          }else{
-            customer.classList.add("map__cell__custom_current");
-          }
-        }
+      var tipo = nodo.idPedido[0];
+      switch (tipo) {
+        case "X":
+          seletecCell.classList.add("map__cell__custom_current");
+          break;
+        case "R":
+          seletecCell.classList.add("map__cell__road");
+          break;
+        default:
+          seletecCell.classList.add("map__cell__vehicle");
+          break;
       }
+      // set the destination of the vehicle
     }
 
     //update the timer

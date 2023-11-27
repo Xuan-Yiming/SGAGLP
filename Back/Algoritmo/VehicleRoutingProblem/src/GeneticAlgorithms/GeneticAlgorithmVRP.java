@@ -16,6 +16,7 @@ public class GeneticAlgorithmVRP {
     private GAProblem problem = null;
 
     private Solucion solucion;
+    private boolean findSolution = false;
 
     // Test
     public GeneticAlgorithmVRP(char mode){
@@ -62,32 +63,7 @@ public class GeneticAlgorithmVRP {
             fittest.getChromosome().genes.get(j).getRoute().add(problem.getDepots().get(0));
         }
 
-        ArrayList<Node> orders = new ArrayList<>();
-        for(Gene gene: fittest.getChromosome().genes){
-            for(Node node: gene.getRoute()){
-                if(node.getTipo() == 'C'){
-                    orders.add(node);
-                }
-            }
-        }
-
-        Collections.sort(orders, (o1, o2) -> {
-            if(Integer.parseInt(o1.getId().substring(1))> Integer.parseInt(o2.getId().substring(1))){
-                return 1;
-            }else if(Integer.parseInt(o1.getId().substring(1))< Integer.parseInt(o2.getId().substring(1))){
-                return -1;
-            }else{
-                return 0;
-            }
-        });
-
-
-
-        if (isFittest) {
-            System.out.println("Solution found!");
-        }else {
-            System.out.println("Solution not found!");
-        }
+        this.findSolution = isFittest;
 
         if (mode == 'T') {
             if (isFittest) {
