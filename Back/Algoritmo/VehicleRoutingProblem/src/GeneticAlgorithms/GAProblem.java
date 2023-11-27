@@ -22,7 +22,7 @@ public class GAProblem implements Cloneable {
     public int maxGenerations = 100000;
     public double depotRate = 0.2;
 
-    private int numOfOrders = 400;
+    private int numOfOrders = 50;
     private int numOfBlocks = 0;
     // Constructors
 

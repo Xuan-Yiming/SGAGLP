@@ -87,7 +87,7 @@ public class Solucion {
                         _node.y = ruta.get(k).y;
                         _node.idPedido = vehiculo.getRoute().get(i+1).getId();
                         _node.placa = "T" + vehiculo.getType() + vehiculo.getId();
-                        if (j == ruta.size() - 2) {
+                        if (j == ruta.size() - 2 && _node.idPedido.charAt(0) == 'C') {
                             _node.tipo = 'E';
                         }else if (k == j) {
                             _node.tipo = 'I';

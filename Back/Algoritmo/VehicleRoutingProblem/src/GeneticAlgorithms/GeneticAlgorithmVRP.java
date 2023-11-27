@@ -65,9 +65,17 @@ public class GeneticAlgorithmVRP {
 
         this.findSolution = isFittest;
 
+        if(!isFittest) {
+            System.out.println("Solution not found!");
+            // print the fitness
+            System.out.println("Fitness: " + fittest.getFitness());
+            
+        } else {
+            System.out.println("Solution found!");
+        }
+
         if (mode == 'T') {
             if (isFittest) {
-
                 System.out.println("Generation: " + i);
                 fittest.getChromosome().print();
                 System.out.println("Fitness: " + population.getFittest().getFitness());
