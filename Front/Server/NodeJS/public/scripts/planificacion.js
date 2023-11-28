@@ -7,6 +7,9 @@ var period = 40;
 const totalClocks = 1200;
 var clock = 0;
 
+var pedidosPendientes = [];
+var vehiclulosEnCamino = [];
+
 class Vehicle {
   constructor(id, x, y) {
     this.id = id;
@@ -77,31 +80,9 @@ document
 async function empezar() {
   //get the place of the cars
 
-  var vehicles = [];
-  var orders = [];
-
   //clean the map
-  document.querySelectorAll(".map__cell__vehicle").forEach((vehicle) => {
-    vehicles.push(
-      new Vehicle(
-        vehicle.getAttribute("data-id"),
-        parseInt(vehicle.getAttribute("data-x")),
-        parseInt(vehicle.getAttribute("data-y"))
-      )
-    );
+  document.querySelectorAll('[class*="map__cell__vehicle__"]').forEach((vehicle) => {
     vehicle.classList.remove("map__cell__vehicle");
-  });
-
-  document.querySelectorAll(".map__cell__custom").forEach((custom) => {
-    orders.push(
-      new Order(
-        custom.getAttribute("data-id"),
-        parseInt(custom.getAttribute("data-x")),
-        parseInt(custom.getAttribute("data-y")),
-        custom.getAttribute("data-entrega")
-      )
-    );
-    custom.classList.remove("map__cell__custom");
   });
 
   document.querySelectorAll(".map__cell__depot").forEach((depot) => {
@@ -113,8 +94,8 @@ async function empezar() {
   });
 
   let data = {
-    vehiculos: vehicles,
-    pedidos: orders,
+    vehiculos: vehiclulosEnCamino,
+    pedidos: pedidosPendientes,
   };
 
   //get the files
@@ -123,6 +104,8 @@ async function empezar() {
   formdata.append("fPedido", cmPedidos.files[0]);
   formdata.append("fBloqueo", cmBloqueos.files[0]);
   formdata.append("data", JSON.stringify(data));
+
+  console.log(JSON.stringify(data));
 
   fetch(
     "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json",
@@ -174,7 +157,9 @@ async function empezar() {
             element.y +
             "</td></tr>";
 
-
+              pedidosPendientes.push(
+                new Order(element.id, element.x, element.y, element.hora)
+              );
           pedidos++;
         } else if (element.tipo == "D") {
           seletecCell.classList.add("map__cell__depot");
@@ -247,6 +232,8 @@ async function processElements(result) {
           );
           break;
         case "E":
+          pedidosPendientes = pedidosPendientes.filter(item => item.id !== nodo.idPedido);
+        
           pedidosEntregados++;
           document.querySelector("#txtPedidosEntregados").value =
             pedidosEntregados;
@@ -254,6 +241,7 @@ async function processElements(result) {
           seletecCell.classList.add(
             "map__cell__vehicle__" + nodo.placa.match(/\d+/)[0]
           );
+          seletecCell.setAttribute("data-id", nodo.placa);
           break;
       }
       // set the destination of the vehicle
