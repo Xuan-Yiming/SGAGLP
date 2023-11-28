@@ -118,6 +118,8 @@ async function empezar() {
     .then((response) => response.json())
     .then((result) => {
       var vehicles = 0;
+      pedidosPendientes = [];
+      vehiclulosEnCamino = [];
       //mark the static elements
 
       //clean the table
@@ -165,12 +167,16 @@ async function empezar() {
           seletecCell.classList.add("map__cell__depot");
         } else if (element.tipo == "B") {
           seletecCell.classList.add("map__cell__block");
+        } else if (element.tipo == "V") {
+          vehiclulosEnCamino.push(
+            new Vehicle(element.id, element.x, element.y)
+          );
         }
       });
 
       document.querySelector("#txtPedidosProgramados").value = pedidos;
 
-      vehicles = result.elementosEnCadaClock[0].nodos.length;
+      vehicles = vehiclulosEnCamino.length;
       document.querySelector("#txtCantidadVehiculos").value = vehicles;
 
       processElements(result);
@@ -232,8 +238,10 @@ async function processElements(result) {
           );
           break;
         case "E":
-          pedidosPendientes = pedidosPendientes.filter(item => item.id !== nodo.idPedido);
-        
+          pedidosPendientes = pedidosPendientes.filter(
+            (item) => item.id !== nodo.idPedido
+          );
+
           pedidosEntregados++;
           document.querySelector("#txtPedidosEntregados").value =
             pedidosEntregados;
@@ -241,7 +249,17 @@ async function processElements(result) {
           seletecCell.classList.add(
             "map__cell__vehicle__" + nodo.placa.match(/\d+/)[0]
           );
-          seletecCell.setAttribute("data-id", nodo.placa);
+
+          //update the vehicle in the array vehiclulosEnCamino
+
+          var vehicleToUpdate = vehiclulosEnCamino.find(
+            (vehicle) => vehicle.id === nodo.placa
+          );
+          if (vehicleToUpdate) {
+            vehicleToUpdate.x = nodo.x;
+            vehicleToUpdate.y = nodo.y;
+          }
+
           break;
       }
       // set the destination of the vehicle

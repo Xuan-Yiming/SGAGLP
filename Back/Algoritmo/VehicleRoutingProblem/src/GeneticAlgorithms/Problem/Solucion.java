@@ -52,6 +52,15 @@ public class Solucion {
             elementosEstaticosTemporales.add(solucionNodo);
         }
 
+        for (Vehicle vehicle : problem.getVehicles()) {
+            SolucionNodo solucionNodo = new SolucionNodo();
+            solucionNodo.tipo = 'V';
+            solucionNodo.id = "T" + vehicle.getType() + vehicle.getId();
+            solucionNodo.x = vehicle.getPosicion().x;
+            solucionNodo.y = vehicle.getPosicion().y;
+            elementosEstaticosTemporales.add(solucionNodo);
+        }
+
         // elementos en cada clock
 
         // obstaculos
