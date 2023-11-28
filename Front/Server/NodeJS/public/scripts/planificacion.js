@@ -174,15 +174,7 @@ async function empezar() {
             element.y +
             "</td></tr>";
 
-          seletecCell.classList.add("map__cell__custom");
-          if (!seletecCell.getAttribute("data-id")) {
-            seletecCell.setAttribute("data-id", 0);
-          } else {
-            seletecCell.setAttribute(
-              "data-id",
-              parseInt(seletecCell.getAttribute("data-id")) + 1
-            );
-          }
+
           pedidos++;
         } else if (element.tipo == "D") {
           seletecCell.classList.add("map__cell__depot");

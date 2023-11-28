@@ -131,21 +131,6 @@ async function simular() {
             "</td></tr>";
 
           //add the custom to the map
-          seletecCell.classList.add("map__cell__custom");
-          if (!seletecCell.getAttribute("data-n")) {
-            seletecCell.setAttribute("data-n", 0);
-            seletecCell.setAttribute("data-id", element.id);
-          } else {
-            seletecCell.setAttribute(
-              "data-n",
-              parseInt(seletecCell.getAttribute("data-n")) + 1
-            );
-
-            seletecCell.setAttribute(
-              "data-id",
-              seletecCell.getAttribute("data-id") + "," + element.id
-            );
-          }
           pedidos++;
         } else if (element.tipo == "D") {
           seletecCell.classList.add("map__cell__depot");
