@@ -7,5 +7,5 @@ public class SolucionNodo {
     public String id;
     public int x;
     public int y;
-    public Date hora;
+    public String hora;
 }

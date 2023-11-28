@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class Solucion {
     // private int numOfDays = 1;
     public ArrayList<SolucionNodo> elementosEstaticosTemporales;
     public ArrayList<SolucionClock> elementosEnCadaClock;
-
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
     public Solucion() {
         elementosEstaticosTemporales = new ArrayList<>();
         elementosEnCadaClock = new ArrayList<>();
@@ -30,7 +32,7 @@ public class Solucion {
             solucionNodo.id = order.getId();
             solucionNodo.x = order.getPosicion().x;
             solucionNodo.y = order.getPosicion().y;
-            solucionNodo.hora = order.getFechaFinal();
+            solucionNodo.hora =  dateFormat.format(order.getFechaFinal());
             elementosEstaticosTemporales.add(solucionNodo);
         }
 
