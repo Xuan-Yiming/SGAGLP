@@ -297,7 +297,8 @@ public class NodeService {
 
         for (pe.com.pucp.DP15E.model.Node order : nodesPedidos) {
             if(order.getTipo()=='C'){
-                ordersAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node("C" + order.getId() , order.getX(), order.getY(), order.getCantidad(), Timestamp.valueOf(order.getFechaOrigen()), Timestamp.valueOf(order.getFechaOrigen().plusHours(order.getHoraDemandada()))));
+                //ordersAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node("C" + order.getId() , order.getX(), order.getY(), order.getCantidad(), Timestamp.valueOf(order.getFechaOrigen()), Timestamp.valueOf(order.getFechaOrigen().plusHours(order.getHoraDemandada()))));
+                ordersAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node(order.getId().toString() , order.getX(), order.getY(), order.getCantidad(), Timestamp.valueOf(order.getFechaOrigen()), Timestamp.valueOf(order.getFechaOrigen().plusHours(order.getHoraDemandada()))));
             }
         }
 
@@ -307,7 +308,8 @@ public class NodeService {
             }
         }
         for (pe.com.pucp.DP15E.model.Vehicle vehicle : vehicles) {
-            vehiclesAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Vehicle( vehicle.getId() , vehicle.getType().charAt(1), vehicle.getX(), vehicle.getY(), vehicle.getPesoBruto(),
+            vehiclesAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Vehicle( vehicle.getId() ,
+                    vehicle.getType().charAt(1), vehicle.getX(), vehicle.getY(), vehicle.getPesoBruto(),
                     vehicle.getCargaGLP(),vehicle.getPesoNeto(),vehicle.getVelocidad(),vehicle.getCargaPetroleo(),vehicle.getTotalTime(),vehicle.getMantenimiento()));
 
         }
@@ -429,13 +431,17 @@ public class NodeService {
                     //node.setPosicion(new Point(Integer.parseInt(data[1]),Integer.parseInt(data[2])));
                     parts = data[1].split(",");
 
-                    node.setX(Integer.parseInt(parts[0]));
-                    node.setY(Integer.parseInt(parts[1]));
+                    node.setX(Integer.parseInt(parts[0])-1);
+                    node.setY(Integer.parseInt(parts[1])-1);
                     node.setIdCliente(parts[2]);
                     node.setTipo('C');
                     node.setActivo(true);
                     String[] parts2 = parts[3].split("m");
-                    node.setCantidad(Double.parseDouble(parts2[0]));
+                    double cantidadAux;
+                    cantidadAux=Double.parseDouble(parts2[0]);
+
+                    node.setCantidad(cantidadAux);
+
                     parts2 = parts[4].split("h");
                     node.setHoraDemandada(Integer.parseInt(parts2[0]));
 

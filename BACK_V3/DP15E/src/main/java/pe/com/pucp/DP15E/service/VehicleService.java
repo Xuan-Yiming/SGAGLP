@@ -83,10 +83,7 @@ public class VehicleService {
                     String tipoV = data[1];
                     String tipo = data[1].substring(0, 2);
                     String typeA = "TA",typeB = "TB",typeC = "TC",typeD = "TD";
-                    double pesoBrutoB=2,pesoBrutoA=2.5,pesoBrutoC=1.5,pesoBrutoD=1,
-                            cargaGLPB=15,cargaGLPA=25,cargaGLPC=10,cargaGLPD=5,
-                            pesoCargaGLPB=7.5,pesoCargaGLPA=12.5,pesoCargaGLPC=5,pesoCargaGLPD=2.5;
-                    int unidadA=2,unidadB=4,unidadC=4,unidadD=10;
+                    vehicle.setId(Integer.parseInt(data[1].substring(2, 4)));
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(anho, mes, dia);
                     vehicle.setMantenimiento(calendar.getTime());
