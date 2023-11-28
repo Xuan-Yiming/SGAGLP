@@ -136,9 +136,9 @@ public class GeneticAlgorithmVRP {
 
         this.solucion = new Solucion(problem, fittest);
 
-        if (!isFittest) {
-            throw new Exception("Solution not found!");
-        }
+        // if (!isFittest) {
+        //     throw new Exception("Solution not found!");
+        // }
     }
 
     public void setProblem(GAProblem problem) {
