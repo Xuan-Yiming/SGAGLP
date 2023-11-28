@@ -76,16 +76,17 @@ async function simular() {
     block.classList.remove("map__cell__block");
   });
   var formdata = new FormData();
-  formdata.append("fFlota", cmFlota.files[0]);
-  formdata.append("fPedido", cmPedidos.files[0]);
-  formdata.append("fBloqueo", cmBloqueos.files[0]);
+  formdata.append("fileV", cmFlota.files[0]);
+  formdata.append("fileP", cmPedidos.files[0]);
+  formdata.append("fileB", cmBloqueos.files[0]);
 
   fetch(
-    "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json",
+    // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json"
+    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
     {
-      // method: "POST",
-      // body: formdata,
-      // redirect: "follow",
+      method: "POST",
+      body: formdata,
+      redirect: "follow",
     }
   )
     .then((response) => response.json())
