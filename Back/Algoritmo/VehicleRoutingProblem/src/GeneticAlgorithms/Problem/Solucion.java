@@ -14,16 +14,15 @@ public class Solucion {
     // private int numOfDays = 1;
     public ArrayList<SolucionNodo> elementosEstaticosTemporales;
     public ArrayList<SolucionClock> elementosEnCadaClock;
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
     public Solucion() {
         elementosEstaticosTemporales = new ArrayList<>();
         elementosEnCadaClock = new ArrayList<>();
     }
 
     public Solucion(GAProblem problem, Individual finalSolution) throws Exception {
-        ArrayList<SolucionCamion> elementosCamiones = new ArrayList<>();
         elementosEstaticosTemporales = new ArrayList<>();
         elementosEnCadaClock = new ArrayList<>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");  
 
         // elementos estaticos
         for (Node order : problem.getOrders()) {
