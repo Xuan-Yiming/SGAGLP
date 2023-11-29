@@ -4,6 +4,8 @@ var start;
 var pedidosEntregados = 0;
 var pedidos = 0;
 
+var currentDate = new Date();
+
 //set the date to today
 document.getElementById("txtFecha").valueAsDate = new Date();
 //set the fecha final to today + y days
@@ -55,10 +57,15 @@ document
     start = Date.now();
 
     //empezar la simulacion
+    this.currentDate = document.getElementById("txtFecha").valueAsDate;
     await simular();
   });
 
 async function simular() {
+  if (currentDate > document.getElementById("txtFechaFinal").valueAsDate) {
+    alert("Simulación terminada");
+    return;
+  }
   //clean the map
   document.querySelectorAll(".map__cell__vehicle").forEach((vehicle) => {
     vehicle.classList.remove("map__cell__vehicle");
@@ -150,7 +157,12 @@ async function simular() {
 
 async function processElements(result) {
   // for each clock
-  for (const element of result.elementosEnCadaClock) {
+  for (var i = 0; i < 1200; i++) {
+    var element = result.elementosEnCadaClock[i];
+    if (element == null) {
+      continue;
+    }
+  // for (const element of result.elementosEnCadaClock) {
     //remove the dinamic elements
 
     //remove all the vehicles
@@ -218,4 +230,7 @@ async function processElements(result) {
     document.querySelector("#txtDuracion").value = (end - start) / 1000;
     await new Promise((resolve) => setTimeout(resolve, 1000 / velocidad));
   }
+  
+  currentDate.setDate(currentDate.getDate() + 1);
+  simular();
 }

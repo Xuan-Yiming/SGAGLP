@@ -60,7 +60,7 @@ public class Vehicle implements Cloneable {
     public Vehicle(int id, char type, Date mantenimiento) {
         this.id = id;
         this.type = type;
-        switch (type){
+        switch (type) {
             case 'A':
                 this.pesoBruto = 2.5;
                 this.cargaGLP = 25;
@@ -78,10 +78,37 @@ public class Vehicle implements Cloneable {
                 this.cargaGLP = 5;
                 break;
         }
+        this.pesoNeto = this.pesoBruto + this.cargaGLP / 2;
+        this.mantenimiento = mantenimiento;
+        this.route = new ArrayList<>();
+        this.posicion = new Point(12, 8);
+    }
+    
+        public Vehicle(int id, char type, Date mantenimiento, int x, int y) {
+        this.id = id;
+        this.type = type;
+        switch (type){
+            case 'A':
+                this.pesoBruto = 2.5;
+                this.cargaGLP = 25;
+                break;
+            case 'B':
+                this.pesoBruto = 2;
+                this.cargaGLP = 15;
+                break;
+            case 'C':
+                this.pesoBruto = 1.5;
+                this.cargaGLP = 10;
+                break;
+            case 'D':
+                this.pesoBruto = 1; 
+                this.cargaGLP = 5;
+                break;
+        }
         this.pesoNeto = this.pesoBruto + this.cargaGLP/2;
         this.mantenimiento = mantenimiento;
         this.route = new ArrayList<>();
-        this.posicion = new Point(12,8);
+        this.posicion = new Point(x,y);
     }
 
     // getters and setters

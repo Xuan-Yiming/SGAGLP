@@ -14,15 +14,16 @@ public class Solucion {
     // private int numOfDays = 1;
     public ArrayList<SolucionNodo> elementosEstaticosTemporales;
     public ArrayList<SolucionClock> elementosEnCadaClock;
+
     public Solucion() {
         elementosEstaticosTemporales = new ArrayList<>();
         elementosEnCadaClock = new ArrayList<>();
     }
 
-    public Solucion(GAProblem problem, Individual finalSolution) throws Exception {
+    public Solucion(GAProblem problem, Individual finalSolution, int maxclock) throws Exception {
         elementosEstaticosTemporales = new ArrayList<>();
         elementosEnCadaClock = new ArrayList<>();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");  
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
 
         // elementos estaticos
         for (Node order : problem.getOrders()) {
@@ -31,7 +32,7 @@ public class Solucion {
             solucionNodo.id = order.getId();
             solucionNodo.x = order.getPosicion().x;
             solucionNodo.y = order.getPosicion().y;
-            solucionNodo.hora =  dateFormat.format(order.getFechaFinal());
+            solucionNodo.hora = dateFormat.format(order.getFechaFinal());
             elementosEstaticosTemporales.add(solucionNodo);
         }
 
@@ -71,7 +72,7 @@ public class Solucion {
             obstaculos.add(block.getPosicion());
         }
 
-        // 
+        //
         for (Gene vehiculo : finalSolution.getChromosome().genes) {
             int totalClock = 0;
 
@@ -90,25 +91,31 @@ public class Solucion {
                         solucionClock.nodos = new ArrayList<>();
                         this.elementosEnCadaClock.add(solucionClock);
                     }
-                    
+
                     for (int k = j; k < ruta.size() - 1; k++) {
                         solucionClockNode _node = new solucionClockNode();
                         _node.x = ruta.get(k).x;
                         _node.y = ruta.get(k).y;
-                        _node.idPedido = vehiculo.getRoute().get(i+1).getId();
+                        _node.idPedido = vehiculo.getRoute().get(i + 1).getId();
                         _node.placa = "T" + vehiculo.getType() + vehiculo.getId();
                         if (j == ruta.size() - 2 && _node.idPedido.charAt(0) == 'C') {
                             _node.tipo = 'E';
-                        }else if (k == j) {
+                        } else if (k == j) {
                             _node.tipo = 'I';
-                        }else if (k == ruta.size() - 2) {
+                        } else if (k == ruta.size() - 2) {
                             _node.tipo = 'X';
-                        }else {
+                        } else {
                             _node.tipo = 'R';
                         }
                         this.elementosEnCadaClock.get(totalClock).nodos.add(_node);
                     }
                     totalClock++;
+                    if (totalClock >= maxclock) {
+                        break;
+                    }
+                }
+                if (totalClock >= maxclock) {
+                    break;
                 }
             }
         }
@@ -124,7 +131,4 @@ public class Solucion {
         return json;
     }
 
-
 }
-
-

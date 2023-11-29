@@ -15,10 +15,10 @@ public class Main {
 
             switch ('R') {
                 case 'T':
-                    algorithmVRP = new GeneticAlgorithmVRP('T');
+                    algorithmVRP = new GeneticAlgorithmVRP('T',1200);
                     break;
                 case 'R':
-                    algorithmVRP = new GeneticAlgorithmVRP('R');
+                    algorithmVRP = new GeneticAlgorithmVRP('R',1200);
 
                     Solucion solucion = algorithmVRP.getSolucion();
 

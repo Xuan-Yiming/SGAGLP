@@ -19,7 +19,7 @@ public class GeneticAlgorithmVRP {
     private boolean findSolution = false;
 
     // Test
-    public GeneticAlgorithmVRP(char mode){
+    public GeneticAlgorithmVRP(char mode, int maxclock){
         if (this.problem == null) {
             this.problem = new GAProblem();
         }
@@ -89,7 +89,7 @@ public class GeneticAlgorithmVRP {
             }
         } else {
             try{
-                this.solucion = new Solucion(problem, fittest);
+                this.solucion = new Solucion(problem, fittest, maxclock);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -98,7 +98,7 @@ public class GeneticAlgorithmVRP {
     }
 
     // Real
-    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks) throws Exception {
+    public GeneticAlgorithmVRP(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks, int maxclock) throws Exception {
 
         this.problem = new GAProblem(orders, vehicles, blocks);
 
@@ -134,7 +134,7 @@ public class GeneticAlgorithmVRP {
             fittest.getChromosome().genes.get(j).getRoute().add(problem.getDepots().get(0));
         }
 
-        this.solucion = new Solucion(problem, fittest);
+        this.solucion = new Solucion(problem, fittest, int maxclock);
 
         // if (!isFittest) {
         //     throw new Exception("Solution not found!");
