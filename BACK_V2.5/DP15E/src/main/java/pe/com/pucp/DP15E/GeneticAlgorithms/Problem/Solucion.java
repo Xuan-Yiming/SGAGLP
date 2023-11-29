@@ -5,8 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +12,16 @@ public class Solucion {
     // private int numOfDays = 1;
     public ArrayList<SolucionNodo> elementosEstaticosTemporales;
     public ArrayList<SolucionClock> elementosEnCadaClock;
+
     public Solucion() {
         elementosEstaticosTemporales = new ArrayList<>();
         elementosEnCadaClock = new ArrayList<>();
     }
 
     public Solucion(GAProblem problem, Individual finalSolution) throws Exception {
+        ArrayList<SolucionCamion> elementosCamiones = new ArrayList<>();
         elementosEstaticosTemporales = new ArrayList<>();
         elementosEnCadaClock = new ArrayList<>();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");  
 
         // elementos estaticos
         for (Node order : problem.getOrders()) {
@@ -31,7 +30,7 @@ public class Solucion {
             solucionNodo.id = order.getId();
             solucionNodo.x = order.getPosicion().x;
             solucionNodo.y = order.getPosicion().y;
-            solucionNodo.hora =  dateFormat.format(order.getFechaFinal());
+            solucionNodo.hora = order.getFechaFinal();
             elementosEstaticosTemporales.add(solucionNodo);
         }
 
@@ -50,15 +49,6 @@ public class Solucion {
             solucionNodo.id = block.getId();
             solucionNodo.x = block.getPosicion().x;
             solucionNodo.y = block.getPosicion().y;
-            elementosEstaticosTemporales.add(solucionNodo);
-        }
-
-        for (Vehicle vehicle : problem.getVehicles()) {
-            SolucionNodo solucionNodo = new SolucionNodo();
-            solucionNodo.tipo = 'V';
-            solucionNodo.id = "T" + vehicle.getType() + vehicle.getId();
-            solucionNodo.x = vehicle.getPosicion().x;
-            solucionNodo.y = vehicle.getPosicion().y;
             elementosEstaticosTemporales.add(solucionNodo);
         }
 
