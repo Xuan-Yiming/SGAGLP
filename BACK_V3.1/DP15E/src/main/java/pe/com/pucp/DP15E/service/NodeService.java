@@ -306,7 +306,7 @@ public class NodeService {
             calendar.setTime(fechaEntrante);
             int mes = calendar.get(Calendar.MONTH) + 1; // Sumar 1 porque los meses en Calendar son de 0 a 11
             int dia = calendar.get(Calendar.DAY_OF_MONTH);
-            if(order.getFechaOrigen().getMonthValue() == mes && order.getFechaOrigen().getDayOfMonth() == dia){
+            if(order.getFechaOrigen().getMonthValue() == mes && order.getFechaOrigen().getDayOfMonth() == dia && (order.getFechaOrigen().getHour()+ order.getHoraDemandada()<24)){
                 if(order.getTipo()=='C'){
                     ordersAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node(order.getId().toString() , order.getX(), order.getY(), order.getCantidad(), Timestamp.valueOf(order.getFechaOrigen()), Timestamp.valueOf(order.getFechaOrigen().plusHours(order.getHoraDemandada()))));
                 }
@@ -322,10 +322,11 @@ public class NodeService {
             calendar.setTime(fechaEntrante);
             int mes = calendar.get(Calendar.MONTH) + 1; // Sumar 1 porque los meses en Calendar son de 0 a 11
             int dia = calendar.get(Calendar.DAY_OF_MONTH);
-            if(fechaLocalDate.getMonthValue()== mes && fechaLocalDate.getDayOfMonth() == dia){
+            java.util.Date dateAux=  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(order.getFechaInicio());
+            java.util.Date dateAux2=  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(order.getFechaFinal());
+
+            if(fechaLocalDate.getMonthValue()== mes && fechaLocalDate.getDayOfMonth() == dia && (dateAux.getHours()+order.getHoraDemandada() <24)){
                 if(order.getTipo()=='B'){
-                    java.util.Date dateAux=  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(order.getFechaInicio());
-                    java.util.Date dateAux2=  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(order.getFechaFinal());
 
                     blocksAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node(order.getId(), order.getX(), order.getY(), dateAux,  dateAux2)) ;
                 }
