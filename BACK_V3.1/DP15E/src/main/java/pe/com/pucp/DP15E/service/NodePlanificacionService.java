@@ -148,7 +148,7 @@ public class NodePlanificacionService {
                     vehicle.getCargaGLP(),vehicle.getPesoNeto(),vehicle.getVelocidad(),vehicle.getCargaPetroleo(),vehicle.getTotalTime(),vehicle.getMantenimiento()));
 
         }
-        GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(ordersAlgorit,vehiclesAlgorit,blocksAlgorit);
+        GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(ordersAlgorit,vehiclesAlgorit,blocksAlgorit,40);
         //Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
         //ExecutorService executorService = Executors.newFixedThreadPool(2);
         if(solucionNodoRepository.count() != 0){
@@ -665,7 +665,7 @@ public class NodePlanificacionService {
                     vehicle.getCargaGLP(),vehicle.getPesoNeto(),vehicle.getVelocidad(),vehicle.getCargaPetroleo(),vehicle.getTotalTime(),vehicle.getMantenimiento()));
 
         }
-        GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(ordersAlgorit,vehiclesAlgorit,blocksAlgorit);
+        GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(ordersAlgorit,vehiclesAlgorit,blocksAlgorit,40);
         //Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
         if(solucionNodoRepository.count() != 0){
             solucionNodoRepository.deleteAll();
@@ -864,7 +864,7 @@ public class NodePlanificacionService {
                     vehicle.getCargaGLP(),vehicle.getPesoNeto(),vehicle.getVelocidad(),vehicle.getCargaPetroleo(),vehicle.getTotalTime(),vehicle.getMantenimiento()));
 
         }
-        GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(ordersAlgorit,vehiclesAlgorit,blocksAlgorit);
+        GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(ordersAlgorit,vehiclesAlgorit,blocksAlgorit,40);
         //Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
         if(solucionNodoRepository.count() != 0){
             solucionNodoRepository.deleteAll();

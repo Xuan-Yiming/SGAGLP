@@ -24,7 +24,8 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.sql.Date;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
@@ -282,10 +283,14 @@ public class NodeService {
     }*/
 
 
-    public String algoritmoSimulacion(MultipartFile filePedidos, MultipartFile fileBloqueos, MultipartFile fileVehiculos) throws Exception {
+    public String algoritmoSimulacion(Date fechaEntrante,MultipartFile filePedidos, MultipartFile fileBloqueos, MultipartFile fileVehiculos) throws Exception {
         try {
         VehicleService vehicleService = new VehicleService(vehicleRepository);
         int i=0;
+
+        /*Instant instant = fechaEntrante.toInstant();
+        ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+        LocalDate fechaEntranteLocalDate = zonedDateTime.toLocalDate();*/
         //List<Object[]> resultList = nodeRepository.listarDataImportanteC();
         ArrayList<Node> nodesPedidos = cargaMasivaDePedidos2(filePedidos);
         ArrayList<Node> nodesBloqueos = cargaMasivaDeBloqueos(fileBloqueos);
@@ -297,22 +302,42 @@ public class NodeService {
         ArrayList<pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node> blocksAlgorit = new ArrayList<>();
 
         for (pe.com.pucp.DP15E.model.Node order : nodesPedidos) {
-            if(order.getTipo()=='C'){
-                ordersAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node(order.getId().toString() , order.getX(), order.getY(), order.getCantidad(), Timestamp.valueOf(order.getFechaOrigen()), Timestamp.valueOf(order.getFechaOrigen().plusHours(order.getHoraDemandada()))));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaEntrante);
+            int mes = calendar.get(Calendar.MONTH) + 1; // Sumar 1 porque los meses en Calendar son de 0 a 11
+            int dia = calendar.get(Calendar.DAY_OF_MONTH);
+            if(order.getFechaOrigen().getMonthValue() == mes && order.getFechaOrigen().getDayOfMonth() == dia && (order.getFechaOrigen().getHour()+ order.getHoraDemandada()<24)){
+                if(order.getTipo()=='C'){
+                    ordersAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node(order.getId().toString() , order.getX(), order.getY(), order.getCantidad(), Timestamp.valueOf(order.getFechaOrigen()), Timestamp.valueOf(order.getFechaOrigen().plusHours(order.getHoraDemandada()))));
+                }
             }
+
         }
 
         for (pe.com.pucp.DP15E.model.Node order : nodesBloqueos) {
-            if(order.getTipo()=='B'){
-                blocksAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node(order.getId(), order.getX(), order.getY(), Timestamp.valueOf(order.getFechaInicio()),  Timestamp.valueOf(order.getFechaFinal())) );
+            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            //LocalDateTime fechaOrigenLocalDateTime = LocalDateTime.parse(order.getFechaInicio(), formatter);
+            LocalDate fechaLocalDate = LocalDate.parse(order.getFechaInicio(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaEntrante);
+            int mes = calendar.get(Calendar.MONTH) + 1; // Sumar 1 porque los meses en Calendar son de 0 a 11
+            int dia = calendar.get(Calendar.DAY_OF_MONTH);
+            java.util.Date dateAux=  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(order.getFechaInicio());
+            java.util.Date dateAux2=  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(order.getFechaFinal());
+
+            if(fechaLocalDate.getMonthValue()== mes && fechaLocalDate.getDayOfMonth() == dia && (dateAux.getHours()+order.getHoraDemandada() <24)){
+                if(order.getTipo()=='B'){
+
+                    blocksAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node(order.getId(), order.getX(), order.getY(), dateAux,  dateAux2)) ;
+                }
             }
-        }
-        for (pe.com.pucp.DP15E.model.Vehicle vehicle : vehicles) {
-            vehiclesAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Vehicle( vehicle.getId() , vehicle.getType().charAt(1), vehicle.getX(), vehicle.getY(), vehicle.getPesoBruto(),
-                    vehicle.getCargaGLP(),vehicle.getPesoNeto(),vehicle.getVelocidad(),vehicle.getCargaPetroleo(),vehicle.getTotalTime(),vehicle.getMantenimiento()));
 
         }
-        GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(ordersAlgorit,vehiclesAlgorit,blocksAlgorit);
+        for (pe.com.pucp.DP15E.model.Vehicle vehicle : vehicles) {
+            vehiclesAlgorit.add(new pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Vehicle( vehicle.getId() , vehicle.getType().charAt(1),vehicle.getMantenimiento()));
+
+        }
+        GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(ordersAlgorit,vehiclesAlgorit,blocksAlgorit,1200);
         //Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
 
         return geneticAlgorithmVRP.getSolucion().solucionToJson();
@@ -387,7 +412,7 @@ public class NodeService {
                     vehicle.getCargaGLP(),vehicle.getPesoNeto(),vehicle.getVelocidad(),vehicle.getCargaPetroleo(),vehicle.getTotalTime(),vehicle.getMantenimiento()));
 
         }
-        GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(ordersAlgorit,vehiclesAlgorit,blocksAlgorit);
+        GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(ordersAlgorit,vehiclesAlgorit,blocksAlgorit,40);
         //Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
 
         return geneticAlgorithmVRP.getSolucion().solucionToJson();
@@ -505,8 +530,10 @@ public class NodeService {
                         node.setCantidad(Math.min(25, cantidadAux));
 
                         node.setHoraDemandada(horaDemandadaAux);
+                        if(Integer.parseInt(parts[0])<70 && Integer.parseInt(parts[1])<50){
+                            listaNodos.add(node);
+                        }
 
-                        listaNodos.add(node);
 
                         // Restar la cantidad del nodo creado
                         cantidadAux -= 25;
@@ -742,7 +769,10 @@ public class NodeService {
                         node.setY(y);
                         node.setTipo('B');
                         node.setActivo(true);
-                        ListaNode.add(node);
+                        if(x<70 && y<50){
+                            ListaNode.add(node);
+                        }
+
 
                         processBloqueo(ListaNode,listaNodos);
                     }
