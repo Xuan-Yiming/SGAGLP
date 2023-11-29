@@ -82,7 +82,7 @@ async function simular() {
 
   fetch(
     // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json"
-    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
+    "http://inf226-981-5e.inf.pucp.edu.pe/DP15E/api/v1/node/algoritmoSimulacion",
     {
       method: "POST",
       body: formdata,
