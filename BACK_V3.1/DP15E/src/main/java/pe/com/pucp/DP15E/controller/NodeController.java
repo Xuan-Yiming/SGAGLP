@@ -50,9 +50,9 @@ public class NodeController {
     }
 */
     @PostMapping(path ="/algoritmoSimulacion")
-    public String algoritmoSimulacion(@RequestParam("fileP") MultipartFile fileP,@RequestParam("fileB") MultipartFile fileB,
+    public String algoritmoSimulacion(@RequestParam("date") Date date ,@RequestParam("fileP") MultipartFile fileP,@RequestParam("fileB") MultipartFile fileB,
     @RequestParam("fileV") MultipartFile fileV) throws Exception {
-        return nodeService.algoritmoSimulacion(fileP,fileB,fileV);
+        return nodeService.algoritmoSimulacion(date,fileP,fileB,fileV);
     }
 
     /*@GetMapping(path ="/listarDataResultadoAlgoritmo4")
