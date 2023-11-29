@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Vehicle implements Cloneable {
-    private static final int MINUTES_IN_A_DAY = 1440;
     private int id;
     private Point posicion;
     private char type;

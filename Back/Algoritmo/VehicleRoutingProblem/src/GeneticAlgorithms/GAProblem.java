@@ -5,7 +5,6 @@ import GeneticAlgorithms.Extra.PendingOrders;
 import GeneticAlgorithms.Problem.Node;
 import GeneticAlgorithms.Problem.Vehicle;
 
-import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,7 +15,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 public class GAProblem implements Cloneable {

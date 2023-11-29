@@ -1,8 +1,5 @@
 package GeneticAlgorithms;
 
-import GeneticAlgorithms.Problem.Node;
-import GeneticAlgorithms.Problem.Vehicle;
-
 import java.util.ArrayList;
 
 //conjunto de soluciones
