@@ -2,7 +2,6 @@ package GeneticAlgorithms;
 
 import GeneticAlgorithms.Problem.Node;
 
-import javax.swing.text.html.InlineView;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,92 +17,50 @@ public class GeneticOperators {
     public ArrayList<Individual> selection(Population population) {
         ArrayList<Individual> parents = new ArrayList<>();
         parents.add(population.getFittest());
-        parents.add(population.getSecondFittest());
+        parents.add(new Individual(problem));
+
         return parents;
     }
 
     public ArrayList<Individual> crossover(ArrayList<Individual> parents) {
         Random random = new Random();
         int maxVehicle = parents.get(0).getChromosome().genes.size();
-        int minNode = Integer.MAX_VALUE;
+
         Individual child1 = parents.get(0).clone();
         Individual child2 = parents.get(1).clone();
 
-        for (int i = 0; i < maxVehicle; i++) {
-            child1.getChromosome().genes.get(i).setRoute(new ArrayList<>());
-            child2.getChromosome().genes.get(i).setRoute(new ArrayList<>());
-        }
+        while (random.nextDouble() < problem.crossoverRate) {
+            int index1 = random.nextInt(maxVehicle);
+            int index2 = random.nextInt(maxVehicle);
 
-        for (int i = 0; i < maxVehicle; i++) {
-            if (parents.get(0).getChromosome().genes.get(i).getRoute().size() < minNode) {
-                minNode = parents.get(0).getChromosome().genes.get(i).getRoute().size();
-            }
-            if (parents.get(1).getChromosome().genes.get(i).getRoute().size() < minNode) {
-                minNode = parents.get(1).getChromosome().genes.get(i).getRoute().size();
-            }
-        }
+            //switch the routes of gen(index) between the two children
+            //only switch the routes begin from the second node
 
-        if (minNode == 0 || maxVehicle == 0) {
-            return parents;
-        }
-        int verticalCrossPoint = random.nextInt(maxVehicle);
-        int horizontalCrossPoint = minNode;
 
-        /*
-        * 1111111111222222
-        * 1111111111222222
-        * 1111111111222222
-        * 1111111111222222
-        * 1111111111222222
-        * 1111111111222222
-        *
-        * */
-        if (random.nextDouble() < 0.5) {
-//            parents.get(0).getChromosome().print();
-            for (int i = 0; i < parents.get(0).getChromosome().genes.size(); i++) {
-                for (int j = 0; j < parents.get(0).getChromosome().genes.get(i).getRoute().size() && j< horizontalCrossPoint; j++) {
-                        // if before the cross point
-                        child1.getChromosome().genes.get(i).getRoute()
-                                .add(parents.get(0).getChromosome().genes.get(i).getRoute().get(j));
-                }
-            }
-            for (int i = 0; i < parents.get(0).getChromosome().genes.size(); i++) {
-                for (int j = horizontalCrossPoint; j < parents.get(0).getChromosome().genes.get(i).getRoute().size(); j++) {
-                        int index = 0;
-                        if (i + verticalCrossPoint >= maxVehicle){
-                            index = (i + verticalCrossPoint) - maxVehicle;
-                        }else {
-                            index = i + verticalCrossPoint;
-                        }
-                        child1.getChromosome().genes.get(index).getRoute()
-                                .add(parents.get(0).getChromosome().genes.get(i).getRoute().get(j));
-
-                }
-            }
-//            System.out.println("========================================================");
-//            child1.getChromosome().print();
-
-            for (int i = 0; i < parents.get(1).getChromosome().genes.size(); i++) {
-                for (int j = 0; j < parents.get(1).getChromosome().genes.get(i).getRoute().size() && j< horizontalCrossPoint; j++) {
-                        // if before the cross point
-                        child2.getChromosome().genes.get(i).getRoute()
-                                .add(parents.get(1).getChromosome().genes.get(i).getRoute().get(j));
-                }
+            if (child1.getChromosome().genes.get(index1).getRoute().size() == 1
+                    || child2.getChromosome().genes.get(index2).getRoute().size() == 1) {
+                continue;
             }
 
-            for (int i = 0; i < parents.get(1).getChromosome().genes.size(); i++) {
-                for (int j = horizontalCrossPoint; j < parents.get(1).getChromosome().genes.get(i).getRoute().size(); j++) {
-                        int index = 0;
-                        if (i + verticalCrossPoint >= maxVehicle){
-                            index = (i + verticalCrossPoint) - maxVehicle;
-                        }else {
-                            index = i + verticalCrossPoint;
-                        }
-                        child2.getChromosome().genes.get(index).getRoute()
-                                .add(parents.get(1).getChromosome().genes.get(i).getRoute().get(j));
+            // Get the first node from each route
+            Node firstNode1 = child1.getChromosome().genes.get(index1).getRoute().get(0);
+            Node firstNode2 = child2.getChromosome().genes.get(index2).getRoute().get(0);
 
-                }
-            }
+            // Get the remaining route from each child
+            ArrayList<Node> remaining1 = new ArrayList<>(child1.getChromosome().genes.get(index1).getRoute().subList(1, child1.getChromosome().genes.get(index1).getRoute().size()));
+            ArrayList<Node> remaining2 = new ArrayList<>(child2.getChromosome().genes.get(index2).getRoute().subList(1, child2.getChromosome().genes.get(index2).getRoute().size()));
+
+            // Clear the routes from each child
+            child1.getChromosome().genes.get(index1).getRoute().clear();
+            child2.getChromosome().genes.get(index2).getRoute().clear();
+
+            // Add the first node back to each route
+            child1.getChromosome().genes.get(index1).getRoute().add(firstNode1);
+            child2.getChromosome().genes.get(index2).getRoute().add(firstNode2);
+
+            // Switch the remaining routes
+            child1.getChromosome().genes.get(index1).getRoute().addAll(remaining2);
+            child2.getChromosome().genes.get(index2).getRoute().addAll(remaining1);
 
         }
 
@@ -113,6 +70,7 @@ public class GeneticOperators {
                 add(child2);
             }
         };
+
     }
 
     public ArrayList<Individual> mutation(ArrayList<Individual> parents) {
@@ -122,29 +80,134 @@ public class GeneticOperators {
         Individual child1 = parents.get(0).clone();
         Individual child2 = parents.get(1).clone();
 
+        int minNode = Integer.MAX_VALUE;
+
+        Individual parent1 = parents.get(0);
+        Individual parent2 = parents.get(1);
+
+        // mutate the genes
+        if (random.nextDouble() < this.mutationRate) {
+            if (random.nextDouble() < 0.5) {
+
+                maxVehicle = parent1.getChromosome().genes.size();
+
+                // clear the routes
+                for (int i = 0; i < maxVehicle; i++) {
+                    child1.getChromosome().genes.get(i).setRoute(new ArrayList<>());
+                }
+
+                // get the minimum number of nodes in the routes
+                for (int i = 0; i < maxVehicle; i++) {
+                    if (parent1.getChromosome().genes.get(i).getRoute().size() < minNode) {
+                        minNode = parent1.getChromosome().genes.get(i).getRoute().size();
+                    }
+                }
+
+                if (minNode == 0 || minNode == 1 || maxVehicle == 0) {
+                    return parents;
+                }
+
+                // get the cross point
+                int verticalCrossPoint = random.nextInt(maxVehicle);
+
+                // make sure the cross point is not the first node
+                int horizontalCrossPoint = random.nextInt(minNode-1)+1;
+
+                for (int iov = 0; iov < parent1.getChromosome().genes.size(); iov++) {
+                    Gene vehicle = parent1.getChromosome().genes.get(iov);
+                    for (int ioo = 0; ioo < vehicle.getRoute().size()
+                            && ioo < horizontalCrossPoint; ioo++) {
+                        // if before the cross point
+                        child1.getChromosome().genes.get(iov).getRoute()
+                                .add(parent1.getChromosome().genes.get(iov).getRoute().get(ioo));
+                    }
+                }
+                for (int iov = 0; iov < parent1.getChromosome().genes.size(); iov++) {
+                    Gene vehicle = parent1.getChromosome().genes.get(iov);
+                    for (int ioo = horizontalCrossPoint; ioo < vehicle.getRoute().size(); ioo++) {
+                        int index = (iov + verticalCrossPoint) % maxVehicle;
+                        child1.getChromosome().genes.get(index).getRoute()
+                                .add(parent1.getChromosome().genes.get(iov).getRoute().get(ioo));
+
+                    }
+                }
+
+            } else {
+
+                maxVehicle = parent1.getChromosome().genes.size();
+
+                // clear the routes
+                for (int i = 0; i < maxVehicle; i++) {
+                    child2.getChromosome().genes.get(i).setRoute(new ArrayList<>());
+                }
+
+                // get the minimum number of nodes in the routes
+                for (int i = 0; i < maxVehicle; i++) {
+                    if (parent2.getChromosome().genes.get(i).getRoute().size() < minNode) {
+                        minNode = parent2.getChromosome().genes.get(i).getRoute().size();
+                    }
+                }
+
+                if (minNode == 0 || minNode == 1 || maxVehicle == 0) {
+                    return parents;
+                }
+
+                // get the cross point
+                int verticalCrossPoint = random.nextInt(maxVehicle);
+                                
+                // make sure the cross point is not the first node
+                int horizontalCrossPoint = random.nextInt(minNode-1)+1;
+
+                for (int iov = 0; iov < parent2.getChromosome().genes.size(); iov++) {
+                    Gene vehicle = parent2.getChromosome().genes.get(iov);
+                    for (int ioo = 0; ioo < vehicle.getRoute().size()
+                            && ioo < horizontalCrossPoint; ioo++) {
+                        // if before the cross point
+                        child2.getChromosome().genes.get(iov).getRoute()
+                                .add(parent2.getChromosome().genes.get(iov).getRoute().get(ioo));
+                    }
+                }
+                for (int iov = 0; iov < parent2.getChromosome().genes.size(); iov++) {
+                    Gene vehicle = parent2.getChromosome().genes.get(iov);
+                    for (int ioo = horizontalCrossPoint; ioo < vehicle.getRoute().size(); ioo++) {
+                        int index = (iov + verticalCrossPoint) % maxVehicle;
+                        child2.getChromosome().genes.get(index).getRoute()
+                                .add(parent2.getChromosome().genes.get(iov).getRoute().get(ioo));
+
+                    }
+                }
+            }
+        }
+        
+        // switch random genes between two individuals
         while (random.nextDouble() < this.mutationRate) {
 
-            //get a random number < 1,
-            //if it is less than 0.50 than mutate child1, otherwise mutate child2
+            // get a random number < 1,
+            // if it is less than 0.50 than mutate child1, otherwise mutate child2
 
-            if(random.nextDouble() < 0.50) {
+            if (random.nextDouble() < 0.50) {
 
                 int mutationVehicle1 = random.nextInt(maxVehicle);
                 int maxNode = child1.getChromosome().genes.get(mutationVehicle1).getRoute().size();
-                if (maxNode == 0) {
+                if (maxNode == 0 || maxNode == 1) {
                     continue;
                 }
-                int mutationNode1 = random.nextInt(maxNode);
+                                // make sure the node is not the first one
+                int mutationNode1 = random.nextInt(maxNode-1)+1;
 
                 int mutationVehicle2 = random.nextInt(maxVehicle);
                 maxNode = child1.getChromosome().genes.get(mutationVehicle2).getRoute().size();
-                int mutationNode2 = random.nextInt(maxNode);
+                if (maxNode == 0 || maxNode == 1) {
+                    continue;
+                }
+                // make sure the node is not the first one
+                int mutationNode2 = random.nextInt(maxNode-1)+1;
 
                 // check if the node exits in the route, if not continue the loop
                 if (child1.getChromosome().genes.get(mutationVehicle2).getRoute().size() < mutationNode2) {
                     continue;
                 }
-
+                // check if the node exits in the route, if not continue the loop
                 if (child1.getChromosome().genes.get(mutationVehicle1).getRoute().size() < mutationNode1) {
                     continue;
                 }
@@ -154,16 +217,30 @@ public class GeneticOperators {
                 child1.getChromosome().genes.get(mutationVehicle1).getRoute().set(mutationNode1,
                         child1.getChromosome().genes.get(mutationVehicle2).getRoute().get(mutationNode2));
                 child1.getChromosome().genes.get(mutationVehicle2).getRoute().set(mutationNode2, temp);
-            }else{
+
+                if (random.nextDouble() < 0.50) {
+                    // randomly choose a node from the last one of a route to add to another route
+                    child1.getChromosome().genes.get(mutationVehicle1).getRoute()
+                            .add(child1.getChromosome().genes.get(mutationVehicle2).getRoute().get(
+                                    child1.getChromosome().genes.get(mutationVehicle2).getRoute().size() - 1));
+                    // remove the last node
+                    child1.getChromosome().genes.get(mutationVehicle2).getRoute()
+                            .remove(child1.getChromosome().genes.get(mutationVehicle2).getRoute().size() - 1);
+                }
+
+            } else {
                 int mutationVehicle1 = random.nextInt(maxVehicle);
                 int maxNode = child2.getChromosome().genes.get(mutationVehicle1).getRoute().size();
-                if (maxNode == 0) {
+                if (maxNode == 0 || maxNode == 1) {
                     continue;
                 }
                 int mutationNode1 = random.nextInt(maxNode);
 
                 int mutationVehicle2 = random.nextInt(maxVehicle);
                 maxNode = child2.getChromosome().genes.get(mutationVehicle2).getRoute().size();
+                if (maxNode == 0 || maxNode == 1) {
+                    continue;
+                }
                 int mutationNode2 = random.nextInt(maxNode);
 
                 // check if the node exits in the route, if not continue the loop
@@ -180,26 +257,15 @@ public class GeneticOperators {
                 child2.getChromosome().genes.get(mutationVehicle1).getRoute().set(mutationNode1,
                         child2.getChromosome().genes.get(mutationVehicle2).getRoute().get(mutationNode2));
                 child2.getChromosome().genes.get(mutationVehicle2).getRoute().set(mutationNode2, temp);
-            }
-        }
 
-        // remove two depots whichs are together in the route
-        for (int i = 0; i < child1.getChromosome().genes.size(); i++) {
-            for (int j = 0; j < child1.getChromosome().genes.get(i).getRoute().size() - 1; j++) {
-                if (child1.getChromosome().genes.get(i).getRoute().get(j).getTipo() == 'D' &&
-                        child1.getChromosome().genes.get(i).getRoute().get(j + 1).getTipo() == 'D'
-                        && j + 1 < child1.getChromosome().genes.get(i).getRoute().size()) {
-                    child1.getChromosome().genes.get(i).getRoute().remove(j);
-                }
-            }
-        }
-        
-        for (int i = 0; i < child2.getChromosome().genes.size(); i++) {
-            for (int j = 0; j < child2.getChromosome().genes.get(i).getRoute().size() - 1; j++) {
-                if (child2.getChromosome().genes.get(i).getRoute().get(j).getTipo() == 'D' &&
-                        child2.getChromosome().genes.get(i).getRoute().get(j + 1).getTipo() == 'D'
-                        && j + 1 < child2.getChromosome().genes.get(i).getRoute().size()) {
-                    child2.getChromosome().genes.get(i).getRoute().remove(j);
+                if (random.nextDouble() < 0.50) {
+                    // randomly choose a node from the last one of a route to add to another route
+                    child2.getChromosome().genes.get(mutationVehicle1).getRoute()
+                            .add(child2.getChromosome().genes.get(mutationVehicle2).getRoute().get(
+                                    child2.getChromosome().genes.get(mutationVehicle2).getRoute().size() - 1));
+                    // remove the last node
+                    child2.getChromosome().genes.get(mutationVehicle2).getRoute()
+                            .remove(child2.getChromosome().genes.get(mutationVehicle2).getRoute().size() - 1);
                 }
             }
         }

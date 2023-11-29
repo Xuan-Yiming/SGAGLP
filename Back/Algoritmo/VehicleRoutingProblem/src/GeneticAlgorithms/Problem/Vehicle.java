@@ -87,7 +87,7 @@ public class Vehicle implements Cloneable {
         public Vehicle(int id, char type, Date mantenimiento, int x, int y) {
         this.id = id;
         this.type = type;
-        switch (type){
+        switch (type) {
             case 'A':
                 this.pesoBruto = 2.5;
                 this.cargaGLP = 25;
@@ -101,7 +101,7 @@ public class Vehicle implements Cloneable {
                 this.cargaGLP = 10;
                 break;
             case 'D':
-                this.pesoBruto = 1; 
+                this.pesoBruto = 1;
                 this.cargaGLP = 5;
                 break;
         }

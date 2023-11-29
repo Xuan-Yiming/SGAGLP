@@ -8,4 +8,5 @@ public class SolucionNodo {
     public int x;
     public int y;
     public String hora;
+    public double cantidad;
 }

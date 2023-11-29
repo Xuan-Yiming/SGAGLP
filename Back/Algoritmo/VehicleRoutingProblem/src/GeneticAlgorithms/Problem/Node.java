@@ -22,11 +22,11 @@ public class Node implements Cloneable {
         this.posicion = new Point(x, y);
         this.tipo = 'B';
         this.id = "B" + id;
-        this.fechaInicio = new Date();
-        this.fechaFinal = new Date();
+        this.fechaInicio = fechaInicio;
+        this.fechaFinal = fechaFinal;
     }
 
-    public Node(String id, int x, int y, double cantidad, Date fechaInicio, Date fechaFinal) {
+    public Node(int id, int x, int y, double cantidad, Date fechaInicio, Date fechaFinal) {
         // Customer
         this.id = "C" + id;
         this.posicion = new Point(x, y);

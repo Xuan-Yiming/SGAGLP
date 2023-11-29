@@ -1,14 +1,22 @@
 package GeneticAlgorithms;
 
+import GeneticAlgorithms.Extra.CurrentVehicle;
+import GeneticAlgorithms.Extra.PendingOrders;
 import GeneticAlgorithms.Problem.Node;
-import GeneticAlgorithms.Problem.Solucion;
 import GeneticAlgorithms.Problem.Vehicle;
-import GeneticAlgorithms.Problem.solucionClockNode;
 
 import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 public class GAProblem implements Cloneable {
@@ -18,29 +26,264 @@ public class GAProblem implements Cloneable {
     private ArrayList<Node> blocks;
 
     public int populationSize = 10;
-    public double mutationRate = 0.6;
     public int maxGenerations = 100000;
-    public double depotRate = 0.2;
 
-    private int numOfOrders = 200;
-    private int numOfBlocks = 0;
+    public double crossoverRate = 0.5;
+    public double mutationRate = 0.5;
+    public double depotRate = 0.4;
+
+    private int numOfOrders = 100;
+    private int numOfBlocks = 50;
+
+    public int maxclock = 40;
     // Constructors
 
-    //simulacion
-    public GAProblem(ArrayList<Node> orders, ArrayList<Vehicle> vehicles, ArrayList<Node> blocks) {
+    // Load from file
+    public GAProblem(Date startDate, Date endDate, ArrayList<CurrentVehicle> currentVehicle,
+            ArrayList<PendingOrders> pendingOrders, char mode) throws Exception {
+        // read and load the vehicles from file data/mantenimiento/mantpreventivo.txt
+        // 20230801:TA01 year month day:T vehicleType vehicleId
+
+        if (startDate == null || endDate == null) {
+            throw new NullPointerException("startDate or endDate is null");
+        }
 
         this.depots = new ArrayList<>();
         this.depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
         this.depots.add(new Node(2, 42, 42, Double.MAX_VALUE));
         this.depots.add(new Node(3, 63, 3, Double.MAX_VALUE));
 
+        this.vehicles = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("./data/mantenimiento/mantpreventivo.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                String datePart = parts[0];
+                String vehiclePart = parts[1];
 
-        this.orders = orders;
-        this.vehicles = vehicles;
-        this.blocks = blocks;
+                String year = datePart.substring(0, 4);
+                String month = datePart.substring(4, 6);
+                String day = datePart.substring(6, 8);
+
+                // if the startDate has the same year and month and day as vehicle's date, then
+                // cotinue
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(startDate);
+                if (calendar.get(Calendar.YEAR) == Integer.parseInt(year)
+                        && calendar.get(Calendar.MONTH) == Integer.parseInt(month) - 1
+                        && calendar.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(day)) {
+                    continue;
+                }
+
+                String vehicleType = vehiclePart.substring(1, 2);
+                String vehicleId = vehiclePart.substring(2);
+
+                // Assuming Vehicle constructor takes (year, month, day, type, id)
+                calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+
+                Vehicle vehicle;
+                Boolean isCurrent = false;
+                // if the vehicle is in the currentVehicle, then continue
+                if (currentVehicle != null) {
+                    for (CurrentVehicle current : currentVehicle) {
+                        if (current.id == Integer.parseInt(vehicleId)) {
+                            vehicle = new Vehicle(Integer.parseInt(vehicleId), vehicleType.charAt(0),
+                                    calendar.getTime(),
+                                    current.x, current.y);
+                            isCurrent = true;
+                            this.vehicles.add(vehicle);
+                        }
+                    }
+                }
+
+                if (!isCurrent) {
+                    vehicle = new Vehicle(Integer.parseInt(vehicleId), vehicleType.charAt(0), calendar.getTime());
+                    this.vehicles.add(vehicle);
+                }
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // read and load the blocks from file ./data/bloqueo/202311.bloqueos.txt
+        // 29d00h11m-29d20h51m:10,20,10,21,10,22 dayOfMoth d HourOfday h MinuteOfHour m
+        // - dayOfMoth d HourOfday h MinuteOfHour m: x, y, x, y, x, y, ...
+        this.blocks = new ArrayList<>();
+        int id = 0;
+
+        // get each file under ./data/bloqueo/
+        // for each file, read and load the blocks
+
+        Path dir = Paths.get("./data/bloqueo/");
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path file : stream) {
+                try (BufferedReader br = new BufferedReader(new FileReader(file.toFile()))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        String[] parts = line.split(":");
+                        String timePart = parts[0];
+                        String[] coordinates = parts[1].split(",");
+
+                        String[] times = timePart.split("-");
+                        String startTime = times[0];
+                        String endTime = times[1];
+
+                        String startDay = startTime.substring(0, startTime.indexOf('d'));
+                        String startHour = startTime.substring(startTime.indexOf('d') + 1, startTime.indexOf('h'));
+                        String startMinute = startTime.substring(startTime.indexOf('h') + 1, startTime.indexOf('m'));
+
+                        String endDay = endTime.substring(0, endTime.indexOf('d'));
+                        String endHour = endTime.substring(endTime.indexOf('d') + 1, endTime.indexOf('h'));
+                        String endMinute = endTime.substring(endTime.indexOf('h') + 1, endTime.indexOf('m'));
+
+                        // get the name of the file
+                        String fileName = file.getFileName().toString();
+                        String year = fileName.substring(0, 4);
+                        String month = fileName.substring(4, 6);
+
+                        Calendar calendar_s = Calendar.getInstance();
+                        calendar_s.set(Calendar.YEAR, Integer.parseInt(year));
+                        calendar_s.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                        calendar_s.set(Calendar.DAY_OF_MONTH, Integer.parseInt(startDay));
+                        calendar_s.set(Calendar.HOUR_OF_DAY, Integer.parseInt(startHour));
+                        calendar_s.set(Calendar.MINUTE, Integer.parseInt(startMinute));
+                        calendar_s.set(Calendar.SECOND, 0);
+
+                        Calendar calendar_e = Calendar.getInstance();
+                        calendar_e.set(Calendar.YEAR, Integer.parseInt(year));
+                        calendar_e.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                        calendar_e.set(Calendar.DAY_OF_MONTH, Integer.parseInt(endDay));
+                        calendar_e.set(Calendar.HOUR_OF_DAY, Integer.parseInt(endHour));
+                        calendar_e.set(Calendar.MINUTE, Integer.parseInt(endMinute));
+                        calendar_e.set(Calendar.SECOND, 0);
+
+                        // if startDate id between the calendar_s and calendar_e date, then continue
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(startDate);
+                        if (!(calendar.after(calendar_s) && calendar.before(calendar_e))) {
+                            continue;
+                        }
+
+                        for (int i = 0; i < coordinates.length; i += 2) {
+                            int x = Integer.parseInt(coordinates[i]);
+                            int y = Integer.parseInt(coordinates[i + 1]);
+                            Node block = new Node(id++, x, y, calendar_s.getTime(), calendar_e.getTime());
+                            this.blocks.add(block);
+                        }
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        this.orders = new ArrayList<>();
+
+        if (pendingOrders != null) {
+            for (PendingOrders order : pendingOrders) {
+                int _id = Integer.parseInt(order.id.substring(1));
+                Node _order = new Node(_id, order.x, order.y, order.GLP, order.start, order.end);
+                this.orders.add(_order);
+            }
+        }
+
+        if (mode == 'S') {
+            return;
+        }
+
+        if (this.orders.size() == 0) {
+            id = 0;
+        } else {
+            id = Integer.parseInt(this.orders.get(this.orders.size() - 1).getId().substring(1)) + 1;
+        }
+
+        // read and load the orders from file ./data/ventas/ventas202311.txt
+        // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
+        // customer, Q m3, deadline h
+
+        dir = Paths.get("./data/ventas/");
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path file : stream) {
+                try (BufferedReader br = new BufferedReader(new FileReader(file.toFile()))) {
+                    String line;
+                    String fileName = file.getFileName().toString();
+                    String year = fileName.substring(6, 10);
+                    String month = fileName.substring(10, 12);
+
+                    while ((line = br.readLine()) != null) {
+                        String[] parts = line.split(":");
+                        String timePart = parts[0];
+                        String[] orderDetails = parts[1].split(",");
+
+                        String day = timePart.substring(0, timePart.indexOf('d'));
+                        String hour = timePart.substring(timePart.indexOf('d') + 1, timePart.indexOf('h'));
+                        String minute = timePart.substring(timePart.indexOf('h') + 1, timePart.indexOf('m'));
+
+                        int x = Integer.parseInt(orderDetails[0]);
+                        int y = Integer.parseInt(orderDetails[1]);
+
+                        if (x < 0 || x >= 70 || y < 0 || y >= 50) {
+                            continue;
+                        }
+
+                        String customer = orderDetails[2];
+                        String quantity = orderDetails[3].substring(0, orderDetails[3].indexOf('m'));
+                        String deadline = orderDetails[4].substring(0, orderDetails[4].indexOf('h'));
+
+                        Calendar calendar_s = Calendar.getInstance();
+                        calendar_s.set(Calendar.YEAR, Integer.parseInt(year));
+                        calendar_s.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                        calendar_s.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+                        calendar_s.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
+                        calendar_s.set(Calendar.MINUTE, Integer.parseInt(minute));
+                        calendar_s.set(Calendar.SECOND, 0);
+
+                        // if startDate id between the calendar_s and calendar_e date, then continue
+                        Calendar calendar_sd = Calendar.getInstance();
+                        calendar_sd.setTime(startDate);
+
+                        Calendar calendar_ed = Calendar.getInstance();
+                        calendar_ed.setTime(endDate);
+
+                        if (!(calendar_s.after(calendar_sd) && calendar_s.before(calendar_ed))) {
+                            continue;
+                        }
+
+                        Calendar calendar_e = Calendar.getInstance();
+                        calendar_e.set(Calendar.YEAR, Integer.parseInt(year));
+                        calendar_e.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                        calendar_e.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+                        calendar_e.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour) + Integer.parseInt(deadline));
+                        calendar_e.set(Calendar.MINUTE, Integer.parseInt(minute));
+                        calendar_e.set(Calendar.SECOND, 0);
+
+                        Node order = new Node(id++, x, y, Double.parseDouble(quantity), calendar_s.getTime(),
+                                calendar_e.getTime());
+                        this.orders.add(order);
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
+
     // Test
-    public GAProblem() {
+    public GAProblem(char test) {
         // create random problem
         Random random = new Random();
 
@@ -64,10 +307,10 @@ public class GAProblem implements Cloneable {
         for (int i = 0; i < numOfOrders; i++) {
             calendar.setTime(date);
 
-            calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(24*7));
+            calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(23) + 1);
             Date finalDate = calendar.getTime();
-            this.orders.add(new Node(String.valueOf(i), random.nextInt(70), random.nextInt(50),
-                    (double) (random.nextInt(25)), date, finalDate));
+            this.orders.add(new Node((i), random.nextInt(70), random.nextInt(50),
+                    (double) (random.nextInt(20)), date, finalDate));
         }
 
         // create blocks
@@ -83,14 +326,13 @@ public class GAProblem implements Cloneable {
                         x = random.nextInt(70);
                         y = random.nextInt(50);
                         j = 0;
-                    }else {
+                    } else {
                         break;
                     }
                 }
             }
             this.blocks.add(new Node(i, x, y, date, date));
         }
-
 
         // create vehicles
         this.vehicles = new ArrayList<>();
@@ -219,7 +461,6 @@ public class GAProblem implements Cloneable {
 
         // if has no date
 
-
         // get the max capacity of the vehicles
         double maxCapacity = 0;
         for (Vehicle vehicle : this.vehicles) {
@@ -233,7 +474,7 @@ public class GAProblem implements Cloneable {
 
         for (Node order : this.orders) {
 
-            if (order.getPosicion().getX() < 0 || order.getPosicion().getX() >=70 || order.getPosicion().getY() < 0
+            if (order.getPosicion().getX() < 0 || order.getPosicion().getX() >= 70 || order.getPosicion().getY() < 0
                     || order.getPosicion().getY() >= 50) {
                 throw new Exception("Order: " + order.getId() + " - coordinate out of bounds - ("
                         + order.getPosicion().getX() + " , " + order.getPosicion().getY() + ") - ("
@@ -247,8 +488,8 @@ public class GAProblem implements Cloneable {
         }
 
         for (Node block : this.blocks) {
-            if (block.getPosicion().getX() < 0 || block.getPosicion().getX() > 70 || block.getPosicion().getY() < 0
-                    || block.getPosicion().getY() > 50) {
+            if (block.getPosicion().getX() < 0 || block.getPosicion().getX() >= 70 || block.getPosicion().getY() < 0
+                    || block.getPosicion().getY() >= 50) {
                 throw new Exception("Block: " + block.getId() + " - coordinate out of bounds - ("
                         + block.getPosicion().getX() + " , " + block.getPosicion().getY() + ") - ("
                         + block.getPosicion().getY() + " , " + block.getPosicion().getY() + " )");
@@ -258,8 +499,8 @@ public class GAProblem implements Cloneable {
         }
 
         for (Node depot : this.depots) {
-            if (depot.getPosicion().getX() < 0 || depot.getPosicion().getX() > 70 || depot.getPosicion().getY() < 0
-                    || depot.getPosicion().getY() > 50) {
+            if (depot.getPosicion().getX() < 0 || depot.getPosicion().getX() >= 70 || depot.getPosicion().getY() < 0
+                    || depot.getPosicion().getY() >= 50) {
                 throw new Exception("Depot: " + depot.getId() + " - coordinate out of bounds - ("
                         + depot.getPosicion().getX() + " , " + depot.getPosicion().getY() + ") - ("
                         + depot.getPosicion().getY() + " , " + depot.getPosicion().getY() + " )");
