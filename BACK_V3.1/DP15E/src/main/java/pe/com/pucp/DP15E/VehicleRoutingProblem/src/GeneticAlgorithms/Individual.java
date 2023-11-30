@@ -1,6 +1,6 @@
-package pe.com.pucp.DP15E.GeneticAlgorithms;
+package pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms;
 
-import pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node;
+import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem.Node;
 
 import java.util.ArrayList;
 

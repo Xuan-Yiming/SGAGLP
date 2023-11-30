@@ -1,6 +1,6 @@
-package pe.com.pucp.DP15E.GeneticAlgorithms.Problem;
+package pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem;
 
-import pe.com.pucp.DP15E.GeneticAlgorithms.*;
+import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -32,6 +32,7 @@ public class Solucion {
             solucionNodo.id = order.getId();
             solucionNodo.x = order.getPosicion().x;
             solucionNodo.y = order.getPosicion().y;
+            solucionNodo.cantidad = order.getCantidad();
             solucionNodo.hora = dateFormat.format(order.getFechaFinal());
             elementosEstaticosTemporales.add(solucionNodo);
         }

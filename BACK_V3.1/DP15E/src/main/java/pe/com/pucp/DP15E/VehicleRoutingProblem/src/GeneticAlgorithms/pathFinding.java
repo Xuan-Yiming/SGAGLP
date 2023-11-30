@@ -1,4 +1,4 @@
-package pe.com.pucp.DP15E.GeneticAlgorithms;
+package pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms;
 
 import java.awt.Point;
 import java.util.ArrayList;

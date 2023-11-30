@@ -1,4 +1,4 @@
-package pe.com.pucp.DP15E.GeneticAlgorithms.Problem;
+package pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem;
 
 import java.awt.*;
 import java.util.Date;
@@ -26,7 +26,7 @@ public class Node implements Cloneable {
         this.fechaFinal = fechaFinal;
     }
 
-    public Node(String id, int x, int y, double cantidad, Date fechaInicio, Date fechaFinal) {
+    public Node(int id, int x, int y, double cantidad, Date fechaInicio, Date fechaFinal) {
         // Customer
         this.id = "C" + id;
         this.posicion = new Point(x, y);

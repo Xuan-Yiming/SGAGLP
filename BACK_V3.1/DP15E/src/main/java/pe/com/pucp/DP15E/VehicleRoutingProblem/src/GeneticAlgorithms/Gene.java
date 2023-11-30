@@ -1,7 +1,7 @@
-package pe.com.pucp.DP15E.GeneticAlgorithms;
+package pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms;
 
-import pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node;
-import pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Vehicle;
+import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem.Node;
+import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem.Vehicle;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -135,6 +135,7 @@ public class Gene implements Cloneable {
             if (custumor.getTipo() == 'C') {
                 // si tiene suficiente GLP
                 if (this.cargaGLP < custumor.getCantidad()) {
+                    // System.out.print("1");
                     return false;
                 }
                 // // si puede llegar antes de que termine el dia
@@ -142,8 +143,10 @@ public class Gene implements Cloneable {
                 //     return false;
                 // }
                 // si puede llegar a tiempo
+                int deadline = (int) (custumor.getFechaFinal().getTime() - custumor.getFechaInicio().getTime()) / 60000;
                 if (totalTime + timeToANode(
-                        distancia) > (custumor.getFechaFinal().getTime() - custumor.getFechaInicio().getTime())/ 60000) {
+                        distancia) > deadline) {
+                    // System.out.print("0");
                     return false;
                 }
             }

@@ -1,10 +1,10 @@
-package pe.com.pucp.DP15E.GeneticAlgorithms;
+package pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
-import pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Node;
+import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem.Node;
 
 public class Chromosome implements Cloneable {
     public ArrayList<Gene> genes;
@@ -45,11 +45,6 @@ public class Chromosome implements Cloneable {
             int vehicleIndex = random.nextInt(genes.size());
             double ifGoToDepot = random.nextDouble();
             if (ifGoToDepot < depotRate) {
-                // si se dirige al deposito, se dirige al mejor deposito
-                // get a random depot
-                // int depotIndex = random.nextInt(this.problem.getDepots().size());
-                // genes.get(vehicleIndex).addNode(this.problem.getDepots().get(depotIndex));
-
                 // get the closest depot
                 Node lastNode = genes.get(vehicleIndex).getRoute().get(genes.get(vehicleIndex).getRoute().size() - 1);
                 genes.get(vehicleIndex).addNode(getClosetDepot(this.problem.getDepots(), lastNode.getPosicion()));
@@ -59,10 +54,6 @@ public class Chromosome implements Cloneable {
             }
         }
 
-        // for (int i = 0; i < this.problem.getOrders().size(); i++) {
-        // int vehicleIndex = random.nextInt(genes.size());
-        // genes.get(vehicleIndex).addNode(this.problem.getOrders().get(i));
-        // }
     }
     
     public Node getClosetDepot(ArrayList<Node> depots, Point position) {
