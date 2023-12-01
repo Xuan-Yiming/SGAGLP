@@ -10,6 +10,9 @@ var clock = 0;
 var pedidosPendientes = [];
 var vehiclulosEnCamino = [];
 
+var startDate; 
+var currentDate;
+
 class Vehicle {
   constructor(id, x, y) {
     this.id = id;
@@ -19,11 +22,12 @@ class Vehicle {
 }
 
 class Order {
-  constructor(id, x, y, entrega) {
+  constructor(id, x, y, entrega, glp) {
     this.id = id;
     this.x = x;
     this.y = y;
     this.entrega = entrega;
+    this.glp = glp;
   }
 }
 
@@ -48,22 +52,56 @@ for (var w = 0; w < 70; w++) {
 }
 
 // cargar archivos
-var btnBloqueos = document.getElementById("btnBloqueos");
-var cmBloqueos = document.getElementById("cmBloqueos");
-btnBloqueos.addEventListener("click", function () {
-  cmBloqueos.click();
-});
-
-var btnFlota = document.getElementById("btnFlota");
-var cmFlota = document.getElementById("cmFlota");
-btnFlota.addEventListener("click", function () {
-  cmFlota.click();
-});
 
 var btnPedidos = document.getElementById("btnPedidos");
 var cmPedidos = document.getElementById("cmPedidos");
 btnPedidos.addEventListener("click", function () {
-  cmPedidos.click();
+  cmPedidos.click().then((result) => {
+    // get the largest id in pedidosPendientes
+
+    var largestId = 0;
+    pedidosPendientes.forEach((order) => {
+      if (order.id > largestId) {
+        largestId = order.id;
+      }
+    });
+
+
+    // read and load the orders from file .txt
+    // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
+    // customer, Q m3, deadline h
+
+    var file = cmPedidos.files[0];
+    var reader = new FileReader(file);
+    reader.onload = function (progressEvent) {
+      // By lines
+      var lines = this.result.split("\n");
+      for (var line = 0; line < lines.length; line++) {
+        var elements = lines[line].split(":");
+        var time = elements[0];
+        var orders = elements[1];
+        for (var order = 0; order < orders.length; order++) {
+          var orderElements = orders[order].split(",");
+          var x = orderElements[0];
+          var y = orderElements[1];
+          var customer = orderElements[2];
+          var quantity = orderElements[3].substring(0, orderElements[3].length - 2);
+          var deadline = orderElements[0].substring(0, orderElements[0].length - 1);
+          var order = new Order(
+            ++largestId,
+            x,
+            y,
+            deadline,
+            quantity,
+            customer,
+            time
+          );
+          pedidosPendientes.push(order);
+        }
+      }
+    };
+
+  });
 });
 
 //empezar
@@ -74,6 +112,7 @@ document
     start = Date.now();
 
     //empezar la simulacion
+    this.startDate = document.getElementById("txtFecha").valueAsDate;
     empezar();
   });
 
@@ -81,9 +120,11 @@ async function empezar() {
   //get the place of the cars
 
   //clean the map
-  document.querySelectorAll('[class*="map__cell__vehicle__"]').forEach((vehicle) => {
-    vehicle.classList.remove("map__cell__vehicle");
-  });
+  document
+    .querySelectorAll('[class*="map__cell__vehicle__"]')
+    .forEach((vehicle) => {
+      vehicle.classList.remove("map__cell__vehicle");
+    });
 
   document.querySelectorAll(".map__cell__depot").forEach((depot) => {
     depot.classList.remove("map__cell__depot");
@@ -98,14 +139,10 @@ async function empezar() {
     pedidos: pedidosPendientes,
   };
 
-  //get the files
-  var formdata = new FormData();
-  formdata.append("fFlota", cmFlota.files[0]);
-  formdata.append("fPedido", cmPedidos.files[0]);
-  formdata.append("fBloqueo", cmBloqueos.files[0]);
-  formdata.append("data", JSON.stringify(data));
+  var passedTime = clock * 72; // 72 seconds per clock
 
-  console.log(JSON.stringify(data));
+  var currentDate = new Date(startDate.getTime() + passedTime * 1000);
+  //get the files
 
   fetch(
     "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json",
@@ -159,9 +196,15 @@ async function empezar() {
             element.y +
             "</td></tr>";
 
-              pedidosPendientes.push(
-                new Order(element.id, element.x, element.y, element.hora)
-              );
+          pedidosPendientes.push(
+            new Order(
+              element.id,
+              element.x,
+              element.y,
+              element.hora,
+              element.cantidad
+            )
+          );
           pedidos++;
         } else if (element.tipo == "D") {
           seletecCell.classList.add("map__cell__depot");

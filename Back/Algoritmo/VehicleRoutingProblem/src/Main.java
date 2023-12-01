@@ -59,7 +59,7 @@ public class Main {
 
 
 
-            algorithmVRP = new GeneticAlgorithmVRP(calendar_s.getTime(), calendar_e.getTime(),"","",'P');
+            algorithmVRP = new GeneticAlgorithmVRP(calendar_s.getTime(), calendar_e.getTime(),"",'P');
 
             Solucion solucion = algorithmVRP.getSolucion();
 

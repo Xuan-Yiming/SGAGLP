@@ -3,15 +3,36 @@ var velocidad = 1;
 var start;
 var pedidosEntregados = 0;
 var pedidos = 0;
+var period = 40;
+const totalClocks = 1200;
+var clock = 0;
 
-var currentDate = new Date();
+var pedidosPendientes = [];
+var vehiclulosEnCamino = [];
+
+var startDate;
+var currentDate;
+
+class Vehicle {
+  constructor(id, x, y) {
+    this.id = id;
+    this.x = x;
+    this.y = y;
+  }
+}
+
+class Order {
+  constructor(id, x, y, entrega, glp) {
+    this.id = id;
+    this.x = x;
+    this.y = y;
+    this.entrega = entrega;
+    this.glp = glp;
+  }
+}
 
 //set the date to today
 document.getElementById("txtFecha").valueAsDate = new Date();
-//set the fecha final to today + y days
-var fechaFinal = new Date();
-fechaFinal.setDate(fechaFinal.getDate() + 7);
-document.getElementById("txtFechaFinal").valueAsDate = fechaFinal;
 
 document.getElementById("selectSpeed").addEventListener("change", function () {
   velocidad = document.getElementById("selectSpeed").value;
@@ -31,49 +52,83 @@ for (var w = 0; w < 70; w++) {
 }
 
 // cargar archivos
-var btnBloqueos = document.getElementById("btnBloqueos");
-var cmBloqueos = document.getElementById("cmBloqueos");
-btnBloqueos.addEventListener("click", function () {
-  cmBloqueos.click();
-});
-
-var btnFlota = document.getElementById("btnFlota");
-var cmFlota = document.getElementById("cmFlota");
-btnFlota.addEventListener("click", function () {
-  cmFlota.click();
-});
 
 var btnPedidos = document.getElementById("btnPedidos");
 var cmPedidos = document.getElementById("cmPedidos");
 btnPedidos.addEventListener("click", function () {
-  cmPedidos.click();
+  cmPedidos.click().then((result) => {
+    // get the largest id in pedidosPendientes
+
+    var largestId = 0;
+    pedidosPendientes.forEach((order) => {
+      if (order.id > largestId) {
+        largestId = order.id;
+      }
+    });
+
+    // read and load the orders from file .txt
+    // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
+    // customer, Q m3, deadline h
+
+    var file = cmPedidos.files[0];
+    var reader = new FileReader(file);
+    reader.onload = function (progressEvent) {
+      // By lines
+      var lines = this.result.split("\n");
+      for (var line = 0; line < lines.length; line++) {
+        var elements = lines[line].split(":");
+        var time = elements[0];
+        var orders = elements[1];
+        for (var order = 0; order < orders.length; order++) {
+          var orderElements = orders[order].split(",");
+          var x = orderElements[0];
+          var y = orderElements[1];
+          var customer = orderElements[2];
+          var quantity = orderElements[3].substring(
+            0,
+            orderElements[3].length - 2
+          );
+          var deadline = orderElements[0].substring(
+            0,
+            orderElements[0].length - 1
+          );
+          var order = new Order(
+            ++largestId,
+            x,
+            y,
+            deadline,
+            quantity,
+            customer,
+            time
+          );
+          pedidosPendientes.push(order);
+        }
+      }
+    };
+  });
 });
 
-//simular
+//empezar
 document
-  .getElementById("btnSimular")
+  .getElementById("btnEmpezar")
   .addEventListener("click", async function () {
-    console.log("Simular");
+    console.log("planificar");
     start = Date.now();
 
     //empezar la simulacion
-    this.currentDate = document.getElementById("txtFecha").valueAsDate;
-    await simular();
+    this.startDate = document.getElementById("txtFecha").valueAsDate;
+    empezar();
   });
 
-async function simular() {
-  if (currentDate > document.getElementById("txtFechaFinal").valueAsDate) {
-    alert("Simulación terminada");
-    return;
-  }
+async function empezar() {
+  //get the place of the cars
+
   //clean the map
-  document.querySelectorAll(".map__cell__vehicle").forEach((vehicle) => {
-    vehicle.classList.remove("map__cell__vehicle");
-  });
-
-  document.querySelectorAll(".map__cell__custom").forEach((custom) => {
-    custom.classList.remove("map__cell__custom");
-  });
+  document
+    .querySelectorAll('[class*="map__cell__vehicle__"]')
+    .forEach((vehicle) => {
+      vehicle.classList.remove("map__cell__vehicle");
+    });
 
   document.querySelectorAll(".map__cell__depot").forEach((depot) => {
     depot.classList.remove("map__cell__depot");
@@ -82,10 +137,16 @@ async function simular() {
   document.querySelectorAll(".map__cell__block").forEach((block) => {
     block.classList.remove("map__cell__block");
   });
-  var formdata = new FormData();
-  formdata.append("fFlota", cmFlota.files[0]);
-  formdata.append("fPedido", cmPedidos.files[0]);
-  formdata.append("fBloqueo", cmBloqueos.files[0]);
+
+  let data = {
+    vehiculos: vehiclulosEnCamino,
+    pedidos: pedidosPendientes,
+  };
+
+  var passedTime = clock * 72; // 72 seconds per clock
+
+  var currentDate = new Date(startDate.getTime() + passedTime * 1000);
+  //get the files
 
   fetch(
     "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json",
@@ -98,6 +159,8 @@ async function simular() {
     .then((response) => response.json())
     .then((result) => {
       var vehicles = 0;
+      pedidosPendientes = [];
+      vehiclulosEnCamino = [];
       //mark the static elements
 
       //clean the table
@@ -127,7 +190,7 @@ async function simular() {
 
         //add the type of the element
         if (element.tipo == "C") {
-          //add the element to the table
+          //add the order to the table
           table.innerHTML +=
             "<tr><td>" +
             element.id +
@@ -137,18 +200,30 @@ async function simular() {
             element.y +
             "</td></tr>";
 
-          //add the custom to the map
+          pedidosPendientes.push(
+            new Order(
+              element.id,
+              element.x,
+              element.y,
+              element.hora,
+              element.cantidad
+            )
+          );
           pedidos++;
         } else if (element.tipo == "D") {
           seletecCell.classList.add("map__cell__depot");
         } else if (element.tipo == "B") {
           seletecCell.classList.add("map__cell__block");
+        } else if (element.tipo == "V") {
+          vehiclulosEnCamino.push(
+            new Vehicle(element.id, element.x, element.y)
+          );
         }
       });
 
       document.querySelector("#txtPedidosProgramados").value = pedidos;
 
-      vehicles = result.elementosEnCadaClock[0].nodos.length;
+      vehicles = vehiclulosEnCamino.length;
       document.querySelector("#txtCantidadVehiculos").value = vehicles;
 
       processElements(result);
@@ -156,15 +231,12 @@ async function simular() {
 }
 
 async function processElements(result) {
-  // for each clock
-  for (var i = 0; i < 1200; i++) {
-    var element = result.elementosEnCadaClock[i];
-    if (element == null) {
-      continue;
-    }
-  // for (const element of result.elementosEnCadaClock) {
+  for (const element of result.elementosEnCadaClock) {
     //remove the dinamic elements
-
+    if (element.clock == period) {
+      break;
+    }
+    clock++;
     //remove all the vehicles
     document
       .querySelectorAll('[class*="map__cell__vehicle__"]')
@@ -213,6 +285,10 @@ async function processElements(result) {
           );
           break;
         case "E":
+          pedidosPendientes = pedidosPendientes.filter(
+            (item) => item.id !== nodo.idPedido
+          );
+
           pedidosEntregados++;
           document.querySelector("#txtPedidosEntregados").value =
             pedidosEntregados;
@@ -220,6 +296,17 @@ async function processElements(result) {
           seletecCell.classList.add(
             "map__cell__vehicle__" + nodo.placa.match(/\d+/)[0]
           );
+
+          //update the vehicle in the array vehiclulosEnCamino
+
+          var vehicleToUpdate = vehiclulosEnCamino.find(
+            (vehicle) => vehicle.id === nodo.placa
+          );
+          if (vehicleToUpdate) {
+            vehicleToUpdate.x = nodo.x;
+            vehicleToUpdate.y = nodo.y;
+          }
+
           break;
       }
       // set the destination of the vehicle
@@ -229,8 +316,13 @@ async function processElements(result) {
     const end = Date.now();
     document.querySelector("#txtDuracion").value = (end - start) / 1000;
     await new Promise((resolve) => setTimeout(resolve, 1000 / velocidad));
+
+    if (clock == totalClocks) {
+      break;
+    }
   }
-  
-  currentDate.setDate(currentDate.getDate() + 1);
-  simular();
+
+  if (clock < totalClocks) {
+    empezar();
+  }
 }
