@@ -159,16 +159,16 @@ async function empezar() {
   var currentDate = new Date(startDate.getTime() + passedTime * 1000);
   //get the files
   
-  pedidosPendientes.push(
-    new Order(
-      1,
-      3,
-      4,
-      currentDate,
-      currentDate,
-      10
-    )
-  );
+  // pedidosPendientes.push(
+  //   new Order(
+  //     1,
+  //     3,
+  //     4,
+  //     currentDate,
+  //     currentDate,
+  //     10
+  //   )
+  // );
   var formdata = new FormData();
   formdata.append("dateInicio",startDate.toISOString().split('T')[0]);
   formdata.append("dateFin", currentDate.toISOString().split('T')[0]);
