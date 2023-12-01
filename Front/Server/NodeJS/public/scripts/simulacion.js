@@ -10,7 +10,7 @@ var clock = 0;
 var pedidosPendientes = [];
 var vehiclulosEnCamino = [];
 
-var startDate;
+var startDate = new Date();
 var currentDate;
 
 class Vehicle {
@@ -27,6 +27,17 @@ class Order {
     this.x = x;
     this.y = y;
     this.entrega = entrega;
+    this.glp = glp;
+  }
+}
+
+class Order2 {
+  constructor(id, x, y, start,end, glp) {
+    this.id = id;
+    this.x = x;
+    this.y = y;
+    this.start=start;
+    this.end=end;
     this.glp = glp;
   }
 }
@@ -110,7 +121,7 @@ btnPedidos.addEventListener("click", function () {
 
 //empezar
 document
-  .getElementById("btnEmpezar")
+  .getElementById("btnSimular")
   .addEventListener("click", async function () {
     console.log("planificar");
     start = Date.now();
@@ -147,13 +158,33 @@ async function empezar() {
 
   var currentDate = new Date(startDate.getTime() + passedTime * 1000);
   //get the files
+  
+  pedidosPendientes.push(
+    new Order(
+      1,
+      3,
+      4,
+      currentDate,
+      currentDate,
+      10
+    )
+  );
+  var formdata = new FormData();
+  formdata.append("dateInicio",startDate.toISOString().split('T')[0]);
+  formdata.append("dateFin", currentDate.toISOString().split('T')[0]);
+  formdata.append("vehiculo", vehiclulosEnCamino);
+  formdata.append("orders", pedidosPendientes);
+  formdata.append("modo", 'P');
+
+
 
   fetch(
-    "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json",
+    // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json",
+    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
     {
-      // method: "POST",
-      // body: formdata,
-      // redirect: "follow",
+      method: "POST",
+      body: formdata,
+      redirect: "follow",
     }
   )
     .then((response) => response.json())
