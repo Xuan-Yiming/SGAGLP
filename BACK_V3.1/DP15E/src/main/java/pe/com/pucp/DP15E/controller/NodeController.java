@@ -56,7 +56,7 @@ public class NodeController {
         return nodeService.algoritmoSimulacion(date,fileP,fileB,fileV);
     }
 */
-    @PostMapping(path ="/algoritmoSimulacionOficial")
+    @PostMapping(path = "/algoritmoSimulacionOficial", consumes = "application/json")
     public String algoritmoSimulacion(@RequestBody SimulationRequest information ) throws Exception {
         return nodeService.algoritmoSimulacion(information);
     }
