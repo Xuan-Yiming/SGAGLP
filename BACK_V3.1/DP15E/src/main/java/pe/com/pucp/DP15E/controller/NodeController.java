@@ -10,7 +10,7 @@ import pe.com.pucp.DP15E.model.ImputData;
 import pe.com.pucp.DP15E.model.Node;
 import pe.com.pucp.DP15E.service.NodeService;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +56,7 @@ public class NodeController {
     }
 */
     @PostMapping(path ="/algoritmoSimulacionOficial")
-    public String algoritmoSimulacion(@RequestParam("dateInicio") Date dateInicio,@RequestParam("dateFin") Date dateFin ,@RequestParam("data") String data,
+    public String algoritmoSimulacion(@RequestParam("dateInicio") Date dateInicio, @RequestParam("dateFin") Date dateFin , @RequestParam("data") String data,
                                       @RequestParam("modo") char modo) throws Exception {
         return nodeService.algoritmoSimulacion(dateInicio,dateFin,data,modo);
     }

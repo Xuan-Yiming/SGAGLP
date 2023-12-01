@@ -21,11 +21,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.sql.*;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -280,8 +280,8 @@ public class NodeService {
         return solucion.elementosEstaticosTemporalesToJson();
     }*/
 
-    public String algoritmoSimulacion(Date dateInicio, Date dateFin ,String data,
-                                       char modo)throws Exception{
+    public String algoritmoSimulacion(Date dateInicio, Date dateFin , String data,
+                                      char modo)throws Exception{
 
         try {
             GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(dateInicio,dateFin,data,modo);
