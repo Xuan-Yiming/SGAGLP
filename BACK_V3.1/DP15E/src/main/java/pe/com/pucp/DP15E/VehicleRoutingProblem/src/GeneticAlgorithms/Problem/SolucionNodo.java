@@ -1,6 +1,4 @@
-package pe.com.pucp.DP15E.GeneticAlgorithms.Problem;
-
-import java.util.Date;
+package pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem;
 
 public class SolucionNodo {
     public char tipo;
@@ -8,4 +6,5 @@ public class SolucionNodo {
     public int x;
     public int y;
     public String hora;
+    public double cantidad;
 }

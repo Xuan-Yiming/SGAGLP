@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.jmx.export.UnableToRegisterMBeanException;
 import org.springframework.stereotype.Component;
-import pe.com.pucp.DP15E.GeneticAlgorithms.GAProblem;
-import pe.com.pucp.DP15E.GeneticAlgorithms.GeneticAlgorithmVRP;
-import pe.com.pucp.DP15E.GeneticAlgorithms.Individual;
-import pe.com.pucp.DP15E.GeneticAlgorithms.Problem.Solucion;
+import org.springframework.web.bind.annotation.RequestParam;
+import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.GeneticAlgorithmVRP;
 import pe.com.pucp.DP15E.model.*;
 import pe.com.pucp.DP15E.repository.ClienteRepository;
 import pe.com.pucp.DP15E.repository.NodeRepository;
@@ -282,15 +280,31 @@ public class NodeService {
         return solucion.elementosEstaticosTemporalesToJson();
     }*/
 
+    public String algoritmoSimulacion(Date dateInicio, Date dateFin ,String vehiculo,
+                                     String orders,  char modo)throws Exception{
 
-    public String algoritmoSimulacion(Date fechaEntrante,MultipartFile filePedidos, MultipartFile fileBloqueos, MultipartFile fileVehiculos) throws Exception {
+        try {
+            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(dateInicio,dateFin,vehiculo,orders,modo);
+            //Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
+
+            return geneticAlgorithmVRP.getSolucion().solucionToJson();
+
+        } catch (Exception e) {
+            // Captura cualquier excepción y retorna un mensaje personalizado
+            return "Error en el algoritmo de simulación: " + e.getMessage();
+        }
+
+    }
+
+
+    /*public String algoritmoSimulacion(Date fechaEntrante,MultipartFile filePedidos, MultipartFile fileBloqueos, MultipartFile fileVehiculos) throws Exception {
         try {
         VehicleService vehicleService = new VehicleService(vehicleRepository);
         int i=0;
 
-        /*Instant instant = fechaEntrante.toInstant();
+        *//*Instant instant = fechaEntrante.toInstant();
         ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
-        LocalDate fechaEntranteLocalDate = zonedDateTime.toLocalDate();*/
+        LocalDate fechaEntranteLocalDate = zonedDateTime.toLocalDate();*//*
         //List<Object[]> resultList = nodeRepository.listarDataImportanteC();
         ArrayList<Node> nodesPedidos = cargaMasivaDePedidos2(filePedidos);
         ArrayList<Node> nodesBloqueos = cargaMasivaDeBloqueos(fileBloqueos);
@@ -420,7 +434,7 @@ public class NodeService {
             // Captura cualquier excepción y retorna un mensaje personalizado
             return "Error en el algoritmo de planificacion: " + e.getMessage();
         }
-    }
+    }*/
     public   ArrayList<Node> cargaMasivaDePedidos(MultipartFile file){
         //private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd'd'HH'h'mm'm':");
 

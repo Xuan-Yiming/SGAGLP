@@ -49,12 +49,17 @@ public class NodeController {
         return nodeService.ListarDataResultadoAlgoritmo2();
     }
 */
-    @PostMapping(path ="/algoritmoSimulacion")
-    public String algoritmoSimulacion(@RequestParam("date") Date date ,@RequestParam("fileP") MultipartFile fileP,@RequestParam("fileB") MultipartFile fileB,
+    /*@PostMapping(path ="/algoritmoSimulacion2")
+    public String algoritmoSimulacion2(@RequestParam("date") Date date ,@RequestParam("fileP") MultipartFile fileP,@RequestParam("fileB") MultipartFile fileB,
     @RequestParam("fileV") MultipartFile fileV) throws Exception {
         return nodeService.algoritmoSimulacion(date,fileP,fileB,fileV);
     }
-
+*/
+    @PostMapping(path ="/algoritmoSimulacionOficial")
+    public String algoritmoSimulacion(@RequestParam("dateInicio") Date dateInicio,@RequestParam("dateFin") Date dateFin ,@RequestParam("vehiculo") String vehiculo,
+                                      @RequestParam("orders") String orders,@RequestParam("modo") char modo) throws Exception {
+        return nodeService.algoritmoSimulacion(dateInicio,dateFin,vehiculo,orders,modo);
+    }
     /*@GetMapping(path ="/listarDataResultadoAlgoritmo4")
     public String listarDataResultadoAlgoritmo4(){
         return nodeService.ListarDataResultadoAlgoritmo4();
@@ -72,12 +77,12 @@ public class NodeController {
         return new ResponseEntity<>(pedidoResponse, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/algoritmoPlanificacion" ,  consumes = "multipart/form-data")
+    /*@PostMapping(value = "/algoritmoPlanificacion" ,  consumes = "multipart/form-data")
     public String algoritmoPlanificacion(@RequestBody ImputData inputData, @RequestParam("fileP") MultipartFile fileP,@RequestParam("fileB") MultipartFile fileB,
                                          @RequestParam("fileV") MultipartFile fileV)throws Exception  {
 
         return nodeService.algoritmoPlanificacion(inputData,fileP,fileB,fileV);
-    }
+    }*/
 /*
     @GetMapping(path ="/mantenimientoPedidos/{parametro}/{page}/{pageSize}")
     public ResponseEntity<Map<String, Object>> mantenimientoPedidos(@RequestParam String parametro, @RequestParam int page, @RequestParam int pageSize) {
