@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pe.com.pucp.DP15E.model.ImputData;
 import pe.com.pucp.DP15E.model.Node;
+import pe.com.pucp.DP15E.model.SimulationRequest;
 import pe.com.pucp.DP15E.service.NodeService;
 
 import java.util.Date;
@@ -56,9 +57,8 @@ public class NodeController {
     }
 */
     @PostMapping(path ="/algoritmoSimulacionOficial")
-    public String algoritmoSimulacion(@RequestParam("dateInicio") String dateInicio, @RequestParam("dateFin") String dateFin , @RequestParam("data") String data,
-                                      @RequestParam("modo") char modo) throws Exception {
-        return nodeService.algoritmoSimulacion(dateInicio,dateFin,data,modo);
+    public String algoritmoSimulacion(@RequestBody SimulationRequest information ) throws Exception {
+        return nodeService.algoritmoSimulacion(information);
     }
     /*@GetMapping(path ="/listarDataResultadoAlgoritmo4")
     public String listarDataResultadoAlgoritmo4(){
