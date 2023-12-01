@@ -1,5 +1,6 @@
 package pe.com.pucp.DP15E.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.weaver.Dump;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -293,7 +294,15 @@ public class NodeService {
             // Si necesitas un objeto Date, puedes convertir LocalDateTime a Date
             //Date date1 = java.sql.Timestamp.valueOf(dateTime1);
             //Date date2 = java.sql.Timestamp.valueOf(dateTime2);
-            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(information.getDateInicio(),information.getDateFin(), information.getData(), information.getModo());
+
+            LocalDateTime dateTimeInicio = LocalDateTime.parse(information.getDateInicio(), formatter);
+            LocalDateTime dateTimeFin = LocalDateTime.parse(information.getDateFin(), formatter);
+            Date dateInicio = java.sql.Timestamp.valueOf(dateTimeInicio);
+            Date dateFin = java.sql.Timestamp.valueOf(dateTimeFin);
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonData = objectMapper.writeValueAsString(information.getData());
+
+            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(dateInicio,dateFin, jsonData, information.getModo());
             //Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
 
             return geneticAlgorithmVRP.getSolucion().solucionToJson();
