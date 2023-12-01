@@ -56,9 +56,9 @@ public class NodeController {
     }
 */
     @PostMapping(path ="/algoritmoSimulacionOficial")
-    public String algoritmoSimulacion(@RequestParam("dateInicio") Date dateInicio,@RequestParam("dateFin") Date dateFin ,@RequestParam("vehiculo") String vehiculo,
-                                      @RequestParam("orders") String orders,@RequestParam("modo") char modo) throws Exception {
-        return nodeService.algoritmoSimulacion(dateInicio,dateFin,vehiculo,orders,modo);
+    public String algoritmoSimulacion(@RequestParam("dateInicio") Date dateInicio,@RequestParam("dateFin") Date dateFin ,@RequestParam("data") String data,
+                                      @RequestParam("modo") char modo) throws Exception {
+        return nodeService.algoritmoSimulacion(dateInicio,dateFin,data,modo);
     }
     /*@GetMapping(path ="/listarDataResultadoAlgoritmo4")
     public String listarDataResultadoAlgoritmo4(){

@@ -280,11 +280,11 @@ public class NodeService {
         return solucion.elementosEstaticosTemporalesToJson();
     }*/
 
-    public String algoritmoSimulacion(Date dateInicio, Date dateFin ,String vehiculo,
-                                     String orders,  char modo)throws Exception{
+    public String algoritmoSimulacion(Date dateInicio, Date dateFin ,String data,
+                                       char modo)throws Exception{
 
         try {
-            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(dateInicio,dateFin,vehiculo,orders,modo);
+            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(dateInicio,dateFin,data,modo);
             //Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
 
             return geneticAlgorithmVRP.getSolucion().solucionToJson();

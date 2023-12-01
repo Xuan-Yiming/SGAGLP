@@ -1,6 +1,7 @@
 package pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms;
 
 import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Extra.CurrentVehicle;
+import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Extra.InputData;
 import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Extra.PendingOrders;
 import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem.Solucion;
 
@@ -20,28 +21,20 @@ public class GeneticAlgorithmVRP {
     // simulacion
     // Mode = 'S' -> Simulacion
     // Mode = 'P' -> Planificacion
-    public GeneticAlgorithmVRP(Date startDate, Date enDate, String _currentVehicle, String _pendingOrders, char mode)
+    public GeneticAlgorithmVRP(Date startDate, Date enDate, String _data, char mode)
             throws Exception {
 
         // Create a Gson object
         Gson gson = new Gson();
 
         // Define the type of the ArrayList<PendingOrders>
-        TypeToken<ArrayList<PendingOrders>> typeToken = new TypeToken<ArrayList<PendingOrders>>() {
+        TypeToken<InputData> typeToken = new TypeToken<InputData>() {
         };
 
         // Convert the JSON string to ArrayList<PendingOrders>
-        ArrayList<PendingOrders> pendingOrders = gson.fromJson(_pendingOrders, typeToken.getType());
+        InputData data = gson.fromJson(_data, typeToken.getType());
 
-        // Define the type of the ArrayList<CurrentVehicle>
-        TypeToken<ArrayList<CurrentVehicle>> typeToken2 = new TypeToken<ArrayList<CurrentVehicle>>() {
-        };
-
-        // Convert the JSON string to ArrayList<CurrentVehicle>
-        ArrayList<CurrentVehicle> currentVehicle = gson.fromJson(_currentVehicle, typeToken2.getType());
-
-
-        this.problem = new GAProblem(startDate, enDate, currentVehicle, pendingOrders, mode);
+        this.problem = new GAProblem(startDate, enDate, data.vehiculos, data.pedidos, mode);
         problem.validate();
 
         population = new Population(problem);
