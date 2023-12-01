@@ -280,11 +280,21 @@ public class NodeService {
         return solucion.elementosEstaticosTemporalesToJson();
     }*/
 
-    public String algoritmoSimulacion(Date dateInicio, Date dateFin , String data,
+    public String algoritmoSimulacion(String dateInicio, String dateFin , String data,
                                       char modo)throws Exception{
 
         try {
-            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(dateInicio,dateFin,data,modo);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            // Convertir la cadena a un objeto LocalDateTime
+            LocalDateTime dateTime1 = LocalDateTime.parse(dateInicio, formatter);
+            LocalDateTime dateTime2 = LocalDateTime.parse(dateFin, formatter);
+
+
+            // Si necesitas un objeto Date, puedes convertir LocalDateTime a Date
+            Date date1 = java.sql.Timestamp.valueOf(dateTime1);
+            Date date2 = java.sql.Timestamp.valueOf(dateTime2);
+            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(date1,date2,data,modo);
             //Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
 
             return geneticAlgorithmVRP.getSolucion().solucionToJson();

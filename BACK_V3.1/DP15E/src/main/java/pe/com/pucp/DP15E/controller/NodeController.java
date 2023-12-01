@@ -56,7 +56,7 @@ public class NodeController {
     }
 */
     @PostMapping(path ="/algoritmoSimulacionOficial")
-    public String algoritmoSimulacion(@RequestParam("dateInicio") Date dateInicio, @RequestParam("dateFin") Date dateFin , @RequestParam("data") String data,
+    public String algoritmoSimulacion(@RequestParam("dateInicio") String dateInicio, @RequestParam("dateFin") String dateFin , @RequestParam("data") String data,
                                       @RequestParam("modo") char modo) throws Exception {
         return nodeService.algoritmoSimulacion(dateInicio,dateFin,data,modo);
     }
