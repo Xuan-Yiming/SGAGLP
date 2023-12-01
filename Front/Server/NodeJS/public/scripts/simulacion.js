@@ -10,8 +10,8 @@ var clock = 0;
 var pedidosPendientes = [];
 var vehiclulosEnCamino = [];
 
-var startDate;
-var currentDate;
+var startDate=new Date();
+var currentDate =new Date();
 
 class Vehicle {
   constructor(id, x, y) {
@@ -110,7 +110,7 @@ btnPedidos.addEventListener("click", function () {
 
 //empezar
 document
-  .getElementById("btnEmpezar")
+  .getElementById("btnSimular")
   .addEventListener("click", async function () {
     console.log("planificar");
     start = Date.now();
@@ -148,12 +148,37 @@ async function empezar() {
   var currentDate = new Date(startDate.getTime() + passedTime * 1000);
   //get the files
 
+
+    // //for each day between the two dates
+    // while (fecha <= fechaFinal) {
+
+    // }
+    // var formdata = new FormData();
+    // formdata.append("date", formattedFecha);
+    // await simular(formdata);
+    // fecha.setDate(fecha.getDate() + 1);
+    formattedFecha = startDate.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
+  
+    // var formdata = new FormData();
+    // formdata.append("date", formattedFecha);
+
+
+  var formdata = new FormData();  
+formdata.append("dateInicio", startDate.valueAsDate);
+formdata.append("dateFin", currentDate.valueAsDate);
+formdata.append("data", data);
+formdata.append("modo", "S");
+
+console.log(startDate.valueAsDate);
+console.log(currentDate.valueAsDate);
+
   fetch(
-    "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/solucion.json",
+    // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datasç/solucion.json",
+    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
     {
-      // method: "POST",
-      // body: formdata,
-      // redirect: "follow",
+      method: "POST",
+      body: formdata,
+      redirect: "follow",
     }
   )
     .then((response) => response.json())
