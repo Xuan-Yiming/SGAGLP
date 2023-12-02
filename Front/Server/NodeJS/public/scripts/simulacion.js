@@ -5,12 +5,13 @@ var pedidosEntregados = 0;
 var pedidos = 0;
 var period = 40;
 const totalClocks = 1200;
-var clock = 0;
+var clock = 1;
 
 var pedidosPendientes = [];
 var vehiclulosEnCamino = [];
 
 var startDate=new Date();
+var finalDate=new Date();
 var currentDate =new Date();
 
 class Vehicle {
@@ -43,8 +44,8 @@ class Order2 {
 }
 
 
-ordenInicial =   new Order(1,2,3,10,10);
-ordenInicial2 =   new Order2("P1",2,3,startDate,currentDate,10);
+// ordenInicial =   new Order(1,2,3,10,10);
+
 //set the date to today
 document.getElementById("txtFecha").valueAsDate = new Date();
 
@@ -150,6 +151,17 @@ document
 }
 
 
+function myFunction() {
+  
+  finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
+  ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
+  pedidosPendientes.push(ordenInicial2);
+}
+
+// Attach the function to the window.onload event using addEventListener
+window.addEventListener('load', myFunction);
+
+
 
 async function empezar() {
   //get the place of the cars
@@ -169,14 +181,19 @@ async function empezar() {
     block.classList.remove("map__cell__block");
   });
 
-  let data = {
-    vehiculos: vehiclulosEnCamino,
-    pedidos: pedidosPendientes,
-  };
+
 
   var passedTime = clock * 72; // 72 seconds per clock
 
   var currentDate = new Date(startDate.getTime() + passedTime * 1000);
+
+  var currentDate2 = new Date(startDate.getTime() + (clock*72*2) * 1000);
+
+
+  let data = {
+    vehiculos: vehiclulosEnCamino,
+    pedidos: pedidosPendientes,
+  };
   //get the files
 
 
@@ -188,27 +205,27 @@ async function empezar() {
     // formdata.append("date", formattedFecha);
     // await simular(formdata);
     // fecha.setDate(fecha.getDate() + 1);
-    formattedFecha = startDate.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
+    formattedFecha = currentDate.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
   
     // var formdata = new FormData();
     // formdata.append("date", formattedFecha);
 
-    var year = startDate.getFullYear();
-    var month = ('0' + (startDate.getMonth() + 1)).slice(-2); // Agregar cero inicial si es necesario
-    var day = ('0' + startDate.getDate()).slice(-2); // Agregar cero inicial si es necesario
-    var hours = ('0' + startDate.getHours()).slice(-2); // Agregar cero inicial si es necesario
-    var minutes = ('0' + startDate.getMinutes()).slice(-2); // Agregar cero inicial si es necesario
-    var seconds = ('0' + startDate.getSeconds()).slice(-2); // Agregar cero inicial si es necesario
+    var year = currentDate.getFullYear();
+    var month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Agregar cero inicial si es necesario
+    var day = ('0' + currentDate.getDate()).slice(-2); // Agregar cero inicial si es necesario
+    var hours = ('0' + currentDate.getHours()).slice(-2); // Agregar cero inicial si es necesario
+    var minutes = ('0' + currentDate.getMinutes()).slice(-2); // Agregar cero inicial si es necesario
+    var seconds = ('0' + currentDate.getSeconds()).slice(-2); // Agregar cero inicial si es necesario
 
     // Formatear la fecha al formato deseado "yyyy-MM-dd HH:mm:ss"
     var formattedDate = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 
-    var year2 = currentDate.getFullYear();
-    var month2 = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Agregar cero inicial si es necesario
-    var day2 = ('0' + currentDate.getDate()).slice(-2); // Agregar cero inicial si es necesario
-    var hours2 = ('0' + currentDate.getHours()).slice(-2); // Agregar cero inicial si es necesario
-    var minutes2 = ('0' + currentDate.getMinutes()).slice(-2); // Agregar cero inicial si es necesario
-    var seconds2 = ('0' + currentDate.getSeconds()).slice(-2); // Agregar cero inicial si es necesario
+    var year2 = currentDate2.getFullYear();
+    var month2 = ('0' + (currentDate2.getMonth() + 1)).slice(-2); // Agregar cero inicial si es necesario
+    var day2 = ('0' + currentDate2.getDate()).slice(-2); // Agregar cero inicial si es necesario
+    var hours2 = ('0' + currentDate2.getHours()).slice(-2); // Agregar cero inicial si es necesario
+    var minutes2 = ('0' + currentDate2.getMinutes()).slice(-2); // Agregar cero inicial si es necesario
+    var seconds2 = ('0' + currentDate2.getSeconds()).slice(-2); // Agregar cero inicial si es necesario
 
     // Formatear la fecha al formato deseado "yyyy-MM-dd HH:mm:ss"
     var formattedDate2 = year2 + '-' + month2 + '-' + day2 + ' ' + hours2 + ':' + minutes2 + ':' + seconds2;
@@ -229,18 +246,15 @@ async function empezar() {
 //   modo: "S"
 // };
 
-if(formattedDate == formattedDate2){
-  pedidosPendientes.push(ordenInicial2);
-}
 
 var formdata = new FormData();
 formdata.append("dateInicio",  formattedDate);
 formdata.append("dateFin",  formattedDate2);
 // JSON.stringify(data)
 formdata.append("data",JSON.stringify(data) ); // Convertir el objeto data a JSON
-formdata.append("modo", "S");
-console.log(formattedDate);
-console.log(formattedDate2 );
+formdata.append("modo", "P");
+console.log(startDate);
+console.log(currentDate );
 
 
   fetch(

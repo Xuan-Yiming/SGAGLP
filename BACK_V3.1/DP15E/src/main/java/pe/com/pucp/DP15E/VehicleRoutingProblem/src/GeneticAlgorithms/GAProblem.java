@@ -209,7 +209,7 @@ public class GAProblem implements Cloneable {
         // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
         // customer, Q m3, deadline h
 
-        dir = Paths.get("./data/ventas/");
+        dir = Paths.get("C:\\Users\\FABIAN\\Documents\\CURSOS\\2023-2\\DP1\\SGAGLP\\BACK_V3.1\\DP15E\\src\\main\\java\\pe\\com\\pucp\\DP15E\\VehicleRoutingProblem\\data\\ventas");
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
             for (Path file : stream) {
                 try (BufferedReader br = new BufferedReader(new FileReader(file.toFile()))) {
@@ -236,6 +236,7 @@ public class GAProblem implements Cloneable {
 
                         String customer = orderDetails[2];
                         String quantity = orderDetails[3].substring(0, orderDetails[3].indexOf('m'));
+                        if(Integer.parseInt(quantity) > 20)continue;
                         String deadline = orderDetails[4].substring(0, orderDetails[4].indexOf('h'));
 
                         Calendar calendar_s = Calendar.getInstance();
