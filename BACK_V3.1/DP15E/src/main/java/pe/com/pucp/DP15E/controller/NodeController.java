@@ -1,6 +1,7 @@
 package pe.com.pucp.DP15E.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,30 @@ public class NodeController {
         return nodeService.algoritmoSimulacion(date,fileP,fileB,fileV);
     }
 */
+    //   quiero que me crees un api que reciba dos dates, un string que representara un json en cadena y un char, a
+    //  partir de eso genera un string que represente un json en cadena
+    //   por ejemplo
+    //  api/v1/node/algoritmoSimulacion?date1=2020-12-31&date2=2021-01-01&json={"parametro1":"valor1","parametro2":"valor2"}&char=1
+    //  eso me devolvera un string que represente un json en cadena
+    //  si se te complica crear el api solo crea el metodo y yo creo el api
+
+
+    @PostMapping(path ="/algoritmoSimulacion")
+    public String algoritmoSimulacion(@RequestParam("date1") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date1, @RequestParam("date2") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date2, @RequestParam("json") String json, @RequestParam("char") char modo) throws Exception {
+        return nodeService.algoritmoSimulacion2(date1,date2,json,modo);
+    }
+
+/*
+     quiero que me crees un metodo que reciba dos dates, un string que representara un json en cadena y un char, a
+    partir de eso retorne un string:
+    por ejejmplo los dates que se reciban seran del formato yyyy-MM-dd HH:mm:ss
+
+
+
+
+ */
+
+
     @PostMapping(path = "/algoritmoSimulacionOficial", consumes = "application/json")
     public String algoritmoSimulacion(@RequestBody SimulationRequest information ) throws Exception {
         return nodeService.algoritmoSimulacion(information);

@@ -7,7 +7,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.jmx.export.UnableToRegisterMBeanException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
+import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.GAProblem;
 import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.GeneticAlgorithmVRP;
+import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem.Solucion;
 import pe.com.pucp.DP15E.model.*;
 import pe.com.pucp.DP15E.repository.ClienteRepository;
 import pe.com.pucp.DP15E.repository.NodeRepository;
@@ -985,6 +987,23 @@ public class NodeService {
         response.put("results", mappedResults);
 
         return response;
+    }
+
+    public String algoritmoSimulacion2(Date date1, Date date2, String json, char modo) {
+
+        try {
+            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            //DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+
+            // Convertir la cadena a un objeto LocalDateTime
+            //LocalDateTime dateTime1 = LocalDateTime.parse(dateInicio, formatter);
+            //LocalDateTime dateTime2 = LocalDateTime.parse(dateFin, formatter);
+            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(date1,date2, json, modo);
+            return geneticAlgorithmVRP.getSolucion().solucionToJson();
+        } catch (Exception e) {
+            // Captura cualquier excepción y retorna un mensaje personalizado
+            return "Error en el algoritmo: " + e.getMessage();
+        }
     }
 }
 
