@@ -5,12 +5,13 @@ var pedidosEntregados = 0;
 var pedidos = 0;
 var period = 40;
 const totalClocks = 1200;
-var clock = 0;
+var clock = 1;
 
 var pedidosPendientes = [];
 var vehiclulosEnCamino = [];
 
 var startDate=new Date();
+var finalDate=new Date();
 var currentDate =new Date();
 
 class Vehicle {
@@ -30,6 +31,20 @@ class Order {
     this.glp = glp;
   }
 }
+
+class Order2 {
+  constructor(id, x, y, start,end, glp) {
+    this.id = id;
+    this.x = x;
+    this.y = y;
+    this.start = start;
+    this.end = end;
+    this.glp = glp;
+  }
+}
+
+
+// ordenInicial =   new Order(1,2,3,10,10);
 
 //set the date to today
 document.getElementById("txtFecha").valueAsDate = new Date();
@@ -120,6 +135,34 @@ document
     empezar();
   });
 
+
+  function formatDate(date) {
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZone: 'UTC' // Adjust the timeZone according to your needs
+    }).format(date);
+
+    return formattedDate;
+}
+
+
+function myFunction() {
+  
+  finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
+  ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
+  pedidosPendientes.push(ordenInicial2);
+}
+
+// Attach the function to the window.onload event using addEventListener
+window.addEventListener('load', myFunction);
+
+
+
 async function empezar() {
   //get the place of the cars
 
@@ -138,14 +181,19 @@ async function empezar() {
     block.classList.remove("map__cell__block");
   });
 
-  let data = {
-    vehiculos: vehiclulosEnCamino,
-    pedidos: pedidosPendientes,
-  };
+
 
   var passedTime = clock * 72; // 72 seconds per clock
 
   var currentDate = new Date(startDate.getTime() + passedTime * 1000);
+
+  var currentDate2 = new Date(startDate.getTime() + (clock*72*2) * 1000);
+
+
+  let data = {
+    vehiculos: vehiclulosEnCamino,
+    pedidos: pedidosPendientes,
+  };
   //get the files
 
 
@@ -157,27 +205,27 @@ async function empezar() {
     // formdata.append("date", formattedFecha);
     // await simular(formdata);
     // fecha.setDate(fecha.getDate() + 1);
-    formattedFecha = startDate.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
+    formattedFecha = currentDate.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '-');
   
     // var formdata = new FormData();
     // formdata.append("date", formattedFecha);
 
-    var year = startDate.getFullYear();
-    var month = ('0' + (startDate.getMonth() + 1)).slice(-2); // Agregar cero inicial si es necesario
-    var day = ('0' + startDate.getDate()).slice(-2); // Agregar cero inicial si es necesario
-    var hours = ('0' + startDate.getHours()).slice(-2); // Agregar cero inicial si es necesario
-    var minutes = ('0' + startDate.getMinutes()).slice(-2); // Agregar cero inicial si es necesario
-    var seconds = ('0' + startDate.getSeconds()).slice(-2); // Agregar cero inicial si es necesario
+    var year = currentDate.getFullYear();
+    var month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Agregar cero inicial si es necesario
+    var day = ('0' + currentDate.getDate()).slice(-2); // Agregar cero inicial si es necesario
+    var hours = ('0' + currentDate.getHours()).slice(-2); // Agregar cero inicial si es necesario
+    var minutes = ('0' + currentDate.getMinutes()).slice(-2); // Agregar cero inicial si es necesario
+    var seconds = ('0' + currentDate.getSeconds()).slice(-2); // Agregar cero inicial si es necesario
 
     // Formatear la fecha al formato deseado "yyyy-MM-dd HH:mm:ss"
     var formattedDate = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 
-    var year2 = currentDate.getFullYear();
-    var month2 = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Agregar cero inicial si es necesario
-    var day2 = ('0' + currentDate.getDate()).slice(-2); // Agregar cero inicial si es necesario
-    var hours2 = ('0' + currentDate.getHours()).slice(-2); // Agregar cero inicial si es necesario
-    var minutes2 = ('0' + currentDate.getMinutes()).slice(-2); // Agregar cero inicial si es necesario
-    var seconds2 = ('0' + currentDate.getSeconds()).slice(-2); // Agregar cero inicial si es necesario
+    var year2 = currentDate2.getFullYear();
+    var month2 = ('0' + (currentDate2.getMonth() + 1)).slice(-2); // Agregar cero inicial si es necesario
+    var day2 = ('0' + currentDate2.getDate()).slice(-2); // Agregar cero inicial si es necesario
+    var hours2 = ('0' + currentDate2.getHours()).slice(-2); // Agregar cero inicial si es necesario
+    var minutes2 = ('0' + currentDate2.getMinutes()).slice(-2); // Agregar cero inicial si es necesario
+    var seconds2 = ('0' + currentDate2.getSeconds()).slice(-2); // Agregar cero inicial si es necesario
 
     // Formatear la fecha al formato deseado "yyyy-MM-dd HH:mm:ss"
     var formattedDate2 = year2 + '-' + month2 + '-' + day2 + ' ' + hours2 + ':' + minutes2 + ':' + seconds2;
@@ -200,28 +248,30 @@ async function empezar() {
 
 
 var formdata = new FormData();
-formdata.append("dateInicio", formattedDate);
-formdata.append("dateFin", formattedDate2);
-formdata.append("data", JSON.stringify(data)); // Convertir el objeto data a JSON
-formdata.append("modo", "S");
+formdata.append("dateInicio",  formattedDate);
+formdata.append("dateFin",  formattedDate2);
+// JSON.stringify(data)
+formdata.append("data",JSON.stringify(data) ); // Convertir el objeto data a JSON
+formdata.append("modo", "P");
 console.log(startDate);
 console.log(currentDate );
 
 
   fetch(
     // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datasç/solucion.json",
-    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
+    // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
+    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
     {
       method: "POST",
       body: formdata,
       redirect: "follow",
-      headers: {
-        "Content-Type": "application/json" // Indicar que el contenido es JSON
-      },
+      // headers: {
+      //   "Content-Type": "application/json" // Indicar que el contenido es JSON
+      // },
       // body: JSON.stringify(requestData) // Convertir el objeto a JSON
       }
   )
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((result) => {
       console.log(`Lo que llega del back es: ${result}`);
       var vehicles = 0;
