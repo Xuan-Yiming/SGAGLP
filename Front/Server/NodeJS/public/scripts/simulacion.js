@@ -162,15 +162,51 @@ async function empezar() {
     // var formdata = new FormData();
     // formdata.append("date", formattedFecha);
 
+    var year = startDate.getFullYear();
+    var month = ('0' + (startDate.getMonth() + 1)).slice(-2); // Agregar cero inicial si es necesario
+    var day = ('0' + startDate.getDate()).slice(-2); // Agregar cero inicial si es necesario
+    var hours = ('0' + startDate.getHours()).slice(-2); // Agregar cero inicial si es necesario
+    var minutes = ('0' + startDate.getMinutes()).slice(-2); // Agregar cero inicial si es necesario
+    var seconds = ('0' + startDate.getSeconds()).slice(-2); // Agregar cero inicial si es necesario
 
-  var formdata = new FormData();  
-formdata.append("dateInicio", startDate.valueAsDate);
-formdata.append("dateFin", currentDate.valueAsDate);
-formdata.append("data", data);
+    // Formatear la fecha al formato deseado "yyyy-MM-dd HH:mm:ss"
+    var formattedDate = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
+    var year2 = currentDate.getFullYear();
+    var month2 = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Agregar cero inicial si es necesario
+    var day2 = ('0' + currentDate.getDate()).slice(-2); // Agregar cero inicial si es necesario
+    var hours2 = ('0' + currentDate.getHours()).slice(-2); // Agregar cero inicial si es necesario
+    var minutes2 = ('0' + currentDate.getMinutes()).slice(-2); // Agregar cero inicial si es necesario
+    var seconds2 = ('0' + currentDate.getSeconds()).slice(-2); // Agregar cero inicial si es necesario
+
+    // Formatear la fecha al formato deseado "yyyy-MM-dd HH:mm:ss"
+    var formattedDate2 = year2 + '-' + month2 + '-' + day2 + ' ' + hours2 + ':' + minutes2 + ':' + seconds2;
+
+    
+//     console.log(formattedDate);
+//     console.log(formattedDate2);
+//   var formdata = new FormData();  
+// formdata.append("dateInicio", formattedDate);
+// formdata.append("dateFin", formattedDate2);
+// formdata.append("data", data);
+// formdata.append("modo", "S");
+
+// var requestData = {
+//   dateInicio: startDate.valueAsDate,
+//   dateFin: currentDate.valueAsDate,
+//   data: data,
+//   modo: "S"
+// };
+
+
+var formdata = new FormData();
+formdata.append("dateInicio", formattedDate);
+formdata.append("dateFin", formattedDate2);
+formdata.append("data", JSON.stringify(data)); // Convertir el objeto data a JSON
 formdata.append("modo", "S");
+console.log(startDate);
+console.log(currentDate );
 
-console.log(startDate.valueAsDate);
-console.log(currentDate.valueAsDate);
 
   fetch(
     // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datasç/solucion.json",
@@ -179,10 +215,15 @@ console.log(currentDate.valueAsDate);
       method: "POST",
       body: formdata,
       redirect: "follow",
-    }
+      headers: {
+        "Content-Type": "application/json" // Indicar que el contenido es JSON
+      },
+      // body: JSON.stringify(requestData) // Convertir el objeto a JSON
+      }
   )
     .then((response) => response.json())
     .then((result) => {
+      console.log(`Lo que llega del back es: ${result}`);
       var vehicles = 0;
       pedidosPendientes = [];
       vehiclulosEnCamino = [];
@@ -252,7 +293,7 @@ console.log(currentDate.valueAsDate);
       document.querySelector("#txtCantidadVehiculos").value = vehicles;
 
       processElements(result);
-    });
+    }).catch(error => console.error(`HORROR:   ${error}`));
 }
 
 async function processElements(result) {
