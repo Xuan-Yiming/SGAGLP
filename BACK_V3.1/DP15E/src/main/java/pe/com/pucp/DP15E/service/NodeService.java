@@ -989,7 +989,7 @@ public class NodeService {
         return response;
     }
 
-    public String algoritmoSimulacion2(Date date1, Date date2, String json, char modo) {
+    public String algoritmoSimulacion2(Date date1, Date date2, String json, char modo) throws Exception{
 
         try {
             //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -1001,6 +1001,7 @@ public class NodeService {
             GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(date1,date2, json, modo);
             return geneticAlgorithmVRP.getSolucion().solucionToJson();
         } catch (Exception e) {
+            e.printStackTrace();
             // Captura cualquier excepción y retorna un mensaje personalizado
             return "Error en el algoritmo: " + e.getMessage();
         }
