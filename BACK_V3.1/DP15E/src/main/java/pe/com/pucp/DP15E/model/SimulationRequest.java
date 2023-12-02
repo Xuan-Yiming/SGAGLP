@@ -1,9 +1,13 @@
 package pe.com.pucp.DP15E.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class SimulationRequest {
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private String dateInicio;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private String dateFin;
     private Object data;
     private char modo;

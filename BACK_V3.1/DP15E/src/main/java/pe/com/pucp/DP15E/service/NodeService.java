@@ -284,8 +284,8 @@ public class NodeService {
     public String algoritmoSimulacion(SimulationRequest information)throws Exception{
 
         try {
-            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            //DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
             // Convertir la cadena a un objeto LocalDateTime
             //LocalDateTime dateTime1 = LocalDateTime.parse(dateInicio, formatter);
