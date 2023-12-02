@@ -31,6 +31,20 @@ class Order {
   }
 }
 
+class Order2 {
+  constructor(id, x, y, start,end, glp) {
+    this.id = id;
+    this.x = x;
+    this.y = y;
+    this.start = start;
+    this.end = end;
+    this.glp = glp;
+  }
+}
+
+
+ordenInicial =   new Order(1,2,3,10,10);
+ordenInicial2 =   new Order2("P1",2,3,startDate,currentDate,10);
 //set the date to today
 document.getElementById("txtFecha").valueAsDate = new Date();
 
@@ -120,6 +134,23 @@ document
     empezar();
   });
 
+
+  function formatDate(date) {
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZone: 'UTC' // Adjust the timeZone according to your needs
+    }).format(date);
+
+    return formattedDate;
+}
+
+
+
 async function empezar() {
   //get the place of the cars
 
@@ -198,30 +229,35 @@ async function empezar() {
 //   modo: "S"
 // };
 
+if(formattedDate == formattedDate2){
+  pedidosPendientes.push(ordenInicial2);
+}
 
 var formdata = new FormData();
-formdata.append("dateInicio", formattedDate);
-formdata.append("dateFin", formattedDate2);
-formdata.append("data", JSON.stringify(data)); // Convertir el objeto data a JSON
+formdata.append("dateInicio",  formattedDate);
+formdata.append("dateFin",  formattedDate2);
+// JSON.stringify(data)
+formdata.append("data",JSON.stringify(data) ); // Convertir el objeto data a JSON
 formdata.append("modo", "S");
-console.log(startDate);
-console.log(currentDate );
+console.log(formattedDate);
+console.log(formattedDate2 );
 
 
   fetch(
     // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datasç/solucion.json",
-    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
+    // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
+    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
     {
       method: "POST",
       body: formdata,
       redirect: "follow",
-      headers: {
-        "Content-Type": "application/json" // Indicar que el contenido es JSON
-      },
+      // headers: {
+      //   "Content-Type": "application/json" // Indicar que el contenido es JSON
+      // },
       // body: JSON.stringify(requestData) // Convertir el objeto a JSON
       }
   )
-    .then((response) => response.json())
+    .then((response) => response.text())
     .then((result) => {
       console.log(`Lo que llega del back es: ${result}`);
       var vehicles = 0;

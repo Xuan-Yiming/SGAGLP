@@ -52,7 +52,7 @@ public class GAProblem implements Cloneable {
         this.depots.add(new Node(3, 63, 3, Double.MAX_VALUE));
 
         this.vehicles = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("./data/mantenimiento/mantpreventivo.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\FABIAN\\Documents\\CURSOS\\2023-2\\DP1\\SGAGLP\\BACK_V3.1\\DP15E\\src\\main\\java\\pe\\com\\pucp\\DP15E\\VehicleRoutingProblem\\data\\mantenimiento\\mantpreventivo.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(":");
@@ -119,7 +119,7 @@ public class GAProblem implements Cloneable {
         // get each file under ./data/bloqueo/
         // for each file, read and load the blocks
 
-        Path dir = Paths.get("./data/bloqueo/");
+        Path dir = Paths.get("C:\\Users\\FABIAN\\Documents\\CURSOS\\2023-2\\DP1\\SGAGLP\\BACK_V3.1\\DP15E\\src\\main\\java\\pe\\com\\pucp\\DP15E\\VehicleRoutingProblem\\data\\bloqueo");
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
             for (Path file : stream) {
                 try (BufferedReader br = new BufferedReader(new FileReader(file.toFile()))) {
