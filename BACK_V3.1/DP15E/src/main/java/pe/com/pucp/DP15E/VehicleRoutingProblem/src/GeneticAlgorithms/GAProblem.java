@@ -90,7 +90,8 @@ public class GAProblem implements Cloneable {
                 // if the vehicle is in the currentVehicle, then continue
                 if (currentVehicle != null) {
                     for (CurrentVehicle current : currentVehicle) {
-                        if (current.id == Integer.parseInt(vehicleId)) {
+                        if (current.id == vehicleId) {
+                        //if (current.id == Integer.parseInt(vehicleId)) {
                             vehicle = new Vehicle(Integer.parseInt(vehicleId), vehicleType.charAt(0),
                                     calendar.getTime(),
                                     current.x, current.y);
