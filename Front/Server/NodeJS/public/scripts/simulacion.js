@@ -141,7 +141,10 @@ document
     start = Date.now();
 
     //empezar la simulacion
-    this.startDate = document.getElementById("txtFecha").valueAsDate;
+    startDate = document.getElementById("txtFecha").valueAsDate;
+    finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
+    ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
+    pedidosPendientes.push(ordenInicial2);
     empezar();
   });
 
@@ -163,9 +166,9 @@ document
 
 function myFunction() {
   
-  finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
-  ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
-  pedidosPendientes.push(ordenInicial2);
+  // finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
+  // ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
+  // pedidosPendientes.push(ordenInicial2);
 }
 
 // Attach the function to the window.onload event using addEventListener
@@ -197,7 +200,7 @@ async function empezar() {
 
   var currentDate = new Date(startDate.getTime() + passedTime * 1000+ 1000*3600*12);
 
-  var currentDate2 = new Date(startDate.getTime() + (clock*72*2) * 1000 + 1000*3600*12);
+  var currentDate2 = new Date(startDate.getTime() + (passedTime) * 1000 + 1000*3600*12+ period*1000*72);
 
 
   let data = {
@@ -263,8 +266,9 @@ formdata.append("dateFin",  formattedDate2);
 // JSON.stringify(data)
 formdata.append("data",JSON.stringify(data) ); // Convertir el objeto data a JSON
 formdata.append("modo", "P");
-console.log(startDate);
-console.log(currentDate );
+console.log(formattedDate);
+console.log(formattedDate2 );
+console.log(JSON.stringify(data) );
 
 
   fetch(
@@ -283,7 +287,7 @@ console.log(currentDate );
   )
     .then((response) => response.json())
     .then((result) => {
-      console.log(`Lo que llega del back es: ${result}`);
+      console.log(result);
       var vehicles = 0;
       pedidosPendientes = [];
       vehiclulosEnCamino = [];
@@ -336,12 +340,24 @@ console.log(currentDate );
             element.y +
             "</td></tr>";
 
+            var dateTimeWithSeconds = element.hora + ":00";
+
+            var dateObject = new Date(dateTimeWithSeconds);
           pedidosPendientes.push(
-            new Order(
+            // new Order(
+            //   element.id,
+            //   element.x,
+            //   element.y,
+            //   element.hora,
+            //   element.cantidad
+            // )
+
+            new Order2(
               element.id,
               element.x,
               element.y,
-              element.hora,
+              currentDate,
+              dateObject,
               element.cantidad
             )
           );
