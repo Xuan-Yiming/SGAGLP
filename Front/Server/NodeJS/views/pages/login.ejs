@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/public/stylesheets/login.css">
+        <link rel="stylesheet" href="/public/stylesheets/styles.css">
+        <script type="text/javascript" src="/public/scripts/login.js"></script>
+    </head>
+
+    <body class="login-container">
+        <main>
+            <div class="login-container">
+                <a href="/login">
+                    <img src="/public/images/logo.svg" alt="Logo" class="login-logo" />
+                </a>
+
+                <form action="/login" class="login-form" method="POST">
+                    <div>
+                        <h1>Login</h1>
+                    </div>
+                    <div>
+                        <p>Usuario: </p>
+                        <input type="email" name="username" id="username" placeholder="Tu correo electrónico" required>
+
+                    </div>
+                    <div>
+                        <p>Contraseña: </p>
+                        <input type="password" name="password" id="password" placeholder="Ingresar 6 caracteres o más"
+                            required>
+
+                    </div>
+                    <% if (messages.error) { %>
+                    <div class="error">
+                        <p><%= messages.error %></p>
+                    </div>
+                    <% } %>
+                    <button type="submit" class="login-button" id="login">Ingresar</button>
+
+                </form>
+            </div>
+        </main>
+    </body>
+
+</html>

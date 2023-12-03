@@ -1,0 +1,212 @@
+.map {
+  width: 1050px;
+  height: 750px;
+  background: #ccc;
+  position: relative;
+}
+
+.map__cell {
+  width: 15px;
+  height: 15px;
+  background: white;
+  border: #ccc solid 1px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.map__cell:hover {
+  background: #ccc;
+}
+
+.map__cell__custom {
+  background: white;
+}
+
+.map__cell__custom_current {
+  background: orange;
+}
+
+.map__cell__block {
+  background: black;
+}
+
+.map__cell__depot {
+  background: red;
+}
+
+
+
+/* rutas */
+
+.map__cell__road {
+  background: grey;
+}
+
+.map__cell__road__1 {
+  background: rgba(0, 0, 255, 0.3); /* Blue with 70% transparency */
+}
+
+.map__cell__road__2 {
+  background: rgba(30, 144, 255, 0.3); /* Dodger Blue with 70% transparency */
+}
+
+.map__cell__road__3 {
+  background: rgba(0, 255, 255, 0.3); /* Cyan with 70% transparency */
+}
+
+.map__cell__road__4 {
+  background: rgba(0, 128, 0, 0.3); /* Green with 70% transparency */
+}
+
+.map__cell__road__5 {
+  background: rgba(255, 255, 0, 0.3); /* Yellow with 70% transparency */
+}
+
+.map__cell__road__6 {
+  background: rgba(255, 165, 0, 0.3); /* Orange with 70% transparency */
+}
+
+.map__cell__road__7 {
+  background: rgba(255, 0, 0, 0.3); /* Red with 70% transparency */
+}
+
+.map__cell__road__8 {
+  background: rgba(128, 0, 128, 0.3); /* Purple with 70% transparency */
+}
+
+.map__cell__road__9 {
+  background: rgba(139, 69, 19, 0.3); /* Saddle Brown with 70% transparency */
+}
+
+.map__cell__road__10 {
+  background: rgba(218, 112, 214, 0.3); /* Orchid with 70% transparency */
+}
+
+.map__cell__road__11 {
+  background: rgba(0, 139, 139, 0.3); /* Dark Cyan with 70% transparency */
+}
+
+.map__cell__road__12 {
+  background: rgba(255, 20, 147, 0.3); /* Deep Pink with 70% transparency */
+}
+
+.map__cell__road__13 {
+  background: rgba(128, 0, 0, 0.3); /* Maroon with 70% transparency */
+}
+
+.map__cell__road__14 {
+  background: rgba(0, 255, 127, 0.3); /* Spring Green with 70% transparency */
+}
+
+.map__cell__road__15 {
+  background: rgba(0, 0, 128, 0.3); /* Navy with 70% transparency */
+}
+
+.map__cell__road__16 {
+  background: rgba(255, 182, 193, 0.3); /* Light Pink with 70% transparency */
+}
+
+.map__cell__road__17 {
+  background: rgba(255, 215, 0, 0.3); /* Gold with 70% transparency */
+}
+
+.map__cell__road__18 {
+  background: rgba(70, 130, 180, 0.3); /* Steel Blue with 70% transparency */
+}
+
+.map__cell__road__19 {
+  background: rgba(240, 230, 140, 0.3); /* Khaki with 70% transparency */
+}
+
+.map__cell__road__20 {
+  background: rgba(0, 128, 128, 0.3); /* Teal with 70% transparency */
+}
+
+
+/* Vehiculos */
+.map__cell__vehicle {
+  background: blue;
+}
+
+
+.map__cell__vehicle__1 {
+  background: rgba(0, 0, 255, 0.7); /* Blue with 70% transparency */
+}
+
+.map__cell__vehicle__2 {
+  background: rgba(30, 144, 255, 0.7); /* Dodger Blue with 70% transparency */
+}
+
+.map__cell__vehicle__3 {
+  background: rgba(0, 255, 255, 0.7); /* Cyan with 70% transparency */
+}
+
+.map__cell__vehicle__4 {
+  background: rgba(0, 128, 0, 0.7); /* Green with 70% transparency */
+}
+
+.map__cell__vehicle__5 {
+  background: rgba(255, 255, 0, 0.7); /* Yellow with 70% transparency */
+}
+
+.map__cell__vehicle__6 {
+  background: rgba(255, 165, 0, 0.7); /* Orange with 70% transparency */
+}
+
+.map__cell__vehicle__7 {
+  background: rgba(255, 0, 0, 0.7); /* Red with 70% transparency */
+}
+
+.map__cell__vehicle__8 {
+  background: rgba(128, 0, 128, 0.7); /* Purple with 70% transparency */
+}
+
+.map__cell__vehicle__9 {
+  background: rgba(139, 69, 19, 0.7); /* Saddle Brown with 70% transparency */
+}
+
+.map__cell__vehicle__10 {
+  background: rgba(218, 112, 214, 0.7); /* Orchid with 70% transparency */
+}
+
+.map__cell__vehicle__11 {
+  background: rgba(0, 139, 139, 0.7); /* Dark Cyan with 70% transparency */
+}
+
+.map__cell__vehicle__12 {
+  background: rgba(255, 20, 147, 0.7); /* Deep Pink with 70% transparency */
+}
+
+.map__cell__vehicle__13 {
+  background: rgba(128, 0, 0, 0.7); /* Maroon with 70% transparency */
+}
+
+.map__cell__vehicle__14 {
+  background: rgba(0, 255, 127, 0.7); /* Spring Green with 70% transparency */
+}
+
+.map__cell__vehicle__15 {
+  background: rgba(0, 0, 128, 0.7); /* Navy with 70% transparency */
+}
+
+.map__cell__vehicle__16 {
+  background: rgba(255, 182, 193, 0.7); /* Light Pink with 70% transparency */
+}
+
+.map__cell__vehicle__17 {
+  background: rgba(255, 215, 0, 0.7); /* Gold with 70% transparency */
+}
+
+.map__cell__vehicle__18 {
+  background: rgba(70, 130, 180, 0.7); /* Steel Blue with 70% transparency */
+}
+
+.map__cell__vehicle__19 {
+  background: rgba(240, 230, 140, 0.7); /* Khaki with 70% transparency */
+}
+
+.map__cell__vehicle__20 {
+  background: rgba(0, 128, 128, 0.7); /* Teal with 70% transparency */
+}
+

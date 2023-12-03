@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <title>Planificación</title>
+
+        <link rel="stylesheet" href="/public/stylesheets/planificacion.css">
+        <link rel="stylesheet" href="/public/stylesheets/styles.css">
+        <link rel="stylesheet" href="/public/stylesheets/map.css">
+        <!-- <script type="text/javascript" src="/public/scripts/map.js"></script> -->
+        <style>
+            #btn-plan {
+                background-color: #EE2E0B;
+            }
+
+            .plan-simu-container .controles .carga-container button {
+                background-color: #EE2E0B;
+            }
+        </style>
+    </head>
+
+    <body class="container">
+        <%- include('../partials/sidebar'); %>
+            <div class="main-continaer plan-simu-container">
+                <h1>Planificación</h1>
+                <div class="controles">
+                    <div class="carga-container">
+                        <!-- <img src="/public/images/filetype-txt.svg" alt="archivo" width="30px" /> -->
+                        <input type="file" id="cmBloqueos" accept=".txt" />
+                        <button id="btnBloqueos">
+                            <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
+                            &nbsp;&nbsp; Cargar Bloqueos
+                        </button>
+                    </div>
+
+                    <div class="carga-container">
+                        <input type="file" id="cmFlota" accept=".txt" />
+                        <button id="btnFlota">
+                            <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
+                            &nbsp;&nbsp;Cargar Flotas
+                        </button>
+                    </div>
+                    <div class="carga-container">
+                        <input type="file" id="cmPedidos" accept=".txt" />
+                        <button id="btnPedidos">
+                            <img src="/public/images/filetype-txt.svg" alt="Pedidos" width="20px" />
+                            &nbsp;&nbsp;Cargar Pedidos
+                        </button>
+                    </div>
+
+                    <div class="btnVelocidad">
+                        <label for="selectSpeed">Velocidad: </label>
+                        <select id="selectSpeed">
+                            <option value="1">1x</option>
+                            <option value="2">2x</option>
+                            <option value="3">3x</option>
+                            <option value="4">4x</option>
+                            <option value="5">5x</option>
+                        </select>
+                    </div>
+
+                    <div class="carga-container">
+                        <button id="btnEmpezar">Empezar</button>
+                    </div>
+                </div>
+                <main>
+                    <div class="map" id="map"></div>
+                    <div class="tools">
+                        <div class="resumen">
+                            <h2>Pedidos</h2>
+                            <table class="table-pedidos" id="tblPedidos">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Destino</th>
+                                        <th>Plazo</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblPedidos">
+                                 
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="resumen">
+                            <h2>Resumen</h2>
+                            <div class="" >
+                                <label for="txtFecha">Fecha  Actual: </label>
+                                <input type="date" id="txtFecha">
+                            </div>
+                            <div class="" style="display: none;">
+                                <label for="txtDuracion">Duracion: </label>
+                                <input type="text" id="txtDuracion" disabled>
+                            </div>
+                            <div class="">
+                                <label for="txtPedidosEntregados">Pedidos Entregados: </label>
+                                <input type="text" id="txtPedidosEntregados" disabled>
+                            </div>
+                            <div class="">
+                                <label for="txtPedidosProgramados">Pedidos Programados: </label>
+                                <input type="text" id="txtPedidosProgramados" disabled>
+                            </div>
+                            <div class="">
+                                <label for="txtCantidadVehiculos">Cantidad de flotas: </label>
+                                <input type="text" id="txtCantidadVehiculos" disabled>
+                            </div>
+                            <div class="">
+                                <label for="txtColapso">Colapso: </label>
+                                <input type="text" id="txtColapso" disabled />
+                            </div>
+                        </div>
+
+                </main>
+            </div>
+    </body>
+    <!-- <script type="text/javascript" src="/public/scripts/simulacion.js"></script> -->
+    
+    <script type="text/javascript" src="/public/scripts/planificacion.js"></script>
+
+</html>

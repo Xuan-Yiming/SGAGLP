@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Flotas</title>
+        <link rel="stylesheet" href="/public/stylesheets/flotas.css">
+        <link rel="stylesheet" href="/public/stylesheets/styles.css">
+
+
+
+    </head>
+
+    <body class="container">
+
+        <%- include('../partials/sidebar'); %>
+            <div class="main-continaer pedido-flota-container">
+                <%- include('../partials/mantenimientoHeader', {title: 'Flotas' }); %>
+                    <%- include('../partials/mantenimientoToolBar'); %>
+                        <%- include('../partials/table', {title: 'Flotas' }); %>
+
+            </div>
+
+
+    </body>
+            <script type="text/javascript" src="/public/scripts/flotas.js"></script>
+        <style>
+            #btn-flo {
+                background-color: #45AE17;
+        
+            }
+        
+            .mantenimiento-header button {
+                background-color: #45AE17;
+            }
+        
+            .table .table-tool-bar .table-pages button {
+                background-color: #45AE17;
+            }
+        
+            .table table thead tr th {
+                background-color: #C7E7B9;
+            }
+        </style>
+</html>

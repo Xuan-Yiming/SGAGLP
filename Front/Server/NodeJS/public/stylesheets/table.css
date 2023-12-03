@@ -1,0 +1,78 @@
+.table {
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Add space between children */
+}
+
+.table .table-tool-bar {
+  display: flex;
+  flex-direction: row;
+  border-radius: 15px;
+  background-color: white;
+}
+
+.table .table-tool-bar .table-pages {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.table .table-tool-bar .table-pages input {
+  width: 50px;
+  border-radius: 20px;
+  padding-left: 10px;
+  background-color: #f0f0f0;
+  height: 2em;
+}
+
+.table .table-tool-bar .table-pages button {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #ffd100;
+  border-radius: 30px;
+  padding: 10px;
+  font-weight: bold;
+  color: #4d4d4d;
+  cursor: pointer;
+}
+
+.table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table table thead {
+  background-color: #ffd0007e;
+}
+
+.table table thead tr th {
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+  color: #4d4d4d;
+}
+
+.table table tbody tr td {
+  padding: 10px;
+  text-align: left;
+  color: #4d4d4d;
+}
+
+.table table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
