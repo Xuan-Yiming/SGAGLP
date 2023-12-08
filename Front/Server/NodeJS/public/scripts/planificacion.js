@@ -31,6 +31,17 @@ class Order {
   }
 }
 
+class Order2 {
+  constructor(id, x, y, start,end, glp) {
+    this.id = id;
+    this.x = x;
+    this.y = y;
+    this.start = start;
+    this.end = end;
+    this.glp = glp;
+  }
+}
+
 //set the date to today
 document.getElementById("txtFecha").valueAsDate = new Date();
 

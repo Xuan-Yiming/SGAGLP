@@ -989,7 +989,7 @@ public class NodeService {
         return response;
     }
 
-    public String algoritmoSimulacion2(Date date1, Date date2, String json, char modo) throws Exception{
+    public String  algoritmoSimulacion2(Date date1, Date date2, String json, char modo) throws Exception{
 
         try {
             //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

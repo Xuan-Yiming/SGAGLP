@@ -107,15 +107,25 @@ btnPedidos.addEventListener("click", function () {
             0,
             orderElements[0].length - 1
           );
-          var order = new Order(
+          // var order = new Order(
+          //   ++largestId,
+          //   x,
+          //   y,
+          //   deadline,
+          //   quantity,
+          //   customer,
+          //   time
+          // );
+
+          var order = new Order2(
             ++largestId,
             x,
             y,
+            currentDate,
             deadline,
-            quantity,
-            customer,
-            time
+            quantity
           );
+
           pedidosPendientes.push(order);
         }
       }
@@ -131,7 +141,10 @@ document
     start = Date.now();
 
     //empezar la simulacion
-    this.startDate = document.getElementById("txtFecha").valueAsDate;
+    startDate = document.getElementById("txtFecha").valueAsDate;
+    finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
+    ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
+    pedidosPendientes.push(ordenInicial2);
     empezar();
   });
 
@@ -153,9 +166,9 @@ document
 
 function myFunction() {
   
-  finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
-  ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
-  pedidosPendientes.push(ordenInicial2);
+  // finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
+  // ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
+  // pedidosPendientes.push(ordenInicial2);
 }
 
 // Attach the function to the window.onload event using addEventListener
@@ -185,9 +198,9 @@ async function empezar() {
 
   var passedTime = clock * 72; // 72 seconds per clock
 
-  var currentDate = new Date(startDate.getTime() + passedTime * 1000);
+  var currentDate = new Date(startDate.getTime() + passedTime * 1000+ 1000*3600*12);
 
-  var currentDate2 = new Date(startDate.getTime() + (clock*72*2) * 1000);
+  var currentDate2 = new Date(startDate.getTime() + (passedTime) * 1000 + 1000*3600*12+ period*1000*72);
 
 
   let data = {
@@ -253,14 +266,16 @@ formdata.append("dateFin",  formattedDate2);
 // JSON.stringify(data)
 formdata.append("data",JSON.stringify(data) ); // Convertir el objeto data a JSON
 formdata.append("modo", "P");
-console.log(startDate);
-console.log(currentDate );
+console.log(formattedDate);
+console.log(formattedDate2 );
+console.log(JSON.stringify(data) );
 
 
   fetch(
-    // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datasç/solucion.json",
+    // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datasç/solucion.json",S
     // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
-    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
+    // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
+    "http://inf226-981-5e.inf.pucp.edu.pe/DP15E/api/v1/node/algoritmoSimulacion",
     {
       method: "POST",
       body: formdata,
@@ -271,9 +286,9 @@ console.log(currentDate );
       // body: JSON.stringify(requestData) // Convertir el objeto a JSON
       }
   )
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((result) => {
-      console.log(`Lo que llega del back es: ${result}`);
+      console.log(result);
       var vehicles = 0;
       pedidosPendientes = [];
       vehiclulosEnCamino = [];
@@ -282,11 +297,21 @@ console.log(currentDate );
       //clean the table
       var table = document.getElementById("tblPedidos");
       table.innerHTML = "";
+      // if (result.elementosEstaticosTemporales && typeof result.elementosEstaticosTemporales === 'object') {
+      //   for (var key in result.elementosEstaticosTemporales) {
+      //     console.log("Hay algo  raro aqui");
+      //   }
+      // } else {
+      //   // Handle the case when elementosEstaticosTemporales is not an object
+      //   console.error("result.elementosEstaticosTemporales is either undefined or not an object");
+      // }
+
 
       result.elementosEstaticosTemporales.forEach((element) => {
         var seletecCell = document.querySelector(
           "#cell_" + element.x + "_" + element.y
         );
+        console.log("Hay algo  raro aqui");
 
         //add the title
         if (seletecCell.title == "") {
@@ -316,12 +341,24 @@ console.log(currentDate );
             element.y +
             "</td></tr>";
 
+            var dateTimeWithSeconds = element.hora + ":00";
+
+            var dateObject = new Date(dateTimeWithSeconds);
           pedidosPendientes.push(
-            new Order(
+            // new Order(
+            //   element.id,
+            //   element.x,
+            //   element.y,
+            //   element.hora,
+            //   element.cantidad
+            // )
+
+            new Order2(
               element.id,
               element.x,
               element.y,
-              element.hora,
+              currentDate,
+              dateObject,
               element.cantidad
             )
           );
