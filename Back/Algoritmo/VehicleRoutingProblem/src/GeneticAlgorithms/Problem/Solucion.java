@@ -118,8 +118,25 @@ public class Solucion {
                 if (totalClock >= maxclock) {
                     break;
                 }
+            }
 
-                // if no it doesn't have 40 clocks, add the last 
+            for (int i = totalClock; i < maxclock; i++) {
+                if (this.elementosEnCadaClock.size() <= i) {
+                    SolucionClock solucionClock = new SolucionClock();
+                    solucionClock.clock = i;
+                    solucionClock.nodos = new ArrayList<>();
+                    this.elementosEnCadaClock.add(solucionClock);
+                }
+
+                solucionClockNode _node = new solucionClockNode();
+            
+                Node lastNode = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1);
+                        _node.x = lastNode.getPosicion().x;
+                        _node.y = lastNode.getPosicion().y;
+                        _node.idPedido = lastNode.getId();
+                        _node.placa = "T" + vehiculo.getType() + vehiculo.getId();
+                        _node.tipo = 'X';
+                        this.elementosEnCadaClock.get(totalClock).nodos.add(_node);
             }
         }
     }
