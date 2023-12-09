@@ -277,8 +277,8 @@ console.log(JSON.stringify(data) );
   fetch(
     // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datasç/solucion.json",S
     // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
-    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
-    // "http://inf226-981-5e.inf.pucp.edu.pe/DP15E/api/v1/node/algoritmoSimulacion",
+    // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
+    "http://inf226-981-5e.inf.pucp.edu.pe/DP15E/api/v1/node/algoritmoSimulacion",
     {
       method: "POST",
       body: formdata,
