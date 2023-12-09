@@ -129,14 +129,14 @@ public class Solucion {
                 }
 
                 solucionClockNode _node = new solucionClockNode();
-            
+
                 Node lastNode = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1);
-                        _node.x = lastNode.getPosicion().x;
-                        _node.y = lastNode.getPosicion().y;
-                        _node.idPedido = lastNode.getId();
-                        _node.placa = "T" + vehiculo.getType() + vehiculo.getId();
-                        _node.tipo = 'X';
-                        this.elementosEnCadaClock.get(totalClock).nodos.add(_node);
+                _node.x = lastNode.getPosicion().x;
+                _node.y = lastNode.getPosicion().y;
+                _node.idPedido = lastNode.getId();
+                _node.placa = "T" + vehiculo.getType() + vehiculo.getId();
+                _node.tipo = 'X';
+                this.elementosEnCadaClock.get(totalClock).nodos.add(_node);
             }
         }
     }

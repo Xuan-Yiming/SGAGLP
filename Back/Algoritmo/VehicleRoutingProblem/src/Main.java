@@ -43,7 +43,7 @@ public class Main {
 
             // create a current vehicle
             CurrentVehicle currentVehicle = new CurrentVehicle();
-            currentVehicle.id = 1;
+            currentVehicle.id = "TA1";
             currentVehicle.x = 9;
             currentVehicle.y = 9;
             currentVehicles.add(currentVehicle);
