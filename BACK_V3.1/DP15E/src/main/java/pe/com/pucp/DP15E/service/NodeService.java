@@ -305,7 +305,7 @@ public class NodeService {
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonData = objectMapper.writeValueAsString(information.getData());
 
-            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(dateInicio,dateFin, jsonData, information.getModo());
+            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(dateInicio,dateFin, jsonData, information.getModo(), information.getClock());
             //Solucion solucion = new Solucion( new GAProblem(vehicles,nodes,1),new Individual(new GAProblem(vehicles,nodes,1)));
 
             return geneticAlgorithmVRP.getSolucion().solucionToJson();
@@ -989,7 +989,7 @@ public class NodeService {
         return response;
     }
 
-    public String  algoritmoSimulacion2(Date date1, Date date2, String json, char modo) throws Exception{
+    public String  algoritmoSimulacion2(Date date1, Date date2, String json, char modo,int clock) throws Exception{
 
         try {
             //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -998,7 +998,7 @@ public class NodeService {
             // Convertir la cadena a un objeto LocalDateTime
             //LocalDateTime dateTime1 = LocalDateTime.parse(dateInicio, formatter);
             //LocalDateTime dateTime2 = LocalDateTime.parse(dateFin, formatter);
-            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(date1,date2, json, modo);
+            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(date1,date2, json, modo,clock);
             return geneticAlgorithmVRP.getSolucion().solucionToJson();
         } catch (Exception e) {
             e.printStackTrace();

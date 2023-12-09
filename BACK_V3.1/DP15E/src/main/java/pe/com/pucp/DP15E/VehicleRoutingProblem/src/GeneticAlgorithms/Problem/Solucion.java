@@ -23,7 +23,7 @@ public class Solucion {
     public Solucion(GAProblem problem, Individual finalSolution, int maxclock) throws Exception {
         elementosEstaticosTemporales = new ArrayList<>();
         elementosEnCadaClock = new ArrayList<>();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
 
         // elementos estaticos
         for (Node order : problem.getOrders()) {
@@ -118,6 +118,25 @@ public class Solucion {
                 if (totalClock >= maxclock) {
                     break;
                 }
+            }
+
+            for (int i = totalClock; i < maxclock; i++) {
+                if (this.elementosEnCadaClock.size() <= i) {
+                    SolucionClock solucionClock = new SolucionClock();
+                    solucionClock.clock = i;
+                    solucionClock.nodos = new ArrayList<>();
+                    this.elementosEnCadaClock.add(solucionClock);
+                }
+
+                solucionClockNode _node = new solucionClockNode();
+            
+                Node lastNode = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1);
+                        _node.x = lastNode.getPosicion().x;
+                        _node.y = lastNode.getPosicion().y;
+                        _node.idPedido = lastNode.getId();
+                        _node.placa = "T" + vehiculo.getType() + vehiculo.getId();
+                        _node.tipo = 'X';
+                        this.elementosEnCadaClock.get(totalClock).nodos.add(_node);
             }
         }
     }

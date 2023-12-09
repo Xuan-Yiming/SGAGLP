@@ -11,12 +11,22 @@ public class SimulationRequest {
     private String dateFin;
     private Object data;
     private char modo;
+    private int clock;
 
-    public SimulationRequest(String dateInicio, String dateFin, Object data, char modo) {
+    public int getClock() {
+        return clock;
+    }
+
+    public void setClock(int clock) {
+        this.clock = clock;
+    }
+
+    public SimulationRequest(String dateInicio, String dateFin, Object data, char modo, int clock) {
         this.dateInicio = dateInicio;
         this.dateFin = dateFin;
         this.data = data;
         this.modo = modo;
+        this.clock =clock;
     }
 
     public String getDateInicio() {
