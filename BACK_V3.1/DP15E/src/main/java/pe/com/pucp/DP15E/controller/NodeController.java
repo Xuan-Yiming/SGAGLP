@@ -66,8 +66,8 @@ public class NodeController {
 
 
     @PostMapping(path ="/algoritmoSimulacion")
-    public String algoritmoSimulacion(@RequestParam("dateInicio") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date1, @RequestParam("dateFin") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date2, @RequestParam("data") String json, @RequestParam("modo") char modo) throws Exception {
-        return nodeService.algoritmoSimulacion2(date1,date2,json,modo);
+    public String algoritmoSimulacion(@RequestParam("dateInicio") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date1, @RequestParam("dateFin") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date date2, @RequestParam("data") String json, @RequestParam("modo") char modo,@RequestParam("clock") int clock) throws Exception {
+        return nodeService.algoritmoSimulacion2(date1,date2,json,modo,clock);
     }
 
 /*
