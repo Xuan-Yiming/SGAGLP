@@ -4,14 +4,10 @@ import GeneticAlgorithms.Extra.CurrentVehicle;
 import GeneticAlgorithms.Extra.PendingOrders;
 import GeneticAlgorithms.Problem.Node;
 import GeneticAlgorithms.Problem.Vehicle;
-
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,6 +30,8 @@ public class GAProblem implements Cloneable {
     private int numOfBlocks = 50;
 
     public int maxclock = 40;
+
+    private String baseURL = "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Data/";
     // Constructors
 
     // Load from file
@@ -52,7 +50,10 @@ public class GAProblem implements Cloneable {
         this.depots.add(new Node(3, 63, 3, Double.MAX_VALUE));
 
         this.vehicles = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("./data/mantenimiento/mantpreventivo.txt"))) {
+        try {
+            URL url = new URL(this.baseURL + "mantenimiento/mantpreventivo.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(":");
@@ -95,6 +96,8 @@ public class GAProblem implements Cloneable {
                                     calendar.getTime(),
                                     current.x, current.y);
                             isCurrent = true;
+                            vehicle.addNode(new Node(0, current.x, current.y, Double.MAX_VALUE));
+
                             this.vehicles.add(vehicle);
                         }
                     }
@@ -102,10 +105,12 @@ public class GAProblem implements Cloneable {
 
                 if (!isCurrent) {
                     vehicle = new Vehicle(Integer.parseInt(vehicleId), vehicleType.charAt(0), calendar.getTime());
+                    vehicle.addNode(this.depots.get(0));
                     this.vehicles.add(vehicle);
                 }
 
             }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,68 +123,69 @@ public class GAProblem implements Cloneable {
 
         // get each file under ./data/bloqueo/
         // for each file, read and load the blocks
+        String fileName;
 
-        Path dir = Paths.get("./data/bloqueo/");
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path file : stream) {
-                try (BufferedReader br = new BufferedReader(new FileReader(file.toFile()))) {
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        String[] parts = line.split(":");
-                        String timePart = parts[0];
-                        String[] coordinates = parts[1].split(",");
+        Calendar _calendar = Calendar.getInstance();
+        _calendar.setTime(startDate);
+        int _year = _calendar.get(Calendar.YEAR);
+        int _month = _calendar.get(Calendar.MONTH) + 1;
+        fileName = _year + "" + _month + ".bloqueos.txt";
 
-                        String[] times = timePart.split("-");
-                        String startTime = times[0];
-                        String endTime = times[1];
+        try {
+            URL url = new URL(this.baseURL + "bloqueo/" + fileName);
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                String timePart = parts[0];
+                String[] coordinates = parts[1].split(",");
 
-                        String startDay = startTime.substring(0, startTime.indexOf('d'));
-                        String startHour = startTime.substring(startTime.indexOf('d') + 1, startTime.indexOf('h'));
-                        String startMinute = startTime.substring(startTime.indexOf('h') + 1, startTime.indexOf('m'));
+                String[] times = timePart.split("-");
+                String startTime = times[0];
+                String endTime = times[1];
 
-                        String endDay = endTime.substring(0, endTime.indexOf('d'));
-                        String endHour = endTime.substring(endTime.indexOf('d') + 1, endTime.indexOf('h'));
-                        String endMinute = endTime.substring(endTime.indexOf('h') + 1, endTime.indexOf('m'));
+                String startDay = startTime.substring(0, startTime.indexOf('d'));
+                String startHour = startTime.substring(startTime.indexOf('d') + 1, startTime.indexOf('h'));
+                String startMinute = startTime.substring(startTime.indexOf('h') + 1, startTime.indexOf('m'));
 
-                        // get the name of the file
-                        String fileName = file.getFileName().toString();
-                        String year = fileName.substring(0, 4);
-                        String month = fileName.substring(4, 6);
+                String endDay = endTime.substring(0, endTime.indexOf('d'));
+                String endHour = endTime.substring(endTime.indexOf('d') + 1, endTime.indexOf('h'));
+                String endMinute = endTime.substring(endTime.indexOf('h') + 1, endTime.indexOf('m'));
 
-                        Calendar calendar_s = Calendar.getInstance();
-                        calendar_s.set(Calendar.YEAR, Integer.parseInt(year));
-                        calendar_s.set(Calendar.MONTH, Integer.parseInt(month) - 1);
-                        calendar_s.set(Calendar.DAY_OF_MONTH, Integer.parseInt(startDay));
-                        calendar_s.set(Calendar.HOUR_OF_DAY, Integer.parseInt(startHour));
-                        calendar_s.set(Calendar.MINUTE, Integer.parseInt(startMinute));
-                        calendar_s.set(Calendar.SECOND, 0);
+                // get the name of the file
+                String year = fileName.substring(0, 4);
+                String month = fileName.substring(4, 6);
 
-                        Calendar calendar_e = Calendar.getInstance();
-                        calendar_e.set(Calendar.YEAR, Integer.parseInt(year));
-                        calendar_e.set(Calendar.MONTH, Integer.parseInt(month) - 1);
-                        calendar_e.set(Calendar.DAY_OF_MONTH, Integer.parseInt(endDay));
-                        calendar_e.set(Calendar.HOUR_OF_DAY, Integer.parseInt(endHour));
-                        calendar_e.set(Calendar.MINUTE, Integer.parseInt(endMinute));
-                        calendar_e.set(Calendar.SECOND, 0);
+                Calendar calendar_s = Calendar.getInstance();
+                calendar_s.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar_s.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                calendar_s.set(Calendar.DAY_OF_MONTH, Integer.parseInt(startDay));
+                calendar_s.set(Calendar.HOUR_OF_DAY, Integer.parseInt(startHour));
+                calendar_s.set(Calendar.MINUTE, Integer.parseInt(startMinute));
+                calendar_s.set(Calendar.SECOND, 0);
 
-                        // if startDate id between the calendar_s and calendar_e date, then continue
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(startDate);
-                        if (!(calendar.after(calendar_s) && calendar.before(calendar_e))) {
-                            continue;
-                        }
+                Calendar calendar_e = Calendar.getInstance();
+                calendar_e.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar_e.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                calendar_e.set(Calendar.DAY_OF_MONTH, Integer.parseInt(endDay));
+                calendar_e.set(Calendar.HOUR_OF_DAY, Integer.parseInt(endHour));
+                calendar_e.set(Calendar.MINUTE, Integer.parseInt(endMinute));
+                calendar_e.set(Calendar.SECOND, 0);
 
-                        for (int i = 0; i < coordinates.length; i += 2) {
-                            int x = Integer.parseInt(coordinates[i]);
-                            int y = Integer.parseInt(coordinates[i + 1]);
-                            Node block = new Node(id++, x, y, calendar_s.getTime(), calendar_e.getTime());
-                            this.blocks.add(block);
-                        }
-
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                // if startDate id between the calendar_s and calendar_e date, then continue
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(startDate);
+                if (!(calendar.after(calendar_s) && calendar.before(calendar_e))) {
+                    continue;
                 }
+
+                for (int i = 0; i < coordinates.length; i += 2) {
+                    int x = Integer.parseInt(coordinates[i]);
+                    int y = Integer.parseInt(coordinates[i + 1]);
+                    Node block = new Node(id++, x, y, calendar_s.getTime(), calendar_e.getTime());
+                    this.blocks.add(block);
+                }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -209,78 +215,83 @@ public class GAProblem implements Cloneable {
         // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
         // customer, Q m3, deadline h
 
-        dir = Paths.get("./data/ventas/");
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path file : stream) {
-                try (BufferedReader br = new BufferedReader(new FileReader(file.toFile()))) {
-                    String line;
-                    String fileName = file.getFileName().toString();
-                    String year = fileName.substring(6, 10);
-                    String month = fileName.substring(10, 12);
+        fileName = "ventas" + _year + "" + _month + ".txt";
 
-                    while ((line = br.readLine()) != null) {
-                        String[] parts = line.split(":");
-                        String timePart = parts[0];
-                        String[] orderDetails = parts[1].split(",");
+        try {
+            URL url = new URL(this.baseURL + "ventas/" + fileName);
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+            String line;
+            String year = fileName.substring(6, 10);
+            String month = fileName.substring(10, 12);
 
-                        String day = timePart.substring(0, timePart.indexOf('d'));
-                        String hour = timePart.substring(timePart.indexOf('d') + 1, timePart.indexOf('h'));
-                        String minute = timePart.substring(timePart.indexOf('h') + 1, timePart.indexOf('m'));
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                String timePart = parts[0];
+                String[] orderDetails = parts[1].split(",");
 
-                        int x = Integer.parseInt(orderDetails[0]);
-                        int y = Integer.parseInt(orderDetails[1]);
+                String day = timePart.substring(0, timePart.indexOf('d'));
+                String hour = timePart.substring(timePart.indexOf('d') + 1, timePart.indexOf('h'));
+                String minute = timePart.substring(timePart.indexOf('h') + 1, timePart.indexOf('m'));
 
-                        if (x < 0 || x >= 70 || y < 0 || y >= 50) {
-                            continue;
-                        }
+                int x = Integer.parseInt(orderDetails[0]);
+                int y = Integer.parseInt(orderDetails[1]);
 
-                        String customer = orderDetails[2];
-                        String quantity = orderDetails[3].substring(0, orderDetails[3].indexOf('m'));
-                        String deadline = orderDetails[4].substring(0, orderDetails[4].indexOf('h'));
+                if (x < 0 || x >= 70 || y < 0 || y >= 50) {
+                    continue;
+                }
 
-                        Calendar calendar_s = Calendar.getInstance();
-                        calendar_s.set(Calendar.YEAR, Integer.parseInt(year));
-                        calendar_s.set(Calendar.MONTH, Integer.parseInt(month) - 1);
-                        calendar_s.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
-                        calendar_s.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
-                        calendar_s.set(Calendar.MINUTE, Integer.parseInt(minute));
-                        calendar_s.set(Calendar.SECOND, 0);
+                String customer = orderDetails[2];
+                String quantity = orderDetails[3].substring(0, orderDetails[3].indexOf('m'));
+                String deadline = orderDetails[4].substring(0, orderDetails[4].indexOf('h'));
 
-                        // if startDate id between the calendar_s and calendar_e date, then continue
-                        Calendar calendar_sd = Calendar.getInstance();
-                        calendar_sd.setTime(startDate);
+                Calendar calendar_s = Calendar.getInstance();
+                calendar_s.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar_s.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                calendar_s.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+                calendar_s.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
+                calendar_s.set(Calendar.MINUTE, Integer.parseInt(minute));
+                calendar_s.set(Calendar.SECOND, 0);
 
-                        Calendar calendar_ed = Calendar.getInstance();
-                        calendar_ed.setTime(endDate);
+                // if startDate id between the calendar_s and calendar_e date, then continue
+                Calendar calendar_sd = Calendar.getInstance();
+                calendar_sd.setTime(startDate);
 
-                        if (!(calendar_s.after(calendar_sd) && calendar_s.before(calendar_ed))) {
-                            continue;
-                        }
+                Calendar calendar_ed = Calendar.getInstance();
+                calendar_ed.setTime(endDate);
 
-                        Calendar calendar_e = Calendar.getInstance();
-                        calendar_e.set(Calendar.YEAR, Integer.parseInt(year));
-                        calendar_e.set(Calendar.MONTH, Integer.parseInt(month) - 1);
-                        calendar_e.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
-                        calendar_e.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour) + Integer.parseInt(deadline));
-                        calendar_e.set(Calendar.MINUTE, Integer.parseInt(minute));
-                        calendar_e.set(Calendar.SECOND, 0);
+                if (!(calendar_s.after(calendar_sd) && calendar_s.before(calendar_ed))) {
+                    continue;
+                }
 
-                        Node order = new Node(id++, x, y, Double.parseDouble(quantity), calendar_s.getTime(),
-                                calendar_e.getTime());
-                        this.orders.add(order);
+                Calendar calendar_e = Calendar.getInstance();
+                calendar_e.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar_e.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                calendar_e.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+                calendar_e.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour) + Integer.parseInt(deadline));
+                calendar_e.set(Calendar.MINUTE, Integer.parseInt(minute));
+                calendar_e.set(Calendar.SECOND, 0);
+
+                double _quantity = Double.parseDouble(quantity);
+
+                for (double i = 0; i < _quantity / 25; i++) {
+
+                    double _q = 25;
+                    if (_quantity - i * 25 < 25) {
+                        _q = _quantity - i * 25;
                     }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    Node order = new Node(id++, x, y, _q, calendar_s.getTime(),
+                            calendar_e.getTime());
+                    this.orders.add(order);
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     // Test
+    // Generate a random problem
     public GAProblem(char test) {
         // create random problem
         Random random = new Random();
@@ -438,8 +449,10 @@ public class GAProblem implements Cloneable {
         this.vehicles.add(new Vehicle(20, 'D', date));
 
     }
+
     // Methods
 
+    // Validate the problem
     public boolean validate() throws Exception {
 
         // if has no vehicles
@@ -447,10 +460,10 @@ public class GAProblem implements Cloneable {
             throw new Exception("No vehicles");
         }
 
-        // if has no orders
-        if (this.orders.size() == 0) {
-            throw new Exception("No orders");
-        }
+        // // if has no orders
+        // if (this.orders.size() == 0) {
+        // throw new Exception("No orders");
+        // }
 
         // if has no depots
         if (this.depots.size() == 0) {

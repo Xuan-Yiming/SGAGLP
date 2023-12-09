@@ -26,7 +26,7 @@ public class Gene implements Cloneable {
     public Gene() {
     }
 
-    public Gene(Vehicle vehicle, Node depot) {
+    public Gene(Vehicle vehicle) {
         this.id = vehicle.getId();
         this.posicion = vehicle.getPosicion();
         this.type = vehicle.getType();
@@ -36,8 +36,7 @@ public class Gene implements Cloneable {
         this.velocidad = vehicle.getVelocidad();
         this.cargaPetroleo = vehicle.getCargaPetroleo();
         this.mantenimiento = vehicle.getMantenimiento();
-        this.route = new ArrayList<>();
-        this.route.add(depot);
+        this.route = vehicle.getRoute();
         this.totalTime = vehicle.getTotalTime();
     }
 

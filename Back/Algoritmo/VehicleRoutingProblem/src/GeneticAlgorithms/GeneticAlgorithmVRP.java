@@ -21,7 +21,7 @@ public class GeneticAlgorithmVRP {
     // simulacion
     // Mode = 'S' -> Simulacion
     // Mode = 'P' -> Planificacion
-    public GeneticAlgorithmVRP(Date startDate, Date enDate, String _data, char mode)
+    public GeneticAlgorithmVRP(Date startDate, Date enDate, String _data, char mode, int maxclock)
             throws Exception {
 
         // Create a Gson object
@@ -35,6 +35,7 @@ public class GeneticAlgorithmVRP {
         InputData data = gson.fromJson(_data, typeToken.getType());
 
         this.problem = new GAProblem(startDate, enDate, data.vehiculos, data.pedidos, mode);
+        this.problem.maxclock = maxclock;
         problem.validate();
 
         population = new Population(problem);

@@ -118,6 +118,8 @@ public class Solucion {
                 if (totalClock >= maxclock) {
                     break;
                 }
+
+                // if no it doesn't have 40 clocks, add the last 
             }
         }
     }

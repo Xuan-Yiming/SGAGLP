@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
+import com.google.gson.Gson;
 
 import GeneticAlgorithms.GeneticAlgorithmVRP;
 import GeneticAlgorithms.Extra.CurrentVehicle;
+import GeneticAlgorithms.Extra.InputData;
 import GeneticAlgorithms.Extra.PendingOrders;
 import GeneticAlgorithms.Problem.Solucion;
 
@@ -57,9 +58,18 @@ public class Main {
             pendingOrder.GLP = 5;
             pendingOrders.add(pendingOrder);
 
+            // create input data
+            InputData inputData = new InputData();
+            inputData.vehiculos = currentVehicles;
+            inputData.pedidos = pendingOrders;
 
+            // Create a Gson object
+            Gson gson = new Gson();
 
-            algorithmVRP = new GeneticAlgorithmVRP(calendar_s.getTime(), calendar_e.getTime(),"",'P');
+            String data = gson.toJson(inputData);
+            
+
+            algorithmVRP = new GeneticAlgorithmVRP(calendar_s.getTime(), calendar_e.getTime(),data,'P',40);
 
             Solucion solucion = algorithmVRP.getSolucion();
 
