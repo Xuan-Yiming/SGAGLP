@@ -27,14 +27,14 @@ public class Main {
             calendar_s.set(Calendar.YEAR, 2023);
             calendar_s.set(Calendar.MONTH, 10);
             calendar_s.set(Calendar.DAY_OF_MONTH, 29);
-            calendar_s.set(Calendar.HOUR_OF_DAY, 1);
+            calendar_s.set(Calendar.HOUR_OF_DAY, 7);
             calendar_s.set(Calendar.MINUTE, 0);
 
             Calendar calendar_e = Calendar.getInstance();
             calendar_e.set(Calendar.YEAR, 2023);
             calendar_e.set(Calendar.MONTH, 10);
             calendar_e.set(Calendar.DAY_OF_MONTH, 29);
-            calendar_e.set(Calendar.HOUR_OF_DAY, 5);
+            calendar_e.set(Calendar.HOUR_OF_DAY, 8);
             calendar_e.set(Calendar.MINUTE, 0);
 
 
@@ -67,6 +67,8 @@ public class Main {
             Gson gson = new Gson();
 
             String data = gson.toJson(inputData);
+
+            data = "{\"vehiculos\":[{\"id\":\"TA1\",\"x\":51,\"y\":8},{\"id\":\"TA2\",\"x\":12,\"y\":8},{\"id\":\"TB3\",\"x\":12,\"y\":8},{\"id\":\"TB4\",\"x\":51,\"y\":8},{\"id\":\"TB5\",\"x\":12,\"y\":8},{\"id\":\"TB6\",\"x\":12,\"y\":8},{\"id\":\"TC7\",\"x\":12,\"y\":8},{\"id\":\"TC8\",\"x\":12,\"y\":8},{\"id\":\"TC9\",\"x\":12,\"y\":8},{\"id\":\"TC10\",\"x\":12,\"y\":8},{\"id\":\"TD11\",\"x\":12,\"y\":8},{\"id\":\"TD12\",\"x\":12,\"y\":8},{\"id\":\"TD13\",\"x\":12,\"y\":8},{\"id\":\"TD14\",\"x\":12,\"y\":8},{\"id\":\"TD15\",\"x\":12,\"y\":8},{\"id\":\"TD16\",\"x\":12,\"y\":8},{\"id\":\"TD17\",\"x\":12,\"y\":8},{\"id\":\"TD18\",\"x\":12,\"y\":8},{\"id\":\"TD19\",\"x\":12,\"y\":8},{\"id\":\"TD20\",\"x\":51,\"y\":8}],\"pedidos\":[{\"id\":\"C0\",\"x\":59,\"y\":12,\"start\":\"2023-11-29T07:01:12.000Z\",\"end\":\"2023-06-29T16:06:00.000Z\",\"glp\":6},{\"id\":\"C1\",\"x\":61,\"y\":22,\"start\":\"2023-11-29T07:01:12.000Z\",\"end\":\"2023-08-29T07:08:00.000Z\",\"glp\":3},{\"id\":\"C2\",\"x\":21,\"y\":25,\"start\":\"2023-11-29T07:01:12.000Z\",\"end\":\"2023-10-29T13:10:00.000Z\",\"glp\":14}]}";
         
             
             algorithmVRP = new GeneticAlgorithmVRP(calendar_s.getTime(), calendar_e.getTime(),data,'P',40);
