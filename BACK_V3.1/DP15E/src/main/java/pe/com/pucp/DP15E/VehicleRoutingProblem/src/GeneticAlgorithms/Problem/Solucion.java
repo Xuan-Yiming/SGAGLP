@@ -1,6 +1,6 @@
 package pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem;
 
-import GeneticAlgorithms.*;
+import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
