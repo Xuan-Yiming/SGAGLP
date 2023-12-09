@@ -96,8 +96,6 @@ public class GAProblem implements Cloneable {
                                     calendar.getTime(),
                                     current.x, current.y);
                             isCurrent = true;
-                            vehicle.addNode(new Node(0, current.x, current.y, Double.MAX_VALUE));
-
                             this.vehicles.add(vehicle);
                         }
                     }
@@ -105,7 +103,6 @@ public class GAProblem implements Cloneable {
 
                 if (!isCurrent) {
                     vehicle = new Vehicle(Integer.parseInt(vehicleId), vehicleType.charAt(0), calendar.getTime());
-                    vehicle.addNode(this.depots.get(0));
                     this.vehicles.add(vehicle);
                 }
 

@@ -36,7 +36,9 @@ public class Gene implements Cloneable {
         this.velocidad = vehicle.getVelocidad();
         this.cargaPetroleo = vehicle.getCargaPetroleo();
         this.mantenimiento = vehicle.getMantenimiento();
-        this.route = vehicle.getRoute();
+        this.route = new ArrayList<>();
+        Node node = new Node(0, this.posicion.x, this.posicion.y, Double.MAX_VALUE);
+        this.route.add(node);
         this.totalTime = vehicle.getTotalTime();
     }
 
