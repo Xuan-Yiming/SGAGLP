@@ -37,82 +37,21 @@ public class GAProblem implements Cloneable {
     // Load from file
     public GAProblem(Date startDate, Date endDate, ArrayList<CurrentVehicle> currentVehicle,
             ArrayList<PendingOrders> pendingOrders, char mode) throws Exception {
-        // read and load the vehicles from file data/mantenimiento/mantpreventivo.txt
-        // 20230801:TA01 year month day:T vehicleType vehicleId
+
 
         if (startDate == null || endDate == null) {
             throw new NullPointerException("startDate or endDate is null");
         }
 
+
+        // create depots
         this.depots = new ArrayList<>();
         this.depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
         this.depots.add(new Node(2, 42, 42, Double.MAX_VALUE));
         this.depots.add(new Node(3, 63, 3, Double.MAX_VALUE));
 
-        this.vehicles = new ArrayList<>();
-        try {
-            URL url = new URL(this.baseURL + "mantenimiento/mantpreventivo.txt");
-            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(":");
-                String datePart = parts[0];
-                String vehiclePart = parts[1];
-
-                String year = datePart.substring(0, 4);
-                String month = datePart.substring(4, 6);
-                String day = datePart.substring(6, 8);
-
-                // if the startDate has the same year and month and day as vehicle's date, then
-                // cotinue
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(startDate);
-                if (calendar.get(Calendar.YEAR) == Integer.parseInt(year)
-                        && calendar.get(Calendar.MONTH) == Integer.parseInt(month) - 1
-                        && calendar.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(day)) {
-                    continue;
-                }
-
-                String vehicleType = vehiclePart.substring(1, 2);
-                String vehicleId = vehiclePart.substring(2);
-
-                // Assuming Vehicle constructor takes (year, month, day, type, id)
-                calendar = Calendar.getInstance();
-                calendar.set(Calendar.YEAR, Integer.parseInt(year));
-                calendar.set(Calendar.MONTH, Integer.parseInt(month) - 1);
-                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
-                calendar.set(Calendar.HOUR_OF_DAY, 0);
-                calendar.set(Calendar.MINUTE, 0);
-                calendar.set(Calendar.SECOND, 0);
-
-                Vehicle vehicle;
-                Boolean isCurrent = false;
-                // if the vehicle is in the currentVehicle, then continue
-                if (currentVehicle != null) {
-                    for (CurrentVehicle current : currentVehicle) {
-                        String _id = "T" + vehicleType + Integer.parseInt(vehicleId);
-                        if (current.id.equals(_id)) {
-                            vehicle = new Vehicle(Integer.parseInt(vehicleId), vehicleType.charAt(0),
-                                    calendar.getTime(),
-                                    current.x, current.y);
-                            isCurrent = true;
-                            this.vehicles.add(vehicle);
-                        }
-                    }
-                }
-
-                if (!isCurrent) {
-                    vehicle = new Vehicle(Integer.parseInt(vehicleId), vehicleType.charAt(0), calendar.getTime());
-                    this.vehicles.add(vehicle);
-                }
-
-            }
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        // blocks
         // read and load the blocks from file ./data/bloqueo/202311.bloqueos.txt
         // 29d00h11m-29d20h51m:10,20,10,21,10,22 dayOfMoth d HourOfday h MinuteOfHour m
         // - dayOfMoth d HourOfday h MinuteOfHour m: x, y, x, y, x, y, ...
@@ -189,6 +128,8 @@ public class GAProblem implements Cloneable {
             e.printStackTrace();
         }
 
+
+        // orders
         this.orders = new ArrayList<>();
 
         if (pendingOrders != null) {
@@ -283,6 +224,102 @@ public class GAProblem implements Cloneable {
                 }
             }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        // vehicles
+        // read and load the vehicles from file data/mantenimiento/mantpreventivo.txt
+        // 20230801:TA01 year month day:T vehicleType vehicleId
+        this.vehicles = new ArrayList<>();
+        try {
+            URL url = new URL(this.baseURL + "mantenimiento/mantpreventivo.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(":");
+                String datePart = parts[0];
+                String vehiclePart = parts[1];
+
+                String year = datePart.substring(0, 4);
+                String month = datePart.substring(4, 6);
+                String day = datePart.substring(6, 8);
+
+                // if the startDate has the same year and month and day as vehicle's date, then
+                // cotinue
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(startDate);
+                if (calendar.get(Calendar.YEAR) == Integer.parseInt(year)
+                        && calendar.get(Calendar.MONTH) == Integer.parseInt(month) - 1
+                        && calendar.get(Calendar.DAY_OF_MONTH) == Integer.parseInt(day)) {
+                    continue;
+                }
+
+                String vehicleType = vehiclePart.substring(1, 2);
+                String vehicleId = vehiclePart.substring(2);
+
+                // Assuming Vehicle constructor takes (year, month, day, type, id)
+                calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, Integer.parseInt(year));
+                calendar.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+
+                // find the order with the same id
+                Vehicle vehicle;
+                Boolean isCurrent = false;
+                // if the vehicle is in the currentVehicle, then continue
+                if (currentVehicle != null) {
+                    for (CurrentVehicle current : currentVehicle) {
+                        String _id = "T" + vehicleType + Integer.parseInt(vehicleId);
+                        if (current.id.equals(_id)) {
+                            vehicle = new Vehicle(Integer.parseInt(vehicleId), vehicleType.charAt(0),
+                                    calendar.getTime(),
+                                    current.x, current.y);
+                            isCurrent = true;
+
+                            // keep the current order
+                            if (current.pedido.contains("D")) {
+                                //get the depot with the same ID
+                                for (Node depot : this.depots) {
+                                    if (depot.getId().equals(depot.getId()) ) {
+                                        if(depot.getPosicion().getX() != current.x && depot.getPosicion().getY() != current.y){
+                                            vehicle.addNode(depot);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }else{
+                                //get the order with the same ID
+                                for (Node order : this.orders) {
+                                    if (order.getId().equals(current.pedido) ) {
+                                        if(order.getPosicion().getX() != current.x && order.getPosicion().getY() != current.y){
+                                            vehicle.addNode(order);
+                                            // remove the order from the orders
+                                            this.orders.remove(order);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+
+                            this.vehicles.add(vehicle);
+                        }
+                    }
+                }
+
+                if (!isCurrent) {
+                    vehicle = new Vehicle(Integer.parseInt(vehicleId), vehicleType.charAt(0), calendar.getTime());
+                    this.vehicles.add(vehicle);
+                }
+
+            }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
