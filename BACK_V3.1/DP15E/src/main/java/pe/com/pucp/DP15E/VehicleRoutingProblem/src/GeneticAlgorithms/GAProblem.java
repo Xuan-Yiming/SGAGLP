@@ -126,7 +126,7 @@ public class GAProblem implements Cloneable {
         Calendar _calendar = Calendar.getInstance();
         _calendar.setTime(startDate);
         int _year = _calendar.get(Calendar.YEAR);
-        int _month = _calendar.get(Calendar.MONTH) + 1;
+        int _month = _calendar.get(Calendar.MONTH) +1 ;
         fileName = _year + "" + _month + ".bloqueos.txt";
 
         try {

@@ -998,7 +998,28 @@ public class NodeService {
             // Convertir la cadena a un objeto LocalDateTime
             //LocalDateTime dateTime1 = LocalDateTime.parse(dateInicio, formatter);
             //LocalDateTime dateTime2 = LocalDateTime.parse(dateFin, formatter);
-            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(date1,date2, json, modo,clock);
+
+            Calendar calendar_s = Calendar.getInstance();
+            calendar_s.setTime(date1);
+
+            Calendar calendar_e = Calendar.getInstance();
+            calendar_e.setTime(date2);
+/*
+            Calendar calendar_s = Calendar.getInstance();
+            calendar_s.set(Calendar.YEAR, 2023);
+            calendar_s.set(Calendar.MONTH, 10);
+            calendar_s.set(Calendar.DAY_OF_MONTH, 29);
+            calendar_s.set(Calendar.HOUR_OF_DAY, 1);
+            calendar_s.set(Calendar.MINUTE, 0);
+
+            Calendar calendar_e = Calendar.getInstance();
+            calendar_e.set(Calendar.YEAR, 2023);
+            calendar_e.set(Calendar.MONTH, 10);
+            calendar_e.set(Calendar.DAY_OF_MONTH, 29);
+            calendar_e.set(Calendar.HOUR_OF_DAY, 5);
+            calendar_e.set(Calendar.MINUTE, 0);
+*/
+            GeneticAlgorithmVRP geneticAlgorithmVRP = new GeneticAlgorithmVRP(calendar_s.getTime(),calendar_e.getTime(), json, modo,clock);
             return geneticAlgorithmVRP.getSolucion().solucionToJson();
         } catch (Exception e) {
             e.printStackTrace();

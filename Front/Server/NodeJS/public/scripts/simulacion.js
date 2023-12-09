@@ -68,70 +68,70 @@ for (var w = 0; w < 70; w++) {
 
 // cargar archivos
 
-var btnPedidos = document.getElementById("btnPedidos");
-var cmPedidos = document.getElementById("cmPedidos");
-btnPedidos.addEventListener("click", function () {
-  cmPedidos.click().then((result) => {
-    // get the largest id in pedidosPendientes
+// var btnPedidos = document.getElementById("btnPedidos");
+// var cmPedidos = document.getElementById("cmPedidos");
+// btnPedidos.addEventListener("click", function () {
+//   cmPedidos.click().then((result) => {
+//     // get the largest id in pedidosPendientes
 
-    var largestId = 0;
-    pedidosPendientes.forEach((order) => {
-      if (order.id > largestId) {
-        largestId = order.id;
-      }
-    });
+//     var largestId = 0;
+//     pedidosPendientes.forEach((order) => {
+//       if (order.id > largestId) {
+//         largestId = order.id;
+//       }
+//     });
 
-    // read and load the orders from file .txt
-    // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
-    // customer, Q m3, deadline h
+//     // read and load the orders from file .txt
+//     // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
+//     // customer, Q m3, deadline h
 
-    var file = cmPedidos.files[0];
-    var reader = new FileReader(file);
-    reader.onload = function (progressEvent) {
-      // By lines
-      var lines = this.result.split("\n");
-      for (var line = 0; line < lines.length; line++) {
-        var elements = lines[line].split(":");
-        var time = elements[0];
-        var orders = elements[1];
-        for (var order = 0; order < orders.length; order++) {
-          var orderElements = orders[order].split(",");
-          var x = orderElements[0];
-          var y = orderElements[1];
-          var customer = orderElements[2];
-          var quantity = orderElements[3].substring(
-            0,
-            orderElements[3].length - 2
-          );
-          var deadline = orderElements[0].substring(
-            0,
-            orderElements[0].length - 1
-          );
-          // var order = new Order(
-          //   ++largestId,
-          //   x,
-          //   y,
-          //   deadline,
-          //   quantity,
-          //   customer,
-          //   time
-          // );
+//     var file = cmPedidos.files[0];
+//     var reader = new FileReader(file);
+//     reader.onload = function (progressEvent) {
+//       // By lines
+//       var lines = this.result.split("\n");
+//       for (var line = 0; line < lines.length; line++) {
+//         var elements = lines[line].split(":");
+//         var time = elements[0];
+//         var orders = elements[1];
+//         for (var order = 0; order < orders.length; order++) {
+//           var orderElements = orders[order].split(",");
+//           var x = orderElements[0];
+//           var y = orderElements[1];
+//           var customer = orderElements[2];
+//           var quantity = orderElements[3].substring(
+//             0,
+//             orderElements[3].length - 2
+//           );
+//           var deadline = orderElements[0].substring(
+//             0,
+//             orderElements[0].length - 1
+//           );
+//           // var order = new Order(
+//           //   ++largestId,
+//           //   x,
+//           //   y,
+//           //   deadline,
+//           //   quantity,
+//           //   customer,
+//           //   time
+//           // );
 
-          var order = new Order2(
-            ++largestId,
-            x,
-            y,
-            currentDate,
-            deadline,
-            quantity
-          );
+//           var order = new Order2(
+//             ++largestId,
+//             x,
+//             y,
+//             currentDate,
+//             deadline,
+//             quantity
+//           );
 
-          pedidosPendientes.push(order);
-        }
-      }
-    };
-  });
-});
+//           pedidosPendientes.push(order);
+//         }
+//       }
+//     };
+//   });
+// });
 
 //empezar
 document
@@ -144,7 +144,7 @@ document
     startDate = document.getElementById("txtFecha").valueAsDate;
     finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
     // ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
-    pedidosPendientes.push(ordenInicial2);
+    // pedidosPendientes.push(ordenInicial2);
     empezar();
   });
 
@@ -198,9 +198,12 @@ async function empezar() {
 
   var passedTime = clock * 72; // 72 seconds per clock
 
-  var currentDate = new Date(startDate.getTime() + passedTime * 1000+ 1000*3600*12);
 
-  var currentDate2 = new Date(startDate.getTime() + (passedTime) * 1000 + 1000*3600*12+ period*1000*72);
+  var currentDate = new Date(startDate.getTime() + passedTime * 1000+ 1000*3600*7);
+  // var currentDate = new Date(startDate.getTime() + passedTime * 1000+ 1000*3600*12);
+
+  // var currentDate2 = new Date(startDate.getTime() + (passedTime) * 1000 + 1000*3600*12+ period*1000*72);
+  var currentDate2 = new Date(startDate.getTime() + (passedTime) * 1000 + period*1000*72+ 1000*3600*7);
 
 
   let data = {
@@ -267,6 +270,7 @@ formdata.append("dateFin",  formattedDate2);
 // JSON.stringify(data)
 formdata.append("data",JSON.stringify(data) ); // Convertir el objeto data a JSON
 formdata.append("modo", "P");
+formdata.append("clock", period);
 console.log(formattedDate);
 console.log(formattedDate2 );
 console.log(JSON.stringify(data) );
@@ -274,17 +278,17 @@ console.log(JSON.stringify(data) );
 
   fetch(
     // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datasç/solucion.json",S
-    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
-    // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
+    // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
+    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
     // "http://inf226-981-5e.inf.pucp.edu.pe/DP15E/api/v1/node/algoritmoSimulacion",
     {
       method: "POST",
-      // body: formdata,
-      redirect: "follow",
-      headers: {
-        "Content-Type": "application/json" // Indicar que el contenido es JSON
-      },
-      body: JSON.stringify(requestData) // Convertir el objeto a JSON
+      body: formdata,
+      // redirect: "follow",
+      // headers: {
+      //   "Content-Type": "application/json" // Indicar que el contenido es JSON
+      // },
+      // body: JSON.stringify(requestData) // Convertir el objeto a JSON
       }
   )
     .then((response) => response.json())
@@ -343,8 +347,15 @@ console.log(JSON.stringify(data) );
             "</td></tr>";
 
             var dateTimeWithSeconds = element.hora + ":00";
+            var partes = dateTimeWithSeconds.split(/[- :]/);
 
-            var dateObject = new Date(dateTimeWithSeconds);
+            var dateObject = new Date(partes[0], partes[1] - 1, partes[2], partes[3], partes[4]);
+
+          // Imprimir el objeto Date
+          console.log(dateObject);
+
+            // var dateObject = new Date(dateTimeWithSeconds);
+            // console.log(dateObject);
           pedidosPendientes.push(
             // new Order(
             //   element.id,
