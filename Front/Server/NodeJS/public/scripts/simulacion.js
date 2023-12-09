@@ -143,7 +143,7 @@ document
     //empezar la simulacion
     startDate = document.getElementById("txtFecha").valueAsDate;
     finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
-    ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
+    // ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
     pedidosPendientes.push(ordenInicial2);
     empezar();
   });
@@ -252,12 +252,13 @@ async function empezar() {
 // formdata.append("data", data);
 // formdata.append("modo", "S");
 
-// var requestData = {
-//   dateInicio: startDate.valueAsDate,
-//   dateFin: currentDate.valueAsDate,
-//   data: data,
-//   modo: "S"
-// };
+var requestData = {
+  dateInicio: currentDate.valueAsDate,
+  dateFin: currentDate2.valueAsDate,
+  data: data,
+  modo: "P",
+  clock : period
+};
 
 
 var formdata = new FormData();
@@ -273,17 +274,17 @@ console.log(JSON.stringify(data) );
 
   fetch(
     // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datasç/solucion.json",S
-    // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
+    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
     // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
-    "http://inf226-981-5e.inf.pucp.edu.pe/DP15E/api/v1/node/algoritmoSimulacion",
+    // "http://inf226-981-5e.inf.pucp.edu.pe/DP15E/api/v1/node/algoritmoSimulacion",
     {
       method: "POST",
-      body: formdata,
+      // body: formdata,
       redirect: "follow",
-      // headers: {
-      //   "Content-Type": "application/json" // Indicar que el contenido es JSON
-      // },
-      // body: JSON.stringify(requestData) // Convertir el objeto a JSON
+      headers: {
+        "Content-Type": "application/json" // Indicar que el contenido es JSON
+      },
+      body: JSON.stringify(requestData) // Convertir el objeto a JSON
       }
   )
     .then((response) => response.json())
