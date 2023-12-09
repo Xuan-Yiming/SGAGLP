@@ -67,8 +67,8 @@ public class Main {
             Gson gson = new Gson();
 
             String data = gson.toJson(inputData);
+        
             
-
             algorithmVRP = new GeneticAlgorithmVRP(calendar_s.getTime(), calendar_e.getTime(),data,'P',40);
 
             Solucion solucion = algorithmVRP.getSolucion();
