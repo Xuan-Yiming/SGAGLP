@@ -74,6 +74,14 @@ public class Solucion {
         }
 
         //
+
+        for (int i = 0; i < maxclock; i++) {
+            SolucionClock solucionClock = new SolucionClock();
+            solucionClock.clock = i;
+            solucionClock.nodos = new ArrayList<>();
+            this.elementosEnCadaClock.add(solucionClock);
+        }
+        
         for (Gene vehiculo : finalSolution.getChromosome().genes) {
             int totalClock = 0;
 
@@ -84,14 +92,6 @@ public class Solucion {
 
                 // agregar a la solucion
                 for (int j = 0; j < ruta.size() - 1; j++) {
-
-                    // si no existe el clock, crearlo
-                    if (this.elementosEnCadaClock.size() <= totalClock) {
-                        SolucionClock solucionClock = new SolucionClock();
-                        solucionClock.clock = totalClock;
-                        solucionClock.nodos = new ArrayList<>();
-                        this.elementosEnCadaClock.add(solucionClock);
-                    }
 
                     for (int k = j; k < ruta.size() - 1; k++) {
                         solucionClockNode _node = new solucionClockNode();
@@ -121,13 +121,6 @@ public class Solucion {
             }
 
             for (int i = totalClock; i < maxclock; i++) {
-                if (this.elementosEnCadaClock.size() <= i) {
-                    SolucionClock solucionClock = new SolucionClock();
-                    solucionClock.clock = i;
-                    solucionClock.nodos = new ArrayList<>();
-                    this.elementosEnCadaClock.add(solucionClock);
-                }
-
                 solucionClockNode _node = new solucionClockNode();
 
                 Node lastNode = vehiculo.getRoute().get(vehiculo.getRoute().size() - 1);
@@ -135,8 +128,8 @@ public class Solucion {
                 _node.y = lastNode.getPosicion().y;
                 _node.idPedido = lastNode.getId();
                 _node.placa = "T" + vehiculo.getType() + vehiculo.getId();
-                _node.tipo = 'X';
-                this.elementosEnCadaClock.get(totalClock).nodos.add(_node);
+                _node.tipo = 'I';
+                this.elementosEnCadaClock.get(i).nodos.add(_node);
             }
         }
     }
