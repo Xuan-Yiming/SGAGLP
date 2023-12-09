@@ -15,10 +15,11 @@ var finalDate=new Date();
 var currentDate =new Date();
 
 class Vehicle {
-  constructor(id, x, y) {
+  constructor(id, x, y,pedido) {
     this.id = id;
     this.x = x;
     this.y = y;
+    this.pedido = pedido;
   }
 }
 
@@ -144,7 +145,7 @@ document
     startDate = document.getElementById("txtFecha").valueAsDate;
     finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
     // ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
-    pedidosPendientes.push(ordenInicial2);
+    // pedidosPendientes.push(ordenInicial2);
     empezar();
   });
 
@@ -198,9 +199,9 @@ async function empezar() {
 
   var passedTime = clock * 72; // 72 seconds per clock
 
-  var currentDate = new Date(startDate.getTime() + passedTime * 1000+ 1000*3600*12);
+  var currentDate = new Date(startDate.getTime() + passedTime * 1000+ 1000*3600*6);
 
-  var currentDate2 = new Date(startDate.getTime() + (passedTime) * 1000 + 1000*3600*12+ period*1000*72);
+  var currentDate2 = new Date(startDate.getTime() + (passedTime) * 1000 + 1000*3600*6+ period*1000*72);
 
 
   let data = {
@@ -253,8 +254,8 @@ async function empezar() {
 // formdata.append("modo", "S");
 
 var requestData = {
-  dateInicio: currentDate.valueAsDate,
-  dateFin: currentDate2.valueAsDate,
+  dateInicio: currentDate,
+  dateFin: currentDate2,
   data: data,
   modo: "P",
   clock : period
@@ -267,6 +268,7 @@ formdata.append("dateFin",  formattedDate2);
 // JSON.stringify(data)
 formdata.append("data",JSON.stringify(data) ); // Convertir el objeto data a JSON
 formdata.append("modo", "P");
+formdata.append("clock", period);
 console.log(formattedDate);
 console.log(formattedDate2 );
 console.log(JSON.stringify(data) );
@@ -274,17 +276,17 @@ console.log(JSON.stringify(data) );
 
   fetch(
     // "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datasç/solucion.json",S
-    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
-    // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
+    // "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacionOficial",
+    "http://localhost:8080/DP15E/api/v1/node/algoritmoSimulacion",
     // "http://inf226-981-5e.inf.pucp.edu.pe/DP15E/api/v1/node/algoritmoSimulacion",
     {
       method: "POST",
-      // body: formdata,
+      body: formdata,
       redirect: "follow",
-      headers: {
-        "Content-Type": "application/json" // Indicar que el contenido es JSON
-      },
-      body: JSON.stringify(requestData) // Convertir el objeto a JSON
+      // headers: {
+      //   "Content-Type": "application/json" // Indicar que el contenido es JSON
+      // },
+      // body: JSON.stringify(requestData) // Convertir el objeto a JSON
       }
   )
     .then((response) => response.json())
@@ -369,9 +371,35 @@ console.log(JSON.stringify(data) );
         } else if (element.tipo == "B") {
           seletecCell.classList.add("map__cell__block");
         } else if (element.tipo == "V") {
-          vehiclulosEnCamino.push(
-            new Vehicle(element.id, element.x, element.y)
-          );
+          // vehiclulosEnCamino.push(
+          //   new Vehicle(element.id, element.x, element.y)
+          // );
+          // result.elementosEnCadaClock[39].forEach((element) => {
+          //   console.log(element.nodos);
+
+          // })
+
+          // console.log(result.elementosEnCadaClock[39].nodos);
+          var flag = 1;
+
+          for (const nodo of result.elementosEnCadaClock[period-1].nodos) {
+            console.log(result.elementosEnCadaClock[period-1].nodos.length);
+            
+            if(nodo.placa == element.id){
+              if (nodo.tipo === "X" ){
+                vehiclulosEnCamino.push(
+                  new Vehicle(element.id, element.x, element.y,nodo.idPedido)
+                );
+                flag =0;
+                break;
+              }
+            }
+          }
+          if(flag == 1){
+            vehiclulosEnCamino.push(
+              new Vehicle(element.id, element.x, element.y,"")
+            );
+          }
         }
       });
 
