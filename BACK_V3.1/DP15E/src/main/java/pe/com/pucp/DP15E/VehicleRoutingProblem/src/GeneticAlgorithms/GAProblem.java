@@ -33,7 +33,7 @@ public class GAProblem implements Cloneable {
     private int numOfOrders = 100;
     private int numOfBlocks = 50;
 
-    public int maxclock = 40;
+    public int maxclock = 160;
     // Constructors
 
     // Load from file
@@ -52,6 +52,7 @@ public class GAProblem implements Cloneable {
         this.depots.add(new Node(3, 63, 3, Double.MAX_VALUE));
 
         this.vehicles = new ArrayList<>();
+        //try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\reida\\Desktop\\CURSOS\\2023-2\\SGAGLP\\BACK_V3.1\\DP15E\\src\\main\\java\\pe\\com\\pucp\\DP15E\\VehicleRoutingProblem\\data\\mantenimiento\\mantpreventivo.txt"))) {
         try (BufferedReader br = new BufferedReader(new FileReader("/home/inf226.981.5e/data/mantenimiento/mantpreventivo.txt"))) {
         //try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\FABIAN\\Documents\\CURSOS\\2023-2\\DP1\\SGAGLP\\BACK_V3.1\\DP15E\\src\\main\\java\\pe\\com\\pucp\\DP15E\\VehicleRoutingProblem\\data\\mantenimiento\\mantpreventivo.txt"))) {
             String line;
@@ -121,6 +122,7 @@ public class GAProblem implements Cloneable {
         // get each file under ./data/bloqueo/
         // for each file, read and load the blocks
 
+        //Path dir = Paths.get("C:\\Users\\reida\\Desktop\\CURSOS\\2023-2\\SGAGLP\\BACK_V3.1\\DP15E\\src\\main\\java\\pe\\com\\pucp\\DP15E\\VehicleRoutingProblem\\data\\bloqueo");
         Path dir = Paths.get("/home/inf226.981.5e/data/bloqueo");
         //Path dir = Paths.get("C:\\Users\\FABIAN\\Documents\\CURSOS\\2023-2\\DP1\\SGAGLP\\BACK_V3.1\\DP15E\\src\\main\\java\\pe\\com\\pucp\\DP15E\\VehicleRoutingProblem\\data\\bloqueo");
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
@@ -212,6 +214,7 @@ public class GAProblem implements Cloneable {
         // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
         // customer, Q m3, deadline h
 
+        //dir = Paths.get("C:\\Users\\reida\\Desktop\\CURSOS\\2023-2\\SGAGLP\\BACK_V3.1\\DP15E\\src\\main\\java\\pe\\com\\pucp\\DP15E\\VehicleRoutingProblem\\data\\ventas");
         dir = Paths.get("/home/inf226.981.5e/data/ventas");
         //dir = Paths.get("C:\\Users\\FABIAN\\Documents\\CURSOS\\2023-2\\DP1\\SGAGLP\\BACK_V3.1\\DP15E\\src\\main\\java\\pe\\com\\pucp\\DP15E\\VehicleRoutingProblem\\data\\ventas");
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {

@@ -3,8 +3,8 @@ var velocidad = 1;
 var start;
 var pedidosEntregados = 0;
 var pedidos = 0;
-var period = 40;
-const totalClocks = 1200;
+var period = 160;
+const totalClocks = 1200*7;
 var clock = 1;
 
 var pedidosPendientes = [];
@@ -174,6 +174,23 @@ function myFunction() {
 // Attach the function to the window.onload event using addEventListener
 window.addEventListener('load', myFunction);
 
+function updateClock() {
+  var now = new Date();
+  var hours = now.getHours();
+  var minutes = now.getMinutes();
+  var seconds = now.getSeconds();
+
+  hours = hours < 10 ? '0' + hours : hours;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  seconds = seconds < 10 ? '0' + seconds : seconds;
+
+  var timeString = hours + ':' + minutes + ':' + seconds;
+
+  document.getElementById('clock').innerText = timeString;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
 
 
 async function empezar() {
