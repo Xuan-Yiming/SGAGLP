@@ -8,5 +8,5 @@ public class PendingOrders {
     public int y;
     public Date start;
     public Date end;
-    public double GLP;
+    public double glp;
 }
