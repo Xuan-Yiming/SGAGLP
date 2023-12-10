@@ -135,7 +135,7 @@ public class GAProblem implements Cloneable {
         if (pendingOrders != null) {
             for (PendingOrders order : pendingOrders) {
                 int _id = Integer.parseInt(order.id.substring(1));
-                Node _order = new Node(_id, order.x, order.y, order.GLP, order.start, order.end);
+                Node _order = new Node(_id, order.x, order.y, order.glp, order.start, order.end);
                 this.orders.add(_order);
             }
         }
@@ -297,7 +297,7 @@ public class GAProblem implements Cloneable {
                                 //get the order with the same ID
                                 for (Node order : this.orders) {
                                     if (order.getId().equals(current.pedido) ) {
-                                        if(order.getPosicion().getX() != current.x && order.getPosicion().getY() != current.y){
+                                        if(order.getPosicion().getX() != current.x || order.getPosicion().getY() != current.y){
                                             vehicle.addNode(order);
                                             // remove the order from the orders
                                             this.orders.remove(order);
