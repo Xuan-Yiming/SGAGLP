@@ -66,8 +66,12 @@ public class GAProblem implements Cloneable {
         _calendar.setTime(startDate);
         int _year = _calendar.get(Calendar.YEAR);
         int _month = _calendar.get(Calendar.MONTH) + 1;
+        //month have format 08
+        if(_month < 10){
+            fileName = _year + "0" + _month + ".bloqueos.txt";
+        }else{
         fileName = _year + "" + _month + ".bloqueos.txt";
-
+        }
         try {
             URL url = new URL(this.baseURL + "bloqueo/" + fileName);
             BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -154,7 +158,11 @@ public class GAProblem implements Cloneable {
         // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
         // customer, Q m3, deadline h
 
-        fileName = "ventas" + _year + "" + _month + ".txt";
+        if (_month < 10) {
+            fileName = "ventas" + _year + "0" + _month + ".txt";
+        } else {
+            fileName = "ventas" + _year + "" + _month + ".txt";
+        }
 
         try {
             URL url = new URL(this.baseURL + "ventas/" + fileName);
