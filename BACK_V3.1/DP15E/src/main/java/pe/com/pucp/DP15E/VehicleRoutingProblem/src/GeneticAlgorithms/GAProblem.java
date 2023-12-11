@@ -300,7 +300,7 @@ public class GAProblem implements Cloneable {
                                         if(order.getPosicion().getX() != current.x || order.getPosicion().getY() != current.y){
                                             vehicle.addNode(order);
                                             // remove the order from the orders
-                                            this.orders.remove(order);
+                                            // this.orders.remove(order);
                                             break;
                                         }
                                     }
