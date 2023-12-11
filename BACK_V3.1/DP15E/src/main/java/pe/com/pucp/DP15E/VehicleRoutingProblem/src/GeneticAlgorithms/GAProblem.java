@@ -31,7 +31,7 @@ public class GAProblem implements Cloneable {
 
     public int maxclock = 40;
 
-    private String baseURL = "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Data/";
+    private String baseURL = "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Data_2/";
     // Constructors
 
     // Load from file

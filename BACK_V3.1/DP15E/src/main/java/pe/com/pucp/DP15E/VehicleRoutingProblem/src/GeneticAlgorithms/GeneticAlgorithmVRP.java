@@ -72,8 +72,10 @@ public class GeneticAlgorithmVRP {
 
         if (isFittest) {
             System.out.println("Solution found! Generation: " + i + " - Fitness: " + fittest.getFitness());
-
+            fittest.getChromosome().print();
         } else {
+                        fittest.getChromosome().print();
+
             throw new Exception("Solution not found! Fitness: " + fittest.getFitness());
 
         }
