@@ -98,7 +98,7 @@ btnPedidos.addEventListener("click", function () {
           var customer = orderElements[2];
           var quantity = orderElements[3].substring(0, orderElements[3].length - 2);
           var deadline = orderElements[0].substring(0, orderElements[0].length - 1);
-          var order = new Order(
+          var order = new Order2(
             ++largestId,
             x,
             y,
@@ -107,7 +107,7 @@ btnPedidos.addEventListener("click", function () {
             customer,
             time
           );
-          pedidosPendientes.push(order);
+          // pedidosPendientes.push(order);
         }
       }
     };

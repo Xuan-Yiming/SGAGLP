@@ -68,72 +68,72 @@ for (var w = 0; w < 70; w++) {
   }
 }
 
-// cargar archivos
+// cargar archivosressEvent) {
+//       // By lines
+//       var lines = this.result.split("\n");
+//       for (var line = 0; line < lines.length; line++) {
+//         var elements = lines[line].split(":");
+//         var time = elements[0];
+//         var orders = elements[1];
+//         for (var order = 0; order < orders.length; order++) {
+//           var orderElements = orders[order].split(",");
+//           var x = orderElements[0];
+//           var y = orderElements
 
-var btnPedidos = document.getElementById("btnPedidos");
-var cmPedidos = document.getElementById("cmPedidos");
-btnPedidos.addEventListener("click", function () {
-  cmPedidos.click().then((result) => {
-    // get the largest id in pedidosPendientes
+// var btnPedidos = document.getElementById("btnPedidos");
+// var cmPedidos = document.getElementById("cmPedidos");
+// btnPedidos.addEventListener("click", function () {
+//   cmPedidos.click().then((result) => {
+//     // get the largest id in pedidosPendientes
 
-    var largestId = 0;
-    pedidosPendientes.forEach((order) => {
-      if (order.id > largestId) {
-        largestId = order.id;
-      }
-    });
+//     var largestId = 0;
+//     pedidosPendientes.forEach((order) => {
+//       if (order.id > largestId) {
+//         largestId = order.id;
+//       }
+//     });
 
-    // read and load the orders from file .txt
-    // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
-    // customer, Q m3, deadline h
+//     // read and load the orders from file .txt
+//     // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
+//     // customer, Q m3, deadline h
 
-    var file = cmPedidos.files[0];
-    var reader = new FileReader(file);
-    reader.onload = function (progressEvent) {
-      // By lines
-      var lines = this.result.split("\n");
-      for (var line = 0; line < lines.length; line++) {
-        var elements = lines[line].split(":");
-        var time = elements[0];
-        var orders = elements[1];
-        for (var order = 0; order < orders.length; order++) {
-          var orderElements = orders[order].split(",");
-          var x = orderElements[0];
-          var y = orderElements[1];
-          var customer = orderElements[2];
-          var quantity = orderElements[3].substring(
-            0,
-            orderElements[3].length - 2
-          );
-          var deadline = orderElements[0].substring(
-            0,
-            orderElements[0].length - 1
-          );
-          // var order = new Order(
-          //   ++largestId,
-          //   x,
-          //   y,
-          //   deadline,
-          //   quantity,
-          //   customer,
-          //   time
-          // );
+//     var file = cmPedidos.files[0];
+//     var reader = new FileReader(file);
+//     reader.onload = function (prog[1];
+//           var customer = orderElements[2];
+//           var quantity = orderElements[3].substring(
+//             0,
+//             orderElements[3].length - 2
+//           );
+//           var deadline = orderElements[0].substring(
+//             0,
+//             orderElements[0].length - 1
+//           );
+//           // var order = new Order(
+//           //   ++largestId,
+//           //   x,
+//           //   y,
+//           //   deadline,
+//           //   quantity,
+//           //   customer,
+//           //   time
+//           // );
 
-          var order = new Order2(
-            ++largestId,
-            x,
-            y,
-            currentDate,
-            deadline,
-            quantity
-          );
+//           var order = new Order2(
+//             ++largestId,
+//             x,
+//             y,
+//             currentDate,
+//             deadline,
+//             quantity
+//           );
 
-          pedidosPendientes.push(order);
-        }
-      }
-    };
-  });
-});
+//           pedidosPendientes.push(order);
+//         }
+//       }
+//     };
+//   });
+// });
 
 //empezar
 document

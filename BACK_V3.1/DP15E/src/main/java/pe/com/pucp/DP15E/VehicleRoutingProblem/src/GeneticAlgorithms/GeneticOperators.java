@@ -29,45 +29,94 @@ public class GeneticOperators {
         Individual child1 = parents.get(0).clone();
         Individual child2 = parents.get(1).clone();
 
+        // child1.getChromosome().print();
+        // System.out.println("ini ------------------------");
+
         while (random.nextDouble() < problem.crossoverRate) {
             int index1 = random.nextInt(maxVehicle);
             int index2 = random.nextInt(maxVehicle);
 
-            // switch the routes of gen(index) between the two children
-            // only switch the routes begin from the second node
+            if (random.nextDouble() < 0.5) {
 
-            if (child1.getChromosome().genes.get(index1).getRoute().size() == 1
-                    || child2.getChromosome().genes.get(index2).getRoute().size() == 1) {
-                continue;
+                // switch the routes of gen(index) between the two children
+                // only switch the routes begin from the second node
+
+                if (child1.getChromosome().genes.get(index1).getRoute().size() <= 2
+                        || child1.getChromosome().genes.get(index2).getRoute().size() <= 2 || index1 == index2) {
+                    continue;
+                }
+                // child1.getChromosome().print();
+                // System.out.println("ini ------------------------");
+                // Get the first node from each route
+                ArrayList<Node> initialNodes1 = new ArrayList<>(
+                        child1.getChromosome().genes.get(index1).getRoute().subList(0, 2));
+                ArrayList<Node> initialNodes2 = new ArrayList<>(
+                        child1.getChromosome().genes.get(index2).getRoute().subList(0, 2));
+
+                // Get the remaining route from each child
+                ArrayList<Node> remaining1 = new ArrayList<>(
+                        child1.getChromosome().genes.get(index1).getRoute().subList(2,
+                                child1.getChromosome().genes.get(index1).getRoute().size()));
+                ArrayList<Node> remaining2 = new ArrayList<>(
+                        child1.getChromosome().genes.get(index2).getRoute().subList(2,
+                                child1.getChromosome().genes.get(index2).getRoute().size()));
+
+                // Clear the routes from each child
+                child1.getChromosome().genes.get(index1).getRoute().clear();
+                child1.getChromosome().genes.get(index2).getRoute().clear();
+
+                // Add the first node back to each route
+                child1.getChromosome().genes.get(index1).getRoute().addAll(initialNodes1);
+                child1.getChromosome().genes.get(index2).getRoute().addAll(initialNodes2);
+
+                // Switch the remaining routes
+                child1.getChromosome().genes.get(index1).getRoute().addAll(remaining2);
+                child1.getChromosome().genes.get(index2).getRoute().addAll(remaining1);
+
+                // child1.getChromosome().print();
+                // System.out.println("fin ------------------------");
+            } else {
+                if (child2.getChromosome().genes.get(index1).getRoute().size() <= 2
+                        || child2.getChromosome().genes.get(index2).getRoute().size() <= 2 || index1 == index2) {
+                    continue;
+                }
+                // child2.getChromosome().print();
+                // System.out.println("ch 2  ini ------------------------");
+
+                // Get the first node from each route
+                ArrayList<Node> initialNodes1 = new ArrayList<>(
+                        child2.getChromosome().genes.get(index1).getRoute().subList(0, 2));
+                ArrayList<Node> initialNodes2 = new ArrayList<>(
+                        child2.getChromosome().genes.get(index2).getRoute().subList(0, 2));
+
+                // Get the remaining route from each child
+                ArrayList<Node> remaining1 = new ArrayList<>(
+                        child2.getChromosome().genes.get(index1).getRoute().subList(2,
+                                child2.getChromosome().genes.get(index1).getRoute().size()));
+                ArrayList<Node> remaining2 = new ArrayList<>(
+                        child2.getChromosome().genes.get(index2).getRoute().subList(2,
+                                child2.getChromosome().genes.get(index2).getRoute().size()));
+
+                // Clear the routes from each child
+                child2.getChromosome().genes.get(index1).getRoute().clear();
+                child2.getChromosome().genes.get(index2).getRoute().clear();
+
+                // Add the first node back to each route
+                child2.getChromosome().genes.get(index1).getRoute().addAll(initialNodes1);
+                child2.getChromosome().genes.get(index2).getRoute().addAll(initialNodes2);
+
+                // Switch the remaining routes
+                child2.getChromosome().genes.get(index1).getRoute().addAll(remaining2);
+                child2.getChromosome().genes.get(index2).getRoute().addAll(remaining1);
+
+                // child2.getChromosome().print();
+                // System.out.println("ch 2 fin ------------------------");
             }
-
-            // Get the first node from each route
-            Node firstNode1 = child1.getChromosome().genes.get(index1).getRoute().get(0);
-            Node secondNode1 = child1.getChromosome().genes.get(index1).getRoute().get(1);
-            Node firstNode2 = child2.getChromosome().genes.get(index2).getRoute().get(0);
-            Node secondNode2 = child2.getChromosome().genes.get(index2).getRoute().get(1);
-
-            // Get the remaining route from each child
-            ArrayList<Node> remaining1 = new ArrayList<>(child1.getChromosome().genes.get(index1).getRoute().subList(2,
-                    child1.getChromosome().genes.get(index1).getRoute().size()));
-            ArrayList<Node> remaining2 = new ArrayList<>(child2.getChromosome().genes.get(index2).getRoute().subList(2,
-                    child2.getChromosome().genes.get(index2).getRoute().size()));
-
-            // Clear the routes from each child
-            child1.getChromosome().genes.get(index1).getRoute().clear();
-            child2.getChromosome().genes.get(index2).getRoute().clear();
-
-            // Add the first node back to each route
-            child1.getChromosome().genes.get(index1).getRoute().add(firstNode1);
-            child1.getChromosome().genes.get(index1).getRoute().add(secondNode2);
-            child2.getChromosome().genes.get(index2).getRoute().add(firstNode2);
-            child2.getChromosome().genes.get(index2).getRoute().add(secondNode1);
-
-            // Switch the remaining routes
-            child1.getChromosome().genes.get(index1).getRoute().addAll(remaining2);
-            child2.getChromosome().genes.get(index2).getRoute().addAll(remaining1);
-
         }
+
+        // child1.getChromosome().print();
+
+        // System.out.println("cross fin ------------------------");
 
         return new ArrayList<Individual>() {
             {
@@ -190,6 +239,10 @@ public class GeneticOperators {
             }
         }
 
+        // child1.getChromosome().print();
+
+        // System.out.println("mut fin ------------------------");
+
         // switch random genes between two individuals
         while (random.nextDouble() < this.mutationRate) {
 
@@ -286,6 +339,10 @@ public class GeneticOperators {
                 }
             }
         }
+
+        // child1.getChromosome().print();
+
+        // System.out.println("switch fin ------------------------");
 
         return new ArrayList<Individual>() {
             {
