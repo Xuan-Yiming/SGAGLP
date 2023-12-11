@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import GeneticAlgorithms.Problem.Node;
+import GeneticAlgorithms.Problem.Vehicle;
 
 public class Chromosome implements Cloneable {
     public ArrayList<Gene> genes;
@@ -25,9 +26,9 @@ public class Chromosome implements Cloneable {
         Random random = new Random();
 
         genes = new ArrayList<>();
-         for (int i = 0; i < this.problem.getVehicles().size(); i++) {
-             genes.add(new Gene(this.problem.getVehicles().get(i)));
-         }
+        for (int i = 0; i < this.problem.getVehicles().size(); i++) {
+            genes.add(new Gene(this.problem.getVehicles().get(i)));
+        }
 
         // ordenar las ordenes por fecha final
         this.problem.getOrders().sort((o1, o2) -> {
@@ -42,6 +43,22 @@ public class Chromosome implements Cloneable {
         });
 
         for (int i = 0; i < this.problem.getOrders().size(); i++) {
+            boolean ifAsigned = false;
+            for (Vehicle gene : this.problem.getVehicles()) {
+                for (Node node : gene.getRoute()) {
+                    if (node.getId() == this.problem.getOrders().get(i).getId()) {
+                        ifAsigned = true;
+                        break;
+                    }
+                }
+
+                if (ifAsigned) {
+                    break;
+                }
+            }
+            if (ifAsigned) {
+                continue;
+            }
             int vehicleIndex = random.nextInt(genes.size());
             double ifGoToDepot = random.nextDouble();
             if (ifGoToDepot < depotRate) {
@@ -55,7 +72,7 @@ public class Chromosome implements Cloneable {
         }
 
     }
-    
+
     public Node getClosetDepot(ArrayList<Node> depots, Point position) {
         double minDistance = Double.MAX_VALUE;
         Node closestDepot = null;
@@ -69,7 +86,6 @@ public class Chromosome implements Cloneable {
         }
         return closestDepot;
     }
-    
 
     public double calculateFitness() {
         double fitness = 0;
