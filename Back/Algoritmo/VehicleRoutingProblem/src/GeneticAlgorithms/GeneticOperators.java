@@ -59,9 +59,9 @@ public class GeneticOperators {
 
             // Add the first node back to each route
             child1.getChromosome().genes.get(index1).getRoute().add(firstNode1);
-            child1.getChromosome().genes.get(index1).getRoute().add(secondNode2);
+            child1.getChromosome().genes.get(index1).getRoute().add(secondNode1);
             child2.getChromosome().genes.get(index2).getRoute().add(firstNode2);
-            child2.getChromosome().genes.get(index2).getRoute().add(secondNode1);
+            child2.getChromosome().genes.get(index2).getRoute().add(secondNode2);
 
             // Switch the remaining routes
             child1.getChromosome().genes.get(index1).getRoute().addAll(remaining2);
