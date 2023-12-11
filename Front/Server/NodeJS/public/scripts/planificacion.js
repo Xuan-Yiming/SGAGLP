@@ -4,7 +4,7 @@ var start;
 var pedidosEntregados = 0;
 var pedidos = 0;
 var period = 40;
-const totalClocks = 1200;
+const totalClocks = 1200*7;
 var clock = 0;
 
 var pedidosPendientes = [];
