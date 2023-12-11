@@ -18,7 +18,22 @@
             <div class="main-continaer pedido-flota-container">
                 <%- include('../partials/mantenimientoHeader', {title: 'Pedidos' }); %>
                     <%- include('../partials/mantenimientoToolBar'); %>
-                        <%- include('../partials/table', {title: 'Pedidos' }); %>
+                        <!-- <%- include('../partials/table', {title: 'Pedidos' }); %> -->
+                        <div class="tablaPedidos">
+                            <table border="1">
+                                <thead>
+                                    <tr>
+                                        <th>ID Pedido</th>
+                                        <th>X</th>
+                                        <th>Y</th>
+                                        <th>Fecha de Inicio</th>
+                                        <th>Fecha de Fin</th>
+                                        <th>GLP</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaPedidosBody"></tbody>
+                            </table>
+                        </div>
 
             </div>
     </body> 

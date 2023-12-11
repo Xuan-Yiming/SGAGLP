@@ -1,91 +1,91 @@
 
 
-getPedidos();
+// getPedidos();
 
-document
-  .getElementById("txtBuscar")
-  .addEventListener("keyup", async function (event) {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      await getPedidos();
-    }
-  });
+// document
+//   .getElementById("txtBuscar")
+//   .addEventListener("keyup", async function (event) {
+//     if (event.keyCode === 13) {
+//       event.preventDefault();
+//       await getPedidos();
+//     }
+//   });
 
-document
-  .getElementById("btnPageBac")
-    .addEventListener("click", async function (event) {
-        var page = parseInt(document.getElementById("txtPage").value);
-        if (page == 1) {
-            return;
-        }
-        document.getElementById("txtPage").value = page - 1;
-  });
+// document
+//   .getElementById("btnPageBac")
+//     .addEventListener("click", async function (event) {
+//         var page = parseInt(document.getElementById("txtPage").value);
+//         if (page == 1) {
+//             return;
+//         }
+//         document.getElementById("txtPage").value = page - 1;
+//   });
 
-document
-  .getElementById("btnPageFor")
-.addEventListener("click", async function (event) {
-    var page = parseInt(document.getElementById("txtPage").value);
-    var totalPage = parseInt(document.getElementById("txtTotalPage").innerHTML);
-    if (page == totalPage) {
-        return;
-    }
-        document.getElementById("txtPage").value = page + 1;
-});
+// document
+//   .getElementById("btnPageFor")
+// .addEventListener("click", async function (event) {
+//     var page = parseInt(document.getElementById("txtPage").value);
+//     var totalPage = parseInt(document.getElementById("txtTotalPage").innerHTML);
+//     if (page == totalPage) {
+//         return;
+//     }
+//         document.getElementById("txtPage").value = page + 1;
+// });
 
-document.getElementById("txtPage").addEventListener("change", async function (event) {
-        var totalPage = parseInt(
-          document.getElementById("txtTotalPage").innerHTML
-        );
-    var page = parseInt(document.getElementById("txtPage").value);
-    if (page < 1) {
-        document.getElementById("txtPage").value = 1;
-    }
-    if (page > totalPage) {
-        document.getElementById("txtPage").value = totalPage;
-    }
-    await getPedidos();
-});
+// document.getElementById("txtPage").addEventListener("change", async function (event) {
+//         var totalPage = parseInt(
+//           document.getElementById("txtTotalPage").innerHTML
+//         );
+//     var page = parseInt(document.getElementById("txtPage").value);
+//     if (page < 1) {
+//         document.getElementById("txtPage").value = 1;
+//     }
+//     if (page > totalPage) {
+//         document.getElementById("txtPage").value = totalPage;
+//     }
+//     await getPedidos();
+// });
 
-async function getPedidos() {
-  let busqueda = document.getElementById("txtBuscar").value;
-  let pagina = document.getElementById("txtPage").value;
+// async function getPedidos() {
+//   let busqueda = document.getElementById("txtBuscar").value;
+//   let pagina = document.getElementById("txtPage").value;
 
-  fetch(
-    "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/pedidos.json",
-    {
-      // method: "POST",
-      // body: JSON.stringify({
-      //   busqueda: busqueda,
-      //   pagina: pagina,
-      // }),
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
-    }
-  )
-    .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-      //create the table header wit the keys of the first element
-          let table = document.getElementById("table-content");
-          document.getElementById("txtTotalPage").innerHTML = result.totalPage;
-      table.innerHTML = "";
-      let row = table.insertRow();
-      Object.keys(result.results[0]).forEach((key) => {
-        let cell = row.insertCell();
-        cell.innerHTML = key;
-      });
-      //create the table body
-      result.results.forEach((element) => {
-        let row = table.insertRow();
-        Object.values(element).forEach((value) => {
-          let cell = row.insertCell();
-          cell.innerHTML = value;
-        });
-      });
-    })
-    .catch((error) => console.error("Error:", error));
-}
+//   fetch(
+//     "https://raw.githubusercontent.com/Xuan-Yiming/SGAGLP/main/Back/datas/pedidos.json",
+//     {
+//       // method: "POST",
+//       // body: JSON.stringify({
+//       //   busqueda: busqueda,
+//       //   pagina: pagina,
+//       // }),
+//       // headers: {
+//       //   "Content-Type": "application/json",
+//       // },
+//     }
+//   )
+//     .then((res) => res.json())
+//       .then((result) => {
+//         console.log(result);
+//       //create the table header wit the keys of the first element
+//           let table = document.getElementById("table-content");
+//           document.getElementById("txtTotalPage").innerHTML = result.totalPage;
+//       table.innerHTML = "";
+//       let row = table.insertRow();
+//       Object.keys(result.results[0]).forEach((key) => {
+//         let cell = row.insertCell();
+//         cell.innerHTML = key;
+//       });
+//       //create the table body
+//       result.results.forEach((element) => {
+//         let row = table.insertRow();
+//         Object.values(element).forEach((value) => {
+//           let cell = row.insertCell();
+//           cell.innerHTML = value;
+//         });
+//       });
+//     })
+//     .catch((error) => console.error("Error:", error));
+// }
 
 
 // document
@@ -112,3 +112,30 @@ async function getPedidos() {
 //         })
 //         .catch((error) => console.log("error", error));
 //   });
+
+
+function agregarFilaPedido(pedido) {
+  var tablaBody = document.getElementById('tablaPedidosBody');
+  var fila = tablaBody.insertRow();
+
+  var celdas = [
+      pedido.id,
+      pedido.x,
+      pedido.y,
+      pedido.start,
+      pedido.end,
+      pedido.glp
+  ];
+
+  for (var i = 0; i < celdas.length; i++) {
+      var celda = fila.insertCell(i);
+      celda.textContent = celdas[i];
+  }
+}
+
+var existingOrders = JSON.parse(localStorage.getItem('pedidos')) || [];
+
+        // Agregar cada pedido a la tabla
+        existingOrders.forEach(function(pedido) {
+            agregarFilaPedido(pedido);
+        });

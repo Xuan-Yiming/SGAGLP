@@ -10,6 +10,7 @@ var clock = 1;
 var pedidosPendientes = [];
 var vehiclulosEnCamino = [];
 
+
 var startDate=new Date();
 var finalDate=new Date();
 var currentDate =new Date();

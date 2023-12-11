@@ -5,7 +5,10 @@
   </h1>
   <div class="buttons">
     <input type="file" id="loadFile" style="display: none;" />
-    <button id="openModalBtn">Carga Masiva</button>
+
+    <button id="btnBorrarLocal">LimpiarPedidos</button>
+
+    <button id="openModalBtn">Ingresar Pedido</button>
     <!-- openModalBtn -->
     <!-- btnCargaMasiva -->
     <!-- <button>Aregar</button> -->
@@ -16,8 +19,13 @@
         <span class="close" id="closeModalBtn">&times;</span>
         <h2>Ingrese los datos</h2>
         <form id="modalForm">
+
+          <label for="idpedido">Pedido:</label>
+          <input type="text" id="idpedido" required>
+
             <label for="coordX">Coordenada X:</label>
             <input type="number" id="coordX" required>
+            
 
             <label for="coordY">Coordenada Y:</label>
             <input type="number" id="coordY" required>
