@@ -88,27 +88,27 @@ async function getPedidos() {
 }
 
 
-document
-  .querySelector("#btnCargaMasiva")
-  .addEventListener("click", function () {
-      document.querySelector("#loadFile").click();
+// document
+//   .querySelector("#btnCargaMasiva")
+//   .addEventListener("click", function () {
+//       document.querySelector("#loadFile").click();
 
-      var formdata = new FormData();
-      formdata.append("file", document.querySelector("#loadFile").files[0]);
+//       var formdata = new FormData();
+//       formdata.append("file", document.querySelector("#loadFile").files[0]);
 
-      var requestOptions = {
-        method: "POST",
-        body: formdata,
-        redirect: "follow",
-      };
+//       var requestOptions = {
+//         method: "POST",
+//         body: formdata,
+//         redirect: "follow",
+//       };
 
-      fetch(
-        "http://localhost:8080/DP15E/api/v1/vehicle/cargaMasivaDeFlotas",
-        requestOptions
-      )
-        .then((response) => response.text())
-          .then((result) => {
-            getPedidos();
-        })
-        .catch((error) => console.log("error", error));
-  });
+//       fetch(
+//         "http://localhost:8080/DP15E/api/v1/vehicle/cargaMasivaDeFlotas",
+//         requestOptions
+//       )
+//         .then((response) => response.text())
+//           .then((result) => {
+//             getPedidos();
+//         })
+//         .catch((error) => console.log("error", error));
+//   });

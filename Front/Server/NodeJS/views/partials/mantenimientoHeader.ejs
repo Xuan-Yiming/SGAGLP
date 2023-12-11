@@ -5,8 +5,32 @@
   </h1>
   <div class="buttons">
     <input type="file" id="loadFile" style="display: none;" />
-    <button id="btnCargaMasiva">Carga Masiva</button>
+    <button id="openModalBtn">Carga Masiva</button>
+    <!-- openModalBtn -->
+    <!-- btnCargaMasiva -->
     <!-- <button>Aregar</button> -->
   </div>
+  <script type="text/javascript" src="/public/scripts/mantenimientoHeader.js"></script>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModalBtn">&times;</span>
+        <h2>Ingrese los datos</h2>
+        <form id="modalForm">
+            <label for="coordX">Coordenada X:</label>
+            <input type="number" id="coordX" required>
+
+            <label for="coordY">Coordenada Y:</label>
+            <input type="number" id="coordY" required>
+
+            <label for="horas">Número de horas:</label>
+            <input type="number" id="horas" required>
+
+            <label for="cantidadGlp">Cantidad de GLP:</label>
+            <input type="number" id="cantidadGlp" required>
+
+            <button type="button" id="submitBtn">Guardar</button>
+        </form>
+    </div>
+</div>
 
 </div>
