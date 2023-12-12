@@ -3,8 +3,8 @@ var velocidad = 1;
 var start;
 var pedidosEntregados = 0;
 var pedidos = 0;
-var period = 40;
-const totalClocks = 1200;
+var period = 80;
+const totalClocks = 1200*7;
 var clock = 1;
 
 var pedidosPendientes = [];
@@ -501,6 +501,7 @@ async function processElements(result) {
     await new Promise((resolve) => setTimeout(resolve, 1000 / velocidad));
 
     if (clock == totalClocks) {
+      alert('Se termino la simulacion semanal');
       break;
     }
   }
