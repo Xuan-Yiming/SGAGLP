@@ -17,7 +17,7 @@ var vehiclulosEnCamino = [
   { id: "TB3", x: 12, y: 8, pedido: "" },
   { id: "TB4", x: 12, y: 8, pedido: "" },
   { id: "TB5", x: 12, y: 8, pedido: "" },
-  { id: "TB6", x: 15, y: 8, pedido: "" },
+  { id: "TB6", x: 12, y: 8, pedido: "" },
   { id: "TC7", x: 12, y: 8, pedido: "" },
   { id: "TC8", x: 12, y: 8, pedido: "" },
   { id: "TC9", x: 12, y: 8, pedido: "" },
@@ -124,7 +124,8 @@ document.getElementById('btnPedidos').addEventListener('click', function () {
                       var y = parseInt(parts[5]);
                       // var id = parseInt(parts[6]);
                       // var id = parts[6]; // Read id as a string
-                      var id = parts[6].replace('-', '');
+                      // var id = parts[6].replace('-', '');
+                      var id = parts[6].replace('-', '').replace('c', 'C'); 
                       var glp = parseInt(parts[7]);
                       var time = parseInt(parts[8]);
               
