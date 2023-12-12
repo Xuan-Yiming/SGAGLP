@@ -23,7 +23,7 @@ public class Solucion {
     public Solucion(GAProblem problem, Individual finalSolution, int maxclock) throws Exception {
         elementosEstaticosTemporales = new ArrayList<>();
         elementosEnCadaClock = new ArrayList<>();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         // elementos estaticos
         for (Node order : problem.getOrders()) {
