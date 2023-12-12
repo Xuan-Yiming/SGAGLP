@@ -4,6 +4,8 @@ import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Extra.Curre
 import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Extra.PendingOrders;
 import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem.Node;
 import pe.com.pucp.DP15E.VehicleRoutingProblem.src.GeneticAlgorithms.Problem.Vehicle;
+
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,10 +24,10 @@ public class GAProblem implements Cloneable {
     public int populationSize = 50;
     public int maxGenerations = 100000;
 
-    public double crossoverRate = 0.6;
+    public double crossoverRate = 0.7;
     public double mutationRate = 0.8;
-    public double depotRate = 0.7;
-    public double acceptRate = 0.9;
+    public double depotRate = 0.8;
+    public double acceptRate = 0.6;
 
     private int numOfOrders = 100;
     private int numOfBlocks = 50;
@@ -121,11 +123,33 @@ public class GAProblem implements Cloneable {
                     continue;
                 }
 
+                ArrayList<Point> blockPoints = new ArrayList<>();
+
                 for (int i = 0; i < coordinates.length; i += 2) {
                     int x = Integer.parseInt(coordinates[i]);
                     int y = Integer.parseInt(coordinates[i + 1]);
-                    Node block = new Node(id++, x, y, calendar_s.getTime(), calendar_e.getTime());
-                    this.blocks.add(block);
+                    blockPoints.add(new Point(x, y));
+                }
+
+                // get the line between 2 points
+                for (int i = 0; i < blockPoints.size() - 1; i++) {
+                    int x1 = blockPoints.get(i).x;
+                    int y1 = blockPoints.get(i).y;
+                    int x2 = blockPoints.get(i + 1).x;
+                    int y2 = blockPoints.get(i + 1).y;
+
+                    // if the line is vertical
+                    if (x1 == x2) {
+                        int y = Math.min(y1, y2);
+                        for (int j = 0; j < Math.abs(y1 - y2); j++) {
+                            this.blocks.add(new Node(id++, x1, y + j, calendar_s.getTime(), calendar_e.getTime()));
+                        }
+                    } else {
+                        int x = Math.min(x1, x2);
+                        for (int j = 0; j < Math.abs(x1 - x2); j++) {
+                            this.blocks.add(new Node(id++, x + j, y1, calendar_s.getTime(), calendar_e.getTime()));
+                        }
+                    }
                 }
 
             }
@@ -235,6 +259,19 @@ public class GAProblem implements Cloneable {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        //check if the orders have the same posicion as the block, if yes, remove the order
+        for (int i = 0; i < this.orders.size(); i++) {
+            Node order = this.orders.get(i);
+            for (Node block : this.blocks) {
+                if (order.getPosicion().getX() == block.getPosicion().getX()
+                        && order.getPosicion().getY() == block.getPosicion().getY()) {
+                    this.orders.remove(order);
+                    i--;
+                    break;
+                }
+            }
         }
 
 
