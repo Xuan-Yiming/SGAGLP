@@ -421,7 +421,7 @@ console.log(JSON.stringify(data) );
       processElements(result);
     }).catch(
       error => { console.error(`HORROR:   ${error}`);
-      alert('Se llego al colapso');}
+      alert('Se llego al colapso en la fecha ' + formattedDate2);}
 
     );
 }
