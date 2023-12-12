@@ -45,6 +45,9 @@ public class GeneticAlgorithmVRP {
 
         Individual fittest = population.getFittest();
 
+        double sameFitnessGenerations = 0;
+        double lastFitness = fittest.calculateFitness();
+
         if (fittest.calculateFitness() < problem.getOrders().size()) {
             for (i = 0; i < maxGenerations; i++) {
                 GeneticOperators geneticOperators = new GeneticOperators(problem);
@@ -55,6 +58,15 @@ public class GeneticAlgorithmVRP {
                 population.replaceLastFittest(fittestOffspring);
                 fittest = population.getFittest();
                 double fittestFitness = fittest.calculateFitness();
+                if (fittestFitness == lastFitness) {
+                    sameFitnessGenerations++;
+                    if (sameFitnessGenerations >= problem.maxSameFitnessGenerations) {
+                        population = new Population(problem);
+                    }
+                } else {
+                    sameFitnessGenerations = 0;
+                    lastFitness = fittestFitness;
+                }
                 if (fittestFitness >= problem.getOrders().size()*problem.acceptRate ) {
                     isFittest = true;
                     break;
