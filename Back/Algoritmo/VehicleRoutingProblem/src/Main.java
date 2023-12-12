@@ -25,16 +25,16 @@ public class Main {
             //create a start date
             Calendar calendar_s = Calendar.getInstance();
             calendar_s.set(Calendar.YEAR, 2023);
-            calendar_s.set(Calendar.MONTH, 11);
-            calendar_s.set(Calendar.DAY_OF_MONTH, 12);
+            calendar_s.set(Calendar.MONTH, 6);
+            calendar_s.set(Calendar.DAY_OF_MONTH, 10);
             calendar_s.set(Calendar.HOUR_OF_DAY, 1);
             calendar_s.set(Calendar.MINUTE, 1);
 
             Calendar calendar_e = Calendar.getInstance();
             calendar_e.set(Calendar.YEAR, 2023);
-            calendar_e.set(Calendar.MONTH, 11);
-            calendar_e.set(Calendar.DAY_OF_MONTH, 12);
-            calendar_e.set(Calendar.HOUR_OF_DAY, 1);
+            calendar_e.set(Calendar.MONTH, 6);
+            calendar_e.set(Calendar.DAY_OF_MONTH, 10);
+            calendar_e.set(Calendar.HOUR_OF_DAY, 22);
             calendar_e.set(Calendar.MINUTE, 49);
 
 
@@ -70,7 +70,7 @@ public class Main {
 
             data = "{\"vehiculos\":[],\"pedidos\":[]}";
             
-            algorithmVRP = new GeneticAlgorithmVRP(calendar_s.getTime(), calendar_e.getTime(),data,'P',40);
+            algorithmVRP = new GeneticAlgorithmVRP(calendar_s.getTime(), calendar_e.getTime(),data,'S',40);
 
             Solucion solucion = algorithmVRP.getSolucion();
 
