@@ -144,7 +144,8 @@ document
 
     //empezar la simulacion
     startDate = document.getElementById("txtFecha").valueAsDate;
-    finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
+    // startDate = Date.now();
+    // finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
     // ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
     // pedidosPendientes.push(ordenInicial2);
     empezar();
@@ -200,9 +201,9 @@ async function empezar() {
 
   var passedTime = clock * 72; // 72 seconds per clock
 
-  var currentDate = new Date(startDate.getTime() + passedTime * 1000);
+  var currentDate = new Date(startDate.getTime() + passedTime * 1000 -period*1000*72);
 
-  var currentDate2 = new Date(startDate.getTime() + (passedTime) * 1000 + period*1000*72);
+  var currentDate2 = new Date(startDate.getTime() + (passedTime) * 1000 );
 
 
   let data = {
@@ -268,7 +269,7 @@ formdata.append("dateInicio",  formattedDate);
 formdata.append("dateFin",  formattedDate2);
 // JSON.stringify(data)
 formdata.append("data",JSON.stringify(data) ); // Convertir el objeto data a JSON
-formdata.append("modo", "S");
+formdata.append("modo", "P");
 formdata.append("clock", period);
 console.log(formattedDate);
 console.log(formattedDate2 );
@@ -581,7 +582,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 coordY,
                 currentDate,
                 deadline,
-                horas
+                cantidadGlp
               );
             // Convierte el objeto a una cadena JSON y lo guarda en localStorage
             // localStorage.setItem('formData', JSON.stringify(data));
