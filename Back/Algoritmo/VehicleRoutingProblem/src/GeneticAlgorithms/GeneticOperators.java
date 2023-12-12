@@ -81,7 +81,7 @@ public class GeneticOperators {
                     continue;
                 }
                 // child2.getChromosome().print();
-                // System.out.println("ch 2  ini ------------------------");
+                // System.out.println("ch 2 ini ------------------------");
 
                 // Get the first node from each route
                 ArrayList<Node> initialNodes1 = new ArrayList<>(
@@ -157,7 +157,7 @@ public class GeneticOperators {
                     }
                 }
 
-                if (minNode == 0 || minNode == 1 || maxVehicle == 0) {
+                if (minNode < 2 || maxVehicle == 0) {
                     return parents;
                 }
 
@@ -166,9 +166,13 @@ public class GeneticOperators {
 
                 // make sure the cross point is not the first node or second node
                 int horizontalCrossPoint;
-                do {
-                    horizontalCrossPoint = random.nextInt(minNode - 1) + 1;
-                } while (horizontalCrossPoint == 0 || horizontalCrossPoint == 1);
+                if (minNode == 2) {
+                    horizontalCrossPoint = 2;
+                } else {
+                    do {
+                        horizontalCrossPoint = random.nextInt(minNode - 1) + 1;
+                    } while (horizontalCrossPoint < 2);
+                }
 
                 for (int iov = 0; iov < parent1.getChromosome().genes.size(); iov++) {
                     Gene vehicle = parent1.getChromosome().genes.get(iov);
@@ -214,9 +218,13 @@ public class GeneticOperators {
 
                 // make sure the cross point is not the first node
                 int horizontalCrossPoint;
-                do {
-                    horizontalCrossPoint = random.nextInt(minNode - 1) + 1;
-                } while (horizontalCrossPoint == 0 || horizontalCrossPoint == 1);
+                if (minNode == 2) {
+                    horizontalCrossPoint = 2;
+                } else {
+                    do {
+                        horizontalCrossPoint = random.nextInt(minNode - 1) + 1;
+                    } while (horizontalCrossPoint < 2);
+                }
 
                 for (int iov = 0; iov < parent2.getChromosome().genes.size(); iov++) {
                     Gene vehicle = parent2.getChromosome().genes.get(iov);
@@ -258,9 +266,13 @@ public class GeneticOperators {
                 }
                 // make sure the node is not the first one
                 int mutationNode1;
-                do {
-                    mutationNode1 = random.nextInt(minNode - 1) + 1;
-                } while (mutationNode1 == 0 || mutationNode1 == 1);
+                if (minNode == 2) {
+                    mutationNode1 = 2;
+                } else {
+                    do {
+                        mutationNode1 = random.nextInt(minNode - 1) + 1;
+                    } while (mutationNode1 < 2);
+                }
 
                 int mutationVehicle2 = random.nextInt(maxVehicle);
                 maxNode = child1.getChromosome().genes.get(mutationVehicle2).getRoute().size();
@@ -269,16 +281,20 @@ public class GeneticOperators {
                 }
                 // make sure the node is not the first one
                 int mutationNode2;
-                do {
-                    mutationNode2 = random.nextInt(minNode - 1) + 1;
-                } while (mutationNode2 == 0 || mutationNode2 == 1);
+                if (minNode == 2) {
+                    mutationNode2 = 2;
+                } else {
+                    do {
+                        mutationNode2 = random.nextInt(minNode - 1) + 1;
+                    } while (mutationNode2 < 2);
+                }
 
                 // check if the node exits in the route, if not continue the loop
-                if (child1.getChromosome().genes.get(mutationVehicle2).getRoute().size() < mutationNode2) {
+                if (child1.getChromosome().genes.get(mutationVehicle2).getRoute().size() <= mutationNode2) {
                     continue;
                 }
                 // check if the node exits in the route, if not continue the loop
-                if (child1.getChromosome().genes.get(mutationVehicle1).getRoute().size() < mutationNode1) {
+                if (child1.getChromosome().genes.get(mutationVehicle1).getRoute().size() <= mutationNode1) {
                     continue;
                 }
 
