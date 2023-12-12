@@ -27,15 +27,15 @@ public class Main {
             calendar_s.set(Calendar.YEAR, 2023);
             calendar_s.set(Calendar.MONTH, 10);
             calendar_s.set(Calendar.DAY_OF_MONTH, 29);
-            calendar_s.set(Calendar.HOUR_OF_DAY, 2);
-            calendar_s.set(Calendar.MINUTE, 37);
+            calendar_s.set(Calendar.HOUR_OF_DAY, 3);
+            calendar_s.set(Calendar.MINUTE, 25);
 
             Calendar calendar_e = Calendar.getInstance();
             calendar_e.set(Calendar.YEAR, 2023);
             calendar_e.set(Calendar.MONTH, 10);
             calendar_e.set(Calendar.DAY_OF_MONTH, 29);
-            calendar_e.set(Calendar.HOUR_OF_DAY, 3);
-            calendar_e.set(Calendar.MINUTE, 25);
+            calendar_e.set(Calendar.HOUR_OF_DAY, 4);
+            calendar_e.set(Calendar.MINUTE, 13);
 
 
             ArrayList<CurrentVehicle> currentVehicles = new ArrayList<CurrentVehicle>();
@@ -68,7 +68,7 @@ public class Main {
 
             String data = gson.toJson(inputData);
 
-            data = "{\"vehiculos\":[{\"id\":\"TA1\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TA2\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TB3\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TB4\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TB5\",\"x\":42,\"y\":42,\"pedido\":\"\"},{\"id\":\"TB6\",\"x\":51,\"y\":8,\"pedido\":\"C2\"},{\"id\":\"TC7\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TC8\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TC9\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TC10\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD11\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD12\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD13\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD14\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD15\",\"x\":1,\"y\":45,\"pedido\":\"\"},{\"id\":\"TD16\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD17\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD18\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD19\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD20\",\"x\":51,\"y\":8,\"pedido\":\"C3\"}],\"pedidos\":[{\"id\":\"C2\",\"x\":59,\"y\":12,\"start\":\"2023-11-29T06:49:12.000Z\",\"end\":\"2023-06-29T16:06:00.000Z\",\"glp\":6},{\"id\":\"C3\",\"x\":61,\"y\":22,\"start\":\"2023-11-29T06:49:12.000Z\",\"end\":\"2023-08-29T07:08:00.000Z\",\"glp\":3},{\"id\":\"C4\",\"x\":21,\"y\":25,\"start\":\"2023-11-29T06:49:12.000Z\",\"end\":\"2023-10-29T13:10:00.000Z\",\"glp\":14}]}";
+            data = "{\"vehiculos\":[{\"id\":\"TA1\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TA2\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TB3\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TB4\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TB5\",\"x\":21,\"y\":25,\"pedido\":\"\"},{\"id\":\"TB6\",\"x\":1,\"y\":36,\"pedido\":\"C1\"},{\"id\":\"TC7\",\"x\":59,\"y\":12,\"pedido\":\"\"},{\"id\":\"TC8\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TC9\",\"x\":15,\"y\":35,\"pedido\":\"\"},{\"id\":\"TC10\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD11\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD12\",\"x\":1,\"y\":45,\"pedido\":\"\"},{\"id\":\"TD13\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD14\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD15\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD16\",\"x\":51,\"y\":8,\"pedido\":\"C4\"},{\"id\":\"TD17\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD18\",\"x\":61,\"y\":22,\"pedido\":\"\"},{\"id\":\"TD19\",\"x\":12,\"y\":8,\"pedido\":\"\"},{\"id\":\"TD20\",\"x\":12,\"y\":8,\"pedido\":\"\"}],\"pedidos\":[{\"id\":\"C1\",\"x\":1,\"y\":45,\"start\":\"2023-11-29T07:37:12.000Z\",\"end\":\"2023-05-29T08:05:00.000Z\",\"glp\":1},{\"id\":\"C2\",\"x\":59,\"y\":12,\"start\":\"2023-11-29T07:37:12.000Z\",\"end\":\"2023-06-29T16:06:00.000Z\",\"glp\":6},{\"id\":\"C3\",\"x\":61,\"y\":22,\"start\":\"2023-11-29T07:37:12.000Z\",\"end\":\"2023-08-29T07:08:00.000Z\",\"glp\":3},{\"id\":\"C4\",\"x\":61,\"y\":13,\"start\":\"2023-11-29T07:37:12.000Z\",\"end\":\"2023-08-29T08:08:00.000Z\",\"glp\":3}]}";
             
             algorithmVRP = new GeneticAlgorithmVRP(calendar_s.getTime(), calendar_e.getTime(),data,'P',40);
 
