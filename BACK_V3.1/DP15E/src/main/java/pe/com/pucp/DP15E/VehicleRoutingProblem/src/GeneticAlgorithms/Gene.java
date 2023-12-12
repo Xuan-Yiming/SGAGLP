@@ -54,7 +54,7 @@ public class Gene implements Cloneable {
 //        System.out.println("Route: ");
         for (int i = 0; i < route.size(); i++) {
             // print in the same line saparated by ' - '
-                System.out.print(route.get(i).getId() +",");
+                System.out.print(route.get(i).getId()+"("+route.get(i).getPosicion().x +","+route.get(i).getPosicion().y+"), ");
 //                System.out.print(route.get(i).getId() + ": (" + route.get(i).getPosicion().getX() + ", "
 //                        + route.get(i).getPosicion().getY() + ") - ")
         }

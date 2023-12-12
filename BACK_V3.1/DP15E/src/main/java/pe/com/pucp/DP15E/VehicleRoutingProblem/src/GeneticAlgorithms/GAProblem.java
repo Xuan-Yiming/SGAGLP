@@ -305,7 +305,9 @@ public class GAProblem implements Cloneable {
                                 //get the order with the same ID
                                 for (Node order : this.orders) {
                                     if (order.getId().equals(current.pedido) ) {
-                                        if(order.getPosicion().getX() != current.x || order.getPosicion().getY() != current.y){
+                                        if (order.getPosicion().getX() != current.x
+                                                || order.getPosicion().getY() != current.y) {
+                                            
                                             vehicle.addNode(order);
                                             // remove the order from the orders
                                             // this.orders.remove(order);
