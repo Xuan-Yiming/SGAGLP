@@ -200,7 +200,7 @@ document.getElementById('btnPedidos').addEventListener('click', function () {
                       if(primeracargar){
                         vehiclulosEnCamino[vehiculoIndex].pedido = id;
                         vehiculoIndex++;
-                        primeracargar = false;
+                        
                       }
                   }
                   // Process each line as needed
@@ -210,6 +210,7 @@ document.getElementById('btnPedidos').addEventListener('click', function () {
           // Read the file as text
           reader.readAsText(file);
       }
+    primeracargar = false;
   });
 });
 
