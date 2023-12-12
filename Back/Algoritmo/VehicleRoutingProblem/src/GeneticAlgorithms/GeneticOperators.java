@@ -166,11 +166,13 @@ public class GeneticOperators {
 
                 // make sure the cross point is not the first node or second node
                 int horizontalCrossPoint;
-                do {
-                    horizontalCrossPoint = random.nextInt(minNode - 1) + 1;
-                } while (horizontalCrossPoint == 0 || horizontalCrossPoint == 1);
 
-                for (int iov = 0; iov < parent1.getChromosome().genes.size(); iov++) {
+                horizontalCrossPoint = random.nextInt(minNode - 1) + 1;
+
+                if (horizontalCrossPoint == 0 || horizontalCrossPoint == 1) {
+                    
+                } else {
+                                    for (int iov = 0; iov < parent1.getChromosome().genes.size(); iov++) {
                     Gene vehicle = parent1.getChromosome().genes.get(iov);
                     for (int ioo = 0; ioo < vehicle.getRoute().size()
                             && ioo < horizontalCrossPoint; ioo++) {
@@ -188,6 +190,9 @@ public class GeneticOperators {
 
                     }
                 }
+                }
+
+
 
             } else {
 
@@ -214,26 +219,27 @@ public class GeneticOperators {
 
                 // make sure the cross point is not the first node
                 int horizontalCrossPoint;
-                do {
+
                     horizontalCrossPoint = random.nextInt(minNode - 1) + 1;
-                } while (horizontalCrossPoint == 0 || horizontalCrossPoint == 1);
-
-                for (int iov = 0; iov < parent2.getChromosome().genes.size(); iov++) {
-                    Gene vehicle = parent2.getChromosome().genes.get(iov);
-                    for (int ioo = 0; ioo < vehicle.getRoute().size()
-                            && ioo < horizontalCrossPoint; ioo++) {
-                        // if before the cross point
-                        child2.getChromosome().genes.get(iov).getRoute()
-                                .add(parent2.getChromosome().genes.get(iov).getRoute().get(ioo));
+                if (horizontalCrossPoint == 0 || horizontalCrossPoint == 1)
+                {
+                    for (int iov = 0; iov < parent2.getChromosome().genes.size(); iov++) {
+                        Gene vehicle = parent2.getChromosome().genes.get(iov);
+                        for (int ioo = 0; ioo < vehicle.getRoute().size()
+                                && ioo < horizontalCrossPoint; ioo++) {
+                            // if before the cross point
+                            child2.getChromosome().genes.get(iov).getRoute()
+                                    .add(parent2.getChromosome().genes.get(iov).getRoute().get(ioo));
+                        }
                     }
-                }
-                for (int iov = 0; iov < parent2.getChromosome().genes.size(); iov++) {
-                    Gene vehicle = parent2.getChromosome().genes.get(iov);
-                    for (int ioo = horizontalCrossPoint; ioo < vehicle.getRoute().size(); ioo++) {
-                        int index = (iov + verticalCrossPoint) % maxVehicle;
-                        child2.getChromosome().genes.get(index).getRoute()
-                                .add(parent2.getChromosome().genes.get(iov).getRoute().get(ioo));
+                    for (int iov = 0; iov < parent2.getChromosome().genes.size(); iov++) {
+                        Gene vehicle = parent2.getChromosome().genes.get(iov);
+                        for (int ioo = horizontalCrossPoint; ioo < vehicle.getRoute().size(); ioo++) {
+                            int index = (iov + verticalCrossPoint) % maxVehicle;
+                            child2.getChromosome().genes.get(index).getRoute()
+                                    .add(parent2.getChromosome().genes.get(iov).getRoute().get(ioo));
 
+                        }
                     }
                 }
             }
