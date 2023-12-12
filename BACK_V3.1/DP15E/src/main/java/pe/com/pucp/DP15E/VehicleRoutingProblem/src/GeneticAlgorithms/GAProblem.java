@@ -27,7 +27,7 @@ public class GAProblem implements Cloneable {
     public double crossoverRate = 0.7;
     public double mutationRate = 0.8;
     public double depotRate = 0.8;
-    public double acceptRate = 0.6;
+    public double acceptRate = 0.4;
 
     private int numOfOrders = 100;
     private int numOfBlocks = 50;
