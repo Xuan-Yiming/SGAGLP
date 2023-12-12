@@ -7,6 +7,8 @@ var period = 5;
 const totalClocks = 300;
 var clock = 1;
 
+var primeracargar = 1;
+
 var pedidosPendientes = [];
 var vehiclulosEnCamino = [];
 
@@ -99,7 +101,8 @@ document.getElementById('btnPedidos').addEventListener('click', function () {
                       var x = parseInt(parts[4]);
                       var y = parseInt(parts[5]);
                       // var id = parseInt(parts[6]);
-                      var id = parts[6]; // Read id as a string
+                      // var id = parts[6]; // Read id as a string
+                      var id = parts[6].replace('-', '');
                       var glp = parseInt(parts[7]);
                       var time = parseInt(parts[8]);
               
@@ -171,6 +174,19 @@ document.getElementById('btnPedidos').addEventListener('click', function () {
                       console.log(order);
           
                       pedidosPendientes.push(order);
+
+                      if(primeracargar == 1){
+
+                        if(glp == 25){
+                          vehiclulosEnCamino.push(
+                            new Vehicle("TA1", element.x, element.y,nodo.idPedido)
+                          );
+                        }
+
+
+
+                        primeracargar = 0;
+                      }
 
 
                   }
