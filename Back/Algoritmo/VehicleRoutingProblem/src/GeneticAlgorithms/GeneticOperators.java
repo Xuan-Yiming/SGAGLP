@@ -276,9 +276,10 @@ public class GeneticOperators {
                 }
                 // make sure the node is not the first one
                 int mutationNode2;
-                do {
-                    mutationNode2 = random.nextInt(minNode - 1) + 1;
-                } while (mutationNode2 == 0 || mutationNode2 == 1);
+
+                mutationNode2 = random.nextInt(minNode - 1) + 1;
+                if (mutationNode2 == 0 || mutationNode2 == 1)
+                    continue;
 
                 // check if the node exits in the route, if not continue the loop
                 if (child1.getChromosome().genes.get(mutationVehicle2).getRoute().size() < mutationNode2) {
