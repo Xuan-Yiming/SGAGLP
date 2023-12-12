@@ -264,9 +264,10 @@ public class GeneticOperators {
                 }
                 // make sure the node is not the first one
                 int mutationNode1;
-                do {
+                
                     mutationNode1 = random.nextInt(minNode - 1) + 1;
-                } while (mutationNode1 == 0 || mutationNode1 == 1);
+                    if (mutationNode1 == 0 || mutationNode1 == 1)
+                        continue;
 
                 int mutationVehicle2 = random.nextInt(maxVehicle);
                 maxNode = child1.getChromosome().genes.get(mutationVehicle2).getRoute().size();
