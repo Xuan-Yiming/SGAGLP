@@ -171,9 +171,8 @@ public class GAProblem implements Cloneable {
 
         if (mode == 'S') {
             return;
-        }
-
-        if (this.orders.size() == 0) {
+        } else {
+                    if (this.orders.size() == 0) {
             id = 0;
         } else {
             id = Integer.parseInt(this.orders.get(this.orders.size() - 1).getId().substring(1)) + 1;
@@ -260,6 +259,9 @@ public class GAProblem implements Cloneable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        }
+
+
 
         //check if the orders have the same posicion as the block, if yes, remove the order
         for (int i = 0; i < this.orders.size(); i++) {
