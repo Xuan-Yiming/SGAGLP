@@ -7,10 +7,32 @@ var period = 5;
 const totalClocks = 300;
 var clock = 1;
 
-var primeracargar = 1;
+var primeracargar = true;
+var vehiculoIndex = 0;
 
 var pedidosPendientes = [];
-var vehiclulosEnCamino = [];
+var vehiclulosEnCamino = [
+  { id: "TA1", x: 12, y: 8, pedido: "" },
+  { id: "TA2", x: 12, y: 8, pedido: "" },
+  { id: "TB3", x: 12, y: 8, pedido: "" },
+  { id: "TB4", x: 12, y: 8, pedido: "" },
+  { id: "TB5", x: 12, y: 8, pedido: "" },
+  { id: "TB6", x: 15, y: 8, pedido: "" },
+  { id: "TC7", x: 12, y: 8, pedido: "" },
+  { id: "TC8", x: 12, y: 8, pedido: "" },
+  { id: "TC9", x: 12, y: 8, pedido: "" },
+  { id: "TC10", x: 12, y: 8, pedido: "" },
+  { id: "TD11", x: 12, y: 8, pedido: "" },
+  { id: "TD12", x: 12, y: 8, pedido: "" },
+  { id: "TD13", x: 12, y: 8, pedido: "" },
+  { id: "TD14", x: 12, y: 8, pedido: "" },
+  { id: "TD15", x: 12, y: 8, pedido: "" },
+  { id: "TD16", x: 12, y: 8, pedido: "" },
+  { id: "TD17", x: 12, y: 8, pedido: "" },
+  { id: "TD18", x: 12, y: 8, pedido: "" },
+  { id: "TD19", x: 12, y: 8, pedido: "" },
+  { id: "TD20", x: 12, y: 8, pedido: "" },
+];
 
 
 var startDate=new Date();
@@ -175,27 +197,11 @@ document.getElementById('btnPedidos').addEventListener('click', function () {
           
                       pedidosPendientes.push(order);
 
-                      if(primeracargar == 1){
-
-                        if(glp == 25){
-                          vehiclulosEnCamino.push(
-                            new Vehicle("TA1", element.x, element.y,nodo.idPedido)
-                          );
-                        }
-
-
-
-                        primeracargar = 0;
+                      if(primeracargar){
+                        vehiclulosEnCamino[vehiculoIndex++].id = id;
+                        primeracargar = false;
                       }
-
-
                   }
-
-
-
-
-
-
                   // Process each line as needed
               });
           };
