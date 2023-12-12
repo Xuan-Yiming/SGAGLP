@@ -19,11 +19,11 @@ public class GAProblem implements Cloneable {
     private ArrayList<Node> depots;
     private ArrayList<Node> blocks;
 
-    public int populationSize = 10;
-    public int maxGenerations = 100000;
+    public int populationSize = 100;
+    public int maxGenerations = 10000;
 
-    public double crossoverRate = 0.5;
-    public double mutationRate = 0.5;
+    public double crossoverRate = 0.7;
+    public double mutationRate = 0.7;
     public double depotRate = 0.4;
 
     private int numOfOrders = 100;
