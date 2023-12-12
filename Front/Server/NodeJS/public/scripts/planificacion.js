@@ -3,7 +3,7 @@ var velocidad = 1;
 var start;
 var pedidosEntregados = 0;
 var pedidos = 0;
-var period = 80;
+var period = 5;
 const totalClocks = 300;
 var clock = 1;
 
@@ -45,6 +45,7 @@ class Order2 {
   }
 }
 
+document.querySelector("#txtPedidosProgramados").value = 0;
 
 // ordenInicial =   new Order(1,2,3,10,10);
 
@@ -143,7 +144,15 @@ document
     start = Date.now();
 
     //empezar la simulacion
-    startDate = document.getElementById("txtFecha").valueAsDate;
+    console.log(startDate);
+    // startDate = document.getElementById("txtFecha").valueAsDate;
+    var startDateInput = document.getElementById("txtFecha").valueAsDate;
+
+    var startDateValue = startDateInput.value;
+    var startDate = new Date(startDateValue);
+
+    console.log(startDateValue);
+    console.log(startDate);
     // startDate = Date.now();
     // finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
     // ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
@@ -346,9 +355,16 @@ console.log(JSON.stringify(data) );
             element.y +
             "</td></tr>";
 
+            
             var dateTimeWithSeconds = element.hora + ":00";
 
+            // let fecha = new Date(element.hora.replace(' ', 'T') + ':00Z');
+            // fecha.setHours(fecha.getHours() + 5);
+            // let nuevaHora = fecha.toISOString().slice(0, 16).replace('T', ' ');
+
+
             var dateObject = new Date(dateTimeWithSeconds);
+            // var dateObject = new Date(nuevaHora);
           pedidosPendientes.push(
             // new Order(
             //   element.id,
@@ -405,7 +421,7 @@ console.log(JSON.stringify(data) );
         }
       });
 
-      document.querySelector("#txtPedidosProgramados").value = pedidos;
+      // document.querySelector("#txtPedidosProgramados").value = pedidos;
 
       vehicles = vehiclulosEnCamino.length;
       document.querySelector("#txtCantidadVehiculos").value = vehicles;
@@ -499,10 +515,10 @@ async function processElements(result) {
     //update the timer
     const end = Date.now();
     document.querySelector("#txtDuracion").value = (end - start) / 1000;
-    await new Promise((resolve) => setTimeout(resolve, 72000 / velocidad));
+    await new Promise((resolve) => setTimeout(resolve, 5000 / velocidad));
 
     if (clock == totalClocks) {
-      alert('Se termino la simulacion semanal');
+      alert('Se termino la  operacion dia a dia');
       break;
     }
   }
@@ -569,24 +585,48 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // var deadline = 
 
-            var currentDate = new Date();
+            var currentDate2 = new Date();
             var deadline = new Date();
+
             var horasASumar = parseInt(document.getElementById('horas').value, 10) || 0;
 
+
             // Sumar las horas a la fecha actual
-            deadline.setHours(deadline.getHours() + horasASumar);
+            deadline.setHours(deadline.getHours() + horasASumar-5);
+
+            currentDate2.setHours(currentDate2.getHours()-5);
+
+            console.log(currentDate2);
+            console.log(deadline);
+
+            let fechaObjeto = new Date(currentDate2);
+            let fechaObjeto2 = new Date(deadline);
 
             var order = new Order2(
                 idpedido,
                 coordX,
                 coordY,
-                currentDate,
-                deadline,
+                fechaObjeto,
+                fechaObjeto2,
                 cantidadGlp
               );
             // Convierte el objeto a una cadena JSON y lo guarda en localStorage
             // localStorage.setItem('formData', JSON.stringify(data));
 
+            document.querySelector("#txtPedidosProgramados").value +=1;
+            var table = document.getElementById("tblPedidos");
+            // table.innerHTML = "";
+
+            table.innerHTML +=
+            "<tr><td>" +
+            idpedido +
+            "</td><td>" +
+            coordX +
+            "</td><td>" +
+            coordY +
+            "</td></tr>";
+
+            console.log(order);
 
             pedidosPendientes.push(order);
             pedidosIngresados.push(order);

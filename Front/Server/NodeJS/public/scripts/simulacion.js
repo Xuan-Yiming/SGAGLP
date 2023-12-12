@@ -4,7 +4,7 @@ var start;
 var pedidosEntregados = 0;
 var pedidos = 0;
 var period = 80;
-const totalClocks = 1200*7;
+var totalClocks = 1200*7;
 var clock = 1;
 
 var pedidosPendientes = [];
@@ -147,6 +147,15 @@ document
     finalDate = new Date(startDate.getTime() + 8400*72 * 1000);
     // ordenInicial2 =   new Order2("P2",2,3,startDate,finalDate,10);
     // pedidosPendientes.push(ordenInicial2);
+
+    if(document.getElementById("semanal").checked){
+      totalClocks=1200*7;
+      
+    }else{
+      totalClocks = 99999999;
+    }
+    console.log(totalClocks);
+
     empezar();
   });
 
@@ -410,7 +419,11 @@ console.log(JSON.stringify(data) );
       document.querySelector("#txtCantidadVehiculos").value = vehicles;
 
       processElements(result);
-    }).catch(error => console.error(`HORROR:   ${error}`));
+    }).catch(
+      error => { console.error(`HORROR:   ${error}`);
+      alert('Se llego al colapso');}
+
+    );
 }
 
 async function processElements(result) {
@@ -510,3 +523,6 @@ async function processElements(result) {
     empezar();
   }
 }
+
+
+
