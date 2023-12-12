@@ -41,18 +41,15 @@ public class GAProblem implements Cloneable {
     public GAProblem(Date startDate, Date endDate, ArrayList<CurrentVehicle> currentVehicle,
             ArrayList<PendingOrders> pendingOrders, char mode) throws Exception {
 
-
         if (startDate == null || endDate == null) {
             throw new NullPointerException("startDate or endDate is null");
         }
-
 
         // create depots
         this.depots = new ArrayList<>();
         this.depots.add(new Node(1, 12, 8, Double.MAX_VALUE));
         this.depots.add(new Node(2, 42, 42, Double.MAX_VALUE));
         this.depots.add(new Node(3, 63, 3, Double.MAX_VALUE));
-
 
         // blocks
         // read and load the blocks from file ./data/bloqueo/202311.bloqueos.txt
@@ -69,11 +66,11 @@ public class GAProblem implements Cloneable {
         _calendar.setTime(startDate);
         int _year = _calendar.get(Calendar.YEAR);
         int _month = _calendar.get(Calendar.MONTH) + 1;
-        //month have format 08
-        if(_month < 10){
+        // month have format 08
+        if (_month < 10) {
             fileName = _year + "0" + _month + ".bloqueos.txt";
-        }else{
-        fileName = _year + "" + _month + ".bloqueos.txt";
+        } else {
+            fileName = _year + "" + _month + ".bloqueos.txt";
         }
         try {
             URL url = new URL(this.baseURL + "bloqueo/" + fileName);
@@ -157,7 +154,6 @@ public class GAProblem implements Cloneable {
             e.printStackTrace();
         }
 
-
         // orders
         this.orders = new ArrayList<>();
 
@@ -170,100 +166,97 @@ public class GAProblem implements Cloneable {
         }
 
         if (mode == 'S') {
-            return;
-        } else {
-                    if (this.orders.size() == 0) {
-            id = 0;
-        } else {
-            id = Integer.parseInt(this.orders.get(this.orders.size() - 1).getId().substring(1)) + 1;
-        }
-
-        // read and load the orders from file ./data/ventas/ventas202311.txt
-        // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
-        // customer, Q m3, deadline h
-
-        if (_month < 10) {
-            fileName = "ventas" + _year + "0" + _month + ".txt";
-        } else {
-            fileName = "ventas" + _year + "" + _month + ".txt";
-        }
-
-        try {
-            URL url = new URL(this.baseURL + "ventas/" + fileName);
-            BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-            String line;
-            String year = fileName.substring(6, 10);
-            String month = fileName.substring(10, 12);
-
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(":");
-                String timePart = parts[0];
-                String[] orderDetails = parts[1].split(",");
-
-                String day = timePart.substring(0, timePart.indexOf('d'));
-                String hour = timePart.substring(timePart.indexOf('d') + 1, timePart.indexOf('h'));
-                String minute = timePart.substring(timePart.indexOf('h') + 1, timePart.indexOf('m'));
-
-                int x = Integer.parseInt(orderDetails[0]);
-                int y = Integer.parseInt(orderDetails[1]);
-
-                if (x < 0 || x >= 70 || y < 0 || y >= 50) {
-                    continue;
-                }
-
-                String customer = orderDetails[2];
-                String quantity = orderDetails[3].substring(0, orderDetails[3].indexOf('m'));
-                String deadline = orderDetails[4].substring(0, orderDetails[4].indexOf('h'));
-
-                Calendar calendar_s = Calendar.getInstance();
-                calendar_s.set(Calendar.YEAR, Integer.parseInt(year));
-                calendar_s.set(Calendar.MONTH, Integer.parseInt(month) - 1);
-                calendar_s.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
-                calendar_s.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
-                calendar_s.set(Calendar.MINUTE, Integer.parseInt(minute));
-                calendar_s.set(Calendar.SECOND, 0);
-
-                // if startDate id between the calendar_s and calendar_e date, then continue
-                Calendar calendar_sd = Calendar.getInstance();
-                calendar_sd.setTime(startDate);
-
-                Calendar calendar_ed = Calendar.getInstance();
-                calendar_ed.setTime(endDate);
-
-                if (!(calendar_s.after(calendar_sd) && calendar_s.before(calendar_ed))) {
-                    continue;
-                }
-
-                Calendar calendar_e = Calendar.getInstance();
-                calendar_e.set(Calendar.YEAR, Integer.parseInt(year));
-                calendar_e.set(Calendar.MONTH, Integer.parseInt(month) - 1);
-                calendar_e.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
-                calendar_e.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour) + Integer.parseInt(deadline));
-                calendar_e.set(Calendar.MINUTE, Integer.parseInt(minute));
-                calendar_e.set(Calendar.SECOND, 0);
-
-                double _quantity = Double.parseDouble(quantity);
-
-                for (double i = 0; i < _quantity / 25; i++) {
-
-                    double _q = 25;
-                    if (_quantity - i * 25 < 25) {
-                        _q = _quantity - i * 25;
-                    }
-                    Node order = new Node(id++, x, y, _q, calendar_s.getTime(),
-                            calendar_e.getTime());
-                    this.orders.add(order);
-                }
+            if (this.orders.size() == 0) {
+                id = 0;
+            } else {
+                id = Integer.parseInt(this.orders.get(this.orders.size() - 1).getId().substring(1)) + 1;
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            // read and load the orders from file ./data/ventas/ventas202311.txt
+            // 29d12h01m:20,16,c-42,1m3,14h dayOfMoth d HourOfday h MinuteOfHour m : x, y,
+            // customer, Q m3, deadline h
+
+            if (_month < 10) {
+                fileName = "ventas" + _year + "0" + _month + ".txt";
+            } else {
+                fileName = "ventas" + _year + "" + _month + ".txt";
+            }
+
+            try {
+                URL url = new URL(this.baseURL + "ventas/" + fileName);
+                BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+                String line;
+                String year = fileName.substring(6, 10);
+                String month = fileName.substring(10, 12);
+
+                while ((line = br.readLine()) != null) {
+                    String[] parts = line.split(":");
+                    String timePart = parts[0];
+                    String[] orderDetails = parts[1].split(",");
+
+                    String day = timePart.substring(0, timePart.indexOf('d'));
+                    String hour = timePart.substring(timePart.indexOf('d') + 1, timePart.indexOf('h'));
+                    String minute = timePart.substring(timePart.indexOf('h') + 1, timePart.indexOf('m'));
+
+                    int x = Integer.parseInt(orderDetails[0]);
+                    int y = Integer.parseInt(orderDetails[1]);
+
+                    if (x < 0 || x >= 70 || y < 0 || y >= 50) {
+                        continue;
+                    }
+
+                    String customer = orderDetails[2];
+                    String quantity = orderDetails[3].substring(0, orderDetails[3].indexOf('m'));
+                    String deadline = orderDetails[4].substring(0, orderDetails[4].indexOf('h'));
+
+                    Calendar calendar_s = Calendar.getInstance();
+                    calendar_s.set(Calendar.YEAR, Integer.parseInt(year));
+                    calendar_s.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                    calendar_s.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+                    calendar_s.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
+                    calendar_s.set(Calendar.MINUTE, Integer.parseInt(minute));
+                    calendar_s.set(Calendar.SECOND, 0);
+
+                    // if startDate id between the calendar_s and calendar_e date, then continue
+                    Calendar calendar_sd = Calendar.getInstance();
+                    calendar_sd.setTime(startDate);
+
+                    Calendar calendar_ed = Calendar.getInstance();
+                    calendar_ed.setTime(endDate);
+
+                    if (!(calendar_s.after(calendar_sd) && calendar_s.before(calendar_ed))) {
+                        continue;
+                    }
+
+                    Calendar calendar_e = Calendar.getInstance();
+                    calendar_e.set(Calendar.YEAR, Integer.parseInt(year));
+                    calendar_e.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+                    calendar_e.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+                    calendar_e.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour) + Integer.parseInt(deadline));
+                    calendar_e.set(Calendar.MINUTE, Integer.parseInt(minute));
+                    calendar_e.set(Calendar.SECOND, 0);
+
+                    double _quantity = Double.parseDouble(quantity);
+
+                    for (double i = 0; i < _quantity / 25; i++) {
+
+                        double _q = 25;
+                        if (_quantity - i * 25 < 25) {
+                            _q = _quantity - i * 25;
+                        }
+                        Node order = new Node(id++, x, y, _q, calendar_s.getTime(),
+                                calendar_e.getTime());
+                        this.orders.add(order);
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        }
 
-
-
-        //check if the orders have the same posicion as the block, if yes, remove the order
+        // check if the orders have the same posicion as the block, if yes, remove the
+        // order
         for (int i = 0; i < this.orders.size(); i++) {
             Node order = this.orders.get(i);
             for (Node block : this.blocks) {
@@ -275,7 +268,6 @@ public class GAProblem implements Cloneable {
                 }
             }
         }
-
 
         // vehicles
         // read and load the vehicles from file data/mantenimiento/mantpreventivo.txt
@@ -332,22 +324,23 @@ public class GAProblem implements Cloneable {
 
                             // keep the current order
                             if (current.pedido.contains("D")) {
-                                //get the depot with the same ID
+                                // get the depot with the same ID
                                 for (Node depot : this.depots) {
-                                    if (depot.getId().equals(depot.getId()) ) {
-                                        if(depot.getPosicion().getX() != current.x && depot.getPosicion().getY() != current.y){
+                                    if (depot.getId().equals(depot.getId())) {
+                                        if (depot.getPosicion().getX() != current.x
+                                                && depot.getPosicion().getY() != current.y) {
                                             vehicle.addNode(depot);
                                             break;
                                         }
                                     }
                                 }
-                            }else{
-                                //get the order with the same ID
+                            } else {
+                                // get the order with the same ID
                                 for (Node order : this.orders) {
-                                    if (order.getId().equals(current.pedido) ) {
+                                    if (order.getId().equals(current.pedido)) {
                                         if (order.getPosicion().getX() != current.x
                                                 || order.getPosicion().getY() != current.y) {
-                                            
+
                                             vehicle.addNode(order);
                                             // remove the order from the orders
                                             // this.orders.remove(order);
@@ -356,7 +349,6 @@ public class GAProblem implements Cloneable {
                                     }
                                 }
                             }
-
 
                             this.vehicles.add(vehicle);
                         }
