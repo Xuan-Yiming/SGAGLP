@@ -198,7 +198,7 @@ document.getElementById('btnPedidos').addEventListener('click', function () {
                       pedidosPendientes.push(order);
 
                       if(primeracargar){
-                        vehiclulosEnCamino[vehiculoIndex++].id = id;
+                        vehiclulosEnCamino[vehiculoIndex++].pedido = id;
                         primeracargar = false;
                       }
                   }
