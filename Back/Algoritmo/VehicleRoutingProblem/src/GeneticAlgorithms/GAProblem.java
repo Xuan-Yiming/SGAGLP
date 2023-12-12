@@ -23,6 +23,7 @@ public class GAProblem implements Cloneable {
 
     public int populationSize = 50;
     public int maxGenerations = 100000;
+    public int maxSameFitnessGenerations = 5000;
 
     public double crossoverRate = 0.7;
     public double mutationRate = 0.8;
