@@ -205,12 +205,15 @@ document.getElementById('btnPedidos').addEventListener('click', function () {
                   }
                   // Process each line as needed
               });
+            primeracargar = false;
+            
+            
           };
 
           // Read the file as text
-          reader.readAsText(file);
+        reader.readAsText(file);
+
       }
-    primeracargar = false;
   });
 });
 
