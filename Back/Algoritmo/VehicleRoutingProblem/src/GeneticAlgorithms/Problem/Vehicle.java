@@ -51,7 +51,7 @@ public class Vehicle implements Cloneable {
                     break;
             }
         }
-        this.posicion = node.getPosicion();
+        // this.posicion = node.getPosicion();
         route.add(node);
     }
 
