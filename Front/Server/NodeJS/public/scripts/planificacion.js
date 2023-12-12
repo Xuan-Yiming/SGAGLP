@@ -69,6 +69,127 @@ for (var w = 0; w < 70; w++) {
   }
 }
 
+document.getElementById('btnPedidos').addEventListener('click', function () {
+  var fileInput = document.getElementById('cmPedidos');
+
+  // Trigger the file input click programmatically
+  fileInput.click();
+
+  // Event listener for when the file is selected
+  fileInput.addEventListener('change', function () {
+      var file = fileInput.files[0];
+      if (file) {
+          var reader = new FileReader();
+
+          reader.onload = function (event) {
+              var fileContent = event.target.result;
+              // console.log(fileContent);
+
+              // You can process the file content here
+              // For example, split the content into lines
+              var lines = fileContent.split('\n');
+              lines.forEach(function (line) {
+                  // console.log(line);
+                  var parts = line.match(/(\d+)d(\d+)h(\d+)m:(\d+),(\d+),(c-?\d+),(\d+)m3,(\d+)h/);
+
+                  if (parts) {
+                      var days = parseInt(parts[1]);
+                      var hours = parseInt(parts[2]);
+                      var minutes = parseInt(parts[3]);
+                      var x = parseInt(parts[4]);
+                      var y = parseInt(parts[5]);
+                      // var id = parseInt(parts[6]);
+                      var id = parts[6]; // Read id as a string
+                      var glp = parseInt(parts[7]);
+                      var time = parseInt(parts[8]);
+              
+                      var orderDate = new Date();
+                      var orderDate2 = new Date();
+                      orderDate.setDate(days);
+                      orderDate.setHours(hours);
+                      orderDate.setMinutes(minutes);
+                      orderDate.setSeconds(0);
+                      orderDate.setMilliseconds(0);
+                      
+
+                      orderDate2.setDate(days);
+                      orderDate2.setHours(hours);
+                      orderDate2.setMinutes(minutes);
+                      orderDate2.setSeconds(0);
+                      orderDate2.setMilliseconds(0);
+
+                      // console.log('Days:', days);
+                      // console.log('Hours:', hours);
+                      // console.log('Minutes:', minutes);
+                      // console.log('Fecha:', orderDate);
+                      // console.log('X:', x);
+                      // console.log('Y:', y);
+                      // console.log('ID:', id);
+                      // console.log('GLP:', glp);
+                      // console.log('Time:', time);
+                      // console.log('------------------');
+
+                      // var currentDate2 = new Date();
+                      // var deadline = new Date();
+          
+                      // var horasASumar = parseInt(document.getElementById('horas').value, 10) || 0;
+          
+          
+                      // Sumar las horas a la fecha actual
+                      orderDate2.setHours(orderDate2.getHours() + time);
+          
+                      console.log(orderDate);
+                      console.log(orderDate2);
+          
+                      // let fechaObjeto = new Date(currentDate2);
+                      // let fechaObjeto2 = new Date(deadline);
+          
+                      var order = new Order2(
+                          id,
+                          x,
+                          y,
+                          orderDate,
+                          orderDate2,
+                          glp
+                        );
+                      // Convierte el objeto a una cadena JSON y lo guarda en localStorage
+                      // localStorage.setItem('formData', JSON.stringify(data));
+          
+                      document.querySelector("#txtPedidosProgramados").value +=1;
+                      var table = document.getElementById("tblPedidos");
+                      // table.innerHTML = "";
+          
+                      table.innerHTML +=
+                      "<tr><td>" +
+                      id +
+                      "</td><td>" +
+                      x +
+                      "</td><td>" +
+                      y +
+                      "</td></tr>";
+          
+                      console.log(order);
+          
+                      pedidosPendientes.push(order);
+
+
+                  }
+
+
+
+
+
+
+                  // Process each line as needed
+              });
+          };
+
+          // Read the file as text
+          reader.readAsText(file);
+      }
+  });
+});
+
 // cargar archivosressEvent) {
 //       // By lines
 //       var lines = this.result.split("\n");
@@ -80,6 +201,8 @@ for (var w = 0; w < 70; w++) {
 //           var orderElements = orders[order].split(",");
 //           var x = orderElements[0];
 //           var y = orderElements
+
+
 
 // var btnPedidos = document.getElementById("btnPedidos");
 // var cmPedidos = document.getElementById("cmPedidos");
