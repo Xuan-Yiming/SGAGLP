@@ -55,7 +55,7 @@ public class GeneticAlgorithmVRP {
                 population.replaceLastFittest(fittestOffspring);
                 fittest = population.getFittest();
                 double fittestFitness = fittest.calculateFitness();
-                if (fittestFitness >= problem.getOrders().size()) {
+                if (fittestFitness >= problem.getOrders().size()*problem.acceptRate ) {
                     isFittest = true;
                     break;
                 }
