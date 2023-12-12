@@ -268,7 +268,7 @@ formdata.append("dateInicio",  formattedDate);
 formdata.append("dateFin",  formattedDate2);
 // JSON.stringify(data)
 formdata.append("data",JSON.stringify(data) ); // Convertir el objeto data a JSON
-formdata.append("modo", "P");
+formdata.append("modo", "S");
 formdata.append("clock", period);
 console.log(formattedDate);
 console.log(formattedDate2 );
